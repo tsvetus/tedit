@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import layout from './layout.js';
 
-import {ICONS} from 'lib';
+import icons from './icons.js';
 
-import styles from 'styles';
+import styles from '../../styles';
 
 /**
  * Component representing icons.
@@ -32,7 +32,7 @@ class TIcon extends React.Component {
 
     render () {
 
-        let icon = ICONS[this.props.name];
+        let icon = icons[this.props.name];
 
         let svgStyle = {
             ...layout.svg,
@@ -63,6 +63,8 @@ class TIcon extends React.Component {
     }
 
 }
+
+TIcon.icons = icons;
 
 /**
  * @name TIcon propTypes

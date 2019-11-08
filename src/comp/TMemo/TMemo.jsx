@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {TIcon} from 'comp';
+import TIcon from '../TIcon';
 
-import {TIMEOUT, Edit} from 'lib';
+import {Edit} from '../../lib';
 
-import {merge} from 'util';
+import {merge} from '../../util';
 
-import styles from 'styles';
+import styles from '../../styles';
 
 /**
  * Component representing TMemo.
@@ -89,7 +89,7 @@ class TMemo extends React.Component {
                 <Edit
                     style={style.edit}
                     value={this.props.value}
-                    wrap={true}
+                    wrap={this.props.wrap}
                     data={this.props.data}
                     name={this.props.name}
                     placeholder={this.props.placeholder}
@@ -109,15 +109,12 @@ TMemo.propTypes = {
     data: PropTypes.any,
     label: PropTypes.string,
     icon: PropTypes.string,
+    wrap: PropTypes.any,
     strip: PropTypes.any,
     placeholder: PropTypes.string,
     timeout: PropTypes.number,
     onChange: PropTypes.func,
     onIcon: PropTypes.func
-};
-
-Edit.defaultProps = {
-    timeout: TIMEOUT
 };
 
 export default TMemo;

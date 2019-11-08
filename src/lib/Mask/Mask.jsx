@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {Edit, Format} from 'lib';
+import Edit from '../Edit';
+
+import {Format} from '../../util';
 
 /**
  * Mask edit component.
@@ -11,19 +13,32 @@ class Mask extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-        this.format = new Format(this.props.mask, this.props.empty, this.props.value);
-        this.handleMask = this.handleMask.bind(this);
+        if (props.mask && !props.onMask) {
+            this.format = new Format(
+                props.mask.mask,
+                props.mask.empty,
+                props.mask.complete,
+                props.value
+            );
+        }
+        this.handleChange = this.handleChange.bind(this);
     }
 
     componentWillUnmount() {
-        delete this.format;
+        if (format) {
+            delete this.format;
+        }
     }
 
-    handleMask(event) {
-        if (this.props.onMask) {
-            return this.props.onMask(event);
-        } else {
-            return this.format.parse(event);
+    handleChange(event) {
+        if (this.props.onChange) {
+            if (this.format) {
+                if (this.format.completed()) {
+                    this.props.onChange(event);
+                }
+            } else {
+                this.props.onChange(event);
+            }
         }
     }
 
@@ -32,8 +47,8 @@ class Mask extends React.Component {
         let handleMask = null;
         if (this.props.onMask) {
             handleMask = this.props.onMask;
-        } else if (this.props.mask) {
-            handleMask = this.handleMask;
+        } else if (this.format) {
+            handleMask = this.format.parse;
         }
 
         return (
@@ -48,7 +63,7 @@ class Mask extends React.Component {
                 placeholder={this.props.placeholder}
                 timeout={this.props.timeout}
                 onClick={this.props.onClick}
-                onChange={this.props.onChange}
+                onChange={this.handleChange}
                 onMask={handleMask} />
 
         );
@@ -66,15 +81,10 @@ Mask.propTypes = {
     strip: PropTypes.any,
     timeout: PropTypes.number,
     placeholder: PropTypes.string,
-    empty: PropTypes.string,
-    mask: PropTypes.string,
+    mask: PropTypes.object,
     onClick: PropTypes.func,
     onChange: PropTypes.func,
     onMask: PropTypes.func
-};
-
-Mask.defaultProps = {
-    empty: '-'
 };
 
 export default Mask;

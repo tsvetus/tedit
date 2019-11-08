@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {TIMEOUT} from 'lib';
+import {TIMEOUT} from '../../util';
 
 /**
  * Text input component.
@@ -16,10 +16,16 @@ class Edit extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.handleFocus = this.handleFocus.bind(this);
+        this.handleBlur = this.handleBlur.bind(this);
+        this.getHtml = this.getHtml.bind(this);
+        this.setHtml = this.setHtml.bind(this);
         this.getText = this.getText.bind(this);
         this.setText = this.setText.bind(this);
         this.getPos = this.getPos.bind(this);
         this.setPos = this.setPos.bind(this);
+        this.showPlaceholder = this.showPlaceholder.bind(this);
+        this.hidePlaceholder = this.hidePlaceholder.bind(this);
     }
 
     componentDidMount() {
@@ -28,12 +34,17 @@ class Edit extends React.Component {
         this.ref.current.addEventListener('input', this.handleChange);
         this.ref.current.addEventListener('keypress', this.handleKeyPress);
         this.ref.current.addEventListener('click', this.handleClick);
+        this.ref.current.addEventListener('focus', this.handleFocus);
+        this.ref.current.addEventListener('blur', this.handleBlur);
         this.setText(this.value);
         this.handleChange();
+        this.showPlaceholder();
     }
 
     componentWillUnmount() {
         this.ref.current.contentEditable = false;
+        this.ref.current.removeEventListener('blur', this.handleBlur);
+        this.ref.current.removeEventListener('focus', this.handleFocus);
         this.ref.current.removeEventListener('click', this.handleClick);
         this.ref.current.removeEventListener('keypress', this.handleKeyPress);
         this.ref.current.removeEventListener('input', this.handleChange);
@@ -45,16 +56,44 @@ class Edit extends React.Component {
             this.value = this.props.value;
             this.setText(this.value);
             this.handleChange();
+            this.showPlaceholder();
         }
     }
 
+    showPlaceholder() {
+        if (this.props.placeholder && this.getText() === '' && this.getHtml().indexOf('<span') < 0) {
+            this.setHtml('<span style="pointer-events: none; color: #aaa;">' +
+                this.props.placeholder + '</span>');
+        }
+    }
+
+    hidePlaceholder() {
+        let html = this.getHtml();
+        if (html.indexOf('<span') >= 0) {
+            this.setHtml(html.replace(/<span.*<\/span>/, ''));
+        }
+    }
+
+    getHtml() {
+        return this.ref.current.innerHTML;
+    }
+
+    setHtml(html) {
+        this.ref.current.innerHTML = html;
+    }
+
     getText() {
-        let text = this.ref.current.innerText;
-        if (this.props.strip) {
-//            return text.replace(/<[^>]*>?/gm, ' ');
-            return text.replace(/\r?\n|\r/gm, ' ');
+        if (this.getHtml().indexOf('<span') < 0) {
+            let text = this.ref.current.innerText;
+            if (this.props.strip) {
+                return text
+                    .replace(/[\r\n]+$/, '')
+                    .replace(/[\r\n]+/gm, ' ');
+            } else {
+                return text;
+            }
         } else {
-            return text;
+            return '';
         }
     }
 
@@ -76,11 +115,12 @@ class Edit extends React.Component {
 
     setPos(pos) {
         if (this.ref.current === document.activeElement) {
-            let position = pos;
-            if (this.getText().length < pos) {
-                position = this.getText().length;
+            let len = this.getText().length;
+            if (pos > len) {
+                document.getSelection().collapse(this.ref.current.firstChild, len);
+            } else {
+                document.getSelection().collapse(this.ref.current.firstChild, pos);
             }
-            document.getSelection().collapse(this.ref.current.firstChild, position);
         }
     }
 
@@ -126,9 +166,19 @@ class Edit extends React.Component {
         }
     }
 
+    handleFocus() {
+        this.hidePlaceholder();
+    }
+
+    handleBlur() {
+        this.showPlaceholder();
+    }
+
     render () {
 
         let style = this.props.style;
+
+        console.log(this.props.timeout);
 
         return (
             <div style={style} ref={this.ref} />
@@ -153,6 +203,8 @@ Edit.propTypes = {
 };
 
 Edit.defaultProps = {
+    strip: true,
+    wrap: false,
     timeout: TIMEOUT
 };
 

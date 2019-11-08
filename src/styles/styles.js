@@ -7,7 +7,7 @@ const INVALID = "1px dashed " + CL_INVALID;
 
 const FONT = {
     fontFamily: "Arial",
-    fontSize: "16px"
+    fontSize: "18px"
 };
 
 export default {
@@ -36,7 +36,8 @@ export default {
         },
 
         edit: {
-            padding: "4px 4px 0 4px",
+            minHeight: "18px",
+            padding: "4px 4px 2px 4px",
             border: BORDER,
             color: CL_TEXT,
             outline: "none",

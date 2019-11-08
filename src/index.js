@@ -7,7 +7,7 @@ import {
     TIcon,
     TText,
     TMemo
-} from 'comp';
+} from './comp';
 
 import {
     download,
@@ -16,7 +16,7 @@ import {
     merge
 } from './util';
 
-import {registerStyles} from './styles/const.js';
+import {styles, registerStyles} from './styles/const.js';
 
 export {
 
@@ -29,6 +29,7 @@ export {
     nvl,
     merge,
 
+    styles,
     registerStyles
 
 }

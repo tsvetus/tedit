@@ -19,7 +19,14 @@ module.exports = {
         modules: [
         	path.resolve(__dirname, 'src'),
         	path.resolve(__dirname, 'node_modules')
-        ]
+        ],
+        alias: {
+            tedit: path.resolve(__dirname, 'src'),
+            comp: path.resolve(__dirname, 'src/comp'),
+            lib: path.resolve(__dirname, 'src/lib'),
+            util: path.resolve(__dirname, 'src/util'),
+            styles: path.resolve(__dirname, 'src/styles')
+        }
     },
     module: {
         rules: [{

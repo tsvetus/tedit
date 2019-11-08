@@ -1,17 +1,17 @@
-import layout from './layout.js';
-import styles from './styles.js';
+import defaultLayout from './layout.js';
+import defaultStyles from './styles.js';
 
-import {merge} from 'util';
+import {merge} from '../util';
 
-const STYLES = merge(layout, styles);
+const styles = merge(defaultLayout, defaultStyles);
 
-function registerStyles(styles) {
-    if (styles && styles instanceof Object) {
-        Object.assign(STYLES, merge(STYLES, styles));
+function registerStyles(customStyles) {
+    if (customStyles && customStyles instanceof Object) {
+        Object.assign(styles, merge(styles, customStyles));
     }
-};
+}
 
 export {
-    STYLES,
+    styles,
     registerStyles
 }

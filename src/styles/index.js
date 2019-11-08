@@ -1,3 +1,3 @@
-import {STYLES} from './const.js';
+import {styles} from './const.js';
 
-export default STYLES;
+export default styles;

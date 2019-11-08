@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {TIcon} from 'comp';
+import TIcon from '../TIcon';
 
-import {Mask} from 'lib';
+import {Mask} from '../../lib';
 
-import {merge} from 'util';
+import {merge} from '../../util';
 
-import styles from 'styles';
+import styles from '../../styles';
 
 /**
  * Component representing icons.
@@ -107,7 +107,9 @@ class TText extends React.Component {
                         name={this.props.name}
                         value={this.props.value}
                         timeout={this.props.timeout}
-                        strip={this.props.strip}
+                        placeholder={this.props.placeholder}
+                        strip={true}
+                        wrap={false}
                         mask={this.props.mask}
                         onMask={this.props.onMask}
                         onChange={this.handleChange} />
@@ -126,11 +128,9 @@ TText.propTypes = {
     data: PropTypes.any,
     label: PropTypes.string,
     icon: PropTypes.string,
-    strip: PropTypes.any,
     timeout: PropTypes.number,
     placeholder: PropTypes.string,
-    mask: PropTypes.string,
-    empty: PropTypes.string,
+    mask: PropTypes.object,
     onChange: PropTypes.func,
     onValidate: PropTypes.func,
     onIcon: PropTypes.func,
