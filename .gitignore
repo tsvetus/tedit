@@ -1,0 +1,7 @@
+.*/
+.*
+*-lock.json
+!.gitignore
+!.babelrc
+node_modules/
+*.cmd
