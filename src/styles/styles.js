@@ -22,6 +22,7 @@ export default {
     component: {
 
         container: {
+            width: "100%"
         },
 
         frame: {
@@ -65,6 +66,15 @@ export default {
 
         edit: {
             minHeight: "48px",
+            border: BORDER
+        }
+
+    },
+
+    tgroup: {
+
+        content: {
+            padding: "8px 0 0 0",
             border: BORDER
         }
 

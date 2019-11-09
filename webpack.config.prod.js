@@ -1,4 +1,3 @@
-const util = require('util');
 const path = require('path');
 
 module.exports = {
@@ -21,11 +20,7 @@ module.exports = {
         	path.resolve(__dirname, 'node_modules')
         ],
         alias: {
-            tedit: path.resolve(__dirname, 'src'),
-            comp: path.resolve(__dirname, 'src/comp'),
-            lib: path.resolve(__dirname, 'src/lib'),
-            util: path.resolve(__dirname, 'src/util'),
-            styles: path.resolve(__dirname, 'src/styles')
+            tedit: path.resolve(__dirname, 'src')
         }
     },
     module: {
@@ -41,4 +36,4 @@ module.exports = {
     externals: {
         'react': 'commonjs react'
     }
-}
+};

@@ -1,4 +1,3 @@
-const util = require('util');
 const path = require('path');
 
 module.exports = {
@@ -34,4 +33,4 @@ module.exports = {
     externals: {
         'react': 'commonjs react'
     }
-}
+};

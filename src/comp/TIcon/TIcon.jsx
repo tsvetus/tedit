@@ -72,6 +72,7 @@ TIcon.icons = icons;
  * @property {function} onClick provides on click event
  */
 TIcon.propTypes = {
+    styles: PropTypes.object,
     name: PropTypes.string.isRequired,
     onClick: PropTypes.func
 };
