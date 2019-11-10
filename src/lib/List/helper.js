@@ -7,6 +7,7 @@ class Helper {
         this.getValue = this.getValue.bind(this);
         this.getMode = this.getMode.bind(this);
         this.getItems = this.getItems.bind(this);
+        this.getItem = this.getItem.bind(this);
         this.load = this.load.bind(this);
     }
 
@@ -68,6 +69,13 @@ class Helper {
         return value;
     }
 
+    getItem(value) {
+        let item = this.items.find( v =>{
+            return v.key == value;
+        });
+        return item;
+    }
+
     load(items, empty, mode) {
 
         this.items = [];
@@ -79,6 +87,7 @@ class Helper {
             if (empty) {
                 this.items.push({
                     index: -1,
+                    key: empty[this.struct.key],
                     value: empty[this.struct.value]
                 });
             }
@@ -87,6 +96,7 @@ class Helper {
                 items.forEach((v, i) => {
                     this.items.push({
                         index: i,
+                        key: v[this.struct.key],
                         value: this.getValue(v)
                     });
                 });

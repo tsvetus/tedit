@@ -19,13 +19,15 @@ class TListBox extends React.Component {
         super(props, context);
         this.state = {
             valid: true,
-            showList: false
+            showList: false,
+            showText: ''
         };
         this.handleIcon = this.handleIcon.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.validate = this.validate.bind(this);
         this.getRect = this.getRect.bind(this);
         this.getListStyle = this.getListStyle.bind(this);
+        this.updateText = this.updateText.bind(this);
         this.ref = React.createRef();
         this.helper = new List.Helper();
     }
@@ -37,11 +39,13 @@ class TListBox extends React.Component {
 
     componentDidMount() {
         this.validate(this.props.value);
+        this.updateText(this.props.value);
     }
 
     componentDidUpdate(old) {
         if (old.value !== this.props.value) {
             this.validate(this.props.value);
+            this.updateText(this.props.value);
         }
     }
 
@@ -52,9 +56,24 @@ class TListBox extends React.Component {
     handleChange(event) {
         this.handleIcon();
         if (this.props.onChange) {
-//            this.props.onChange(event);
+            this.props.onChange({
+                name: this.props.name,
+                data: this.props.data,
+                value: event.key
+            });
         } else {
-//            this.validate(event.value);
+            this.validate(event.key);
+            this.updateText(event.key);
+        }
+    }
+
+    updateText(value) {
+        this.helper.load(this.props.items, this.props.empty, this.props.showMode);
+        let item = this.helper.getItem(value);
+        if (item) {
+            this.setState({showText: item.value});
+        } else {
+            this.setState({showText: ''});
         }
     }
 
@@ -143,7 +162,7 @@ class TListBox extends React.Component {
                         style={style.edit}
                         data={this.props.data}
                         name={this.props.name}
-                        value={this.props.value}
+                        value={this.state.showText}
                         timeout={this.props.timeout}
                         placeholder={this.props.placeholder}
                         wrap={false}
@@ -161,7 +180,7 @@ class TListBox extends React.Component {
 }
 
 TListBox.propTypes = {
-    value: PropTypes.string,
+    value: PropTypes.any,
     name: PropTypes.string,
     data: PropTypes.any,
     label: PropTypes.string,

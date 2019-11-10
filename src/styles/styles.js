@@ -59,6 +59,7 @@ export default {
             color: CL_TEXT,
             outline: "none",
             backgroundColor: CL_WINDOW,
+            cursor: "pointer",
             ...FONT
         },
 

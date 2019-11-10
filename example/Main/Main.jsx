@@ -54,7 +54,8 @@ class Main extends React.Component {
             ttext: '',
             ttext1: '',
             ttext2: '',
-            tmemo: 'Default text'
+            tmemo: 'Default text',
+            tlistbox: null
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -112,13 +113,15 @@ class Main extends React.Component {
                         name={'tlistbox'}
                         label={'TList box:'}
                         listMode={'key value'}
-                        empty={{id: 0, name: '-'}}
-//                        value={2}
+                        showMode={'value'}
+                        empty={{id: null, name: '-'}}
+                        value={this.state.tlistbox}
                         items={[
                             {id: 1, name: 'first item'},
                             {id: 2, name: 'second item'}
                         ]}
-                        placeholder={'Choose item from list ...'} />
+                        placeholder={'Choose item from list ...'}
+                        onChange={this.handleChange} />
 
                     <TMemo
                         value={this.state.tmemo}
