@@ -1,5 +1,4 @@
 /**
- * tedit  module
  * @module tedit
  */
 
@@ -8,7 +7,9 @@ import {
     TText,
     TMemo,
     TGroup,
-    TListBox
+    TListBox,
+    TCheck,
+    TSearch
 } from './comp';
 
 import {
@@ -27,6 +28,8 @@ export {
     TMemo,
     TGroup,
     TListBox,
+    TCheck,
+    TSearch,
 
     download,
     clone,

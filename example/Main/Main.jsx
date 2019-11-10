@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {TIcon, TText, TMemo, TGroup, TListBox, styles, registerStyles} from 'tedit';
+import {TIcon, TText, TMemo, TGroup, TListBox, TCheck, TSearch, styles, registerStyles} from 'tedit';
 
 registerStyles({
 
@@ -45,6 +45,13 @@ registerStyles({
 
 });
 
+const LIST = [
+    {id: 1, name: 'first item'},
+    {id: 2, name: 'second item'},
+    {id: 3, name: 'third item'}
+];
+
+
 class Main extends React.Component {
 
     constructor(props, context) {
@@ -55,7 +62,9 @@ class Main extends React.Component {
             ttext1: '',
             ttext2: '',
             tmemo: 'Default text',
-            tlistbox: null
+            tcheck: 1,
+            tlistbox: null,
+            tsearch: 1
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -121,6 +130,30 @@ class Main extends React.Component {
                             {id: 2, name: 'second item'}
                         ]}
                         placeholder={'Choose item from list ...'}
+                        onChange={this.handleChange} />
+
+                    <TCheck
+                        label={'Check me:'}
+                        name={'tcheck'}
+                        value={this.state.tcheck}
+                        checked={1}
+                        unchecked={0}
+                        onChange={this.handleChange} />
+
+                    <TSearch
+                        name={'tsearch'}
+                        label={'TSearch:'}
+                        listMode={'key value'}
+                        showMode={'value'}
+                        value={this.state.tsearch}
+                        placeholder={'Type text to search ...'}
+                        onSearch={event => {
+                                return LIST.filter(v => {
+                                    return v.name.indexOf(event.value) >= 0 ||
+                                        v.id == event.key;
+                                });
+                            }
+                        }
                         onChange={this.handleChange} />
 
                     <TMemo

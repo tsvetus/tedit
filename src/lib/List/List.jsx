@@ -8,8 +8,8 @@ import {merge} from '../../util';
 import styles from '../../styles';
 
 /**
- * List edit component.
- * @extends React
+ * @class
+ * @ignore
  */
 class List extends React.Component {
 
@@ -30,8 +30,9 @@ class List extends React.Component {
         let style = merge(styles.component, this.props.style);
 
         let items = this.props.items.map((v, i) => {
+            let ist = merge(style.item, v.key == this.props.selected ? style.selected : {});
             return (
-                <div key={i} index={i} style={style.item} onClick={this.handleClick}>
+                <div key={i} index={i} style={ist} onClick={this.handleClick}>
                     {v.value}
                 </div>
             );
@@ -52,6 +53,7 @@ class List extends React.Component {
 List.propTypes = {
     style: PropTypes.object,
     items: PropTypes.array,
+    selected: PropTypes.any,
     onClick: PropTypes.func
 };
 

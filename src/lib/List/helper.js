@@ -8,10 +8,15 @@ class Helper {
         this.getMode = this.getMode.bind(this);
         this.getItems = this.getItems.bind(this);
         this.getItem = this.getItem.bind(this);
+        this.hasItems = this.hasItems.bind(this);
         this.load = this.load.bind(this);
     }
 
     getStruct(items, empty) {
+
+        if (items === undefined && empty === undefined) {
+            return this.struct;
+        }
 
         let item = null;
 
@@ -108,6 +113,10 @@ class Helper {
 
     getItems() {
         return this.items;
+    }
+
+    hasItems() {
+        return this.items && this.items.length > 0;
     }
 
 }

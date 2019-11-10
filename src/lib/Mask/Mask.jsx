@@ -6,8 +6,8 @@ import Edit from '../Edit';
 import {Format} from '../../util';
 
 /**
- * List edit component.
- * @extends React
+ * @class
+ * @ignore
  */
 class Mask extends React.Component {
 

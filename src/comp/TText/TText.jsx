@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import TIcon from '../TIcon';
-
-import {Mask} from '../../lib';
+import {Mask, Icon} from '../../lib';
 
 import {merge} from '../../util';
 
@@ -90,7 +88,7 @@ class TText extends React.Component {
         let icon = null;
         if (this.props.icon) {
             icon = (
-                <TIcon
+                <Icon
                     style={style.icon}
                     name={this.props.icon}
                     onClick={this.handleIcon} />
@@ -122,6 +120,7 @@ class TText extends React.Component {
 }
 
 TText.propTypes = {
+    style: PropTypes.object,
     value: PropTypes.string,
     name: PropTypes.string,
     data: PropTypes.any,

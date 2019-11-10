@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import TIcon from '../TIcon';
-
-import {Edit} from '../../lib';
+import {Edit, Icon} from '../../lib';
 
 import {merge} from '../../util';
 
@@ -77,7 +75,7 @@ class TMemo extends React.Component {
 
         let icon = null;
         if (this.props.icon) {
-            icon = (<TIcon style={style.icon} name={this.props.icon} onClick={this.handleIcon} />);
+            icon = (<Icon style={style.icon} name={this.props.icon} onClick={this.handleIcon} />);
         }
 
         return (
@@ -103,6 +101,7 @@ class TMemo extends React.Component {
 }
 
 TMemo.propTypes = {
+    style: PropTypes.object,
     value: PropTypes.string,
     name: PropTypes.string,
     data: PropTypes.any,

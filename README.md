@@ -3,7 +3,7 @@ Set of most common visual React components designed for constructing web applica
 
 `tinput` provides set of visual components constructed on `<input>` html tag:
 * [`TMemo`](#ttext)
-* [`TListBox`](#tlistbox)
+* [`TSearch`](#tlistbox)
 * [`TSearch`](#tsearch)
 * [`TMask`](#tmask)
 * [`TDate`](#tdate)
@@ -32,7 +32,7 @@ Style structure for custom stylization contains sections for all `tinput` compon
 
 * `edit` - Style for edit
 
-Specific for `TListBox` and `TSearch` components:
+Specific for `TSearch` and `TSearch` components:
 
 * `list` - Style for drop down itemslist
 
@@ -123,9 +123,9 @@ Component `TMemo` represents text input element and contains properties:
     onChange={this.handleChange} />
 ```   
 
-## `TListBox`
+## `TSearch`
 
-Component `TListBox` represents input with dropdown list of items:
+Component `TSearch` represents input with dropdown list of items:
 
 * `style`, `name`, `data`, `label`, `placeholder` - Same as in <TMemo> component.
 
@@ -147,7 +147,7 @@ Component `TListBox` represents input with dropdown list of items:
 ### Example
 
 ```javascript
-<TListBox
+<TSearch
     style={{container: {border: "1px solid red"}}}
     name="MyListbox"
     label="Item:"
@@ -163,7 +163,7 @@ Component `TListBox` represents input with dropdown list of items:
 
 ## `TSearch`
 
-Component `TSearch` similar to `TListBox` but dropdown list appears automatically while user enters a text:
+Component `TSearch` similar to `TSearch` but dropdown list appears automatically while user enters a text:
 
 * `style`, `name`, `data`, `label`, `placeholder` - Same as in <TMemo> component.
 
@@ -401,7 +401,7 @@ import {
     TTop,
     TSide,
 
-    TListBox,
+    TSearch,
     TMemo,
     TSearch,
     TMask,
@@ -524,7 +524,7 @@ class Main extends React.Component {
                     onChange={this.handleChange}
                     password={true} />
 
-                <TListBox
+                <TSearch
                     style={inputStyle}
                     name="listbox"
                     label="Item:"

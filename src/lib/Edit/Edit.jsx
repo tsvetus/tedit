@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import {TIMEOUT, nvl} from '../../util';
 
 /**
- * Text input component.
- * @extends React
+ * @class
+ * @ignores
  */
 class Edit extends React.Component {
 

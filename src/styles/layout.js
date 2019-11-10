@@ -79,6 +79,17 @@ export default {
             alignSelf: "flex-start"
         }
 
+    },
+
+    tcheck: {
+
+        frame: {
+            display: "flex",
+            justifyContent: "space-between",
+            flexWrap: "nowrap"
+        }
+
     }
+
 
 }

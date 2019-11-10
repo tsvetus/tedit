@@ -1,185 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import TIcon from '../TIcon';
+import {ListBox} from '../../lib';
 
-import {Edit, List} from '../../lib';
-
-import {merge} from '../../util';
-
-import styles from '../../styles';
-
-/**
- * List box component.
- * @extends React
- */
 class TListBox extends React.Component {
-
-    constructor(props, context) {
-        super(props, context);
-        this.state = {
-            valid: true,
-            showList: false,
-            showText: ''
-        };
-        this.handleIcon = this.handleIcon.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.validate = this.validate.bind(this);
-        this.getRect = this.getRect.bind(this);
-        this.getListStyle = this.getListStyle.bind(this);
-        this.updateText = this.updateText.bind(this);
-        this.ref = React.createRef();
-        this.helper = new List.Helper();
-    }
-
-    componentWillUnmount() {
-        clearTimeout(this.timer);
-        delete this.helper;
-    }
-
-    componentDidMount() {
-        this.validate(this.props.value);
-        this.updateText(this.props.value);
-    }
-
-    componentDidUpdate(old) {
-        if (old.value !== this.props.value) {
-            this.validate(this.props.value);
-            this.updateText(this.props.value);
-        }
-    }
-
-    handleIcon() {
-        this.setState({showList: !this.state.showList});
-    }
-
-    handleChange(event) {
-        this.handleIcon();
-        if (this.props.onChange) {
-            this.props.onChange({
-                name: this.props.name,
-                data: this.props.data,
-                value: event.key
-            });
-        } else {
-            this.validate(event.key);
-            this.updateText(event.key);
-        }
-    }
-
-    updateText(value) {
-        this.helper.load(this.props.items, this.props.empty, this.props.showMode);
-        let item = this.helper.getItem(value);
-        if (item) {
-            this.setState({showText: item.value});
-        } else {
-            this.setState({showText: ''});
-        }
-    }
-
-    getRect() {
-        let rect = this.ref.current.getBoundingClientRect();
-        return {
-            left: rect.left,
-            top: rect.left,
-            right: rect.right,
-            bottom: rect.bottom,
-            width: rect.width,
-            height: rect.height
-        }
-    }
-
-    getListStyle() {
-        let rect = this.getRect();
-        return {
-            position: "absolute",
-            left: rect.left + 'px',
-            top: rect.bottom + 'px',
-            width: rect.width + 'px'
-        }
-    }
-
-    validate(value) {
-        if (this.props.onValidate) {
-            let valid = this.props.onValidate(value);
-            if (valid !== this.state.valid) {
-                this.setState({valid: valid});
-            }
-        } else {
-            return true;
-        }
-    }
-
-    render () {
-
-        let style = merge(styles.component, styles.ttext, this.props.style);
-        if (!this.state.valid) {
-            style = merge(
-                style,
-                styles.component ? styles.component.invalid : null,
-                styles.ttext ? styles.ttext.invalid : null,
-                this.props.style ? this.props.style.invalid : null
-            );
-        }
-
-        let label = null;
-        if (this.props.label) {
-            label = (
-                <div style={style.label} onClick={this.handleIcon} >
-                    {this.props.label}
-                </div>
-            );
-        }
-
-        let icon = null;
-        if (this.props.showIcon) {
-            icon = (
-                <TIcon
-                    style={style.icon}
-                    name={this.state.showList ? 'up' : 'down'}
-                    onClick={this.handleIcon} />
-            );
-        }
-
-        let list = null;
-        if (this.state.showList && this.props.items) {
-            this.helper.load(this.props.items, this.props.empty, this.props.listMode);
-            let listStyle = merge(style, {list: this.getListStyle()});
-            list = (
-                <List
-                    style={listStyle}
-                    value={this.props.value}
-                    items={this.helper.getItems()}
-                    onClick={this.handleChange} />
-            );
-        }
-
+    render() {
         return (
-            <div style={style.container}>
-                <div style={style.frame} ref={this.ref}>
-                    {label}
-                    <Edit
-                        style={style.edit}
-                        data={this.props.data}
-                        name={this.props.name}
-                        value={this.state.showText}
-                        timeout={this.props.timeout}
-                        placeholder={this.props.placeholder}
-                        wrap={false}
-                        readOnly={true}
-                        onClick={this.handleIcon}
-                        onChange={this.handleChange} />
-                    {icon}
-                </div>
-                {list}
-            </div>
+            <ListBox
+                style={this.props.style}
+                value={this.props.value}
+                name={this.props.name}
+                data={this.props.data}
+                label={this.props.label}
+                showIcon={this.props.showIcon}
+                timeout={this.props.timeout}
+                placeholder={this.props.placeholder}
+                empty={this.props.empty}
+                items={this.props.items}
+                listMode={this.props.listMode}
+                showMode={this.props.showMode}
+                editable={false}
+                clickable={this.props.clickable}
+                onChange={this.props.onChange}
+                onValidate={this.props.onValidate} />
         );
-
     }
-
 }
 
 TListBox.propTypes = {
+    style: PropTypes.object,
     value: PropTypes.any,
     name: PropTypes.string,
     data: PropTypes.any,
@@ -191,12 +40,14 @@ TListBox.propTypes = {
     items: PropTypes.array,
     listMode: PropTypes.string,
     showMode: PropTypes.string,
+    clickable: PropTypes.any,
     onChange: PropTypes.func,
     onValidate: PropTypes.func
 };
 
 TListBox.defaultProps = {
-    showIcon: true
+    showIcon: true,
+    clickable: true
 };
 
 export default TListBox;

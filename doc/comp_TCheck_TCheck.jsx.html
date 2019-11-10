@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: comp/TCheck/TCheck.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: comp/TCheck/TCheck.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
+import PropTypes from 'prop-types';
+
+import {Icon} from '../../lib';
+
+import {merge} from '../../util';
+
+import styles from '../../styles';
+
+/**
+ * @class TCheck
+ * @property {object} style - React style
+ * @property {any} value - Current value representing checked/unchecked state
+ * @property {string} name - Component name which is returned in onChange event back to parent component,
+ * @property {any} data - Any component data which is returned in onChange event back to parent component,
+ * @property {string} label - Component caption
+ * @property {any} checked=true - Value returned if component is checked
+ * @property {any} unchecked=false - Value returned if component is unchecked
+ * @property {func} onChange - On change event. Returns object: &lt;i>{value: [checked value], name:
+ * [component name], data: [component data]}&lt;/i>
+ * @extends React.Component
+ * @example
+ * class Test extends React.Component {
+ *     constructor() {
+ *         super();
+ *         this.state = {value: 1}
+ *     }
+ *     render() {
+ *         return (
+ *             &lt;TCheck
+ *                 label={'Check me:'}
+ *                 value={this.state.value}
+ *                 checked={1}
+ *                 unchecked={0}
+ *                 onChange={(event) => {this.setState({value: event.value});}} />
+ *         );
+ *     }
+ * }
+ */
+class TCheck extends React.Component {
+
+    constructor(props, context) {
+        super(props, context);
+        this.state = {checked: false};
+        this.handleIcon = this.handleIcon.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.updateChecked = this.updateChecked.bind(this);
+    }
+
+    componentDidMount() {
+        this.updateChecked(this.props.value, false);
+    }
+
+    componentDidUpdate(old) {
+        if (old.value !== this.props.value) {
+            this.updateChecked(this.props.value, false);
+        }
+    }
+
+    handleIcon() {
+        this.updateChecked(!this.state.checked, true);
+    }
+
+    handleChange(event) {
+        if (this.props.onChange) {
+            this.props.onChange(event);
+        }
+    }
+
+    updateChecked(value, change) {
+        let checked = value || value === this.props.checked;
+        this.setState({checked: checked}, () => {
+            if (change &amp;&amp; this.props.onChange) {
+                this.props.onChange({
+                    name: this.props.name,
+                    data: this.props.data,
+                    value: checked ? this.props.checked : this.props.unchecked
+                });
+            }
+        });
+    }
+
+    render () {
+
+        let style = merge(styles.component, styles.tcheck, this.props.style);
+
+        let label = null;
+        if (this.props.label) {
+            label = (
+                &lt;div style={style.label}>
+                    {this.props.label}
+                &lt;/div>
+            );
+        }
+
+        let icon = (
+            &lt;Icon
+                style={style.icon}
+                name={this.state.checked ? 'checked' : 'unchecked'}
+                onClick={this.handleIcon} />
+        );
+
+        return (
+            &lt;div style={style.container}>
+                &lt;div style={style.frame} onClick={this.handleIcon} >
+                    {label}
+                    {icon}
+                &lt;/div>
+            &lt;/div>
+        );
+
+    }
+
+}
+
+TCheck.propTypes = {
+    style: PropTypes.object,
+    value: PropTypes.any,
+    name: PropTypes.string,
+    data: PropTypes.any,
+    label: PropTypes.string,
+    checked: PropTypes.any,
+    unchecked: PropTypes.any,
+    onChange: PropTypes.func
+};
+
+TCheck.defaultProps = {
+    checked: true,
+    unchecked: false
+};
+
+export default TCheck;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-tedit.html">tedit</a></li></ul><h3>Classes</h3><ul><li><a href="Edit.html">Edit</a></li><li><a href="TCheck.html">TCheck</a></li><li><a href="TMemo.html">TMemo</a></li><li><a href="TText.html">TText</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Nov 11 2019 01:52:21 GMT+0300 (GMT+03:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

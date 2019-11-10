@@ -63,6 +63,11 @@ export default {
             ...FONT
         },
 
+        selected: {
+            fontWeight: "bold",
+            backgroundColor: "#eee"
+        },
+
         invalid: {
 
             edit: {
