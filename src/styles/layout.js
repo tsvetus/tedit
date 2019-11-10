@@ -9,7 +9,8 @@ export default {
         frame: {
             display: "flex",
             flexWrap: "nowrap",
-            alignItems: "center"
+            alignItems: "center",
+            overflowY: "none"
         },
 
         label: {
@@ -22,6 +23,18 @@ export default {
         },
 
         icon: {
+        },
+
+        list: {
+            position: "absolute",
+            top: "0",
+            left: "0",
+            display: "flex",
+            flexDirection: "column"
+        },
+
+        item: {
+            marginTop: "-1px"
         }
 
     },

@@ -6,7 +6,7 @@ import Edit from '../Edit';
 import {Format} from '../../util';
 
 /**
- * Mask edit component.
+ * List edit component.
  * @extends React
  */
 class Mask extends React.Component {
@@ -25,7 +25,7 @@ class Mask extends React.Component {
     }
 
     componentWillUnmount() {
-        if (format) {
+        if (this.format) {
             delete this.format;
         }
     }
@@ -59,7 +59,6 @@ class Mask extends React.Component {
                 name={this.props.name}
                 data={this.props.data}
                 wrap={this.props.wrap}
-                strip={this.props.strip}
                 placeholder={this.props.placeholder}
                 timeout={this.props.timeout}
                 onClick={this.props.onClick}
@@ -78,7 +77,6 @@ Mask.propTypes = {
     name: PropTypes.string,
     data: PropTypes.any,
     wrap: PropTypes.any,
-    strip: PropTypes.any,
     timeout: PropTypes.number,
     placeholder: PropTypes.string,
     mask: PropTypes.object,

@@ -4,13 +4,13 @@ module.exports = {
     mode: 'development',
     entry: {
         test: [
-            path.resolve(__dirname, './test/test.jsx')
+            path.resolve(__dirname, './example/example.jsx')
         ]
     },
     output: {
         path: path.resolve(__dirname, 'build'),
         publicPath: '/',
-        filename: '[name].js'
+        filename: 'example.js'
     },
     resolve: {
         extensions: ['.js', '.jsx'],

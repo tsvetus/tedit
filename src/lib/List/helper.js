@@ -1,0 +1,105 @@
+class Helper {
+
+    constructor () {
+        this.items = [];
+        this.struct = null;
+        this.getStruct = this.getStruct.bind(this);
+        this.getValue = this.getValue.bind(this);
+        this.getMode = this.getMode.bind(this);
+        this.getItems = this.getItems.bind(this);
+        this.load = this.load.bind(this);
+    }
+
+    getStruct(items, empty) {
+
+        let item = null;
+
+        if (items && items.length > 0) {
+            item = items[0];
+        } else if (empty) {
+            item = empty;
+        }
+
+        if (item) {
+            if (item instanceof Object) {
+                let key = null;
+                let value = null;
+                let i = 0;
+                for (let field in item) {
+                    if (i === 0) {
+                        key = field;
+                    } else if (i === 1) {
+                        value = field;
+                    } else {
+                        break;
+                    }
+                    i++;
+                }
+                if (key !== null && value !== null) {
+                    return {key: key, value: value}
+                }
+            }
+        }
+
+        return null;
+
+    }
+
+    getMode(mode) {
+        if (mode && (mode.indexOf('key') >= 0 || mode.indexOf('val') >= 0)) {
+            return mode;
+        } else {
+            return 'val';
+        }
+    }
+
+    getValue(item) {
+        let value = '';
+        if (this.mode.indexOf('key') >= 0) {
+            value += item[this.struct.key];
+        }
+        if (this.mode.indexOf('val') >= 0) {
+            if (value === '') {
+                value += item[this.struct.value];
+            } else {
+                value += ' ' + item[this.struct.value];
+            }
+        }
+        return value;
+    }
+
+    load(items, empty, mode) {
+
+        this.items = [];
+        this.mode = this.getMode(mode);
+        this.struct = this.getStruct(items, empty);
+
+        if (this.struct) {
+
+            if (empty) {
+                this.items.push({
+                    index: -1,
+                    value: empty[this.struct.value]
+                });
+            }
+
+            if (items) {
+                items.forEach((v, i) => {
+                    this.items.push({
+                        index: i,
+                        value: this.getValue(v)
+                    });
+                });
+            }
+
+        }
+
+    }
+
+    getItems() {
+        return this.items;
+    }
+
+}
+
+export default Helper;

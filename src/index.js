@@ -7,7 +7,8 @@ import {
     TIcon,
     TText,
     TMemo,
-    TGroup
+    TGroup,
+    TListBox
 } from './comp';
 
 import {
@@ -25,6 +26,7 @@ export {
     TText,
     TMemo,
     TGroup,
+    TListBox,
 
     download,
     clone,

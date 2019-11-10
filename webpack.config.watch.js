@@ -10,7 +10,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'build'),
         publicPath: '/',
-        filename: '[name].js',
+        filename: 'tedit.js',
         libraryTarget: 'commonjs2'
     },
     resolve: {

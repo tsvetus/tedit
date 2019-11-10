@@ -94,7 +94,6 @@ class TMemo extends React.Component {
                     name={this.props.name}
                     placeholder={this.props.placeholder}
                     timeout={this.props.timeout}
-                    strip={this.props.strip}
                     onChange={this.handleChange} />
             </div>
         );
@@ -110,7 +109,6 @@ TMemo.propTypes = {
     label: PropTypes.string,
     icon: PropTypes.string,
     wrap: PropTypes.any,
-    strip: PropTypes.any,
     placeholder: PropTypes.string,
     timeout: PropTypes.number,
     onChange: PropTypes.func,

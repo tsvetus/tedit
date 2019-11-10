@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {TIMEOUT} from '../../util';
+import {TIMEOUT, nvl} from '../../util';
 
 /**
  * Text input component.
@@ -11,7 +11,7 @@ class Edit extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-        this.value = props.value;
+        this.value = nvl(props.value, '');
         this.ref = React.createRef();
         this.handleChange = this.handleChange.bind(this);
         this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -26,11 +26,12 @@ class Edit extends React.Component {
         this.setPos = this.setPos.bind(this);
         this.showPlaceholder = this.showPlaceholder.bind(this);
         this.hidePlaceholder = this.hidePlaceholder.bind(this);
+        this.enableEdit = this.enableEdit.bind(this);
     }
 
     componentDidMount() {
         this.mounted = true;
-        this.ref.current.contentEditable = true;
+        this.enableEdit(!this.props.readOnly);
         this.ref.current.addEventListener('input', this.handleChange);
         this.ref.current.addEventListener('keypress', this.handleKeyPress);
         this.ref.current.addEventListener('click', this.handleClick);
@@ -42,7 +43,7 @@ class Edit extends React.Component {
     }
 
     componentWillUnmount() {
-        this.ref.current.contentEditable = false;
+        this.enableEdit(false);
         this.ref.current.removeEventListener('blur', this.handleBlur);
         this.ref.current.removeEventListener('focus', this.handleFocus);
         this.ref.current.removeEventListener('click', this.handleClick);
@@ -51,13 +52,23 @@ class Edit extends React.Component {
         this.mounted = false;
     }
 
-    componentDidUpdate() {
-        if (this.value !== this.props.value) {
-            this.value = this.props.value;
+    componentDidUpdate(old) {
+
+        if (this.value !== nvl(this.props.value, '')) {
+            this.value = nvl(this.props.value, '');
             this.setText(this.value);
             this.handleChange();
             this.showPlaceholder();
         }
+
+        if (old.readOnly !== this.props.readOnly) {
+            this.enableEdit(!this.props.readOnly);
+        }
+
+    }
+
+    enableEdit(enabled) {
+        this.ref.current.contentEditable = enabled;
     }
 
     showPlaceholder() {
@@ -79,13 +90,18 @@ class Edit extends React.Component {
     }
 
     setHtml(html) {
-        this.ref.current.innerHTML = html;
+        this.mute = true;
+        try {
+            this.ref.current.innerHTML = html;
+        } finally {
+            this.mute = false;
+        }
     }
 
     getText() {
         if (this.getHtml().indexOf('<span') < 0) {
             let text = this.ref.current.innerText;
-            if (this.props.strip) {
+            if (!this.props.wrap) {
                 return text
                     .replace(/[\r\n]+$/, '')
                     .replace(/[\r\n]+/gm, ' ');
@@ -98,7 +114,7 @@ class Edit extends React.Component {
     }
 
     setText(text) {
-        this.ref.current.innerText = text;
+        this.ref.current.innerText = nvl(text,'');
     }
 
     getPos() {
@@ -125,6 +141,10 @@ class Edit extends React.Component {
     }
 
     handleChange() {
+
+        if (this.mute) {
+            return;
+        }
 
         if (this.props.onMask) {
             let result = this.props.onMask({val: this.getText(), pos: this.getPos()});
@@ -178,8 +198,6 @@ class Edit extends React.Component {
 
         let style = this.props.style;
 
-        console.log(this.props.timeout);
-
         return (
             <div style={style} ref={this.ref} />
         );
@@ -194,16 +212,16 @@ Edit.propTypes = {
     name: PropTypes.string,
     data: PropTypes.any,
     wrap: PropTypes.any,
-    strip: PropTypes.any,
     placeholder: PropTypes.string,
     timeout: PropTypes.number,
+    readOnly: PropTypes.any,
     onClick: PropTypes.func,
     onChange: PropTypes.func,
     onMask: PropTypes.func
 };
 
 Edit.defaultProps = {
-    strip: true,
+    readOnly: false,
     wrap: false,
     timeout: TIMEOUT
 };

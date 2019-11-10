@@ -1,6 +1,7 @@
 const CL_BORDER = "#4a7";
 const CL_TEXT = "#000";
 const CL_INVALID = "#a31";
+const CL_WINDOW = "#fff";
 
 const BORDER = "1px solid " + CL_BORDER;
 const INVALID = "1px dashed " + CL_INVALID;
@@ -52,6 +53,15 @@ export default {
             color: CL_BORDER
         },
 
+        item: {
+            padding: "4px",
+            border: BORDER,
+            color: CL_TEXT,
+            outline: "none",
+            backgroundColor: CL_WINDOW,
+            ...FONT
+        },
+
         invalid: {
 
             edit: {
@@ -74,7 +84,7 @@ export default {
     tgroup: {
 
         content: {
-            padding: "8px 0 0 0",
+            padding: "8px",
             border: BORDER
         }
 

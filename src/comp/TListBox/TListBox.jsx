@@ -3,28 +3,36 @@ import PropTypes from 'prop-types';
 
 import TIcon from '../TIcon';
 
-import {Mask} from '../../lib';
+import {Edit, List} from '../../lib';
 
 import {merge} from '../../util';
 
 import styles from '../../styles';
 
 /**
- * Component representing icons.
+ * List box component.
  * @extends React
  */
-class TText extends React.Component {
+class TListBox extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-        this.state = {valid: true};
+        this.state = {
+            valid: true,
+            showList: false
+        };
         this.handleIcon = this.handleIcon.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.validate = this.validate.bind(this);
+        this.getRect = this.getRect.bind(this);
+        this.getListStyle = this.getListStyle.bind(this);
+        this.ref = React.createRef();
+        this.helper = new List.Helper();
     }
 
     componentWillUnmount() {
         clearTimeout(this.timer);
+        delete this.helper;
     }
 
     componentDidMount() {
@@ -38,20 +46,37 @@ class TText extends React.Component {
     }
 
     handleIcon() {
-        if (this.props.onIcon) {
-            this.props.onIcon({
-                data: this.props.data,
-                name: this.props.name,
-                icon: this.props.icon
-            });
-        }
+        this.setState({showList: !this.state.showList});
     }
 
     handleChange(event) {
+        this.handleIcon();
         if (this.props.onChange) {
-            this.props.onChange(event);
+//            this.props.onChange(event);
         } else {
-            this.validate(event.value);
+//            this.validate(event.value);
+        }
+    }
+
+    getRect() {
+        let rect = this.ref.current.getBoundingClientRect();
+        return {
+            left: rect.left,
+            top: rect.left,
+            right: rect.right,
+            bottom: rect.bottom,
+            width: rect.width,
+            height: rect.height
+        }
+    }
+
+    getListStyle() {
+        let rect = this.getRect();
+        return {
+            position: "absolute",
+            left: rect.left + 'px',
+            top: rect.bottom + 'px',
+            width: rect.width + 'px'
         }
     }
 
@@ -81,27 +106,40 @@ class TText extends React.Component {
         let label = null;
         if (this.props.label) {
             label = (
-                <div style={style.label}>
+                <div style={style.label} onClick={this.handleIcon} >
                     {this.props.label}
                 </div>
             );
         }
 
         let icon = null;
-        if (this.props.icon) {
+        if (this.props.showIcon) {
             icon = (
                 <TIcon
                     style={style.icon}
-                    name={this.props.icon}
+                    name={this.state.showList ? 'up' : 'down'}
                     onClick={this.handleIcon} />
+            );
+        }
+
+        let list = null;
+        if (this.state.showList && this.props.items) {
+            this.helper.load(this.props.items, this.props.empty, this.props.listMode);
+            let listStyle = merge(style, {list: this.getListStyle()});
+            list = (
+                <List
+                    style={listStyle}
+                    value={this.props.value}
+                    items={this.helper.getItems()}
+                    onClick={this.handleChange} />
             );
         }
 
         return (
             <div style={style.container}>
-                <div style={style.frame}>
+                <div style={style.frame} ref={this.ref}>
                     {label}
-                    <Mask
+                    <Edit
                         style={style.edit}
                         data={this.props.data}
                         name={this.props.name}
@@ -109,11 +147,12 @@ class TText extends React.Component {
                         timeout={this.props.timeout}
                         placeholder={this.props.placeholder}
                         wrap={false}
-                        mask={this.props.mask}
-                        onMask={this.props.onMask}
+                        readOnly={true}
+                        onClick={this.handleIcon}
                         onChange={this.handleChange} />
                     {icon}
                 </div>
+                {list}
             </div>
         );
 
@@ -121,19 +160,24 @@ class TText extends React.Component {
 
 }
 
-TText.propTypes = {
+TListBox.propTypes = {
     value: PropTypes.string,
     name: PropTypes.string,
     data: PropTypes.any,
     label: PropTypes.string,
-    icon: PropTypes.string,
+    showIcon: PropTypes.any,
     timeout: PropTypes.number,
     placeholder: PropTypes.string,
-    mask: PropTypes.object,
+    empty: PropTypes.object,
+    items: PropTypes.array,
+    listMode: PropTypes.string,
+    showMode: PropTypes.string,
     onChange: PropTypes.func,
-    onValidate: PropTypes.func,
-    onIcon: PropTypes.func,
-    onMask: PropTypes.func
+    onValidate: PropTypes.func
 };
 
-export default TText;
+TListBox.defaultProps = {
+    showIcon: true
+};
+
+export default TListBox;

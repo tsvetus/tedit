@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {TIcon, TText, TMemo, TGroup, styles, registerStyles} from 'tedit';
+import {TIcon, TText, TMemo, TGroup, TListBox, styles, registerStyles} from 'tedit';
 
 registerStyles({
 
@@ -26,7 +26,7 @@ registerStyles({
     component: {
 
         container: {
-            margin: "8px 8px 8px 8px",
+            margin: "8px 0 0 0",
             width: "100%"
         },
 
@@ -108,12 +108,24 @@ class Main extends React.Component {
                         mask={{mask: '+1 (NNN) NNN-NN-NN', empty: '_', complete: true}}
                         onChange={this.handleChange} />
 
+                    <TListBox
+                        name={'tlistbox'}
+                        label={'TList box:'}
+                        listMode={'key value'}
+                        empty={{id: 0, name: '-'}}
+//                        value={2}
+                        items={[
+                            {id: 1, name: 'first item'},
+                            {id: 2, name: 'second item'}
+                        ]}
+                        placeholder={'Choose item from list ...'} />
+
                     <TMemo
                         value={this.state.tmemo}
                         label={'TMemo component:'}
                         name={'tmemo'}
                         data={3}
-                        placeholder={'Enter multiline text'}
+                        placeholder={'Enter multiline text. Use "wrap" property to enable caret returns.'}
                         onChange={this.handleChange} />
 
                     <TMemo
