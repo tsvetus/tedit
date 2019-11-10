@@ -86,19 +86,17 @@ class TCheck extends React.Component {
 
         let label = null;
         if (this.props.label) {
-            label = (
+            label =
                 <div style={style.label}>
                     {this.props.label}
                 </div>
-            );
         }
 
-        let icon = (
+        let icon =
             <Icon
                 style={style.icon}
                 name={this.state.checked ? 'checked' : 'unchecked'}
-                onClick={this.handleIcon} />
-        );
+                onClick={this.handleIcon} />;
 
         return (
             <div style={style.container}>

@@ -134,40 +134,37 @@ class ListBox extends React.Component {
                 styles.component ? styles.component.invalid : null,
                 styles.ttext ? styles.ttext.invalid : null,
                 this.props.style ? this.props.style.invalid : null
-            );
+            )
         }
 
         let label = null;
         if (this.props.label) {
             let click = this.props.clickable ? this.handleIcon : null;
-            label = (
+            label =
                 <div style={style.label} onClick={click} >
                     {this.props.label}
                 </div>
-            );
         }
 
         let icon = null;
         if (this.props.showIcon) {
-            icon = (
+            icon =
                 <Icon
                     style={style.icon}
                     name={this.state.showList ? 'up' : 'down'}
                     onClick={this.handleIcon} />
-            );
         }
 
         let list = null;
         if (this.state.showList && this.props.items) {
             this.helper.load(this.props.items, this.props.empty, this.props.listMode);
             let listStyle = merge(style, {list: this.getListStyle()});
-            list = (
+            list =
                 <List
                     style={listStyle}
                     selected={this.props.value}
                     items={this.helper.getItems()}
                     onClick={this.handleChange} />
-            );
         }
 
         let click = this.props.clickable ? this.handleIcon : null;

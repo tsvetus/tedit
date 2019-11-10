@@ -5,7 +5,7 @@ import {TIMEOUT, nvl} from '../../util';
 
 /**
  * @class
- * @ignores
+ * @ignore
  */
 class Edit extends React.Component {
 

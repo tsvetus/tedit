@@ -22,16 +22,16 @@ class TText extends React.Component {
     }
 
     componentWillUnmount() {
-        clearTimeout(this.timer);
+        clearTimeout(this.timer)
     }
 
     componentDidMount() {
-        this.validate(this.props.value);
+        this.validate(this.props.value)
     }
 
     componentDidUpdate(old) {
         if (old.value !== this.props.value) {
-            this.validate(this.props.value);
+            this.validate(this.props.value)
         }
     }
 
@@ -47,9 +47,9 @@ class TText extends React.Component {
 
     handleChange(event) {
         if (this.props.onChange) {
-            this.props.onChange(event);
+            this.props.onChange(event)
         } else {
-            this.validate(event.value);
+            this.validate(event.value)
         }
     }
 
@@ -57,10 +57,10 @@ class TText extends React.Component {
         if (this.props.onValidate) {
             let valid = this.props.onValidate(value);
             if (valid !== this.state.valid) {
-                this.setState({valid: valid});
+                this.setState({valid: valid})
             }
         } else {
-            return true;
+            return true
         }
     }
 
@@ -73,7 +73,7 @@ class TText extends React.Component {
                 styles.component ? styles.component.invalid : null,
                 styles.ttext ? styles.ttext.invalid : null,
                 this.props.style ? this.props.style.invalid : null
-            );
+            )
         }
 
         let label = null;
@@ -82,7 +82,7 @@ class TText extends React.Component {
                 <div style={style.label}>
                     {this.props.label}
                 </div>
-            );
+            )
         }
 
         let icon = null;
@@ -92,7 +92,7 @@ class TText extends React.Component {
                     style={style.icon}
                     name={this.props.icon}
                     onClick={this.handleIcon} />
-            );
+            )
         }
 
         return (
