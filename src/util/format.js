@@ -49,30 +49,30 @@ class Format {
 
     correct(event) {
 
-        let val = event.val ? event.val : '';
-        let pos = event.pos ? event.pos : '';
+        let value = event.value ? event.value : '';
+        let caret = event.caret ? event.caret : '';
 
-        let diff = val.length - this.value.length;
+        let diff = value.length - this.value.length;
 
         if (diff === 0) {
 
         } else if (diff === 1) {
-            if (isMaskNumber(this.mask[pos - 1]) && !isValueNumber(val[pos - 1])) {
-                val = this.value;
-                pos --;
+            if (isMaskNumber(this.mask[caret - 1]) && !isValueNumber(value[caret - 1])) {
+                value = this.value;
+                caret --;
             } else {
-                val = val.substr(0, pos) + val.substr(pos + 1);
-                while (isMaskCore(this.mask[pos])) {
-                    pos ++;
+                value = value.substr(0, caret) + value.substr(caret + 1);
+                while (isMaskCore(this.mask[caret])) {
+                    caret ++;
                 }
             }
         } else if (diff === -1) {
-            val = val.substr(0, pos) + this.empty + val.substr(pos);
+            value = value.substr(0, caret) + this.empty + value.substr(caret);
         } else {
-            val = this.value;
+            value = this.value;
         }
 
-        return {val: val, pos: pos};
+        return {value: value, caret: caret};
 
     }
 
@@ -80,11 +80,11 @@ class Format {
 
         let result = this.correct(event);
 
-        this.value = format(this.mask, this.empty, result.val);
+        this.value = format(this.mask, this.empty, result.value);
 
         result = {
-            val: this.value,
-            pos: result.pos
+            value: this.value,
+            caret: result.caret
         };
 
         return result;

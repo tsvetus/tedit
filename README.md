@@ -1,5 +1,6 @@
 # tedit
-Set of most common visual React components designed for constructing web application interfaces.
+
+Set of visual React components designed for constructing web application interfaces.
 
 `tedit` provides set of visual components constructed on `<div>` element with editable content:
 * [`TText`](#ttext)
@@ -64,7 +65,44 @@ registerStyles(styles);
 This makes all controls appeared on grey background then all editable controls have `red` border except `green` 
 border for `TMemo`.  
 
-Each component has it's own style structure:
+## Events
+
+All events are occur with delay determined by `timeout` property. Default timeout is `700 ms`. There are three 
+types of events in `tedit` components:  
+
+* `IconClickEvent` - Emerges each time when user click on icon. Applies to `TIcon` component itself and when
+    nested icons in `TText` and `TMemo` components are clicked.
+  * Argument: `{name: ..., data: ..., icon: ...}` where
+    * `name` - component name from `name` property.
+    * `data` - any data from `data` property.
+    * `icon` - contains icon name.      
+* `TexChangeEvent` - Emerges each time when edit text is changed in text edit components. Applies to `TText` 
+    and `TMemo` components.
+  * Argument: `{value: ..., name: ..., data: ..., icon: ...}` where
+    * `value` - edited text.
+    * `name` - component name from `name` property.
+    * `data` - any data from `data` property.
+    * `icon` - contains name of current component depending of it's state.      
+* `ListChangeEvent` - Emerges each time when item selected from list in list edit components. Applies to
+    `TListBox` and `TSearch` components. 
+  * Argument: `{value: ..., name: ..., data: ...}` where
+    * `value` - key value of clicked list item.
+    * `name` - component name from `name` property.
+    * `data` - any data from `data` property      
+* `ValidateEvent` - Emerges when text validation is needed. Applies to `TText` and `TMemo` components.
+  * Argument: `{value: ..., name: ..., data: ...}` similar to other events.
+  * Returns: - `boolean` When event returns `false` the component changes it's style to `invalid` 
+      (see style structure). 
+* `MaskCheckEvent` - Emerges when text mask checking is needed. Applies to `TText` component when `mask`
+    property is empty. If `mask` property contains any available masks `TText` component uses internal formatting 
+    engine to mask entered text.
+  * Argument: `{value: ..., caret: ...}`
+    * `value` - contains current edited text.
+    * `caret` - contains current caret position.
+  * Returns: - `boolean` The event mast returns the same type of object back `{value: ..., caret: ...}` whith 
+      `value` and `caret` containing new values of text and caret position.  
+
+# Component descriptions
 
 ## `TText`
 
@@ -72,35 +110,32 @@ Each component has it's own style structure:
 
 Style structure:
 
-* `container` - Outer component container
-* `frame` - Container for label edit and icon
-* `label` - Component label
-* `edit` - Text editor
-* `icon`- Clickable icon
+* `container` - Outer component container style.
+* `frame` - Style for label, edit and icon box.
+* `label` - Component label style.
+* `edit` - Text editor style.
+* `icon`- Clickable icon style.
 
 Component properties:
 
-* `style` - Component style
-* `value` - Text to display
+* `style` - Component style.
+* `value` - Text to display.
 * `name` - Component name. Use `name` property if you have one `onChange` events for multiply components. 
 * `data` - Component data. Use `data` property if you want to associate component with some object. 
-* `label` - Label text. Default: `''`
+* `label` - Label text.
 * `icon` - Icon name from available icon list (see `TIcon`). If assigned the appropriate icon appeared 
-            near text editor. Default: `undefined` 
-* `timeout` - Timeout for `onChange` event. Default: `0.7 sec`
-* `placeholder` - Placeholder text
-* `mask` - Text mask. Now only text masks like `NN:NN` are supported where `N` is any number. Defaulr: `undefined`
-* `empty` - Value returned by `onChange` event when edit text is empty
+            near text editor. 
+* `timeout` - Timeout for `onChange` event. Default: `700 ms`.
+* `placeholder` - Placeholder text.
+* `mask` - Text mask. Now only text masks like `NN:NN` are supported where `N` is any number.
+* `empty` - Value returned by `onChange` event when edit text is empty.
 
 Component events:
 
-* `onChange` - On edit text change event. Accepts object of type `{value: ..., name: ..., data ..., icon}` 
-        where `value` contains edit text
-* `onValidate` - Fires if text validation needed. Accepts object of type `{value: ..., name: ..., data ..., icon}` 
-        where `value` contains edit text. Mast returns true if validation is success.  
-* `onIcon` - On icon click event. Accepts object of type `{value: ..., name: ..., data ..., icon}` 
-        where `value` contains edit text
-* `onMask` - On custom mask processing  
+* `onChange`: `TextCengeEvent`
+* `onValidate`: `ValidateEvent`  
+* `onIcon`: `IconClickEvent`
+* `onMask`: `MaskCheckEvent`  
 
 ````javascript
 style = {

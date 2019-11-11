@@ -13,7 +13,7 @@ class Edit extends React.Component {
         super(props, context);
         this.value = nvl(props.value, '');
         this.ref = React.createRef();
-        this.pos = 0;
+        this.caret = 0;
         this.handleChange = this.handleChange.bind(this);
         this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -23,8 +23,8 @@ class Edit extends React.Component {
         this.setHtml = this.setHtml.bind(this);
         this.getText = this.getText.bind(this);
         this.setText = this.setText.bind(this);
-        this.getPos = this.getPos.bind(this);
-        this.setPos = this.setPos.bind(this);
+        this.getCaret = this.getCaret.bind(this);
+        this.setCaret = this.setCaret.bind(this);
         this.showPlaceholder = this.showPlaceholder.bind(this);
         this.hidePlaceholder = this.hidePlaceholder.bind(this);
         this.enableEdit = this.enableEdit.bind(this);
@@ -116,10 +116,10 @@ class Edit extends React.Component {
 
     setText(text) {
         this.ref.current.innerText = nvl(text,'');
-        this.setPos(this.pos);
+        this.setCaret(this.caret);
     }
 
-    getPos() {
+    getCaret() {
         if (this.ref.current === document.activeElement && document.getSelection().rangeCount > 0) {
             let _range = document.getSelection().getRangeAt(0);
             let range = _range.cloneRange();
@@ -127,17 +127,17 @@ class Edit extends React.Component {
             range.setEnd(_range.endContainer, _range.endOffset);
             return range.toString().length;
         } else {
-            return this.pos;
+            return this.caret;
         }
     }
 
-    setPos(pos) {
+    setCaret(caret) {
         if (this.ref.current === document.activeElement) {
-            let len = this.getText().length;
-            if (pos > len) {
-                document.getSelection().collapse(this.ref.current.firstChild, len);
+            let length = this.getText().length;
+            if (caret > length) {
+                document.getSelection().collapse(this.ref.current.firstChild, length);
             } else {
-                document.getSelection().collapse(this.ref.current.firstChild, pos);
+                document.getSelection().collapse(this.ref.current.firstChild, caret);
             }
         }
     }
@@ -149,11 +149,11 @@ class Edit extends React.Component {
         }
 
         if (this.props.onMask) {
-            this.pos = this.getPos();
-            let result = this.props.onMask({val: this.getText(), pos: this.pos});
-            if (result && !isNaN(result.pos)) {
-                this.setText(result.val);
-                this.setPos(result.pos);
+            this.caret = this.getCaret();
+            let result = this.props.onMask({value: this.getText(), caret: this.caret});
+            if (result && !isNaN(result.caret)) {
+                this.setText(result.value);
+                this.setCaret(result.caret);
             }
         }
 
