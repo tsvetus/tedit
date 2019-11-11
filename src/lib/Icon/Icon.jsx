@@ -33,6 +33,7 @@ class Icon extends React.Component {
         let svgStyle = {
             ...layout.svg,
             ...styles.icon,
+            ...styles.ticon,
             ...this.props.style
         };
 

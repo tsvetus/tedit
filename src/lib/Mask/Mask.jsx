@@ -20,6 +20,7 @@ class Mask extends React.Component {
                 props.mask.complete,
                 props.value
             );
+            this.completed = this.format.completed();
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -33,9 +34,16 @@ class Mask extends React.Component {
     handleChange(event) {
         if (this.props.onChange) {
             if (this.format) {
-                if (this.format.completed()) {
+                let completed = this.format.completed();
+                if (completed) {
                     this.props.onChange(event);
+                } else if (this.completed) {
+                    this.props.onChange({
+                        ...event,
+                        value: this.props.empty
+                    });
                 }
+                this.completed = completed;
             } else {
                 this.props.onChange(event);
             }
@@ -61,6 +69,7 @@ class Mask extends React.Component {
                 wrap={this.props.wrap}
                 placeholder={this.props.placeholder}
                 timeout={this.props.timeout}
+                empty={this.props.empty}
                 onClick={this.props.onClick}
                 onChange={this.handleChange}
                 onMask={handleMask} />
@@ -80,9 +89,14 @@ Mask.propTypes = {
     timeout: PropTypes.number,
     placeholder: PropTypes.string,
     mask: PropTypes.object,
+    empty: PropTypes.any,
     onClick: PropTypes.func,
     onChange: PropTypes.func,
     onMask: PropTypes.func
+};
+
+Mask.defaultProps = {
+    empty: null
 };
 
 export default Mask;

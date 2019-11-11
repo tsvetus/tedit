@@ -108,7 +108,7 @@ class Main extends React.Component {
                         label={'TText with validation:'}
                         name={'ttext1'}
                         placeholder={'Enter more than 3 symbols ...'}
-                        onValidate={(value) => {return value.length >= 3;}}
+                        onValidate={(event) => {console.log(JSON.stringify(event)); return event.value.length >= 3;}}
                         onChange={this.handleChange} />
 
                     <TText

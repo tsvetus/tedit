@@ -40,14 +40,18 @@ class TText extends React.Component {
             this.props.onIcon({
                 data: this.props.data,
                 name: this.props.name,
-                icon: this.props.icon
+                icon: this.props.icon,
+                value: this.props.value
             });
         }
     }
 
     handleChange(event) {
         if (this.props.onChange) {
-            this.props.onChange(event)
+            this.props.onChange({
+                ...event,
+                icon: this.props.icon
+            })
         } else {
             this.validate(event.value)
         }
@@ -55,7 +59,12 @@ class TText extends React.Component {
 
     validate(value) {
         if (this.props.onValidate) {
-            let valid = this.props.onValidate(value);
+            let valid = this.props.onValidate({
+                data: this.props.data,
+                name: this.props.name,
+                icon: this.props.icon,
+                value: value
+            });
             if (valid !== this.state.valid) {
                 this.setState({valid: valid})
             }
@@ -108,6 +117,7 @@ class TText extends React.Component {
                         placeholder={this.props.placeholder}
                         wrap={false}
                         mask={this.props.mask}
+                        empty={this.props.empty}
                         onMask={this.props.onMask}
                         onChange={this.handleChange} />
                     {icon}
@@ -129,6 +139,7 @@ TText.propTypes = {
     timeout: PropTypes.number,
     placeholder: PropTypes.string,
     mask: PropTypes.object,
+    empty: PropTypes.any,
     onChange: PropTypes.func,
     onValidate: PropTypes.func,
     onIcon: PropTypes.func,

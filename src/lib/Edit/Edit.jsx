@@ -13,6 +13,7 @@ class Edit extends React.Component {
         super(props, context);
         this.value = nvl(props.value, '');
         this.ref = React.createRef();
+        this.pos = 0;
         this.handleChange = this.handleChange.bind(this);
         this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -115,17 +116,18 @@ class Edit extends React.Component {
 
     setText(text) {
         this.ref.current.innerText = nvl(text,'');
+        this.setPos(this.pos);
     }
 
     getPos() {
-        if (this.ref.current === document.activeElement) {
+        if (this.ref.current === document.activeElement && document.getSelection().rangeCount > 0) {
             let _range = document.getSelection().getRangeAt(0);
             let range = _range.cloneRange();
             range.selectNodeContents(this.ref.current);
             range.setEnd(_range.endContainer, _range.endOffset);
             return range.toString().length;
         } else {
-            return 0;
+            return this.pos;
         }
     }
 
@@ -147,22 +149,24 @@ class Edit extends React.Component {
         }
 
         if (this.props.onMask) {
-            let result = this.props.onMask({val: this.getText(), pos: this.getPos()});
+            this.pos = this.getPos();
+            let result = this.props.onMask({val: this.getText(), pos: this.pos});
             if (result && !isNaN(result.pos)) {
                 this.setText(result.val);
                 this.setPos(result.pos);
             }
         }
 
-        if (this.props.onChange) {
+        if (this.props.onChange && this.value !== this.getText()) {
             clearTimeout(this.timer);
             this.timer = setTimeout(() => {
                 if (this.mounted && this.value !== this.getText()) {
                     this.value = this.getText();
+                    let value = this.value === '' ? this.props.empty : this.value;
                     this.props.onChange({
                         data: this.props.data,
                         name: this.props.name,
-                        value: this.value
+                        value: value
                     });
                 }
             }, this.props.timeout);
@@ -215,12 +219,14 @@ Edit.propTypes = {
     placeholder: PropTypes.string,
     timeout: PropTypes.number,
     readOnly: PropTypes.any,
+    empty: PropTypes.any,
     onClick: PropTypes.func,
     onChange: PropTypes.func,
     onMask: PropTypes.func
 };
 
 Edit.defaultProps = {
+    empty: null,
     readOnly: false,
     wrap: false,
     timeout: TIMEOUT

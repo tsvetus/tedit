@@ -1,30 +1,214 @@
-# tinput
+# tedit
 Set of most common visual React components designed for constructing web application interfaces.
 
-`tinput` provides set of visual components constructed on `<input>` html tag:
-* [`TMemo`](#ttext)
-* [`TSearch`](#tlistbox)
+`tedit` provides set of visual components constructed on `<div>` element with editable content:
+* [`TText`](#ttext)
+* [`TMemo`](#tmemo)
+* [`TListBox`](#tlistbox)
 * [`TSearch`](#tsearch)
-* [`TMask`](#tmask)
-* [`TDate`](#tdate)
-* [`TTime`](#ttime)
-* [`TMail`](#tmail)
-
-Extention of `<textarea>`:
-* [`TGroup`](#tmemo)
 
 Other components:
+* [`TIcon`](#ticon)
 * [`TCheck`](#tcheck)
-* [`TTop`](#ttop)
-* [`TSide`](#tside)
-* [`TScroll`](#tscroll)
+
 
 ## Example
-[Example page](https://tsvetus.github.io/tinput/)
+[Example page](https://tsvetus.github.io/tedit/)
 
 ## Stylization
 
-Style structure for custom stylization contains sections for all `tinput` components:
+Every component in `tedit` library has `style` property stands for providing custom style for each component:
+
+````javascript
+import {TText} from 'tedit';
+
+const style = {...};
+
+...
+
+    render() {
+        return (
+            <TText style={style} />
+        )
+    }
+    
+...    
+````
+ 
+Each component has it's own style structure described below. In addition one can register global project 
+styles using `registerStyles` function as follows:
+
+````javascript
+import {registerStyles} from 'tedit';
+
+const styles = {    
+    component: {
+        /* Global style for all components */
+        container: {
+            backgroundColor: '#eee'
+        },
+        edit: {
+            border: "1px solid red"
+        }
+    },
+    tmemo: {
+        /* Custom style for TMemo component */
+        edit: {
+            border: "1px solid green"
+        }
+    }
+};
+
+registerStyles(styles);
+````
+This makes all controls appeared on grey background then all editable controls have `red` border except `green` 
+border for `TMemo`.  
+
+Each component has it's own style structure:
+
+## `TText`
+
+`TText` represents one line text editor with label and icon (disabled by default)
+
+Style structure:
+
+* `container` - Outer component container
+* `frame` - Container for label edit and icon
+* `label` - Component label
+* `edit` - Text editor
+* `icon`- Clickable icon
+
+Component properties:
+
+* `style` - Component style
+* `value` - Text to display
+* `name` - Component name. Use `name` property if you have one `onChange` events for multiply components. 
+* `data` - Component data. Use `data` property if you want to associate component with some object. 
+* `label` - Label text. Default: `''`
+* `icon` - Icon name from available icon list (see `TIcon`). If assigned the appropriate icon appeared 
+            near text editor. Default: `undefined` 
+* `timeout` - Timeout for `onChange` event. Default: `0.7 sec`
+* `placeholder` - Placeholder text
+* `mask` - Text mask. Now only text masks like `NN:NN` are supported where `N` is any number. Defaulr: `undefined`
+* `empty` - Value returned by `onChange` event when edit text is empty
+
+Component events:
+
+* `onChange` - On edit text change event. Accepts object of type `{value: ..., name: ..., data ..., icon}` 
+        where `value` contains edit text
+* `onValidate` - Fires if text validation needed. Accepts object of type `{value: ..., name: ..., data ..., icon}` 
+        where `value` contains edit text. Mast returns true if validation is success.  
+* `onIcon` - On icon click event. Accepts object of type `{value: ..., name: ..., data ..., icon}` 
+        where `value` contains edit text
+* `onMask` - On custom mask processing  
+
+````javascript
+style = {
+    /* Global component container */
+    container: {},
+    /* Frame for label edit and icon */
+    label: {},
+    /* Component label */
+    frame: {},
+    /* Component edit field */
+    edit: {},
+    /* Component icon (disabled by default) */
+    icon: {},
+    invalid: {
+        /* The same as upper level but stands for signal invalid state */
+        container: {},
+        frame: {},
+        label: {},
+        edit: {},
+        icon: {}
+    }
+}
+````
+
+* [`TListBox`](#tlistbox) [`TSearch`](#tsearch):
+
+````javascript
+style = {
+    /* Global component container */
+    container: {},
+    /* Frame for label edit and icon */
+    label: {},
+    /* Component label */
+    frame: {},
+    /* Component edit field */
+    edit: {},
+    /* Component icon (disabled by default) */
+    icon: {},
+    /* Styles for item list */
+    list: {},
+    /* Style for each item in list */
+    item: {},
+    /* Style for selected item in list */
+    selected: {},
+    invalid: {
+        /* The same as upper level but stands for signal invalid state */
+        container: {},
+        frame: {},
+        label: {},
+        edit: {},
+        icon: {}
+    }
+}
+````
+
+* [`TIcon`](#ticon):
+
+````javascript
+style = {
+    /* Plain object. Has no children */
+}
+````
+
+* [`TCheck`](#tcheck):
+
+````javascript
+style = {
+    /* Global component container */
+    container: {},
+    /* Frame for label edit and icon */
+    label: {},
+    /* Component label */
+    frame: {},
+    /* Component edit field */
+    icon: {},
+    invalid: {
+        /* The same as upper level but stands for signal invalid state */
+        container: {},
+        frame: {},
+        label: {},
+        icon: {}
+    }
+}
+````
+
+
+
+````javascript
+import {registerStyles} from 'tedit';
+
+const myStyles = {
+    component: {
+        /* Style for all editable components */
+        edit: {
+            border: "1px solid red"
+        }
+    },
+    tmemo: {
+        /* Custom style for TMemo component */
+        edit: {
+            border: "1px solid green"
+        }
+    }
+}
+
+registerStyles(myStyles);
+````
+This makes all editable controls in library have `red` border except `TMemo`  
 
 * `container` - Style for outer box
 
