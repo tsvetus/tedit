@@ -60,7 +60,7 @@ class TLogin extends React.Component {
 
     render () {
 
-        let style = merge(styles.modal, {component: styles.component}, this.props.style);
+        let style = merge(styles.modal, {component: styles.component}, styles.login, styles.tlogin, this.props.style);
 
         return (
 

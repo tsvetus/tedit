@@ -14,7 +14,7 @@ class TGroup extends React.Component {
 
     render () {
 
-        let style = merge(styles.component, styles.tgroup, this.props.style);
+        let style = merge(styles.component, styles.group, styles.tgroup, this.props.style);
 
         let label = null;
         if (this.props.label) {

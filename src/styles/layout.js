@@ -94,7 +94,7 @@ export default {
 
     },
 
-    tmemo: {
+    memo: {
 
         container: {
             border: "none"
@@ -110,7 +110,7 @@ export default {
 
     },
 
-    tgroup: {
+    group: {
 
         container: {
             display: "flex",
@@ -136,7 +136,7 @@ export default {
 
     },
 
-    tcheck: {
+    check: {
 
         frame: {
             display: "flex",
@@ -146,7 +146,7 @@ export default {
 
     },
 
-    tlogin: {
+    login: {
 
         container: {
             position: "fixed",
@@ -158,7 +158,65 @@ export default {
             zIndex: "100"
         }
 
-    }
+    },
 
+    panel: {
+        display: "flex"
+    },
+
+    top: {
+
+        container: {
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            cursor: "default"
+        },
+
+        button: {
+            cursor: "pointer"
+        }
+
+    },
+
+    side: {
+
+        container: {
+            height: "100%",
+            width: "0",
+            position: "fixed",
+            zIndex: "100",
+            top: "0",
+            left: "0",
+            overflowX: "hidden",
+            transition: "0.5s"
+        },
+
+        close: {
+            display: "block",
+            position: "absolute",
+            top: "12px",
+            right: "12px",
+            transition: "0.3s"
+        },
+
+        item: {
+            display: "block",
+            textDecoration: "none",
+            transition: "0.3s",
+            cursor: "pointer"
+        },
+
+        touch: {
+            position: "fixed",
+            zIndex: 30,
+            top: "0",
+            left: "0",
+            height: "100vh",
+            width: "8px",
+            opacity: "0"
+        }
+
+    }
 
 }

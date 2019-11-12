@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 
 import {ListBox} from '../../lib';
 
-import {nvl} from '../../util';
+import {nvl, merge} from '../../util';
+
+import styles from '../../styles';
 
 class TSearch extends React.Component {
 
@@ -58,7 +60,7 @@ class TSearch extends React.Component {
 
     render () {
 
-        let style = this.props.style;
+        let style = merge(styles.component, styles.search, styles.tsearch,  this.props.style);
 
         return (
             <ListBox

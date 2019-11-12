@@ -13,7 +13,7 @@ class TIndicator extends React.Component {
 
     render () {
 
-        let style = merge(styles.indicator, this.props.style);
+        let style = merge(styles.indicator, styles.tindicator, this.props.style);
 
         let char = (this.props.open === true) ? this.props.charOpen : this.props.charClosed;
 

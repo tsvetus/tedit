@@ -2,6 +2,7 @@ const CL_BORDER = "#4a7";
 const CL_TEXT = "#000";
 const CL_INVALID = "#a31";
 const CL_WINDOW = "#fff";
+const CL_PANEL = "#eee";
 
 const BORDER = "1px solid " + CL_BORDER;
 const INVALID = "1px dashed " + CL_INVALID;
@@ -211,7 +212,7 @@ export default {
 
     },
 
-    tmemo: {
+    memo: {
 
         edit: {
             minHeight: "48px",
@@ -220,7 +221,7 @@ export default {
 
     },
 
-    tgroup: {
+    group: {
 
         content: {
             padding: "8px",
@@ -229,41 +230,61 @@ export default {
 
     },
 
-    tlogin: {
+    panel: {
+        backgroundImage: "linear-gradient(" + CL_PANEL + ", " + CL_WINDOW + ")",
+        backgroundColor: CL_PANEL,
+        padding: "8px",
+        ...FONT,
+        justifyContent: "center",
+        color: CL_BORDER,
+        fontSize: "24px"
+    },
+
+    top: {
 
         container: {
-            border: BORDER,
-            borderRadius: "16px",
-            backgroundColor: CL_WINDOW,
-            minWidth: "320px",
-            padding: "24px 16px 16px 16px",
-            alignItems: "center"
+            backgroundColor: CL_PANEL,
         },
 
-        component: {
-
-            container: {
-                margin: "0 16px 16px 16px"
-            },
-
-            label: {
-                width: "120px"
-            }
-
+        button: {
+            color: CL_BORDER
         },
 
-        buttons: {
-            display: "flex",
-            justifyContent: "space-around",
-            width: "100%"
+        caption: {
+            ...FONT,
+            color: CL_BORDER,
+            fontSize: "24px"
         },
 
-        submit: {
-            margin: "16px 0 0 0"
+        tools: {
+            margin: "0 8px 0 0"
         },
 
-        cancel: {
-            margin: "16px 0 0 0"
+        icon: {
+            margin: "0 0 0 8px",
+            color: CL_BORDER,
+            height: "24px",
+            width: "24px"
+        }
+
+    },
+
+    side: {
+
+        container: {
+            backgroundColor: CL_PANEL,
+            paddingTop: "60px"
+        },
+
+        close: {
+            color: CL_BORDER,
+        },
+
+        item: {
+            ...FONT,
+            padding: "8px 8px 8px 32px",
+            fontSize: "24px",
+            color: CL_TEXT
         }
 
     }

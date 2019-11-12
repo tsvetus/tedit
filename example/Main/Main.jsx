@@ -13,6 +13,9 @@ import {
     TLogin,
     TModal,
     TForm,
+    TPanel,
+    TTop,
+    TSide,
     styles,
     registerStyles,
     nvl
@@ -44,6 +47,17 @@ registerStyles({
             height: "18px"
         }
 
+    },
+
+    tgroup: {
+        container: {
+            width: "420px",
+            margin: "auto"
+        }
+    },
+
+    tpanel: {
+        padding: "16px"
     }
 
 });
@@ -78,7 +92,8 @@ class Main extends React.Component {
             tlogin: {username: 'user', password: ''},
             showLogin: false,
             showModal: false,
-            showForm: false
+            showForm: false,
+            showMenu: false
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -87,7 +102,15 @@ class Main extends React.Component {
 
         let events = this.state.events + JSON.stringify(event) + ' ';
 
-        if (event.name.indexOf('show') >= 0) {
+        if (event.name === 'ttop' && event.icon === 'menu') {
+            this.setState({
+                showMenu: true
+            });
+        } else if (event.name === 'tside') {
+            this.setState({
+                 showMenu: false
+            });
+        } else if (event.name.indexOf('show') >= 0) {
             this.setState({
                 events: events,
                 [event.name]: !this.state[event.name]
@@ -116,9 +139,26 @@ class Main extends React.Component {
 
         return (
 
-            <div style={{maxWidth: "420px", margin: "auto", padding: "8px"}}>
+            <div style={{}}>
 
-                <TGroup label={'TEdit component examples'}>
+                <TSide
+                    name={'tside'}
+                    show={this.state.showMenu}
+                    items={[
+                        {name: 'first', caption: 'First menu item'},
+                        {name: 'second', caption: 'Second menu item', style: {fontWeight: "bold"}}
+                    ]}
+                    onClick={this.handleChange} />
+
+                <TTop
+                    name={'ttop'}
+                    onClick={this.handleChange} />
+
+                <TPanel>
+                    tedit library example page
+                </TPanel>
+
+                <TGroup label={'Edit component examples'}>
 
                     <TText
                         value={this.state.ttext}

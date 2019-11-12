@@ -32,7 +32,7 @@ class TForm extends React.Component {
 
     render () {
 
-        let style = merge(styles.modal, this.props.style);
+        let style = merge(styles.modal, styles.tmodal, styles.form, styles.tform, this.props.style);
 
         let content = null;
         let propButtons = null;

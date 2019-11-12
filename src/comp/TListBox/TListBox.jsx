@@ -3,11 +3,17 @@ import PropTypes from 'prop-types';
 
 import {ListBox} from '../../lib';
 
+import {merge} from '../../util';
+
+import styles from '../../styles';
+
+
 class TListBox extends React.Component {
     render() {
+        let style = merge(styles.component, styles.listbox, styles.tlistbox, this.props.style);
         return (
             <ListBox
-                style={this.props.style}
+                style={style}
                 value={this.props.value}
                 name={this.props.name}
                 data={this.props.data}

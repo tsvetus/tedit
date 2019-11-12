@@ -14,7 +14,10 @@ import {
     TIndicator,
     TLogin,
     TModal,
-    TForm
+    TForm,
+    TPanel,
+    TTop,
+    TSide
 } from './comp';
 
 import {
@@ -41,6 +44,9 @@ export {
     TLogin,
     TModal,
     TForm,
+    TPanel,
+    TTop,
+    TSide,
 
     download,
     clone,

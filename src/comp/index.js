@@ -10,6 +10,9 @@ import TIndicator from './TIndicator';
 import TLogin from './TLogin';
 import TModal from './TModal';
 import TForm from './TForm';
+import TPanel from './TPanel';
+import TTop from './TTop';
+import TSide from './TSide';
 
 export {
     TIcon,
@@ -23,5 +26,8 @@ export {
     TIndicator,
     TLogin,
     TModal,
-    TForm
+    TForm,
+    TPanel,
+    TTop,
+    TSide
 }

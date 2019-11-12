@@ -84,6 +84,7 @@ class TModal extends React.Component {
 
         let style = merge(
             styles.modal,
+            styles.tmodal,
             this.props.style, {
                 screen: {
                     display: this.props.show ? 'block' : 'none'

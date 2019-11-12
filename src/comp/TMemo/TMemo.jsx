@@ -66,7 +66,7 @@ class TMemo extends React.Component {
 
     render () {
 
-        let style = merge(styles.component, styles.tmemo, this.props.style);
+        let style = merge(styles.component, styles.memo, styles.tmemo, this.props.style);
 
         let label = null;
         if (this.props.label) {
