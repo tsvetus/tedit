@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import {ListBox} from '../../lib';
 
+import {nvl} from '../../util';
+
 class TSearch extends React.Component {
 
     constructor(props, context) {
@@ -38,7 +40,7 @@ class TSearch extends React.Component {
     }
 
     handleSearch(event) {
-        if (event.value.length >= this.props.chars && this.props.onSearch) {
+        if (nvl(event.value, '').length >= this.props.chars && this.props.onSearch) {
             let items = this.props.onSearch(event);
             if (items && items instanceof Array) {
                 this.setState({items: items});

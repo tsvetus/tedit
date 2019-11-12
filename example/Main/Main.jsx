@@ -1,6 +1,17 @@
 import React from 'react';
 
-import {TIcon, TText, TMemo, TGroup, TListBox, TCheck, TSearch, styles, registerStyles} from 'tedit';
+import {
+    TIcon,
+    TText,
+    TMemo,
+    TGroup,
+    TListBox,
+    TCheck,
+    TSearch,
+    styles,
+    registerStyles,
+    nvl
+} from 'tedit';
 
 registerStyles({
 
@@ -10,23 +21,10 @@ registerStyles({
         height: "32px"
     },
 
-    iconBox: {
-        display: "flex",
-        flexWrap: "wrap",
-        justifyContent: "space-between"
-    },
-
-    label: {
-        ...styles.component.label,
-        display: "flex",
-        alignItems: "center",
-        margin: "8px"
-    },
-
     component: {
 
         container: {
-            margin: "8px 0 0 0",
+            margin: "16px 0 0 0",
             width: "100%"
         },
 
@@ -45,6 +43,13 @@ registerStyles({
 
 });
 
+const iconLabelStyle = {
+    ...styles.component.label,
+    display: "flex",
+    alignItems: "center",
+    margin: "8px"
+};
+
 const LIST = [
     {id: 1, name: 'first item'},
     {id: 2, name: 'second item'},
@@ -58,13 +63,13 @@ class Main extends React.Component {
         super(props, context);
         this.state = {
             events: '',
-            ttext: '',
-            ttext1: '',
-            ttext2: '',
-            tmemo: 'Default text',
+            ttext: null,
+            ttext1: null,
+            ttext2: null,
+            tmemo: null,
             tcheck: 1,
             tlistbox: null,
-            tsearch: 1
+            tsearch: null
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -82,7 +87,7 @@ class Main extends React.Component {
         let icons = [];
         for (let key in TIcon.icons) {
             icons.push(
-                <div key={key} style={styles.label}>
+                <div key={key} style={iconLabelStyle}>
                     {key + ':'}
                     <TIcon
                         name={key}
@@ -108,7 +113,9 @@ class Main extends React.Component {
                         label={'TText with validation:'}
                         name={'ttext1'}
                         placeholder={'Enter more than 3 symbols ...'}
-                        onValidate={(event) => {console.log(JSON.stringify(event)); return event.value.length >= 3;}}
+                        onValidate={(event) => {
+                            return nvl(event.value, '').length >= 3;
+                        }}
                         onChange={this.handleChange} />
 
                     <TText
@@ -146,10 +153,10 @@ class Main extends React.Component {
                         listMode={'key value'}
                         showMode={'value'}
                         value={this.state.tsearch}
-                        placeholder={'Type text to search ...'}
+                        placeholder={'Type word "item"'}
                         onSearch={event => {
                                 return LIST.filter(v => {
-                                    return v.name.indexOf(event.value) >= 0 ||
+                                    return v.name.indexOf(nvl(event.value, '')) >= 0 ||
                                         v.id == event.key;
                                 });
                             }
