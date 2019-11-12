@@ -8,7 +8,7 @@ module.exports = {
         ]
     },
     output: {
-        path: path.resolve(__dirname, 'build'),
+        path: path.resolve(__dirname, 'docs'),
         publicPath: '/',
         filename: 'example.js'
     },
@@ -33,7 +33,7 @@ module.exports = {
         }]
     },
     devServer: {
-        contentBase: path.resolve(__dirname, 'build'),
+        contentBase: path.resolve(__dirname, 'docs'),
         publicPath: '/',
         port: 9090,
         host: '0.0.0.0'

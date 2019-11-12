@@ -56,3 +56,8 @@ export function download(url, filename) {
     link.click();
     document.body.removeChild(link);
 }
+
+export function seconds(source) {
+    return Date.parse('1970 ' + source + ' GMT')/1000;
+}
+

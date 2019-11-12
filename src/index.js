@@ -9,14 +9,20 @@ import {
     TGroup,
     TListBox,
     TCheck,
-    TSearch
+    TSearch,
+    TButton,
+    TIndicator,
+    TLogin,
+    TModal,
+    TForm
 } from './comp';
 
 import {
     download,
     clone,
     nvl,
-    merge
+    merge,
+    seconds
 } from './util';
 
 import {styles, registerStyles} from './styles/const.js';
@@ -30,11 +36,17 @@ export {
     TListBox,
     TCheck,
     TSearch,
+    TButton,
+    TIndicator,
+    TLogin,
+    TModal,
+    TForm,
 
     download,
     clone,
     nvl,
     merge,
+    seconds,
 
     styles,
     registerStyles

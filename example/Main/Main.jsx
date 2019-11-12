@@ -8,6 +8,11 @@ import {
     TListBox,
     TCheck,
     TSearch,
+    TButton,
+    TIndicator,
+    TLogin,
+    TModal,
+    TForm,
     styles,
     registerStyles,
     nvl
@@ -69,17 +74,31 @@ class Main extends React.Component {
             tmemo: null,
             tcheck: 1,
             tlistbox: null,
-            tsearch: null
+            tsearch: null,
+            tlogin: {username: 'user', password: ''},
+            showLogin: false,
+            showModal: false,
+            showForm: false
         };
         this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange(event) {
+
         let events = this.state.events + JSON.stringify(event) + ' ';
-        this.setState({
-            events: events,
-            [event.name]: event.value
-        });
+
+        if (event.name.indexOf('show') >= 0) {
+            this.setState({
+                events: events,
+                [event.name]: !this.state[event.name]
+            });
+        } else {
+            this.setState({
+                events: events,
+                [event.name]: event.value
+            });
+        }
+
     }
 
     render() {
@@ -171,15 +190,86 @@ class Main extends React.Component {
                         placeholder={'Enter multiline text. Use "wrap" property to enable caret returns.'}
                         onChange={this.handleChange} />
 
+                </TGroup>
+
+                <TGroup label={'Other controls'}>
+
+                    <TButton
+                        name={'showLogin'}
+                        onClick={this.handleChange}>
+                        Show login
+                    </TButton>
+
+                    <TButton
+                        name={'showModal'}
+                        onClick={this.handleChange}>
+                        Show modal
+                    </TButton>
+
+                    <TButton
+                        name={'showForm'}
+                        onClick={this.handleChange}>
+                        Show form
+                    </TButton>
+
+                    <TIndicator open={true} />
+                    <TIndicator open={false} />
+
+                </TGroup>
+
+                <TGroup label={'Events'}>
+
                     <TMemo
-                        value={this.state.events}
-                        label={'Events:'} />
+                        style={{edit: {border: "none"}}}
+                        value={this.state.events} />
 
                 </TGroup>
 
                 <TGroup label={'TEdit icon list'}>
                     {icons}
                 </TGroup>
+
+                <TLogin
+                    style={{
+                        container: {
+                            width: "420px"
+                        },
+                        component: {
+                            label: {
+                                width: "120px"
+                            }
+                        }
+                    }}
+                    name={'showLogin'}
+                    value={this.state.tlogin}
+                    show={this.state.showLogin}
+                    onLogin={this.handleChange} />
+
+                <TModal
+                    style={{content: {textAlign: "center"}}}
+                    name={'showModal'}
+                    caption={'CAPTION'}
+                    show={this.state.showModal}
+                    wait={10}
+                    onClose={this.handleChange} >
+                    Modal content
+                </TModal>
+
+                <TForm
+                    style={{
+                        content: {
+                            textAlign: "center"
+                        }
+                    }}
+                    name={'showForm'}
+                    caption={'FORM'}
+                    show={this.state.showForm}
+                    buttons={{'cancel': 'Cancel', 'save': 'Save'}}
+                    onClose={this.handleChange} >
+                    Form content
+                </TForm>
+
+                <a style={styles.component.label} href={'./jsdoc/index.html'}>See full generated documentation here</a>
 
             </div>
 

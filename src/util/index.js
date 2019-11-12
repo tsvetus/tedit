@@ -2,7 +2,8 @@ import {
     download,
     clone,
     nvl,
-    merge
+    merge,
+    seconds
 } from './misc.js';
 
 import Format from './format.js';
@@ -17,6 +18,7 @@ export {
     clone,
     nvl,
     merge,
+    seconds,
 
     Format,
 

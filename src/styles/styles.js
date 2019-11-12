@@ -20,13 +20,26 @@ export default {
         color: CL_BORDER
     },
 
+    button: {
+        padding: "8px",
+        border: BORDER,
+        color: CL_TEXT,
+        borderRadius: "8px",
+        ...FONT
+    },
+
+    indicator: {
+        color: "#aaa",
+        flex: "0 0 24px",
+        textAlign: "center",
+        fontWeight: "bold",
+        ...FONT
+    },
+
     component: {
 
         container: {
             width: "100%"
-        },
-
-        frame: {
         },
 
         label: {
@@ -78,6 +91,126 @@ export default {
 
     },
 
+    modal: {
+
+        container: {
+            backgroundColor: CL_WINDOW,
+            border: BORDER,
+            borderRadius: "16px",
+            maxWidth: "600px",
+            width: "55%"
+        },
+
+        header: {
+            margin: "16px 16px 0 16px",
+            ...FONT
+        },
+
+        close: {
+            color: "#aaa",
+            width: "24px",
+            height: "24px",
+            ...FONT
+        },
+
+        timer: {
+            ...FONT,
+            color: "#f55",
+            fontSize: "24px"
+        },
+
+        caption: {
+            color: CL_BORDER,
+            textAlign: "center",
+            margin: "0 8px 0 8px",
+            ...FONT
+        },
+
+        content: {
+            color: CL_TEXT,
+            margin: "16px",
+            ...FONT
+        },
+
+        footer: {
+            margin: "24px 16px 8px 16px"
+        },
+
+        message: {
+            ...FONT,
+            margin: "16px",
+            color: "#393",
+            textAlign: "center"
+        },
+
+        error: {
+            ...FONT,
+            margin: "16px",
+            color: "#f55",
+            textAlign: "center"
+        },
+
+        buttons: {
+
+            cancel: {
+                ...FONT,
+                fontWeight: "bold",
+                color: "#f55",
+                width: "88px",
+                textAlign: "center"
+            },
+
+            ok: {
+                ...FONT,
+                color: "#4a4",
+                width: "88px",
+                textAlign: "center"
+            },
+
+            submit: {
+                ...FONT,
+                color: "#4a4",
+                width: "88px",
+                textAlign: "center"
+            },
+
+            save: {
+                ...FONT,
+                fontWeight: "bold",
+                color: "#4a4",
+                width: "88px",
+                textAlign: "center"
+            },
+
+            edit: {
+                ...FONT,
+                fontWeight: "bold",
+                color: "#4a4",
+                width: "88px",
+                textAlign: "center"
+            },
+
+            disable: {
+                ...FONT,
+                fontWeight: "bold",
+                color: "#ddd",
+                width: "88px",
+                textAlign: "center"
+            },
+
+            delete: {
+                ...FONT,
+                fontWeight: "bold",
+                color: "#f33",
+                width: "88px",
+                textAlign: "center"
+            }
+
+        }
+
+
+    },
+
     tmemo: {
 
         edit: {
@@ -92,6 +225,45 @@ export default {
         content: {
             padding: "8px",
             border: BORDER
+        }
+
+    },
+
+    tlogin: {
+
+        container: {
+            border: BORDER,
+            borderRadius: "16px",
+            backgroundColor: CL_WINDOW,
+            minWidth: "320px",
+            padding: "24px 16px 16px 16px",
+            alignItems: "center"
+        },
+
+        component: {
+
+            container: {
+                margin: "0 16px 16px 16px"
+            },
+
+            label: {
+                width: "120px"
+            }
+
+        },
+
+        buttons: {
+            display: "flex",
+            justifyContent: "space-around",
+            width: "100%"
+        },
+
+        submit: {
+            margin: "16px 0 0 0"
+        },
+
+        cancel: {
+            margin: "16px 0 0 0"
         }
 
     }

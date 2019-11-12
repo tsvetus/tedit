@@ -1,10 +1,14 @@
 export default {
 
+    button: {
+        cursor: "pointer"
+    },
+
+    indicator: {
+        cursor: "default"
+    },
+
     component: {
-
-        container: {
-
-        },
 
         frame: {
             display: "flex",
@@ -13,16 +17,10 @@ export default {
             overflowY: "none"
         },
 
-        label: {
-        },
-
         edit: {
             flex: "1 0",
             whiteSpace: "nowrap",
             overflow: "hidden"
-        },
-
-        icon: {
         },
 
         list: {
@@ -35,6 +33,63 @@ export default {
 
         item: {
             marginTop: "-1px"
+        }
+
+    },
+
+    modal: {
+
+        screen: {
+            display: "block",
+            position: "fixed",
+            zIndex: "10",
+            left: "0",
+            top: "0",
+            width: "100%",
+            height: "100%",
+            overflow: "auto",
+            backgroundColor: "rgba(0,0,0,0.4)",
+            backdrop: "static",
+            keyboard: "false",
+            transitionProperty: "width",
+            transitionDuration: "4s",
+            transitionDelay: "2s"
+        },
+
+        container: {
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            zIndex: "20",
+            backgroundColor: "#fff",
+            cursor: "default"
+        },
+
+        header: {
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "nowrap"
+        },
+
+        close: {
+            cursor: "pointer"
+        },
+
+        timer: {
+            width: "48px"
+        },
+
+        content: {
+            display: "flex",
+            flexDirection: "column"
+        },
+
+        footer: {
+            display: "flex",
+            justifyContent: "space-around",
+            flexWrap: "nowrap"
         }
 
     },
@@ -87,6 +142,20 @@ export default {
             display: "flex",
             justifyContent: "space-between",
             flexWrap: "nowrap"
+        }
+
+    },
+
+    tlogin: {
+
+        container: {
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -80%)",
+            display: "flex",
+            flexDirection: "column",
+            zIndex: "100"
         }
 
     }
