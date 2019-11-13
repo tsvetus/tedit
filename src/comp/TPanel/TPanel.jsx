@@ -23,7 +23,13 @@ class TPanel extends React.Component {
             }
         }
 
-        let style = merge(styles.panel, styles.tpanel, dir, align, this.props.style);
+        let style = merge(
+            styles.panel,
+            styles[this.props.name],
+            dir,
+            align,
+            this.props.style
+        );
 
         return (
             <div style={style}>

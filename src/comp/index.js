@@ -13,6 +13,7 @@ import TForm from './TForm';
 import TPanel from './TPanel';
 import TTop from './TTop';
 import TSide from './TSide';
+import TScroll from './TScroll';
 
 export {
     TIcon,
@@ -29,5 +30,6 @@ export {
     TForm,
     TPanel,
     TTop,
-    TSide
+    TSide,
+    TScroll
 }

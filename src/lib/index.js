@@ -3,11 +3,13 @@ import Edit from './Edit';
 import Mask from './Mask';
 import List from './List';
 import ListBox from './ListBox';
+import Input from './Input';
 
 export {
     Icon,
     Edit,
     Mask,
     List,
-    ListBox
+    ListBox,
+    Input
 }

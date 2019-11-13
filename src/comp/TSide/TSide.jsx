@@ -98,7 +98,13 @@ class TSide extends React.Component {
     
     render () {
 
-        let style = merge(styles.side, styles.tside, {container: {width: this.state.width}}, this.props.style);
+        let style = merge(
+            styles.side,
+            styles[this.props.name],
+            {container: {width: this.state.width}},
+            {frame: {width: this.props.width}},
+            this.props.style
+        );
 
         let items = [];
         if (this.props.items) {
@@ -132,8 +138,10 @@ class TSide extends React.Component {
                     style={style.close}
                     onClick={this.handleClose} />
 
-                {items}
-                {this.props.children}
+                <div style={style.frame}>
+                    {items}
+                    {this.props.children}
+                </div>
 
                 <div
                     style={{...style.touch, width: this.state.initWidth}}

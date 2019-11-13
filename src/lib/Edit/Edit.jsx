@@ -14,6 +14,7 @@ class Edit extends React.Component {
         this.value = nvl(props.value, '');
         this.ref = React.createRef();
         this.caret = 0;
+        this.password = '';
         this.handleChange = this.handleChange.bind(this);
         this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -220,6 +221,7 @@ Edit.propTypes = {
     timeout: PropTypes.number,
     readOnly: PropTypes.any,
     empty: PropTypes.any,
+    password: PropTypes.string,
     onClick: PropTypes.func,
     onChange: PropTypes.func,
     onMask: PropTypes.func

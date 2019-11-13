@@ -38,7 +38,7 @@ import {registerStyles} from 'tedit';
 
 const styles = {    
     component: {
-        /* Global style for all components */
+        /** Global style for all editable components */
         container: {
             backgroundColor: '#eee'
         },
@@ -46,8 +46,9 @@ const styles = {
             border: "1px solid red"
         }
     },
-    tmemo: {
-        /* Custom style for TMemo component */
+    memo: {
+        /** Custom style for TMemo component. 
+        * Use component name without 't' letter for assigning style to custom component */
         edit: {
             border: "1px solid green"
         }

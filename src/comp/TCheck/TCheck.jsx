@@ -82,7 +82,12 @@ class TCheck extends React.Component {
 
     render () {
 
-        let style = merge(styles.component, styles.check,  styles.tcheck, this.props.style);
+        let style = merge(
+            styles.component,
+            styles.check,
+            styles[this.props.name],
+            this.props.style
+        );
 
         let label = null;
         if (this.props.label) {

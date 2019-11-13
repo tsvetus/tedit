@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import TForm from '../TForm';
 import TText from '../TText';
+import TInput from '../TInput';
 
 import {merge} from '../../util';
 
@@ -53,6 +54,7 @@ class TLogin extends React.Component {
     }
 
     handleChange(event) {
+        console.log(JSON.stringify(event));
         this.setState({
             [event.name]: event.value
         });
@@ -60,7 +62,13 @@ class TLogin extends React.Component {
 
     render () {
 
-        let style = merge(styles.modal, {component: styles.component}, styles.login, styles.tlogin, this.props.style);
+        let style = merge(
+            styles.modal,
+            {component: styles.component},
+            styles.login,
+            styles[this.props.name],
+            this.props.style
+        );
 
         return (
 
@@ -82,15 +90,17 @@ class TLogin extends React.Component {
                     label={this.props.labels.username}
                     placeholder={this.props.placeholders.username}
                     value={this.state.username}
+                    timeout={10}
                     onChange={this.handleChange} />
 
-                <TText
+                <TInput
                     style={style.component}
                     name="password"
-                    password={true}
+                    type={'password'}
                     label={this.props.labels.password}
                     placeholder={this.props.placeholders.password}
                     value={this.state.password}
+                    timeout={10}
                     onChange={this.handleChange} />
 
             </TForm>

@@ -48,6 +48,7 @@ export default {
             border: "none",
             color: CL_BORDER,
             outline: "none",
+            textAlign: "right",
             ...FONT
         },
 
@@ -57,13 +58,15 @@ export default {
             border: BORDER,
             color: CL_TEXT,
             outline: "none",
+            textAlign: "left",
             ...FONT
         },
 
         icon: {
-            padding: "0 0 0 4px",
+//            padding: "0 0 0 4px",
             width: "18px",
             height: "18px",
+            textAlign: "left",
             color: CL_BORDER
         },
 
@@ -215,7 +218,7 @@ export default {
     memo: {
 
         edit: {
-            minHeight: "48px",
+            minHeight: "18px",
             border: BORDER
         }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {Mask, Icon} from '../../lib';
+import {Input, Icon} from '../../lib';
 
 import {merge} from '../../util';
 
@@ -11,7 +11,7 @@ import styles from '../../styles';
  * Component representing icons.
  * @extends React
  */
-class TText extends React.Component {
+class TInput extends React.Component {
 
     constructor(props, context) {
         super(props, context);
@@ -77,7 +77,7 @@ class TText extends React.Component {
 
         let style = merge(
             styles.component,
-            styles.text,
+            styles.input,
             styles[this.props.name],
             this.props.style
         );
@@ -86,7 +86,7 @@ class TText extends React.Component {
             style = merge(
                 style,
                 styles.component ? styles.component.invalid : null,
-                styles.text ? styles.text.invalid : null,
+                styles.input ? styles.input.invalid : null,
                 styles[this.props.name] ? styles[this.props.name].invalid : null,
                 this.props.style ? this.props.style.invalid : null
             )
@@ -115,17 +115,14 @@ class TText extends React.Component {
             <div style={style.container}>
                 <div style={style.frame}>
                     {label}
-                    <Mask
+                    <Input
                         style={style.edit}
                         data={this.props.data}
                         name={this.props.name}
                         value={this.props.value}
                         timeout={this.props.timeout}
+                        type={this.props.type}
                         placeholder={this.props.placeholder}
-                        wrap={false}
-                        mask={this.props.mask}
-                        empty={this.props.empty}
-                        onMask={this.props.onMask}
                         onChange={this.handleChange} />
                     {icon}
                 </div>
@@ -136,7 +133,7 @@ class TText extends React.Component {
 
 }
 
-TText.propTypes = {
+TInput.propTypes = {
     style: PropTypes.object,
     value: PropTypes.string,
     name: PropTypes.string,
@@ -145,12 +142,10 @@ TText.propTypes = {
     icon: PropTypes.string,
     timeout: PropTypes.number,
     placeholder: PropTypes.string,
-    mask: PropTypes.object,
-    empty: PropTypes.any,
+    type: PropTypes.string,
     onChange: PropTypes.func,
     onValidate: PropTypes.func,
     onIcon: PropTypes.func,
-    onMask: PropTypes.func
 };
 
-export default TText;
+export default TInput;

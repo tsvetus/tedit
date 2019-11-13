@@ -26,7 +26,11 @@ class TTop extends React.Component {
 
     render () {
 
-        let style = merge(styles.top, styles.ttop, this.props.style);
+        let style = merge(
+            styles.top,
+            styles[this.props.name],
+            this.props.style
+        );
 
         let tools = [];
         if (this.props.tools) {

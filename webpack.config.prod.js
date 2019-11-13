@@ -29,7 +29,7 @@ module.exports = {
             use: ['babel-loader'],
             exclude: [/node_modules/, /build/]
         }, {
-            test: /\.css|\.less$$/,
+            test: /\.css$|\.less$/,
             use: ['style-loader', 'css-loader', 'less-loader']
         }]
     },

@@ -60,7 +60,12 @@ class TSearch extends React.Component {
 
     render () {
 
-        let style = merge(styles.component, styles.search, styles.tsearch,  this.props.style);
+        let style = merge(
+            styles.component,
+            styles.search,
+            styles[this.props.name],
+            this.props.style
+        );
 
         return (
             <ListBox

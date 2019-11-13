@@ -2,6 +2,8 @@
  * @module tedit
  */
 
+import './index.css';
+
 import {
     TIcon,
     TText,
@@ -17,7 +19,8 @@ import {
     TForm,
     TPanel,
     TTop,
-    TSide
+    TSide,
+    TScroll
 } from './comp';
 
 import {
@@ -47,6 +50,7 @@ export {
     TPanel,
     TTop,
     TSide,
+    TScroll,
 
     download,
     clone,

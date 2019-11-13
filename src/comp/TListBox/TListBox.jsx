@@ -9,8 +9,16 @@ import styles from '../../styles';
 
 
 class TListBox extends React.Component {
+
     render() {
-        let style = merge(styles.component, styles.listbox, styles.tlistbox, this.props.style);
+
+        let style = merge(
+            styles.component,
+            styles.listbox,
+            styles[this.props.name],
+            this.props.style
+        );
+
         return (
             <ListBox
                 style={style}
@@ -30,7 +38,9 @@ class TListBox extends React.Component {
                 onChange={this.props.onChange}
                 onValidate={this.props.onValidate} />
         );
+
     }
+
 }
 
 TListBox.propTypes = {

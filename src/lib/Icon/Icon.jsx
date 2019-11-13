@@ -20,8 +20,8 @@ class Icon extends React.Component {
         if (this.props.onClick) {
             this.props.onClick({
                 name: this.props.name,
-                data: this.props.data,
-                rect: rect
+                data: this.props.data//,
+                //rect: rect
             });
         }
     }
