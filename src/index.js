@@ -2,8 +2,6 @@
  * @module tedit
  */
 
-import './index.css';
-
 import {
     TIcon,
     TText,

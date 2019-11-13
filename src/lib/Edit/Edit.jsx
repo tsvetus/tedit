@@ -17,6 +17,7 @@ class Edit extends React.Component {
         this.password = '';
         this.handleChange = this.handleChange.bind(this);
         this.handleKeyPress = this.handleKeyPress.bind(this);
+        this.handleKeyDown = this.handleKeyDown.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
         this.handleBlur = this.handleBlur.bind(this);
@@ -36,6 +37,7 @@ class Edit extends React.Component {
         this.enableEdit(!this.props.readOnly);
         this.ref.current.addEventListener('input', this.handleChange);
         this.ref.current.addEventListener('keypress', this.handleKeyPress);
+        this.ref.current.addEventListener('keydown', this.handleKeyDown);
         this.ref.current.addEventListener('click', this.handleClick);
         this.ref.current.addEventListener('focus', this.handleFocus);
         this.ref.current.addEventListener('blur', this.handleBlur);
@@ -49,6 +51,7 @@ class Edit extends React.Component {
         this.ref.current.removeEventListener('blur', this.handleBlur);
         this.ref.current.removeEventListener('focus', this.handleFocus);
         this.ref.current.removeEventListener('click', this.handleClick);
+        this.ref.current.removeEventListener('keydown', this.handleKeyDown);
         this.ref.current.removeEventListener('keypress', this.handleKeyPress);
         this.ref.current.removeEventListener('input', this.handleChange);
         this.mounted = false;
@@ -181,6 +184,12 @@ class Edit extends React.Component {
         }
     }
 
+    handleKeyDown(event) {
+        if (this.props.onKeyDown) {
+            this.props.onKeyDown(event);
+        }
+    }
+
     handleClick() {
         if (this.props.onClick) {
             this.props.onClick({
@@ -224,7 +233,8 @@ Edit.propTypes = {
     password: PropTypes.string,
     onClick: PropTypes.func,
     onChange: PropTypes.func,
-    onMask: PropTypes.func
+    onMask: PropTypes.func,
+    onKeyDown: PropTypes.func
 };
 
 Edit.defaultProps = {

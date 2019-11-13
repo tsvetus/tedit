@@ -16,15 +16,18 @@ class ListBox extends React.Component {
         this.state = {
             valid: true,
             showList: false,
-            showText: ''
+            showText: '',
+            hover: -1
         };
         this.handleIcon = this.handleIcon.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
+        this.handleKeyDown = this.handleKeyDown.bind(this);
         this.validate = this.validate.bind(this);
         this.getRect = this.getRect.bind(this);
         this.getListStyle = this.getListStyle.bind(this);
         this.updateText = this.updateText.bind(this);
+        this.moveHover = this.moveHover.bind(this);
         this.ref = React.createRef();
         this.helper = new List.Helper();
     }
@@ -46,9 +49,28 @@ class ListBox extends React.Component {
         }
     }
 
+    moveHover(dir) {
+        if (this.state.showList) {
+            if (dir === -1 && this.state.hover > 0) {
+                this.setState({hover: this.state.hover - 1});
+            } else if (dir === 1 && this.props.items && this.state.hover < this.props.items.length - 1) {
+                this.setState({hover: this.state.hover + 1});
+            }
+        }
+    }
+
+    handleKeyDown(event) {
+        if (event.keyCode === 40) {
+            this.moveHover(1);
+        } else if (event.keyCode === 38) {
+            this.moveHover(-1);
+        }
+    }
+
     handleIcon() {
         if (this.helper.hasItems()) {
-            this.setState({showList: !this.state.showList});
+            let showList = !this.state.showList;
+            this.setState({showList: showList, hover: -1});
         }
     }
 
@@ -107,7 +129,6 @@ class ListBox extends React.Component {
     getListStyle() {
         let rect = this.getRect();
         return {
-            position: "absolute",
             left: rect.left + 'px',
             top: rect.bottom + 'px',
             width: rect.width + 'px'
@@ -158,11 +179,12 @@ class ListBox extends React.Component {
         let list = null;
         if (this.state.showList && this.props.items) {
             this.helper.load(this.props.items, this.props.empty, this.props.listMode);
-            let listStyle = merge(style, {list: this.getListStyle()});
+            let listStyle = merge(style.list, {container: this.getListStyle()});
             list =
                 <List
                     style={listStyle}
                     selected={this.props.value}
+                    hover={this.state.hover}
                     items={this.helper.getItems()}
                     onClick={this.handleChange} />
         }
@@ -183,6 +205,7 @@ class ListBox extends React.Component {
                         wrap={false}
                         readOnly={!this.props.editable}
                         onClick={click}
+                        onKeyDown={this.handleKeyDown}
                         onChange={this.handleTextChange} />
                     {icon}
                 </div>

@@ -16,6 +16,7 @@ class List extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.handleClick = this.handleClick.bind(this);
+        this.ref = React.createRef();
     }
 
     handleClick(event) {
@@ -27,10 +28,16 @@ class List extends React.Component {
 
     render () {
 
-        let style = merge(styles.component, this.props.style);
+        let style = merge(styles.component.list, this.props.style);
 
         let items = this.props.items.map((v, i) => {
-            let ist = merge(style.item, v.key == this.props.selected ? style.selected : {});
+            let ist = style.item;
+            if (v.key == this.props.selected) {
+                ist = merge(ist, style.selected);
+            }
+            if (i == this.props.hover) {
+                ist = merge(ist, style.hover);
+            }
             return (
                 <div key={i} index={i} style={ist} onClick={this.handleClick}>
                     {v.value}
@@ -40,7 +47,7 @@ class List extends React.Component {
 
         return (
 
-            <div style={style.list}>
+            <div style={style.container}>
                 {items}
             </div>
 
@@ -54,6 +61,7 @@ List.propTypes = {
     style: PropTypes.object,
     items: PropTypes.array,
     selected: PropTypes.any,
+    hover: PropTypes.number,
     onClick: PropTypes.func
 };
 

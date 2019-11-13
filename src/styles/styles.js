@@ -3,9 +3,11 @@ const CL_TEXT = "#000";
 const CL_INVALID = "#a31";
 const CL_WINDOW = "#fff";
 const CL_PANEL = "#eee";
+const CL_HOVER = '#13a';
 
-const BORDER = "1px solid " + CL_BORDER;
-const INVALID = "1px dashed " + CL_INVALID;
+const BR_BORDER = "1px solid " + CL_BORDER;
+const BR_HOVER = "1px solid " + CL_HOVER;
+const BR_INVALID = "1px dashed " + CL_INVALID;
 
 const FONT = {
     fontFamily: "Arial",
@@ -23,7 +25,7 @@ export default {
 
     button: {
         padding: "8px",
-        border: BORDER,
+        border: BR_BORDER,
         color: CL_TEXT,
         borderRadius: "8px",
         ...FONT
@@ -55,7 +57,7 @@ export default {
         edit: {
             minHeight: "18px",
             padding: "4px 4px 2px 4px",
-            border: BORDER,
+            border: BR_BORDER,
             color: CL_TEXT,
             outline: "none",
             textAlign: "left",
@@ -63,32 +65,40 @@ export default {
         },
 
         icon: {
-//            padding: "0 0 0 4px",
             width: "18px",
             height: "18px",
             textAlign: "left",
             color: CL_BORDER
         },
 
-        item: {
-            padding: "4px",
-            border: BORDER,
-            color: CL_TEXT,
-            outline: "none",
-            backgroundColor: CL_WINDOW,
-            cursor: "pointer",
-            ...FONT
-        },
+        list: {
 
-        selected: {
-            fontWeight: "bold",
-            backgroundColor: "#eee"
+            item: {
+                padding: "4px",
+                border: BR_BORDER,
+                color: CL_TEXT,
+                outline: "none",
+                backgroundColor: CL_WINDOW,
+                cursor: "pointer",
+                textAlign: "center",
+                tabindex: "0",
+                ...FONT
+            },
+
+            selected: {
+                fontWeight: "bold"
+            },
+
+            hover: {
+                backgroundColor: "#eee"
+            }
+
         },
 
         invalid: {
 
             edit: {
-                border: INVALID
+                border: BR_INVALID
             }
 
         }
@@ -99,7 +109,7 @@ export default {
 
         container: {
             backgroundColor: CL_WINDOW,
-            border: BORDER,
+            border: BR_BORDER,
             borderRadius: "16px",
             maxWidth: "600px",
             width: "55%"
@@ -219,7 +229,7 @@ export default {
 
         edit: {
             minHeight: "18px",
-            border: BORDER
+            border: BR_BORDER
         }
 
     },
@@ -228,7 +238,7 @@ export default {
 
         content: {
             padding: "8px",
-            border: BORDER
+            border: BR_BORDER
         }
 
     },

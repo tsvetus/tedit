@@ -24,16 +24,21 @@ export default {
         },
 
         list: {
-            position: "absolute",
-            top: "0",
-            left: "0",
-            display: "flex",
-            flexDirection: "column"
-        },
 
-        item: {
-            marginTop: "-1px"
-        }
+            container: {
+                position: "sticky",
+                top: "0",
+                left: "0",
+                display: "flex",
+                flexDirection: "column",
+                tabindex: "0"
+            },
+
+            item: {
+                marginTop: "-1px"
+            }
+
+        },
 
     },
 

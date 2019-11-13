@@ -74,12 +74,6 @@ registerStyles({
 
     scroll: {
         padding: "16px"
-    },
-
-    text: {
-        edit: {
-            fontFamily: 'Password'
-        }
     }
 
 });
