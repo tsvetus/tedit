@@ -127,11 +127,13 @@ class Main extends React.Component {
 
         if (event.name === 'top' && event.icon === 'menu') {
             this.setState({
+                events: events,
                 showMenu: true
             });
         } else if (event.name === 'side') {
             this.setState({
-                 showMenu: false
+                events: events,
+                showMenu: false
             });
         } else if (event.name.indexOf('show') >= 0) {
             this.setState({

@@ -306,6 +306,18 @@ export default {
             color: CL_TEXT
         }
 
+    },
+
+    TLogin: {
+
+        component: {
+
+            container: {
+                margin: "16px 16px 0 16px"
+            }
+
+        }
+
     }
 
 }

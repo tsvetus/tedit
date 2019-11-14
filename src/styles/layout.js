@@ -160,6 +160,18 @@ export default {
             display: "flex",
             flexDirection: "column",
             zIndex: "100"
+        },
+
+        form: {
+            width: "auto"
+        },
+
+        component: {
+
+            container: {
+                width: "auto"
+            }
+
         }
 
     },

@@ -85,7 +85,7 @@ class TLogin extends React.Component {
                 }}
                 onClose={this.handleClick}>
 
-                <form>
+                <form style={style.form}>
 
                     <TInput
                         style={style.component}
