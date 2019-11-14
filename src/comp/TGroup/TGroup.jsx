@@ -15,8 +15,8 @@ class TGroup extends React.Component {
     render () {
 
         let style = merge(
-            styles.component,
-            styles.group,
+            styles.TComponent,
+            styles.TGroup,
             styles[this.props.name],
             this.props.style
         );

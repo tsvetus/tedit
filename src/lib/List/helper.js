@@ -119,6 +119,10 @@ class Helper {
         return this.items && this.items.length > 0;
     }
 
+    getLength() {
+        return this.items ? this.items.length : 0;
+    }
+
 }
 
 export default Helper;

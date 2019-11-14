@@ -67,8 +67,8 @@ class TMemo extends React.Component {
     render () {
 
         let style = merge(
-            styles.component,
-            styles.memo,
+            styles.TComponent,
+            styles.TMemo,
             styles[this.props.name],
             this.props.style
         );

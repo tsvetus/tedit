@@ -63,9 +63,10 @@ class TLogin extends React.Component {
     render () {
 
         let style = merge(
-            styles.modal,
-            {component: styles.component},
-            styles.login,
+            styles.TModal,
+            styles.TForm,
+            {TComponent: styles.TComponent},
+            styles.TLogin,
             styles[this.props.name],
             this.props.style
         );
@@ -84,24 +85,31 @@ class TLogin extends React.Component {
                 }}
                 onClose={this.handleClick}>
 
-                <TText
-                    style={style.component}
-                    name="username"
-                    label={this.props.labels.username}
-                    placeholder={this.props.placeholders.username}
-                    value={this.state.username}
-                    timeout={10}
-                    onChange={this.handleChange} />
+                <form>
 
-                <TInput
-                    style={style.component}
-                    name="password"
-                    type={'password'}
-                    label={this.props.labels.password}
-                    placeholder={this.props.placeholders.password}
-                    value={this.state.password}
-                    timeout={10}
-                    onChange={this.handleChange} />
+                    <TInput
+                        style={style.component}
+                        name={'username'}
+                        autoComplete={'username'}
+                        type={'text'}
+                        label={this.props.labels.username}
+                        placeholder={this.props.placeholders.username}
+                        value={this.state.username}
+                        timeout={10}
+                        onChange={this.handleChange} />
+
+                    <TInput
+                        style={style.component}
+                        name={'password'}
+                        autoComplete={'new-password'}
+                        type={'password'}
+                        label={this.props.labels.password}
+                        placeholder={this.props.placeholders.password}
+                        value={this.state.password}
+                        timeout={10}
+                        onChange={this.handleChange} />
+
+                </form>
 
             </TForm>
 

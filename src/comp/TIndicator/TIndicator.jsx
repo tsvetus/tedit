@@ -14,7 +14,7 @@ class TIndicator extends React.Component {
     render () {
 
         let style = merge(
-            styles.indicator,
+            styles.TIndicator,
             styles[this.props.name],
             this.props.style
         );

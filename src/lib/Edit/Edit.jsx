@@ -34,7 +34,7 @@ class Edit extends React.Component {
 
     componentDidMount() {
         this.mounted = true;
-        this.enableEdit(!this.props.readOnly);
+        this.enableEdit(true);
         this.ref.current.addEventListener('input', this.handleChange);
         this.ref.current.addEventListener('keypress', this.handleKeyPress);
         this.ref.current.addEventListener('keydown', this.handleKeyDown);
@@ -66,9 +66,9 @@ class Edit extends React.Component {
             this.showPlaceholder();
         }
 
-        if (old.readOnly !== this.props.readOnly) {
-            this.enableEdit(!this.props.readOnly);
-        }
+        // if (old.readOnly !== this.props.readOnly) {
+        //     this.enableEdit(!this.props.readOnly);
+        // }
 
     }
 
@@ -181,12 +181,19 @@ class Edit extends React.Component {
     handleKeyPress(event) {
         if (!this.props.wrap && event.keyCode === 13) {
             event.preventDefault();
+        } else if (this.props.readOnly) {
+            event.preventDefault();
         }
     }
 
     handleKeyDown(event) {
         if (this.props.onKeyDown) {
             this.props.onKeyDown(event);
+        }
+        if (this.props.readOnly) {
+            if (event.keyCode !== 9) {
+                event.preventDefault();
+            }
         }
     }
 
@@ -213,7 +220,9 @@ class Edit extends React.Component {
         let style = this.props.style;
 
         return (
-            <div style={style} ref={this.ref} />
+            <div
+                style={style}
+                ref={this.ref} />
         );
 
     }

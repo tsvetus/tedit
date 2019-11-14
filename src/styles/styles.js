@@ -3,10 +3,8 @@ const CL_TEXT = "#000";
 const CL_INVALID = "#a31";
 const CL_WINDOW = "#fff";
 const CL_PANEL = "#eee";
-const CL_HOVER = '#13a';
 
 const BR_BORDER = "1px solid " + CL_BORDER;
-const BR_HOVER = "1px solid " + CL_HOVER;
 const BR_INVALID = "1px dashed " + CL_INVALID;
 
 const FONT = {
@@ -16,14 +14,14 @@ const FONT = {
 
 export default {
 
-    icon: {
+    TIcon: {
         padding: "4px",
         width: "32px",
         height: "32px",
         color: CL_BORDER
     },
 
-    button: {
+    TButton: {
         padding: "8px",
         border: BR_BORDER,
         color: CL_TEXT,
@@ -31,7 +29,7 @@ export default {
         ...FONT
     },
 
-    indicator: {
+    TIndicator: {
         color: "#aaa",
         flex: "0 0 24px",
         textAlign: "center",
@@ -39,10 +37,14 @@ export default {
         ...FONT
     },
 
-    component: {
+    TComponent: {
 
         container: {
             width: "100%"
+        },
+
+        frame: {
+
         },
 
         label: {
@@ -72,6 +74,10 @@ export default {
         },
 
         list: {
+
+            container: {
+
+            },
 
             item: {
                 padding: "4px",
@@ -105,7 +111,7 @@ export default {
 
     },
 
-    modal: {
+    TModal: {
 
         container: {
             backgroundColor: CL_WINDOW,
@@ -225,7 +231,7 @@ export default {
 
     },
 
-    memo: {
+    TMemo: {
 
         edit: {
             minHeight: "18px",
@@ -234,7 +240,7 @@ export default {
 
     },
 
-    group: {
+    TGroup: {
 
         content: {
             padding: "8px",
@@ -243,7 +249,7 @@ export default {
 
     },
 
-    panel: {
+    TPanel: {
         backgroundImage: "linear-gradient(" + CL_PANEL + ", " + CL_WINDOW + ")",
         backgroundColor: CL_PANEL,
         padding: "8px",
@@ -253,7 +259,7 @@ export default {
         fontSize: "24px"
     },
 
-    top: {
+    TTop: {
 
         container: {
             backgroundColor: CL_PANEL,
@@ -282,7 +288,7 @@ export default {
 
     },
 
-    side: {
+    TSide: {
 
         container: {
             backgroundColor: CL_PANEL,

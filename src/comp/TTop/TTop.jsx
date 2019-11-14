@@ -27,7 +27,7 @@ class TTop extends React.Component {
     render () {
 
         let style = merge(
-            styles.top,
+            styles.TTop,
             styles[this.props.name],
             this.props.style
         );

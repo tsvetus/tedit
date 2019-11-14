@@ -83,8 +83,8 @@ class TCheck extends React.Component {
     render () {
 
         let style = merge(
-            styles.component,
-            styles.check,
+            styles.TComponent,
+            styles.TCheck,
             styles[this.props.name],
             this.props.style
         );

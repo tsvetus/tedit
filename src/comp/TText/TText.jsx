@@ -76,8 +76,8 @@ class TText extends React.Component {
     render () {
 
         let style = merge(
-            styles.component,
-            styles.text,
+            styles.TComponent,
+            styles.TText,
             styles[this.props.name],
             this.props.style
         );

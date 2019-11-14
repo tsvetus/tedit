@@ -12,7 +12,7 @@ class TIcon extends React.Component {
     render () {
 
         let style = merge(
-            styles.icon,
+            styles.TIcon,
             styles[this.props.name],
             this.props.style
         );

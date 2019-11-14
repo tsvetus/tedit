@@ -76,8 +76,8 @@ class TInput extends React.Component {
     render () {
 
         let style = merge(
-            styles.component,
-            styles.input,
+            styles.TComponent,
+            styles.TInput,
             styles[this.props.name],
             this.props.style
         );
@@ -122,6 +122,7 @@ class TInput extends React.Component {
                         value={this.props.value}
                         timeout={this.props.timeout}
                         type={this.props.type}
+                        autoComplete={this.props.autoComplete}
                         placeholder={this.props.placeholder}
                         onChange={this.handleChange} />
                     {icon}
@@ -143,6 +144,7 @@ TInput.propTypes = {
     timeout: PropTypes.number,
     placeholder: PropTypes.string,
     type: PropTypes.string,
+    autoComplete: PropTypes.string,
     onChange: PropTypes.func,
     onValidate: PropTypes.func,
     onIcon: PropTypes.func,

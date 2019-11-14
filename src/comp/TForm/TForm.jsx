@@ -33,8 +33,8 @@ class TForm extends React.Component {
     render () {
 
         let style = merge(
-            styles.modal,
-            styles.form,
+            styles.TModal,
+            styles.TForm,
             styles[this.props.name],
             this.props.style
         );

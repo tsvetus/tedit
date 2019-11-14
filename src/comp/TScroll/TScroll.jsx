@@ -67,7 +67,7 @@ class TScroll extends React.Component {
     render () {
 
         let style = merge(
-            styles.scroll,
+            styles.TScroll,
             styles[this.props.name],
             this.props.style
         );

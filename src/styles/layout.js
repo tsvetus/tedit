@@ -1,20 +1,19 @@
 export default {
 
-    button: {
+    TButton: {
         cursor: "pointer"
     },
 
-    indicator: {
+    TIndicator: {
         cursor: "default"
     },
 
-    component: {
+    TComponent: {
 
         frame: {
             display: "flex",
             flexWrap: "nowrap",
-            alignItems: "center",
-            overflowY: "none"
+            alignItems: "center"
         },
 
         edit: {
@@ -42,7 +41,7 @@ export default {
 
     },
 
-    modal: {
+    TModal: {
 
         screen: {
             display: "block",
@@ -99,7 +98,7 @@ export default {
 
     },
 
-    memo: {
+    TMemo: {
 
         container: {
             border: "none"
@@ -115,7 +114,7 @@ export default {
 
     },
 
-    group: {
+    TGroup: {
 
         container: {
             display: "flex",
@@ -141,7 +140,7 @@ export default {
 
     },
 
-    check: {
+    TCheck: {
 
         frame: {
             display: "flex",
@@ -151,7 +150,7 @@ export default {
 
     },
 
-    login: {
+    TLogin: {
 
         container: {
             position: "fixed",
@@ -165,11 +164,11 @@ export default {
 
     },
 
-    panel: {
+    TPanel: {
         display: "flex"
     },
 
-    top: {
+    TTop: {
 
         container: {
             display: "flex",
@@ -184,7 +183,7 @@ export default {
 
     },
 
-    side: {
+    TSide: {
 
         container: {
             height: "100%",

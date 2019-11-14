@@ -70,6 +70,7 @@ class Input extends React.Component {
                 type={this.props.type}
                 value={this.state.value}
                 placeholder={this.props.placeholder}
+                autoComplete={this.props.autoComplete}
                 onChange={this.handleChange}
                 onClick={this.handleClick} />
         );
@@ -86,6 +87,7 @@ Input.propTypes = {
     placeholder: PropTypes.string,
     timeout: PropTypes.number,
     type: PropTypes.string,
+    autoComplete: PropTypes.string,
     onClick: PropTypes.func,
     onChange: PropTypes.func
 };

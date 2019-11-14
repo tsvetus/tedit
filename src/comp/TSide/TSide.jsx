@@ -99,7 +99,7 @@ class TSide extends React.Component {
     render () {
 
         let style = merge(
-            styles.side,
+            styles.TSide,
             styles[this.props.name],
             {container: {width: this.state.width}},
             {frame: {width: this.props.width}},

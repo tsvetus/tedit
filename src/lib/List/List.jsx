@@ -5,8 +5,6 @@ import Helper from './helper.js';
 
 import {merge} from '../../util';
 
-import styles from '../../styles';
-
 /**
  * @class
  * @ignore
@@ -16,19 +14,22 @@ class List extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.handleClick = this.handleClick.bind(this);
-        this.ref = React.createRef();
+        this.handleUse = this.handleUse.bind(this);
     }
 
     handleClick(event) {
-        if (this.props.onClick) {
-            let index = event.target.getAttribute('index');
+        this.handleUse(event.target.getAttribute('index'));
+    }
+
+    handleUse(index) {
+        if (this.props.onClick && this.props.items && index >= 0 && index < this.props.items.length) {
             this.props.onClick(this.props.items[index]);
         }
     }
 
     render () {
 
-        let style = merge(styles.component.list, this.props.style);
+        let style = this.props.style;
 
         let items = this.props.items.map((v, i) => {
             let ist = style.item;

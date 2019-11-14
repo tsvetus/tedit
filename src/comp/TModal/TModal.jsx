@@ -83,7 +83,7 @@ class TModal extends React.Component {
     render () {
 
         let style = merge(
-            styles.modal,
+            styles.TModal,
             styles[this.props.name],
             this.props.style, {
                 screen: {

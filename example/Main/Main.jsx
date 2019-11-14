@@ -24,12 +24,12 @@ import {
 
 registerStyles({
 
-    icon: {
+    TIcon: {
         width: "32px",
         height: "32px"
     },
 
-    component: {
+    TComponent: {
 
         container: {
             margin: "8px 0 0 0",
@@ -54,10 +54,10 @@ registerStyles({
 
     },
 
-    group: {
+    TGroup: {
 
         container: {
-            maxWidth: "440px",
+            maxWidth: "520px",
             margin: "auto",
             marginTop: "16px"
         },
@@ -68,18 +68,25 @@ registerStyles({
 
     },
 
-    panel: {
+    TPanel: {
         padding: "16px"
     },
 
-    scroll: {
+    TScroll: {
         padding: "16px"
+    },
+
+    memo: {
+        container: {
+            maxWidth: "auto",
+            width: "100%"
+        }
     }
 
 });
 
 const iconLabelStyle = {
-    ...styles.component.label,
+    ...styles.TComponent.label,
     display: "flex",
     alignItems: "center",
     margin: "8px"
@@ -347,7 +354,7 @@ class Main extends React.Component {
 
                     <div style={{margin: "16px"}}>
                         <a
-                            style={styles.component.label}
+                            style={styles.TComponent.label}
                             href={'./jsdoc/index.html'}>
                             See full generated documentation here
                         </a>

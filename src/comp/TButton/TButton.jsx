@@ -24,7 +24,7 @@ class TButton extends React.Component {
     render () {
 
         let style = merge(
-            styles.button,
+            styles.TButton,
             styles[this.props.name],
             this.props.style
         );

@@ -24,7 +24,7 @@ class TPanel extends React.Component {
         }
 
         let style = merge(
-            styles.panel,
+            styles.TPanel,
             styles[this.props.name],
             dir,
             align,

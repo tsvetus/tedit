@@ -61,8 +61,8 @@ class TSearch extends React.Component {
     render () {
 
         let style = merge(
-            styles.component,
-            styles.search,
+            styles.TComponent,
+            styles.TSearch,
             styles[this.props.name],
             this.props.style
         );
@@ -82,7 +82,7 @@ class TSearch extends React.Component {
                 items={this.state.items}
                 value={this.state.value}
                 editable={true}
-                clickable={false}
+                clickable={this.props.clickable}
                 onSearch={this.handleSearch} />
         );
 
@@ -101,6 +101,7 @@ TSearch.propTypes = {
     placeholder: PropTypes.string,
     chars: PropTypes.number,
     listMode: PropTypes.string,
+    clickable: PropTypes.any,
     showMode: PropTypes.string,
     onChange: PropTypes.func,
     onValidate: PropTypes.func,

@@ -20,16 +20,21 @@ class ListBox extends React.Component {
             hover: -1
         };
         this.handleIcon = this.handleIcon.bind(this);
+        this.handleShow = this.handleShow.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
         this.handleKeyDown = this.handleKeyDown.bind(this);
         this.validate = this.validate.bind(this);
-        this.getRect = this.getRect.bind(this);
+        this.getFrameRect = this.getFrameRect.bind(this);
         this.getListStyle = this.getListStyle.bind(this);
+        this.getContainerStyle = this.getContainerStyle.bind(this);
         this.updateText = this.updateText.bind(this);
         this.moveHover = this.moveHover.bind(this);
-        this.ref = React.createRef();
+        this.frame = React.createRef();
+        this.container = React.createRef();
+        this.list = React.createRef();
         this.helper = new List.Helper();
+        this.containerHeight = 'auto';
     }
 
     componentWillUnmount() {
@@ -53,29 +58,49 @@ class ListBox extends React.Component {
         if (this.state.showList) {
             if (dir === -1 && this.state.hover > 0) {
                 this.setState({hover: this.state.hover - 1});
-            } else if (dir === 1 && this.props.items && this.state.hover < this.props.items.length - 1) {
+            } else if (dir === 1 && this.state.hover < this.helper.getLength() - 1) {
                 this.setState({hover: this.state.hover + 1});
             }
         }
     }
 
     handleKeyDown(event) {
-        if (event.keyCode === 40) {
-            this.moveHover(1);
-        } else if (event.keyCode === 38) {
-            this.moveHover(-1);
+        switch (event.keyCode) {
+            case 40:
+                this.handleShow(true);
+                this.moveHover(1);
+                break;
+            case 38:
+                this.moveHover(-1);
+                break;
+            case 9:
+            case 27:
+                this.handleShow(false);
+                break;
+            case 13:
+                if (this.state.showList) {
+                    this.list.current.handleUse(this.state.hover);
+                } else {
+                    this.handleShow(true);
+                }
+                break;
+        }
+    }
+
+    handleShow(show) {
+        if (show && !this.state.showList && this.helper.hasItems()) {
+            this.setState({showList: true, hover: -1});
+        } else if (!show && this.state.showList) {
+            this.setState({showList: false, hover: -1});
         }
     }
 
     handleIcon() {
-        if (this.helper.hasItems()) {
-            let showList = !this.state.showList;
-            this.setState({showList: showList, hover: -1});
-        }
+        this.handleShow(!this.state.showList);
     }
 
     handleChange(event) {
-        this.handleIcon();
+        this.handleShow(false);
         if (this.props.onChange && this.props.value != event.key) {
             this.updateText(event.key);
             this.props.onChange({
@@ -94,7 +119,7 @@ class ListBox extends React.Component {
             this.setState({showText: event.value}, () => {
                 let items = this.props.onSearch({value: event.value});
                 if (items) {
-                    this.handleIcon();
+                    this.handleShow(true);
                 }
             });
         }
@@ -114,24 +139,39 @@ class ListBox extends React.Component {
         }
     }
 
-    getRect() {
-        let rect = this.ref.current.getBoundingClientRect();
+    getFrameRect(element) {
+        let rect = element.getBoundingClientRect();
         return {
-            left: rect.left + document.scrollLeft,
-            top: rect.top + document.scrollTop,
-            right: rect.right + document.scrollLeft,
-            bottom: rect.bottom + document.scrollTop,
+            left: rect.left,
+            top: rect.top,
+            right: rect.right,
+            bottom: rect.bottom,
             width: rect.width,
             height: rect.height
         }
     }
 
     getListStyle() {
-        let rect = this.getRect();
+        let rect = this.getFrameRect(this.frame.current);
         return {
             left: rect.left + 'px',
             top: rect.bottom + 'px',
             width: rect.width + 'px'
+        }
+    }
+
+    getContainerStyle() {
+        if (this.state.showList) {
+            this.containerHeight = this.container.current.style.height ?
+                this.container.current.style.height : 'auto';
+            let rect = this.getFrameRect(this.container.current);
+            return {
+                height: rect.height + 'px'
+            }
+        } else {
+            return {
+                height: this.containerHeight
+            }
         }
     }
 
@@ -148,12 +188,13 @@ class ListBox extends React.Component {
 
     render () {
 
-        let style = merge(styles.component, styles.ttext, this.props.style);
+        let style = merge(styles.TComponent, styles.TText, this.props.style);
+
         if (!this.state.valid) {
             style = merge(
                 style,
-                styles.component ? styles.component.invalid : null,
-                styles.ttext ? styles.ttext.invalid : null,
+                styles.TComponent ? styles.TComponent.invalid : null,
+                styles.TText ? styles.TText.invalid : null,
                 this.props.style ? this.props.style.invalid : null
             )
         }
@@ -182,6 +223,7 @@ class ListBox extends React.Component {
             let listStyle = merge(style.list, {container: this.getListStyle()});
             list =
                 <List
+                    ref={this.list}
                     style={listStyle}
                     selected={this.props.value}
                     hover={this.state.hover}
@@ -189,11 +231,13 @@ class ListBox extends React.Component {
                     onClick={this.handleChange} />
         }
 
+        let containerStyle = merge(style.container, this.getContainerStyle());
+
         let click = this.props.clickable ? this.handleIcon : null;
 
         return (
-            <div style={style.container}>
-                <div style={style.frame} ref={this.ref}>
+            <div style={containerStyle} ref={this.container}>
+                <div style={style.frame} ref={this.frame}>
                     {label}
                     <Edit
                         style={style.edit}

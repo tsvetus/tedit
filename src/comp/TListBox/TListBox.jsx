@@ -13,8 +13,8 @@ class TListBox extends React.Component {
     render() {
 
         let style = merge(
-            styles.component,
-            styles.listbox,
+            styles.TComponent,
+            styles.TListBox,
             styles[this.props.name],
             this.props.style
         );
