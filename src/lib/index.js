@@ -4,6 +4,7 @@ import Mask from './Mask';
 import List from './List';
 import ListBox from './ListBox';
 import Input from './Input';
+import Text from './Text';
 
 export {
     Icon,
@@ -11,5 +12,6 @@ export {
     Mask,
     List,
     ListBox,
-    Input
+    Input,
+    Text
 }

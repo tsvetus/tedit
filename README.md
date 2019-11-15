@@ -3,7 +3,7 @@
 Set of visual React components designed for constructing web application interfaces.
 
 `tedit` provides set of visual components constructed on `<div>` element with editable content:
-* [`TText`](#ttext)
+* [`Text`](#ttext)
 * [`TMemo`](#tmemo)
 * [`TListBox`](#tlistbox)
 * [`TSearch`](#tsearch)
@@ -22,11 +22,11 @@ Other components:
 Every component in `tedit` library has `style` property stands for providing custom style for each component:
 
 ```javascript
-import {TText} from 'tedit';
+import {Text} from 'tedit';
 
 const style = {...};
 ...
-    <TText style={style} />
+    <Text style={style} />
 ...    
 ```
  
@@ -66,12 +66,12 @@ All events are occur with delay determined by `timeout` property. Default timeou
 types of events in `tedit` components:  
 
 * `IconClickEvent` - Emerges each time when user click on icon. Applies to `TIcon` component itself and when
-    nested icons in `TText` and `TMemo` components are clicked.
+    nested icons in `Text` and `TMemo` components are clicked.
   * Argument: `{name: ..., data: ..., icon: ...}` where
     * `name` - component name from `name` property.
     * `data` - any data from `data` property.
     * `icon` - contains icon name.      
-* `TexChangeEvent` - Emerges each time when edit text is changed in text edit components. Applies to `TText` 
+* `TexChangeEvent` - Emerges each time when edit text is changed in text edit components. Applies to `Text` 
     and `TMemo` components.
   * Argument: `{value: ..., name: ..., data: ..., icon: ...}` where
     * `value` - edited text.
@@ -84,12 +84,12 @@ types of events in `tedit` components:
     * `value` - key value of clicked list item.
     * `name` - component name from `name` property.
     * `data` - any data from `data` property      
-* `ValidateEvent` - Emerges when text validation is needed. Applies to `TText` and `TMemo` components.
+* `ValidateEvent` - Emerges when text validation is needed. Applies to `Text` and `TMemo` components.
   * Argument: `{value: ..., name: ..., data: ...}` similar to other events.
   * Returns: - `boolean` When event returns `false` the component changes it's style to `invalid` 
       (see style structure). 
-* `MaskCheckEvent` - Emerges when text mask checking is needed. Applies to `TText` component when `mask`
-    property is empty. If `mask` property contains any available masks `TText` component uses internal formatting 
+* `MaskCheckEvent` - Emerges when text mask checking is needed. Applies to `Text` component when `mask`
+    property is empty. If `mask` property contains any available masks `Text` component uses internal formatting 
     engine to mask entered text.
   * Argument: `{value: ..., caret: ...}`
     * `value` - contains current edited text.
@@ -99,9 +99,9 @@ types of events in `tedit` components:
 
 # Component descriptions
 
-## `TText`
+## `Text`
 
-`TText` represents one line text editor with label and icon (disabled by default)
+`Text` represents one line text editor with label and icon (disabled by default)
 
 ### Style structure:
 
@@ -143,7 +143,7 @@ import React from 'react';
 
 import {
     TIcon,
-    TText,
+    Text,
     TMemo,
     TGroup,
     TListBox,
@@ -242,17 +242,16 @@ class Main extends React.Component {
 
                 <TGroup label={'TEdit component examples'}>
 
-                    <TText
+                    <Text
                         value={this.state.ttext}
-                        label={'TText component:'}
-                        name={'ttext'}
+                        label={TText                        name={'ttext'}
                         placeholder={'Enter single line text ...'}
                         onChange={this.handleChange} />
 
                     <TText
-                        value={this.state.ttext1}
-                        label={'TText with validation:'}
-                        name={'ttext1'}
+        Text           value={this.state.ttext1}
+                        label={Text}
+         Text          name={'ttext1'}
                         placeholder={'Enter more than 3 symbols ...'}
                         onValidate={(event) => {
                             return nvl(event.value, '').length >= 3;
@@ -260,7 +259,7 @@ class Main extends React.Component {
                         onChange={this.handleChange} />
 
                     <TText
-                        value={this.state.ttext2}
+                        valuTextis.state.ttext2}
                         label={'Enter phone number:'}
                         name={'ttext2'}
                         mask={{mask: '+1 (NNN) NNN-NN-NN', empty: '_', complete: true}}

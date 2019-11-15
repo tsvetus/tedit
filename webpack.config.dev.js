@@ -27,12 +27,6 @@ module.exports = {
             test: /\.js$|\.jsx$/,
             use: ['babel-loader'],
             exclude: [/node_modules/, /build/]
-        }, {
-            test: /\.css$|\.less$/,
-            use: ['style-loader', 'css-loader', 'less-loader']
-        }, {
-            test: /\.svg$/,
-            use: ['react-svg-loader']
         }]
     },
     devServer: {

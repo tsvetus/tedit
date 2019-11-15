@@ -18,6 +18,23 @@ export function merge(...sources) {
     return res;
 }
 
+export function apply(style, from, to) {
+
+    let f = Object.keys(from);
+    let t = Object.keys(to);
+
+    for (let i=0; i<t.length; i++) {
+        style[t[i]] = to[t[i]];
+    }
+
+    for (let i=0; i<f.length; i++) {
+        if (t.indexOf(f[i]) < 0) {
+            style[f[i]] = null;
+        }
+    }
+
+}
+
 export function nvl(source, def) {
     if (source === null || source === undefined) {
         return def;

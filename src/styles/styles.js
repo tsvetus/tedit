@@ -105,6 +105,10 @@ export default {
 
             edit: {
                 border: BR_INVALID
+            },
+
+            frame: {
+                backgroundColor: "#eea"
             }
 
         }
@@ -317,6 +321,10 @@ export default {
             }
 
         }
+
+    },
+
+    TText: {
 
     }
 

@@ -1,33 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {Input, Icon} from '../../lib';
+import {Mask, Icon} from '../../lib';
 
-import {merge} from '../../util';
-
-import styles from '../../styles';
+import {merge, apply} from '../../util';
 
 /**
  * Component representing icons.
  * @extends React
  */
-class TInput extends React.Component {
+class Text extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-        this.state = {valid: true};
         this.handleIcon = this.handleIcon.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleValidate = this.handleValidate.bind(this);
         this.validate = this.validate.bind(this);
+        this.frame = React.createRef();
+        this.valid = true;
+        this.validStyle = props.style;
+        this.invalidStyle = merge(props.style, props.style.invalid);
+    }
+
+    handleValidate(event) {
+        return this.validate(event.value);
     }
 
     componentDidMount() {
-        this.validate(this.props.value)
+        this.validate();
     }
 
     componentDidUpdate(old) {
         if (old.value !== this.props.value) {
-            this.validate(this.props.value)
+            this.validate();
         }
     }
 
@@ -48,45 +54,38 @@ class TInput extends React.Component {
                 ...event,
                 icon: this.props.icon
             })
-        } else {
-            this.validate(event.value)
         }
     }
 
     validate(value) {
+        let valid = true;
         if (this.props.onValidate) {
-            let valid = this.props.onValidate({
+            valid = this.props.onValidate({
                 data: this.props.data,
                 name: this.props.name,
                 icon: this.props.icon,
                 value: value
             });
-            if (valid !== this.state.valid) {
-                this.setState({valid: valid})
+            if (valid !== this.valid) {
+                if (this.frame.current) {
+                    if (valid) {
+                        apply(this.frame.current.style, this.invalidStyle.frame, this.validStyle.frame);
+                    } else {
+                        apply(this.frame.current.style, this.validStyle.frame, this.invalidStyle.frame);
+                    }
+                }
+                this.valid = valid;
             }
-        } else {
-            return true
         }
+        return this.valid;
     }
 
     render () {
 
-        let style = merge(
-            styles.TComponent,
-            styles.TInput,
-            styles[this.props.name],
-            this.props.style
-        );
-
-        if (!this.state.valid) {
-            style = merge(
-                style,
-                styles.component ? styles.component.invalid : null,
-                styles.input ? styles.input.invalid : null,
-                styles[this.props.name] ? styles[this.props.name].invalid : null,
-                this.props.style ? this.props.style.invalid : null
-            )
-        }
+        let style = this.props.style;
+        // if (!this.state.valid && style && style.invalid) {
+        //     style = merge(style, style.invalid);
+        // }
 
         let label = null;
         if (this.props.label) {
@@ -107,19 +106,24 @@ class TInput extends React.Component {
             )
         }
 
+        let validate = this.props.onValidate ? this.handleValidate : null;
+
         return (
             <div style={style.container}>
-                <div style={style.frame}>
+                <div style={style.frame} ref={this.frame}>
                     {label}
-                    <Input
+                    <Mask
                         style={style.edit}
                         data={this.props.data}
                         name={this.props.name}
                         value={this.props.value}
                         timeout={this.props.timeout}
-                        type={this.props.type}
-                        autoComplete={this.props.autoComplete}
                         placeholder={this.props.placeholder}
+                        wrap={false}
+                        mask={this.props.mask}
+                        empty={this.props.empty}
+                        onMask={this.props.onMask}
+                        onValidate={validate}
                         onChange={this.handleChange} />
                     {icon}
                 </div>
@@ -130,7 +134,7 @@ class TInput extends React.Component {
 
 }
 
-TInput.propTypes = {
+Text.propTypes = {
     style: PropTypes.object,
     value: PropTypes.string,
     name: PropTypes.string,
@@ -139,11 +143,12 @@ TInput.propTypes = {
     icon: PropTypes.string,
     timeout: PropTypes.number,
     placeholder: PropTypes.string,
-    type: PropTypes.string,
-    autoComplete: PropTypes.string,
+    mask: PropTypes.object,
+    empty: PropTypes.any,
     onChange: PropTypes.func,
     onValidate: PropTypes.func,
     onIcon: PropTypes.func,
+    onMask: PropTypes.func
 };
 
-export default TInput;
+export default Text;

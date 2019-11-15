@@ -3,7 +3,8 @@ import {
     clone,
     nvl,
     merge,
-    seconds
+    seconds,
+    apply
 } from './misc.js';
 
 import Format from './format.js';
@@ -19,6 +20,7 @@ export {
     nvl,
     merge,
     seconds,
+    apply,
 
     Format,
 

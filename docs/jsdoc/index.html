@@ -47,7 +47,7 @@
 <p>Set of visual React components designed for constructing web application interfaces.</p>
 <p><code>tedit</code> provides set of visual components constructed on <code>&lt;div&gt;</code> element with editable content:</p>
 <ul>
-<li><a href="#ttext"><code>TText</code></a></li>
+<li><a href="#ttext"><code>Text</code></a></li>
 <li><a href="#tmemo"><code>TMemo</code></a></li>
 <li><a href="#tlistbox"><code>TListBox</code></a></li>
 <li><a href="#tsearch"><code>TSearch</code></a></li>
@@ -62,11 +62,11 @@
 <p><a href="https://tsvetus.github.io/tedit/">Example page</a></p>
 <h2>Stylization</h2>
 <p>Every component in <code>tedit</code> library has <code>style</code> property stands for providing custom style for each component:</p>
-<pre class="prettyprint source lang-javascript"><code>import {TText} from 'tedit';
+<pre class="prettyprint source lang-javascript"><code>import {Text} from 'tedit';
 
 const style = {...};
 ...
-    &lt;TText style={style} />
+    &lt;Text style={style} />
 ...    
 </code></pre>
 <p>Each component has it's own style structure described below. In addition one can register global project
@@ -75,7 +75,7 @@ styles using <code>registerStyles</code> function as follows:</p>
 
 const styles = {    
     component: {
-        /* Global style for all components */
+        /** Global style for all editable components */
         container: {
             backgroundColor: '#eee'
         },
@@ -83,8 +83,9 @@ const styles = {
             border: &quot;1px solid red&quot;
         }
     },
-    tmemo: {
-        /* Custom style for TMemo component */
+    memo: {
+        /** Custom style for TMemo component. 
+        * Use component name without 't' letter for assigning style to custom component */
         edit: {
             border: &quot;1px solid green&quot;
         }
@@ -100,7 +101,7 @@ border for <code>TMemo</code>.</p>
 types of events in <code>tedit</code> components:</p>
 <ul>
 <li><code>IconClickEvent</code> - Emerges each time when user click on icon. Applies to <code>TIcon</code> component itself and when
-nested icons in <code>TText</code> and <code>TMemo</code> components are clicked.
+nested icons in <code>Text</code> and <code>TMemo</code> components are clicked.
 <ul>
 <li>Argument: <code>{name: ..., data: ..., icon: ...}</code> where
 <ul>
@@ -111,7 +112,7 @@ nested icons in <code>TText</code> and <code>TMemo</code> components are clicked
 </li>
 </ul>
 </li>
-<li><code>TexChangeEvent</code> - Emerges each time when edit text is changed in text edit components. Applies to <code>TText</code>
+<li><code>TexChangeEvent</code> - Emerges each time when edit text is changed in text edit components. Applies to <code>Text</code>
 and <code>TMemo</code> components.
 <ul>
 <li>Argument: <code>{value: ..., name: ..., data: ..., icon: ...}</code> where
@@ -136,15 +137,15 @@ and <code>TMemo</code> components.
 </li>
 </ul>
 </li>
-<li><code>ValidateEvent</code> - Emerges when text validation is needed. Applies to <code>TText</code> and <code>TMemo</code> components.
+<li><code>ValidateEvent</code> - Emerges when text validation is needed. Applies to <code>Text</code> and <code>TMemo</code> components.
 <ul>
 <li>Argument: <code>{value: ..., name: ..., data: ...}</code> similar to other events.</li>
 <li>Returns: - <code>boolean</code> When event returns <code>false</code> the component changes it's style to <code>invalid</code>
 (see style structure).</li>
 </ul>
 </li>
-<li><code>MaskCheckEvent</code> - Emerges when text mask checking is needed. Applies to <code>TText</code> component when <code>mask</code>
-property is empty. If <code>mask</code> property contains any available masks <code>TText</code> component uses internal formatting
+<li><code>MaskCheckEvent</code> - Emerges when text mask checking is needed. Applies to <code>Text</code> component when <code>mask</code>
+property is empty. If <code>mask</code> property contains any available masks <code>Text</code> component uses internal formatting
 engine to mask entered text.
 <ul>
 <li>Argument: <code>{value: ..., caret: ...}</code>
@@ -159,8 +160,8 @@ engine to mask entered text.
 </li>
 </ul>
 <h1>Component descriptions</h1>
-<h2><code>TText</code></h2>
-<p><code>TText</code> represents one line text editor with label and icon (disabled by default)</p>
+<h2><code>Text</code></h2>
+<p><code>Text</code> represents one line text editor with label and icon (disabled by default)</p>
 <h3>Style structure:</h3>
 <ul>
 <li><code>container</code> - Outer component container style.</li>
@@ -202,7 +203,7 @@ represents object of type: <code>{mask: ..., empty: ..., complete: ...}</code> w
 
 import {
     TIcon,
-    TText,
+    Text,
     TMemo,
     TGroup,
     TListBox,
@@ -301,16 +302,16 @@ class Main extends React.Component {
 
                 &lt;TGroup label={'TEdit component examples'}>
 
-                    &lt;TText
+                    &lt;Text
                         value={this.state.ttext}
-                        label={'TText component:'}
+                        label={'Text component:'}
                         name={'ttext'}
                         placeholder={'Enter single line text ...'}
                         onChange={this.handleChange} />
 
-                    &lt;TText
+                    &lt;Text
                         value={this.state.ttext1}
-                        label={'TText with validation:'}
+                        label={'Text with validation:'}
                         name={'ttext1'}
                         placeholder={'Enter more than 3 symbols ...'}
                         onValidate={(event) => {
@@ -318,7 +319,7 @@ class Main extends React.Component {
                         }}
                         onChange={this.handleChange} />
 
-                    &lt;TText
+                    &lt;Text
                         value={this.state.ttext2}
                         label={'Enter phone number:'}
                         name={'ttext2'}
@@ -402,13 +403,13 @@ export default Main;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-tedit.html">tedit</a></li></ul><h3>Classes</h3><ul><li><a href="TCheck.html">TCheck</a></li><li><a href="TMemo.html">TMemo</a></li><li><a href="TText.html">TText</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-tedit.html">tedit</a></li></ul><h3>Classes</h3><ul><li><a href="TCheck.html">TCheck</a></li><li><a href="TInput.html">TInput</a></li><li><a href="TMemo.html">TMemo</a></li><li><a href="TText.html">Text</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Nov 13 2019 00:46:53 GMT+0300 (GMT+03:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Nov 14 2019 22:04:26 GMT+0300 (GMT+03:00)
 </footer>
 
 <script> prettyPrint(); </script>

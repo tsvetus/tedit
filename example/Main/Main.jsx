@@ -194,8 +194,8 @@ class Main extends React.Component {
                             label={'TText component:'}
                             name={'text1'}
                             placeholder={'Enter single line text ...'}
-                            password={'*'}
-                            onChange={this.handleChange} />
+                            onChange={this.handleChange}
+                        />
 
                         <TText
                             style={{label: {width: "180px"}}}

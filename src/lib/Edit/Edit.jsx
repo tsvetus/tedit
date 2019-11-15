@@ -155,10 +155,18 @@ class Edit extends React.Component {
         if (this.props.onMask) {
             this.caret = this.getCaret();
             let result = this.props.onMask({value: this.getText(), caret: this.caret});
-            if (result && !isNaN(result.caret)) {
-                this.setText(result.value);
-                this.setCaret(result.caret);
+            if (result) {
+                if (result.value) {
+                    this.setText(result.value);
+                }
+                if (!isNaN(result.caret)) {
+                    this.setCaret(result.caret);
+                }
             }
+        }
+
+        if (this.props.onValidate) {
+            this.valid = this.props.onValidate({value: this.getText()});
         }
 
         if (this.props.onChange && this.value !== this.getText()) {
@@ -243,7 +251,8 @@ Edit.propTypes = {
     onClick: PropTypes.func,
     onChange: PropTypes.func,
     onMask: PropTypes.func,
-    onKeyDown: PropTypes.func
+    onKeyDown: PropTypes.func,
+    onValidate: PropTypes.func
 };
 
 Edit.defaultProps = {
