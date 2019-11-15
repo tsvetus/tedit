@@ -206,8 +206,8 @@ class Edit extends React.Component {
             if (valid !== this.valid) {
                 this.updateStyle(valid);
                 this.valid = valid;
-            }
-            if (valid) {
+                this.sendValue();
+            } else if (valid) {
                 this.sendValue();
             }
         } else {
