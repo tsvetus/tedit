@@ -13,11 +13,11 @@ class Text extends React.Component {
 
     constructor(props, context) {
         super(props, context);
+        this.frame = React.createRef();
         this.handleIcon = this.handleIcon.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleValidate = this.handleValidate.bind(this);
         this.validate = this.validate.bind(this);
-        this.frame = React.createRef();
         this.valid = true;
         this.validStyle = props.style;
         this.invalidStyle = merge(props.style, props.style.invalid);
@@ -28,7 +28,12 @@ class Text extends React.Component {
     }
 
     componentDidMount() {
+        this.mounted = true;
         this.validate();
+    }
+
+    componentWillUnmount() {
+        this.mounted = false;
     }
 
     componentDidUpdate(old) {
@@ -49,7 +54,7 @@ class Text extends React.Component {
     }
 
     handleChange(event) {
-        if (this.props.onChange) {
+        if (this.mounted && this.props.onChange) {
             this.props.onChange({
                 ...event,
                 icon: this.props.icon
@@ -59,7 +64,7 @@ class Text extends React.Component {
 
     validate(value) {
         let valid = true;
-        if (this.props.onValidate) {
+        if (this.mounted && this.props.onValidate) {
             valid = this.props.onValidate({
                 data: this.props.data,
                 name: this.props.name,
@@ -67,12 +72,10 @@ class Text extends React.Component {
                 value: value
             });
             if (valid !== this.valid) {
-                if (this.frame.current) {
-                    if (valid) {
-                        apply(this.frame.current.style, this.invalidStyle.frame, this.validStyle.frame);
-                    } else {
-                        apply(this.frame.current.style, this.validStyle.frame, this.invalidStyle.frame);
-                    }
+                if (valid) {
+                    apply(this.frame.current.style, this.invalidStyle.frame, this.validStyle.frame);
+                } else {
+                    apply(this.frame.current.style, this.validStyle.frame, this.invalidStyle.frame);
                 }
                 this.valid = valid;
             }
@@ -83,9 +86,6 @@ class Text extends React.Component {
     render () {
 
         let style = this.props.style;
-        // if (!this.state.valid && style && style.invalid) {
-        //     style = merge(style, style.invalid);
-        // }
 
         let label = null;
         if (this.props.label) {
