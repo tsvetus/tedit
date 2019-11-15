@@ -90,7 +90,8 @@ class TMemo extends React.Component {
                     {icon}
                 </div>
                 <Edit
-                    style={style.edit}
+                    vStyle={style.edit}
+                    iStyle={style.edit}
                     value={this.props.value}
                     wrap={this.props.wrap}
                     data={this.props.data}

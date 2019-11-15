@@ -41,12 +41,6 @@ registerStyles({
             textAlign: "right"
         },
 
-        invalid: {
-            edit: {
-                backgroundColor: "#eea"
-            }
-        },
-
         icon: {
             width: "18px",
             height: "18px"

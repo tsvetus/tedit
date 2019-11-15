@@ -240,7 +240,8 @@ class ListBox extends React.Component {
                 <div style={style.frame} ref={this.frame}>
                     {label}
                     <Edit
-                        style={style.edit}
+                        vStyle={style.edit}
+                        iStyle={style.edit}
                         data={this.props.data}
                         name={this.props.name}
                         value={this.state.showText}

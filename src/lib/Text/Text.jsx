@@ -13,23 +13,22 @@ class Text extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-        this.frame = React.createRef();
         this.handleIcon = this.handleIcon.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleValidate = this.handleValidate.bind(this);
         this.validate = this.validate.bind(this);
+        this.updateStyle = this.updateStyle.bind(this);
+        this.container = React.createRef();
+        this.frame = React.createRef();
+        this.label = React.createRef();
         this.valid = true;
-        this.validStyle = props.style;
-        this.invalidStyle = merge(props.style, props.style.invalid);
-    }
-
-    handleValidate(event) {
-        return this.validate(event.value);
+        this.lastValid = true;
+        this.updateStyle(this.valid, props.style);
     }
 
     componentDidMount() {
         this.mounted = true;
-        this.validate();
+        this.updateStyle(this.valid, this.props.style);
     }
 
     componentWillUnmount() {
@@ -37,9 +36,13 @@ class Text extends React.Component {
     }
 
     componentDidUpdate(old) {
-        if (old.value !== this.props.value) {
-            this.validate();
+        if (old.style !== this.props.style) {
+            this.updateStyle(this.valid, this.props.style);
         }
+    }
+
+    handleValidate(event) {
+        return this.validate(event.value);
     }
 
     handleIcon() {
@@ -62,9 +65,27 @@ class Text extends React.Component {
         }
     }
 
+    updateStyle(valid, style) {
+        if (style) {
+            this.vStyle = style;
+            this.iStyle = merge(style, style.invalid);
+        }
+        if (this.mounted) {
+            if (valid) {
+                apply(this.iStyle.container,  this.vStyle.container,  this.container.current.style);
+                apply(this.iStyle.frame,  this.vStyle.frame,  this.frame.current.style);
+                apply(this.iStyle.label,  this.vStyle.label,  this.label.current.style);
+            } else {
+                apply(this.vStyle.container,  this.iStyle.container,  this.container.current.style);
+                apply(this.vStyle.frame,  this.iStyle.frame,  this.frame.current.style);
+                apply(this.vStyle.label,  this.iStyle.label,  this.label.current.style);
+            }
+        }
+    }
+
     validate(value) {
         let valid = true;
-        if (this.mounted && this.props.onValidate) {
+        if (this.props.onValidate) {
             valid = this.props.onValidate({
                 data: this.props.data,
                 name: this.props.name,
@@ -72,25 +93,23 @@ class Text extends React.Component {
                 value: value
             });
             if (valid !== this.valid) {
-                if (valid) {
-                    apply(this.frame.current.style, this.invalidStyle.frame, this.validStyle.frame);
-                } else {
-                    apply(this.frame.current.style, this.validStyle.frame, this.invalidStyle.frame);
-                }
+                this.updateStyle(valid);
                 this.valid = valid;
             }
+        } else {
+            this.valid = valid;
         }
         return this.valid;
     }
 
     render () {
 
-        let style = this.props.style;
-
         let label = null;
         if (this.props.label) {
             label = (
-                <div style={style.label}>
+                <div
+                    ref={this.label}
+                    style={this.vStyle.label}>
                     {this.props.label}
                 </div>
             )
@@ -100,7 +119,7 @@ class Text extends React.Component {
         if (this.props.icon) {
             icon = (
                 <Icon
-                    style={style.icon}
+                    style={this.vStyle.icon}
                     name={this.props.icon}
                     onClick={this.handleIcon} />
             )
@@ -109,11 +128,12 @@ class Text extends React.Component {
         let validate = this.props.onValidate ? this.handleValidate : null;
 
         return (
-            <div style={style.container}>
-                <div style={style.frame} ref={this.frame}>
+            <div ref={this.container} style={this.vStyle.container}>
+                <div style={this.vStyle.frame} ref={this.frame}>
                     {label}
                     <Mask
-                        style={style.edit}
+                        vStyle={this.vStyle.edit}
+                        iStyle={this.iStyle.edit}
                         data={this.props.data}
                         name={this.props.name}
                         value={this.props.value}

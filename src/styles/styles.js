@@ -103,11 +103,12 @@ export default {
 
         invalid: {
 
-            edit: {
-                border: BR_INVALID
+            label: {
+                color: "#f43"
             },
 
-            frame: {
+            edit: {
+                border: "1px solid red",
                 backgroundColor: "#eea"
             }
 

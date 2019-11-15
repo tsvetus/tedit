@@ -18,7 +18,11 @@ export function merge(...sources) {
     return res;
 }
 
-export function apply(style, from, to) {
+export function apply(from, to, style) {
+
+    if (!to || !style) {
+        return;
+    }
 
     let f = Object.keys(from);
     let t = Object.keys(to);
@@ -27,9 +31,11 @@ export function apply(style, from, to) {
         style[t[i]] = to[t[i]];
     }
 
-    for (let i=0; i<f.length; i++) {
-        if (t.indexOf(f[i]) < 0) {
-            style[f[i]] = null;
+    if (from) {
+        for (let i=0; i<f.length; i++) {
+            if (t.indexOf(f[i]) < 0) {
+                style[f[i]] = null;
+            }
         }
     }
 

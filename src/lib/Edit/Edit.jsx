@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {TIMEOUT, nvl} from '../../util';
+import {TIMEOUT, nvl, apply, merge} from '../../util';
 
 /**
  * @class
@@ -15,6 +15,7 @@ class Edit extends React.Component {
         this.ref = React.createRef();
         this.caret = 0;
         this.password = '';
+        this.valid = true;
         this.handleChange = this.handleChange.bind(this);
         this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -30,10 +31,13 @@ class Edit extends React.Component {
         this.showPlaceholder = this.showPlaceholder.bind(this);
         this.hidePlaceholder = this.hidePlaceholder.bind(this);
         this.enableEdit = this.enableEdit.bind(this);
+        this.updateStyle = this.updateStyle.bind(this);
+        this.sendValue = this.sendValue.bind(this);
     }
 
     componentDidMount() {
         this.mounted = true;
+        this.updateStyle(this.valid, this.props.vStyle, this.props.iStyle);
         this.enableEdit(true);
         this.ref.current.addEventListener('input', this.handleChange);
         this.ref.current.addEventListener('keypress', this.handleKeyPress);
@@ -47,29 +51,45 @@ class Edit extends React.Component {
     }
 
     componentWillUnmount() {
-        this.enableEdit(false);
         this.ref.current.removeEventListener('blur', this.handleBlur);
         this.ref.current.removeEventListener('focus', this.handleFocus);
         this.ref.current.removeEventListener('click', this.handleClick);
         this.ref.current.removeEventListener('keydown', this.handleKeyDown);
         this.ref.current.removeEventListener('keypress', this.handleKeyPress);
         this.ref.current.removeEventListener('input', this.handleChange);
+        this.enableEdit(false);
         this.mounted = false;
     }
 
     componentDidUpdate(old) {
 
-        if (this.value !== nvl(this.props.value, '')) {
+        if (this.valid && this.value !== nvl(this.props.value, '')) {
             this.value = nvl(this.props.value, '');
             this.setText(this.value);
             this.handleChange();
             this.showPlaceholder();
         }
 
-        // if (old.readOnly !== this.props.readOnly) {
-        //     this.enableEdit(!this.props.readOnly);
-        // }
+        if (old.vStyle !== this.props.vStyle || old.iStyle !== this.props.iStyle) {
+            this.updateStyle(this.valid, this.props.vStyle, this.props.iStyle);
+        }
 
+    }
+
+    updateStyle(valid, vStyle, iStyle) {
+        if (vStyle) {
+            this.vStyle = vStyle;
+        }
+        if (iStyle) {
+            this.iStyle = merge(vStyle, iStyle);
+        }
+        if (this.mounted) {
+            if (valid === null || valid === undefined || valid) {
+                apply(this.iStyle,  this.vStyle,  this.ref.current.style);
+            } else {
+                apply(this.vStyle,  this.iStyle,  this.ref.current.style);
+            }
+        }
     }
 
     enableEdit(enabled) {
@@ -113,9 +133,8 @@ class Edit extends React.Component {
             } else {
                 return text;
             }
-        } else {
-            return '';
         }
+        return this.props.empty;
     }
 
     setText(text) {
@@ -146,6 +165,23 @@ class Edit extends React.Component {
         }
     }
 
+    sendValue() {
+        if (this.props.onChange && this.value !== this.getText()) {
+            clearTimeout(this.timer);
+            this.timer = setTimeout(() => {
+                if (this.mounted && this.value !== this.getText()) {
+                    this.value = this.getText();
+                    let value = this.value === '' || !this.valid ? this.props.empty : this.value;
+                    this.props.onChange({
+                        data: this.props.data,
+                        name: this.props.name,
+                        value: value
+                    });
+                }
+            }, this.props.timeout);
+        }
+    }
+
     handleChange() {
 
         if (this.mute) {
@@ -166,22 +202,16 @@ class Edit extends React.Component {
         }
 
         if (this.props.onValidate) {
-            this.valid = this.props.onValidate({value: this.getText()});
-        }
-
-        if (this.props.onChange && this.value !== this.getText()) {
-            clearTimeout(this.timer);
-            this.timer = setTimeout(() => {
-                if (this.mounted && this.value !== this.getText()) {
-                    this.value = this.getText();
-                    let value = this.value === '' ? this.props.empty : this.value;
-                    this.props.onChange({
-                        data: this.props.data,
-                        name: this.props.name,
-                        value: value
-                    });
-                }
-            }, this.props.timeout);
+            let valid = this.props.onValidate({value: this.getText()});
+            if (valid !== this.valid) {
+                this.updateStyle(valid);
+                this.valid = valid;
+            }
+            if (valid) {
+                this.sendValue();
+            }
+        } else {
+            this.sendValue();
         }
 
     }
@@ -225,12 +255,8 @@ class Edit extends React.Component {
 
     render () {
 
-        let style = this.props.style;
-
         return (
-            <div
-                style={style}
-                ref={this.ref} />
+            <div ref={this.ref} />
         );
 
     }
@@ -238,7 +264,8 @@ class Edit extends React.Component {
 }
 
 Edit.propTypes = {
-    style: PropTypes.object,
+    vStyle: PropTypes.object,
+    iStyle: PropTypes.object,
     value: PropTypes.string,
     name: PropTypes.string,
     data: PropTypes.any,

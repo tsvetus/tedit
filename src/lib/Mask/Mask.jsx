@@ -62,7 +62,8 @@ class Mask extends React.Component {
         return (
 
             <Edit
-                style={this.props.style}
+                vStyle={this.props.vStyle}
+                iStyle={this.props.iStyle}
                 value={this.props.value}
                 name={this.props.name}
                 data={this.props.data}
@@ -82,7 +83,8 @@ class Mask extends React.Component {
 }
 
 Mask.propTypes = {
-    style: PropTypes.object,
+    vStyle: PropTypes.object,
+    iStyle: PropTypes.object,
     value: PropTypes.string,
     name: PropTypes.string,
     data: PropTypes.any,
