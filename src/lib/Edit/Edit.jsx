@@ -247,9 +247,23 @@ class Edit extends React.Component {
 
     handleFocus() {
         this.hidePlaceholder();
+        if (this.props.onFocus) {
+            this.props.onFocus({
+                data: this.props.data,
+                name: this.props.name,
+                value: this.getText()
+            });
+        }
     }
 
     handleBlur() {
+        if (this.props.onBlur) {
+            this.props.onBlur({
+                data: this.props.data,
+                name: this.props.name,
+                value: this.getText()
+            });
+        }
         this.showPlaceholder();
     }
 
@@ -279,7 +293,9 @@ Edit.propTypes = {
     onChange: PropTypes.func,
     onMask: PropTypes.func,
     onKeyDown: PropTypes.func,
-    onValidate: PropTypes.func
+    onValidate: PropTypes.func,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func
 };
 
 Edit.defaultProps = {

@@ -24,6 +24,7 @@ class ListBox extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
         this.handleKeyDown = this.handleKeyDown.bind(this);
+        this.handleBlur = this.handleBlur.bind(this);
         this.validate = this.validate.bind(this);
         this.getFrameRect = this.getFrameRect.bind(this);
         this.getListStyle = this.getListStyle.bind(this);
@@ -123,6 +124,10 @@ class ListBox extends React.Component {
                 }
             });
         }
+    }
+
+    handleBlur() {
+        this.handleShow(false);
     }
 
     updateText(value) {
@@ -251,6 +256,7 @@ class ListBox extends React.Component {
                         readOnly={!this.props.editable}
                         onClick={click}
                         onKeyDown={this.handleKeyDown}
+                        onBlur={this.handleBlur}
                         onChange={this.handleTextChange} />
                     {icon}
                 </div>

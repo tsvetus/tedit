@@ -1,4 +1,4 @@
-const TIMEOUT = 700;
+const TIMEOUT = 500;
 
 export {
     TIMEOUT
