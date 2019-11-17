@@ -20,6 +20,10 @@ export default {
             alignItems: "center"
         },
 
+        label: {
+            cursor: "default"
+        },
+
         edit: {
             flex: "1 0",
             whiteSpace: "nowrap",
@@ -34,7 +38,7 @@ export default {
                 left: "0",
                 display: "flex",
                 flexDirection: "column",
-                tabindex: "0"
+                zIndex: "1"
             },
 
             item: {
@@ -69,7 +73,7 @@ export default {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            zIndex: "20",
+            zIndex: "11",
             backgroundColor: "#fff",
             cursor: "default"
         },
@@ -156,6 +160,10 @@ export default {
 
     TLogin: {
 
+        screen: {
+            zIndex: "30"
+        },
+
         container: {
             position: "fixed",
             top: "50%",
@@ -163,7 +171,7 @@ export default {
             transform: "translate(-50%, -80%)",
             display: "flex",
             flexDirection: "column",
-            zIndex: "100"
+            zIndex: "31"
         },
 
         form: {
@@ -205,7 +213,7 @@ export default {
             height: "100%",
             width: "0",
             position: "fixed",
-            zIndex: "100",
+            zIndex: "20",
             top: "0",
             left: "0",
             overflowX: "hidden",
@@ -229,7 +237,7 @@ export default {
 
         touch: {
             position: "fixed",
-            zIndex: 30,
+            zIndex: 21,
             top: "0",
             left: "0",
             height: "100vh",

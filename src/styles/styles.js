@@ -78,7 +78,7 @@ export default {
         list: {
 
             container: {
-
+                backgroundColor: CL_WINDOW
             },
 
             item: {

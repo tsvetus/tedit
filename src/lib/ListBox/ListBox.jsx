@@ -163,7 +163,6 @@ class ListBox extends React.Component {
             });
         }
         this.key = event.key;
-        this.index = event.index;
     }
 
     handleTextChange(event) {

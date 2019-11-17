@@ -30,7 +30,6 @@ class Edit extends React.Component {
         this.setCaret = this.setCaret.bind(this);
         this.showPlaceholder = this.showPlaceholder.bind(this);
         this.hidePlaceholder = this.hidePlaceholder.bind(this);
-        this.enableEdit = this.enableEdit.bind(this);
         this.updateStyle = this.updateStyle.bind(this);
         this.sendValue = this.sendValue.bind(this);
     }
@@ -38,7 +37,6 @@ class Edit extends React.Component {
     componentDidMount() {
         this.mounted = true;
         this.updateStyle(this.valid, this.props.vStyle, this.props.iStyle);
-        this.enableEdit(true);
         this.ref.current.addEventListener('input', this.handleChange);
         this.ref.current.addEventListener('keypress', this.handleKeyPress);
         this.ref.current.addEventListener('keydown', this.handleKeyDown);
@@ -57,7 +55,6 @@ class Edit extends React.Component {
         this.ref.current.removeEventListener('keydown', this.handleKeyDown);
         this.ref.current.removeEventListener('keypress', this.handleKeyPress);
         this.ref.current.removeEventListener('input', this.handleChange);
-        this.enableEdit(false);
         this.mounted = false;
     }
 
@@ -98,8 +95,8 @@ class Edit extends React.Component {
 
     showPlaceholder() {
         if (this.props.placeholder && this.getText() === '' && this.getHtml().indexOf('<span') < 0) {
-            this.setHtml('<span style="pointer-events: none; color: #aaa;">' +
-                this.props.placeholder + '</span>');
+             this.setHtml('<span style="pointer-events: none; color: #aaa;">' +
+                 this.props.placeholder + '</span>');
         }
     }
 
@@ -237,6 +234,7 @@ class Edit extends React.Component {
     }
 
     handleClick() {
+        this.hidePlaceholder();
         if (this.props.onClick) {
             this.props.onClick({
                 data: this.props.data,
@@ -271,7 +269,12 @@ class Edit extends React.Component {
     render () {
 
         return (
-            <div ref={this.ref} tabIndex={'0'} />
+            <div
+                style={{
+                    position: "relative"
+                }}
+                ref={this.ref}
+                contentEditable={true} />
         );
 
     }
