@@ -33,8 +33,8 @@ class TListBox extends React.Component {
                 items={this.props.items}
                 listMode={this.props.listMode}
                 showMode={this.props.showMode}
-                editable={false}
                 clickable={this.props.clickable}
+                onSearch={this.props.onSearch}
                 onChange={this.props.onChange}
                 onValidate={this.props.onValidate} />
         );
@@ -58,7 +58,8 @@ TListBox.propTypes = {
     showMode: PropTypes.string,
     clickable: PropTypes.string,
     onChange: PropTypes.func,
-    onValidate: PropTypes.func
+    onValidate: PropTypes.func,
+    onSearch: PropTypes.func
 };
 
 TListBox.defaultProps = {

@@ -3,6 +3,7 @@ class Helper {
     constructor () {
         this.items = [];
         this.struct = null;
+        this.count = 0;
         this.getStruct = this.getStruct.bind(this);
         this.getValue = this.getValue.bind(this);
         this.getMode = this.getMode.bind(this);
@@ -82,6 +83,7 @@ class Helper {
         this.listMode = this.getMode(listMode);
         this.showMode = this.getMode(showMode);
         this.struct = this.getStruct(items, empty);
+        this.count = items ? items.length : 0;
 
         if (this.struct) {
 
@@ -110,7 +112,7 @@ class Helper {
     }
 
     hasItems() {
-        return this.items && this.items.length > 0;
+        return this.count > 0;
     }
 
     getLength() {

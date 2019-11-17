@@ -217,6 +217,7 @@ class Edit extends React.Component {
     }
 
     handleKeyPress(event) {
+        this.hidePlaceholder();
         if (!this.props.wrap && event.keyCode === 13) {
             event.preventDefault();
         } else if (this.props.readOnly) {

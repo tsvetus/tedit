@@ -34,7 +34,7 @@ registerStyles({
         container: {
             margin: "8px 0 0 0",
             width: "100%",
-            maxWidth: "400px"
+            maxWidth: "440px"
         },
 
         label: {
@@ -105,7 +105,7 @@ class Main extends React.Component {
             text4: null,
             memo: null,
             check: 1,
-            listBox: 2,
+            listBox: null,
             search: null,
             login: {username: 'user', password: ''},
             showLogin: false,
@@ -189,23 +189,21 @@ class Main extends React.Component {
                             label={'TText component:'}
                             name={'text1'}
                             placeholder={'Enter single line text ...'}
-                            onChange={this.handleChange}
-                        />
+                            onChange={this.handleChange} />
 
                         <TText
                             style={{label: {width: "180px"}}}
                             value={this.state.text2}
-                            label={'TText email:'}
+                            label={'TText with RegExp validation:'}
                             name={'text2'}
                             regexp={TText.regexp['email']}
                             placeholder={'Enter email address ...'}
-                            onChange={this.handleChange}
-                        />
+                            onChange={this.handleChange} />
 
                         <TText
                             style={{label: {width: "180px"}}}
                             value={this.state.text3}
-                            label={'TText with validation:'}
+                            label={'TText with custom validation:'}
                             name={'text3'}
                             placeholder={'Enter more than 3 symbols ...'}
                             onValidate={(event) => {
@@ -216,7 +214,7 @@ class Main extends React.Component {
                         <TText
                             style={{label: {width: "180px"}}}
                             value={this.state.text4}
-                            label={'Enter phone number:'}
+                            label={'TText with mask:'}
                             name={'text4'}
                             mask={{mask: '+1 (NNN) NNN-NN-NN', empty: '_', complete: true}}
                             onChange={this.handleChange} />
@@ -224,7 +222,7 @@ class Main extends React.Component {
                         <TListBox
                             style={{label: {width: "180px"}}}
                             name={'listBox'}
-                            label={'TList box:'}
+                            label={'TListBox with items:'}
                             listMode={'key value'}
                             showMode={'value'}
                             empty={{id: null, name: '-'}}
@@ -234,42 +232,39 @@ class Main extends React.Component {
                                 {id: 2, name: 'second item'}
                             ]}
                             placeholder={'Choose item from list ...'}
-                            onChange={this.handleChange}
-                        />
+                            onChange={this.handleChange} />
+
+                        <TListBox
+                            style={{label: {width: "180px"}}}
+                            name={'search'}
+                            label={'TListBox with search:'}
+                            listMode={'key value'}
+                            showMode={'value'}
+                            empty={{id: null, name: '-'}}
+                            value={this.state.search}
+                            placeholder={'Type word "item" ...'}
+                            onSearch={event => {
+                                return LIST.filter(v => {
+                                    return v.name.indexOf(event.value) >= 0 || v.id == event.key;
+                                });
+                            }}
+                            onChange={this.handleChange} />
 
                         <TCheck
                             style={{frame: {justifyContent: "flex-start"}, label: {width: "180px"}}}
-                            label={'Check me:'}
+                            label={'TCheck:'}
                             name={'check'}
                             value={this.state.check}
                             checked={1}
                             unchecked={0}
                             onChange={this.handleChange} />
 
-                        {/*<TSearch*/}
-                        {/*    style={{label: {width: "180px"}}}*/}
-                        {/*    name={'search'}*/}
-                        {/*    label={'TSearch:'}*/}
-                        {/*    listMode={'key value'}*/}
-                        {/*    showMode={'value'}*/}
-                        {/*    value={this.state.search}*/}
-                        {/*    placeholder={'Type word "item"'}*/}
-                        {/*    onSearch={event => {*/}
-                        {/*            return LIST.filter(v => {*/}
-                        {/*                return v.name.indexOf(event.value) >= 0 ||*/}
-                        {/*                    v.id == event.key;*/}
-                        {/*            });*/}
-                        {/*        }*/}
-                        {/*    }*/}
-                        {/*    onChange={this.handleChange} />*/}
-
                         <TMemo
                             value={this.state.memo}
-                            label={'TMemo component:'}
+                            label={'TMemo:'}
                             name={'memo'}
                             placeholder={'Enter multiline text. Use "wrap" property to enable caret returns.'}
-                            onChange={this.handleChange}
-                        />
+                            onChange={this.handleChange} />
 
                     </TGroup>
 
