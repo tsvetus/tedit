@@ -84,3 +84,25 @@ export function seconds(source) {
     return Date.parse('1970 ' + source + ' GMT')/1000;
 }
 
+export function find(node, parent) {
+    if (!node) {
+        return null;
+    }
+    if (node === parent) {
+        return parent;
+    }
+    if (parent && parent.children) {
+        for (let i=0; i<parent.children.length; i++) {
+            let child = parent.children[i];
+            if (node === child) {
+                return child
+            }
+            let found = find(node, child);
+            if (found) {
+                return found;
+            }
+        }
+    }
+    return null;
+}
+

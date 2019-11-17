@@ -101,7 +101,7 @@ TSearch.propTypes = {
     placeholder: PropTypes.string,
     chars: PropTypes.number,
     listMode: PropTypes.string,
-    clickable: PropTypes.any,
+    clickable: PropTypes.string,
     showMode: PropTypes.string,
     onChange: PropTypes.func,
     onValidate: PropTypes.func,

@@ -63,7 +63,7 @@ class Edit extends React.Component {
 
     componentDidUpdate(old) {
 
-        if (this.valid && this.value !== nvl(this.props.value, '')) {
+        if (this.valid && this.value !== nvl(this.props.value, '') && this.props.value !== undefined) {
             this.value = nvl(this.props.value, '');
             this.setText(this.value);
             this.handleChange();
@@ -270,7 +270,7 @@ class Edit extends React.Component {
     render () {
 
         return (
-            <div ref={this.ref} />
+            <div ref={this.ref} tabIndex={'0'} />
         );
 
     }

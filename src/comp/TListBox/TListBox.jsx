@@ -56,14 +56,13 @@ TListBox.propTypes = {
     items: PropTypes.array,
     listMode: PropTypes.string,
     showMode: PropTypes.string,
-    clickable: PropTypes.any,
+    clickable: PropTypes.string,
     onChange: PropTypes.func,
     onValidate: PropTypes.func
 };
 
 TListBox.defaultProps = {
-    showIcon: true,
-    clickable: true
+    showIcon: true
 };
 
 export default TListBox;

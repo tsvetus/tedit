@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './styles.js';
+import {merge} from '../../util';
+
+import styles from '../../styles';
 
 class TResponse extends React.Component {
 
@@ -11,7 +13,7 @@ class TResponse extends React.Component {
 
     render () {
 
-        let style = mergeStyles(styles, this.props.style);
+        let style = merge(styles.TResponse, styles[this.props.name], this.props.style);
 
         return (
             <div style={style.container}>
@@ -29,6 +31,8 @@ class TResponse extends React.Component {
 }
 
 TResponse.propTypes = {
+    style: PropTypes.object,
+    name: PropTypes.string,
     error: PropTypes.string,
     message: PropTypes.string
 };

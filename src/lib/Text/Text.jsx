@@ -22,7 +22,6 @@ class Text extends React.Component {
         this.frame = React.createRef();
         this.label = React.createRef();
         this.valid = true;
-        this.lastValid = true;
         this.updateStyle(this.valid, props.style);
     }
 
@@ -84,7 +83,9 @@ class Text extends React.Component {
     }
 
     validate(value) {
+
         let valid = true;
+
         if (this.props.onValidate) {
             valid = this.props.onValidate({
                 data: this.props.data,
@@ -99,7 +100,19 @@ class Text extends React.Component {
         } else {
             this.valid = valid;
         }
+
+        if (valid && this.props.regexp) {
+            valid = this.props.regexp.test(value);
+            if (valid !== this.valid) {
+                this.updateStyle(valid);
+                this.valid = valid;
+            }
+        } else {
+            this.valid = valid;
+        }
+
         return this.valid;
+
     }
 
     render () {
@@ -125,7 +138,7 @@ class Text extends React.Component {
             )
         }
 
-        let validate = this.props.onValidate ? this.handleValidate : null;
+        let validate = this.props.onValidate || this.props.regexp ? this.handleValidate : null;
 
         return (
             <div ref={this.container} style={this.vStyle.container}>
@@ -165,6 +178,7 @@ Text.propTypes = {
     placeholder: PropTypes.string,
     mask: PropTypes.object,
     empty: PropTypes.any,
+    regexp: PropTypes.object,
     onChange: PropTypes.func,
     onValidate: PropTypes.func,
     onIcon: PropTypes.func,

@@ -10,6 +10,10 @@ export default {
 
     TComponent: {
 
+        container: {
+            outline: "none"
+        },
+
         frame: {
             display: "flex",
             flexWrap: "nowrap",
@@ -25,7 +29,7 @@ export default {
         list: {
 
             container: {
-                position: "sticky",
+                position: "relative",
                 top: "0",
                 left: "0",
                 display: "flex",

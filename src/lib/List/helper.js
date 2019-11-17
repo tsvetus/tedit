@@ -6,8 +6,10 @@ class Helper {
         this.getStruct = this.getStruct.bind(this);
         this.getValue = this.getValue.bind(this);
         this.getMode = this.getMode.bind(this);
-        this.getItems = this.getItems.bind(this);
-        this.getItem = this.getItem.bind(this);
+        this.getListItems = this.getListItems.bind(this);
+        this.getShowItems = this.getShowItems.bind(this);
+        this.getListItem = this.getListItem.bind(this);
+        this.getShowItem = this.getShowItem.bind(this);
         this.hasItems = this.hasItems.bind(this);
         this.load = this.load.bind(this);
     }
@@ -59,12 +61,12 @@ class Helper {
         }
     }
 
-    getValue(item) {
+    getValue(item, mode) {
         let value = '';
-        if (this.mode.indexOf('key') >= 0) {
+        if (mode.indexOf('key') >= 0) {
             value += item[this.struct.key];
         }
-        if (this.mode.indexOf('val') >= 0) {
+        if (mode.indexOf('val') >= 0) {
             if (value === '') {
                 value += item[this.struct.value];
             } else {
@@ -74,17 +76,11 @@ class Helper {
         return value;
     }
 
-    getItem(value) {
-        let item = this.items.find( v =>{
-            return v.key == value;
-        });
-        return item;
-    }
-
-    load(items, empty, mode) {
+    load(items, empty, listMode, showMode) {
 
         this.items = [];
-        this.mode = this.getMode(mode);
+        this.listMode = this.getMode(listMode);
+        this.showMode = this.getMode(showMode);
         this.struct = this.getStruct(items, empty);
 
         if (this.struct) {
@@ -93,7 +89,8 @@ class Helper {
                 this.items.push({
                     index: -1,
                     key: empty[this.struct.key],
-                    value: empty[this.struct.value]
+                    listValue: empty[this.struct.value],
+                    showValue: empty[this.struct.value]
                 });
             }
 
@@ -102,7 +99,8 @@ class Helper {
                     this.items.push({
                         index: i,
                         key: v[this.struct.key],
-                        value: this.getValue(v)
+                        listValue: this.getValue(v, this.listMode),
+                        showValue: this.getValue(v, this.showMode)
                     });
                 });
             }
@@ -111,16 +109,44 @@ class Helper {
 
     }
 
-    getItems() {
-        return this.items;
-    }
-
     hasItems() {
         return this.items && this.items.length > 0;
     }
 
     getLength() {
         return this.items ? this.items.length : 0;
+    }
+
+    getListItems() {
+        return this.items.map(v => {
+            return {
+                index: v.index,
+                key: v.key,
+                value: v.listValue
+            }
+        });
+    }
+
+    getShowItems() {
+        return this.items.map(v => {
+            return {
+                index: v.index,
+                key: v.key,
+                value: v.showValue
+            }
+        });
+    }
+
+    getShowItem(value) {
+        return this.getShowItems().find( v =>{
+            return v.key == value;
+        });
+    }
+
+    getListItem(value) {
+        return this.getListItems().find( v =>{
+            return v.key == value;
+        });
     }
 
 }

@@ -18,7 +18,8 @@ import {
     TPanel,
     TTop,
     TSide,
-    TScroll
+    TScroll,
+    TResponse
 } from './comp';
 
 import {
@@ -49,6 +50,7 @@ export {
     TTop,
     TSide,
     TScroll,
+    TResponse,
 
     download,
     clone,

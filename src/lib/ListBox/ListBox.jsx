@@ -5,7 +5,7 @@ import Icon from '../Icon';
 import Edit from '../Edit';
 import List from '../List';
 
-import {merge} from '../../util';
+import {merge, find} from '../../util';
 
 import styles from '../../styles';
 
@@ -17,42 +17,50 @@ class ListBox extends React.Component {
             valid: true,
             showList: false,
             showText: '',
+            value: null,
             hover: -1
         };
-        this.handleIcon = this.handleIcon.bind(this);
+        this.handleIconClick = this.handleIconClick.bind(this);
+        this.handleLabelClick = this.handleLabelClick.bind(this);
+        this.handleEditClick = this.handleEditClick.bind(this);
         this.handleShow = this.handleShow.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+        this.handleItemClick = this.handleItemClick.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
         this.handleKeyDown = this.handleKeyDown.bind(this);
         this.handleBlur = this.handleBlur.bind(this);
-        this.validate = this.validate.bind(this);
-        this.getFrameRect = this.getFrameRect.bind(this);
-        this.getListStyle = this.getListStyle.bind(this);
         this.getContainerStyle = this.getContainerStyle.bind(this);
         this.updateText = this.updateText.bind(this);
+        this.updateItems = this.updateItems.bind(this);
         this.moveHover = this.moveHover.bind(this);
-        this.frame = React.createRef();
         this.container = React.createRef();
+        this.frame = React.createRef();
         this.list = React.createRef();
+        this.edit = React.createRef();
         this.helper = new List.Helper();
         this.containerHeight = 'auto';
     }
 
     componentWillUnmount() {
-        clearTimeout(this.timer);
         delete this.helper;
     }
 
     componentDidMount() {
-        this.validate(this.props.value);
+        this.updateItems();
         this.updateText(this.props.value);
     }
 
     componentDidUpdate(old) {
+        if (old.items !== this.props.items || old.listMode !== this.props.listMode ||
+            old.showMode !== this.props.showMode) {
+            this.updateItems();
+        }
         if (old.value !== this.props.value) {
-            this.validate(this.props.value);
             this.updateText(this.props.value);
         }
+    }
+
+    updateItems() {
+        this.helper.load(this.props.items, this.props.empty, this.props.listMode, this.props.showMode);
     }
 
     moveHover(dir) {
@@ -60,12 +68,14 @@ class ListBox extends React.Component {
             if (dir === -1 && this.state.hover > 0) {
                 this.setState({hover: this.state.hover - 1});
             } else if (dir === 1 && this.state.hover < this.helper.getLength() - 1) {
+                console.log(this.state.hover);
                 this.setState({hover: this.state.hover + 1});
             }
         }
     }
 
     handleKeyDown(event) {
+        console.log(event.keyCode);
         switch (event.keyCode) {
             case 40:
                 this.handleShow(true);
@@ -89,30 +99,44 @@ class ListBox extends React.Component {
     }
 
     handleShow(show) {
-        if (show && !this.state.showList && this.helper.hasItems()) {
-            this.setState({showList: true, hover: -1});
-        } else if (!show && this.state.showList) {
-            this.setState({showList: false, hover: -1});
+        if (show !== this.state.showList) {
+            this.setState({
+                showList: show && this.helper.hasItems(),
+                hover: -1
+            });
         }
     }
 
-    handleIcon() {
+    handleIconClick() {
         this.handleShow(!this.state.showList);
     }
 
-    handleChange(event) {
+    handleLabelClick() {
+        if (this.props.clickable.indexOf('label') >= 0) {
+            this.handleShow(!this.state.showList);
+        } else {
+            this.handleShow(false);
+        }
+    }
+
+    handleEditClick() {
+        if (this.props.clickable.indexOf('edit') >= 0) {
+            this.handleShow(!this.state.showList);
+        }
+    }
+
+    handleItemClick(event) {
+        this.updateText(event.key);
         this.handleShow(false);
-        if (this.props.onChange && this.props.value != event.key) {
-            this.updateText(event.key);
+        if (this.props.onChange && this.key !== event.key) {
             this.props.onChange({
                 name: this.props.name,
                 data: this.props.data,
                 value: event.key
             });
-        } else {
-            this.validate(event.key);
-            this.updateText(event.key);
         }
+        this.key = event.key;
+        this.index = event.index;
     }
 
     handleTextChange(event) {
@@ -126,50 +150,37 @@ class ListBox extends React.Component {
         }
     }
 
-    handleBlur() {
-        this.handleShow(false);
+    handleBlur(event) {
+        if (!find(event.relatedTarget, event.currentTarget)) {
+            this.handleShow(false);
+        }
     }
 
     updateText(value) {
-        this.helper.load(this.props.items, this.props.empty, this.props.showMode);
-        let item = this.helper.getItem(value);
+
+        if (value === undefined) {
+            return;
+        }
+
+        let item = this.helper.getShowItem(value);
+
         if (item) {
-            if (item.index === -1 && this.props.placeholder) {
-                this.setState({showText: ''});
+            if (item.index === -1) {
+                this.setState({showText: '', value: value});
             } else {
-                this.setState({showText: item.value});
+                this.setState({showText: item.value, value: value});
             }
         } else {
-            this.setState({showText: ''});
+            this.setState({showText: '', value: value});
         }
-    }
 
-    getFrameRect(element) {
-        let rect = element.getBoundingClientRect();
-        return {
-            left: rect.left,
-            top: rect.top,
-            right: rect.right,
-            bottom: rect.bottom,
-            width: rect.width,
-            height: rect.height
-        }
-    }
-
-    getListStyle() {
-        let rect = this.getFrameRect(this.frame.current);
-        return {
-            left: rect.left + 'px',
-            top: rect.bottom + 'px',
-            width: rect.width + 'px'
-        }
     }
 
     getContainerStyle() {
         if (this.state.showList) {
             this.containerHeight = this.container.current.style.height ?
                 this.container.current.style.height : 'auto';
-            let rect = this.getFrameRect(this.container.current);
+            let rect = this.container.current.getBoundingClientRect();
             return {
                 height: rect.height + 'px'
             }
@@ -180,35 +191,14 @@ class ListBox extends React.Component {
         }
     }
 
-    validate(value) {
-        if (this.props.onValidate) {
-            let valid = this.props.onValidate(value);
-            if (valid !== this.state.valid) {
-                this.setState({valid: valid});
-            }
-        } else {
-            return true;
-        }
-    }
-
     render () {
 
         let style = merge(styles.TComponent, styles.TText, this.props.style);
 
-        if (!this.state.valid) {
-            style = merge(
-                style,
-                styles.TComponent ? styles.TComponent.invalid : null,
-                styles.TText ? styles.TText.invalid : null,
-                this.props.style ? this.props.style.invalid : null
-            )
-        }
-
         let label = null;
         if (this.props.label) {
-            let click = this.props.clickable ? this.handleIcon : null;
             label =
-                <div style={style.label} onClick={click} >
+                <div style={style.label} onClick={this.handleLabelClick}>
                     {this.props.label}
                 </div>
         }
@@ -219,32 +209,29 @@ class ListBox extends React.Component {
                 <Icon
                     style={style.icon}
                     name={this.state.showList ? 'up' : 'down'}
-                    onClick={this.handleIcon} />
+                    onClick={this.handleIconClick} />
         }
 
         let list = null;
         if (this.state.showList && this.props.items) {
-            this.helper.load(this.props.items, this.props.empty, this.props.listMode);
-            let listStyle = merge(style.list, {container: this.getListStyle()});
             list =
                 <List
                     ref={this.list}
-                    style={listStyle}
-                    selected={this.props.value}
+                    style={style.list}
+                    selected={this.state.value}
                     hover={this.state.hover}
-                    items={this.helper.getItems()}
-                    onClick={this.handleChange} />
+                    items={this.helper.getListItems()}
+                    onClick={this.handleItemClick} />
         }
 
         let containerStyle = merge(style.container, this.getContainerStyle());
 
-        let click = this.props.clickable ? this.handleIcon : null;
-
         return (
-            <div style={containerStyle} ref={this.container}>
+            <div style={containerStyle} ref={this.container} onBlur={this.handleBlur} tabIndex={-1}>
                 <div style={style.frame} ref={this.frame}>
                     {label}
                     <Edit
+                        ref={this.edit}
                         vStyle={style.edit}
                         iStyle={style.edit}
                         data={this.props.data}
@@ -254,9 +241,8 @@ class ListBox extends React.Component {
                         placeholder={this.props.placeholder}
                         wrap={false}
                         readOnly={!this.props.editable}
-                        onClick={click}
+                        onClick={this.handleEditClick}
                         onKeyDown={this.handleKeyDown}
-                        onBlur={this.handleBlur}
                         onChange={this.handleTextChange} />
                     {icon}
                 </div>
@@ -282,16 +268,18 @@ ListBox.propTypes = {
     listMode: PropTypes.string,
     showMode: PropTypes.string,
     editable: PropTypes.any,
-    clickable: PropTypes.any,
+    clickable: PropTypes.string,
     onChange: PropTypes.func,
     onSearch: PropTypes.func,
     onValidate: PropTypes.func
 };
 
 ListBox.defaultProps = {
+    listMode: 'key val',
+    showMode: 'val',
     showIcon: true,
     editable: false,
-    clickable: true
+    clickable: 'label edit'
 };
 
 export default ListBox;

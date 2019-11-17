@@ -15,7 +15,7 @@ class Icon extends React.Component {
     }
 
     handleClick(event) {
-        event.stopPropagation();
+//        event.stopPropagation();
         let rect = event.currentTarget.getBoundingClientRect();
         if (this.props.onClick) {
             this.props.onClick({

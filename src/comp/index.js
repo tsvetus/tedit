@@ -14,6 +14,7 @@ import TPanel from './TPanel';
 import TTop from './TTop';
 import TSide from './TSide';
 import TScroll from './TScroll';
+import TResponse from './TResponse';
 
 export {
     TIcon,
@@ -31,5 +32,6 @@ export {
     TPanel,
     TTop,
     TSide,
-    TScroll
+    TScroll,
+    TResponse
 }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {Text} from '../../lib';
 
-import {merge} from '../../util';
+import {merge, REGEXP} from '../../util';
 
 import styles from '../../styles';
 
@@ -33,6 +33,7 @@ class TText extends React.Component {
                 timeout={this.props.timeout}
                 placeholder={this.props.placeholder}
                 mask={this.props.mask}
+                regexp={this.props.regexp}
                 empty={this.props.empty}
                 onValidate={this.props.onValidate}
                 onIcon={this.props.onIcon}
@@ -54,11 +55,14 @@ TText.propTypes = {
     timeout: PropTypes.number,
     placeholder: PropTypes.string,
     mask: PropTypes.object,
+    regexp: PropTypes.object,
     empty: PropTypes.any,
     onChange: PropTypes.func,
     onValidate: PropTypes.func,
     onIcon: PropTypes.func,
     onMask: PropTypes.func
 };
+
+TText.regexp = REGEXP;
 
 export default TText;

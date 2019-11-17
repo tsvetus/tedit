@@ -4,13 +4,15 @@ import {
     nvl,
     merge,
     seconds,
-    apply
+    apply,
+    find
 } from './misc.js';
 
 import Format from './format.js';
 
 import {
-    TIMEOUT
+    TIMEOUT,
+    REGEXP
 } from './const.js';
 
 export {
@@ -21,9 +23,11 @@ export {
     merge,
     seconds,
     apply,
+    find,
 
     Format,
 
-    TIMEOUT
+    TIMEOUT,
+    REGEXP
 
 }

@@ -3,6 +3,8 @@ const CL_TEXT = "#000";
 const CL_INVALID = "#a31";
 const CL_WINDOW = "#fff";
 const CL_PANEL = "#eee";
+const CL_ERROR = "#a31";
+const CL_MESSAGE = "#31a";
 
 const BR_BORDER = "1px solid " + CL_BORDER;
 const BR_INVALID = "1px dashed " + CL_INVALID;
@@ -326,6 +328,30 @@ export default {
     },
 
     TText: {
+
+    },
+
+    TResponse: {
+
+        container: {
+            textAlign: "center"
+        },
+
+        error: {
+            ...FONT,
+            margin: "16px",
+            color: CL_ERROR
+        },
+
+        message: {
+            ...FONT,
+            margin: "16px",
+            color: CL_MESSAGE
+        }
+
+    },
+
+    TSearch: {
 
     }
 
