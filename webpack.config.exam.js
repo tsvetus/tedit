@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
     mode: 'production',
     entry: {
-        test: [
+        example: [
             path.resolve(__dirname, './example/example.jsx')
         ]
     },

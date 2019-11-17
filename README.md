@@ -3,16 +3,20 @@
 Set of visual React components designed for constructing web application interfaces.
 
 `tedit` provides set of visual components constructed on `<div>` element with editable content:
-* [`Text`](#ttext)
+* [`TText`](#ttext)
 * [`TMemo`](#tmemo)
 * [`TListBox`](#tlistbox)
-* [`TSearch`](#tsearch)
 
 Other components:
-* [`TIcon`](#ticon)
 * [`TCheck`](#tcheck)
+* [`TIcon`](#ticon)
 * [`TGroup`](#tgroup)
-
+* [`TTop`](#tgroup)
+* [`TSide`](#tgroup)
+* [`TModal`](#tgroup)
+* [`TForm`](#tgroup)
+* [`TPanel`](#tcheck)
+* [`TLogin`](#tcheck)
 
 ## Example
 [Example page](https://tsvetus.github.io/tedit/)
@@ -22,11 +26,11 @@ Other components:
 Every component in `tedit` library has `style` property stands for providing custom style for each component:
 
 ```javascript
-import {Text} from 'tedit';
+import {TText} from 'tedit';
 
 const style = {...};
 ...
-    <Text style={style} />
+    <TText style={style} />
 ...    
 ```
  
@@ -37,8 +41,8 @@ styles using `registerStyles` function as follows:
 import {registerStyles} from 'tedit';
 
 const styles = {    
-    component: {
-        /** Global style for all editable components */
+    TComponent: {
+        /** Global style for components: TText, TListBox, TMemo, TCheck, TGroup */
         container: {
             backgroundColor: '#eee'
         },
@@ -46,62 +50,99 @@ const styles = {
             border: "1px solid red"
         }
     },
-    memo: {
+    TMemo: {
         /** Custom style for TMemo component. 
         * Use component name without 't' letter for assigning style to custom component */
         edit: {
             border: "1px solid green"
         }
+    },
+    MyListBox: {
+        /** Custom style for component with 'name' property equals 'MyListBox' */
+        list: {
+            item: {
+                backgroundColor: "yellow"
+            }
+        }    
     }
 };
 
 registerStyles(styles);
 ```
 This makes all controls appeared on grey background then all editable controls have `red` border except `green` 
-border for `TMemo`.  
+border for `TMemo` and with yellow list items in `TListBox` component with `name="MyListBox"`.  
 
 ## Events
 
-All events are occur with delay determined by `timeout` property. Default timeout is `700 ms`. There are five 
+All events are occur with delay determined by `timeout` property. Default timeout is `500 ms`. There are five 
 types of events in `tedit` components:  
 
-* `IconClickEvent` - Emerges each time when user click on icon. Applies to `TIcon` component itself and when
-    nested icons in `Text` and `TMemo` components are clicked.
-  * Argument: `{name: ..., data: ..., icon: ...}` where
-    * `name` - component name from `name` property.
-    * `data` - any data from `data` property.
-    * `icon` - contains icon name.      
-* `TexChangeEvent` - Emerges each time when edit text is changed in text edit components. Applies to `Text` 
-    and `TMemo` components.
-  * Argument: `{value: ..., name: ..., data: ..., icon: ...}` where
-    * `value` - edited text.
-    * `name` - component name from `name` property.
-    * `data` - any data from `data` property.
-    * `icon` - contains name of current component depending of it's state.      
-* `ListChangeEvent` - Emerges each time when item selected from list in list edit components. Applies to
-    `TListBox` and `TSearch` components. 
-  * Argument: `{value: ..., name: ..., data: ...}` where
-    * `value` - key value of clicked list item.
-    * `name` - component name from `name` property.
-    * `data` - any data from `data` property      
-* `ValidateEvent` - Emerges when text validation is needed. Applies to `Text` and `TMemo` components.
-  * Argument: `{value: ..., name: ..., data: ...}` similar to other events.
-  * Returns: - `boolean` When event returns `false` the component changes it's style to `invalid` 
-      (see style structure). 
-* `MaskCheckEvent` - Emerges when text mask checking is needed. Applies to `Text` component when `mask`
-    property is empty. If `mask` property contains any available masks `Text` component uses internal formatting 
+#### `IconClickEvent`:
+Emerges each time when user clicks an icon. Applies to `TIcon` component itself and when
+nested icons in `TText`, `TMemo`, `TListBox` components are clicked.
+
+Argument: `{name: ..., data: ..., icon: ...}` where
+* `name` - component name from `name` property.
+* `data` - any data from `data` property.
+* `icon` - contains icon name.      
+
+#### `TexChangeEvent`:
+
+Emerges each time when edit text is changed in text edit components. Applies to `TText` 
+and `TMemo` components.
+
+Argument: `{value: ..., name: ..., data: ..., icon: ...}` where
+* `value` - edited text.
+* `name` - component name from `name` property.
+* `data` - any data from `data` property.
+* `icon` - contains name of current component depending of it's state.      
+
+#### `ListChangeEvent`:
+
+Emerges each time when item selected from list in list edit components. Applies to
+`TListBox` components. 
+
+Argument: `{value: ..., name: ..., data: ...}` where
+* `value` - key value of clicked list item.
+* `name` - component name from `name` property.
+* `data` - any data from `data` property      
+
+#### `ValidateEvent`:
+
+Emerges when text validation is needed. Applies to `TText` and `TMemo` components.
+
+Argument: `{value: ..., name: ..., data: ...}` similar to other events.
+Returns: - `boolean` When event returns `false` the component changes it's style to `invalid` 
+      (see style structure).
+       
+#### `MaskCheckEvent`:
+
+Emerges when text mask checking is needed. Applies to `TText` component when `mask`
+    property is empty. If `mask` property contains any available masks `TText` component uses internal formatting 
     engine to mask entered text.
-  * Argument: `{value: ..., caret: ...}`
-    * `value` - contains current edited text.
-    * `caret` - contains current caret position.
-  * Returns: - `boolean` The event mast returns the same type of object back `{value: ..., caret: ...}` whith 
+
+Argument: `{value: ..., caret: ...}`
+* `value` - contains current edited text.
+* `caret` - contains current caret position.
+* Returns: - `boolean` The event mast returns the same type of object back `{value: ..., caret: ...}` with 
       `value` and `caret` containing new values of text and caret position.  
+
+#### `SearchkEvent`:
+
+Emerges when list box items is needed. Applies to `TListBox` component when `items`
+    property is empty.
+
+Argument: `{value: ...}`
+* `value` - contains current edited text.
+
+Returns: - `Arrray` of items like {&lt;key field name&gr;: ..., &lt;value field name&gt;: ...} where first field contains item
+    key value and the second - item text.  
 
 # Component descriptions
 
-## `Text`
+## `TText`
 
-`Text` represents one line text editor with label and icon (disabled by default)
+`TText` represents one line text editor with label and icon (disabled by default)
 
 ### Style structure:
 
@@ -110,6 +151,8 @@ types of events in `tedit` components:
 * `label` - Component label style.
 * `edit` - Text editor style.
 * `icon`- Clickable icon style.
+* `invalid` - Object containing all fields listed above. `invlid` style applied when onValidate 
+    event returns `false` or testing of regular expression supplied in `regexp` property is failed. 
 
 ### Component properties:
 
@@ -126,15 +169,17 @@ types of events in `tedit` components:
     represents object of type: `{mask: ..., empty: ..., complete: ...}` where:
   * `mask` - String field of the form `+1 (NNN) NNN-NN-NN` where `N` - any number.
   * `empty` - String represents empty symbol. If `empty` length more tan one symbol only first is used.
-  * `complete` - Optional. If true `onChange` event fires only when masked text is fully typed or empty instead.       
+  * `complete` - Optional. If true `onChange` event fires only when masked text is fully typed or empty instead.
+* `regexp` - Regular expression. If assigned component tries to test entered text in comparison with entered 
+    regular expression. If test failed then invalid style is applied (see style structure).          
 * `empty` - Value used by `onChange` event when edit text is empty.
 
 ### Component events:
 
-* `onChange`: `TextCengeEvent`
-* `onValidate`: `ValidateEvent`  
-* `onIcon`: `IconClickEvent`
-* `onMask`: `MaskCheckEvent`
+* `onChange`: [`TextChangeEvent`](textchangeevent)
+* `onValidate`: [`ValidateEvent`](validateevent)  
+* `onIcon`: [`IconClickEvent`](iconclickevent)
+* `onMask`: [`MaskCheckEvent`](maskcheckevent)
 
 ### Example:  
 
