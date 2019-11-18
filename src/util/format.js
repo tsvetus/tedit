@@ -20,7 +20,7 @@ function format (mask, empty, value) {
         let to = empty[0];
         if (isMaskCore(from)) {
             to = from;
-        } else if (i < value.length) {
+        } else if (value && i < value.length) {
             if (isMaskNumber(from)) {
                 if (isValueNumber(value[i])) {
                     to = value[i];
@@ -96,5 +96,9 @@ class Format {
     }
 
 }
+
+Format.format = function(mask, empty, value) {
+    return format(mask, empty, value);
+};
 
 export default Format;

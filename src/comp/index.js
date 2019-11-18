@@ -15,6 +15,7 @@ import TTop from './TTop';
 import TSide from './TSide';
 import TScroll from './TScroll';
 import TResponse from './TResponse';
+import TDate from './TDate';
 
 export {
     TIcon,
@@ -33,5 +34,6 @@ export {
     TTop,
     TSide,
     TScroll,
-    TResponse
+    TResponse,
+    TDate
 }

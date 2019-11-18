@@ -7,7 +7,6 @@ import {
     TGroup,
     TListBox,
     TCheck,
-    TSearch,
     TButton,
     TIndicator,
     TLogin,
@@ -17,6 +16,7 @@ import {
     TTop,
     TSide,
     TScroll,
+    TDate,
     styles,
     registerStyles,
     nvl
@@ -107,6 +107,7 @@ class Main extends React.Component {
             check: 1,
             listBox: null,
             search: null,
+            date: new Date(),
             login: {username: 'user', password: ''},
             showLogin: false,
             showModal: false,
@@ -266,6 +267,13 @@ class Main extends React.Component {
                             placeholder={'Enter multiline text. Use "wrap" property to enable caret returns.'}
                             onChange={this.handleChange} />
 
+                        <TDate
+                            name={'date'}
+                            value={this.state.date}
+                            format={''}
+                            label={'TDate: '}
+                            onChange={this.handleChange} />
+
                     </TGroup>
 
                     <TGroup label={'Other controls'}>
@@ -328,7 +336,7 @@ class Main extends React.Component {
                             }
                         }}
                         name={'showLogin'}
-                        value={this.state.tlogin}
+                        value={this.state.login}
                         show={this.state.showLogin}
                         onLogin={this.handleChange} />
 

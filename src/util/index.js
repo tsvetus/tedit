@@ -15,6 +15,11 @@ import {
     REGEXP
 } from './const.js';
 
+import {
+    isoDate,
+    strDate
+} from './date.js';
+
 export {
 
     download,
@@ -26,6 +31,9 @@ export {
     find,
 
     Format,
+
+    isoDate,
+    strDate,
 
     TIMEOUT,
     REGEXP

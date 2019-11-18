@@ -19,7 +19,8 @@ import {
     TTop,
     TSide,
     TScroll,
-    TResponse
+    TResponse,
+    TDate
 } from './comp';
 
 import {
@@ -51,6 +52,7 @@ export {
     TSide,
     TScroll,
     TResponse,
+    TDate,
 
     download,
     clone,

@@ -73,11 +73,15 @@ class Text extends React.Component {
             if (valid) {
                 apply(this.iStyle.container,  this.vStyle.container,  this.container.current.style);
                 apply(this.iStyle.frame,  this.vStyle.frame,  this.frame.current.style);
-                apply(this.iStyle.label,  this.vStyle.label,  this.label.current.style);
+                if (this.label.current) {
+                    apply(this.iStyle.label,  this.vStyle.label,  this.label.current.style);
+                }
             } else {
                 apply(this.vStyle.container,  this.iStyle.container,  this.container.current.style);
                 apply(this.vStyle.frame,  this.iStyle.frame,  this.frame.current.style);
-                apply(this.vStyle.label,  this.iStyle.label,  this.label.current.style);
+                if (this.label.current) {
+                    apply(this.vStyle.label,  this.iStyle.label,  this.label.current.style);
+                }
             }
         }
     }
