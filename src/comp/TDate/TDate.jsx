@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {Text} from '../../lib';
 
-import {merge, strDate, isoDate} from '../../util';
+import {merge, strDate, isoDate, REGEXP} from '../../util';
 
 import styles from '../../styles';
 
@@ -23,7 +23,7 @@ class TDate extends React.Component {
     }
 
     componentDidUpdate(old) {
-        if (old.value !== this.props.value) {
+        if (old.value !== this.props.value || old.mask !== this.props.mask) {
             let value = null;
             if (this.props.value === this.props.empty) {
                 value = this.props.empty;
@@ -37,7 +37,9 @@ class TDate extends React.Component {
     }
 
     handleValidate(event) {
-        return true;
+        console.log(new Date(isoDate(this.props.mask.mask, event.value)));
+
+        return Date.parse(isoDate(this.props.mask.mask, event.value)) !== NaN;
     }
 
     handleChange(event) {
@@ -64,7 +66,7 @@ class TDate extends React.Component {
 
         let style = merge(
             styles.TComponent,
-            styles.TText,
+            styles.TDate,
             styles[this.props.name],
             this.props.style
         );

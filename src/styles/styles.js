@@ -351,8 +351,10 @@ export default {
 
     },
 
-    TSearch: {
-
+    TDate: {
+        container: {
+            width: "220px"
+        }
     }
 
 }
