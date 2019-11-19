@@ -15,24 +15,7 @@ class TMemo extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-        this.state = {valid: true};
         this.handleIcon = this.handleIcon.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.validate = this.validate.bind(this);
-    }
-
-    componentWillUnmount() {
-        clearTimeout(this.timer);
-    }
-
-    componentDidMount() {
-        this.validate(this.props.value);
-    }
-
-    componentDidUpdate(old) {
-        if (old.value !== this.props.value) {
-            this.validate(this.props.value);
-        }
     }
 
     handleIcon() {
@@ -42,25 +25,6 @@ class TMemo extends React.Component {
                 name: this.props.name,
                 icon: this.props.icon
             });
-        }
-    }
-
-    handleChange(event) {
-        if (this.props.onChange) {
-            this.props.onChange(event);
-        } else {
-            this.validate(event.value);
-        }
-    }
-
-    validate(value) {
-        if (this.props.onValidate) {
-            let valid = this.props.onValidate(value);
-            if (valid !== this.state.valid) {
-                this.setState({valid: valid});
-            }
-        } else {
-            return true;
         }
     }
 
@@ -99,7 +63,7 @@ class TMemo extends React.Component {
                     empty={this.props.empty}
                     placeholder={this.props.placeholder}
                     timeout={this.props.timeout}
-                    onChange={this.handleChange} />
+                    onChange={this.props.onChange} />
             </div>
         );
 

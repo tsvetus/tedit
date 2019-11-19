@@ -13,39 +13,19 @@ function isValueNumber(char) {
     return char ? '0123456789'.indexOf(char) >= 0 : false;
 }
 
-function format (mask, empty, value) {
-    let result = '';
-    for (let i=0; i<mask.length; i++) {
-        let from = mask[i];
-        let to = empty[0];
-        if (isMaskCore(from)) {
-            to = from;
-        } else if (value && i < value.length) {
-            if (isMaskNumber(from)) {
-                if (isValueNumber(value[i])) {
-                    to = value[i];
-                }
-            } else {
-                to = value[i];
-            }
-        }
-        result += to;
-    }
-    return result;
-}
-
 class Format {
 
     constructor(mask, empty, full, value) {
+        this.correct = this.correct.bind(this);
+        this.format = this.format.bind(this);
+        this.parse = this.parse.bind(this);
         this.mask = mask ? mask : '';
         this.empty = empty && empty.length > 0 ? empty[0] : '-';
         this.value = value ? value : '';
         this.full = full;
-        this.value = format(this.mask, this.empty, this.value);
-        this.parse = this.parse.bind(this);
-        this.correct = this.correct.bind(this);
-        this.isFull = this.isFull.bind(this);
-        this.isEmpty = this.isEmpty.bind(this);
+        this.value = this.format(this.mask, this.empty, this.value);
+        this.isFull = false;
+        this.isEmpty = false;
     }
 
     correct(event) {
@@ -77,33 +57,53 @@ class Format {
 
     }
 
+    format(mask, empty, value) {
+        let result = '';
+        let total = 0;
+        let found = 0;
+        for (let i=0; i<mask.length; i++) {
+            let from = mask[i];
+            let to = empty[0];
+            if (isMaskCore(from)) {
+                to = from;
+            } else {
+                total++;
+                if (value && i < value.length) {
+                    if (isMaskNumber(from)) {
+                        if (isValueNumber(value[i])) {
+                            found++;
+                            to = value[i];
+                        }
+                    } else {
+                        found++;
+                        to = value[i];
+                    }
+                }
+            }
+            result += to;
+        }
+        this.isEmpty = found === 0;
+        this.isFull = total === found;
+        return result;
+    }
+
     parse(event) {
 
         let result = this.correct(event);
 
-        this.value = format(this.mask, this.empty, result.value);
+        this.value = this.format(this.mask, this.empty, result.value);
 
         result = {
             value: this.value,
-            caret: result.caret
+            caret: result.caret,
+            full: this.isFull,
+            empty: this.isEmpty
         };
 
         return result;
 
     }
 
-    isFull() {
-        return this.full ? this.value.indexOf(this.empty) < 0 : true;
-    }
-
-    isEmpty() {
-        return this.value === this.mask;
-    }
-
 }
-
-Format.format = function(mask, empty, value) {
-    return format(mask, empty, value);
-};
 
 export default Format;

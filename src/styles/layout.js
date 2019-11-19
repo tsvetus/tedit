@@ -38,7 +38,7 @@ export default {
                 left: "0",
                 display: "flex",
                 flexDirection: "column",
-                zIndex: "1"
+                zIndex: "2"
             },
 
             item: {

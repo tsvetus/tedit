@@ -110,6 +110,8 @@ class ListBox extends React.Component {
                 this.moveHover(-1);
                 break;
             case 9:
+                this.handleShow(false);
+                break;
             case 27:
                 event.preventDefault();
                 this.handleShow(false);

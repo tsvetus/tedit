@@ -11,11 +11,7 @@ class Edit extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-        this.value = nvl(props.value, '');
         this.ref = React.createRef();
-        this.caret = 0;
-        this.password = '';
-        this.valid = true;
         this.handleChange = this.handleChange.bind(this);
         this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -32,65 +28,113 @@ class Edit extends React.Component {
         this.hidePlaceholder = this.hidePlaceholder.bind(this);
         this.updateStyle = this.updateStyle.bind(this);
         this.sendValue = this.sendValue.bind(this);
+        this.validate = this.validate.bind(this);
+        this.parseValue = this.parseValue.bind(this);
+        this.vStyle = props.vStyle;
+        this.iStyle = merge(props.vStyle, props.iStyle);
+        this.value = props.value === undefined ? null : props.value;
+        this.caret = 0;
+        this.valid = true;
+        this.full = true;
+        this.empty = false;
     }
 
     componentDidMount() {
         this.mounted = true;
-        this.updateStyle(this.valid, this.props.vStyle, this.props.iStyle);
+        this.validate(this.value);
+        this.updateStyle(this.valid);
+        this.setText(this.value);
+        this.setCaret(this.caret);
+        this.showPlaceholder();
         this.ref.current.addEventListener('input', this.handleChange);
         this.ref.current.addEventListener('keypress', this.handleKeyPress);
         this.ref.current.addEventListener('keydown', this.handleKeyDown);
         this.ref.current.addEventListener('click', this.handleClick);
         this.ref.current.addEventListener('focus', this.handleFocus);
         this.ref.current.addEventListener('blur', this.handleBlur);
-        this.setText(this.value);
-        this.handleChange();
-        this.showPlaceholder();
     }
 
     componentWillUnmount() {
+        this.mounted = false;
         this.ref.current.removeEventListener('blur', this.handleBlur);
         this.ref.current.removeEventListener('focus', this.handleFocus);
         this.ref.current.removeEventListener('click', this.handleClick);
         this.ref.current.removeEventListener('keydown', this.handleKeyDown);
         this.ref.current.removeEventListener('keypress', this.handleKeyPress);
         this.ref.current.removeEventListener('input', this.handleChange);
-        this.mounted = false;
     }
 
     componentDidUpdate(old) {
 
-        if (this.valid && this.value !== nvl(this.props.value, '') && this.props.value !== undefined) {
-            this.value = nvl(this.props.value, '');
-            this.setText(this.value);
-            this.handleChange();
-            this.showPlaceholder();
-        }
-
         if (old.vStyle !== this.props.vStyle || old.iStyle !== this.props.iStyle) {
-            this.updateStyle(this.valid, this.props.vStyle, this.props.iStyle);
+            this.vStyle = this.props.vStyle;
+            this.iStyle = merge(this.props.vStyle, this.props.iStyle);
+            this.updateStyle(this.valid);
+        }
+        if (this.valid && this.full && this.props.value !== undefined && this.value !== this.props.value) {
+            this.value = this.props.value === undefined ? null : this.props.value;
+            this.validate(this.value);
+            this.updateStyle(this.valid);
+            this.setText(this.value);
+            this.setCaret(this.caret);
+            this.showPlaceholder();
         }
 
     }
 
-    updateStyle(valid, vStyle, iStyle) {
-        if (vStyle) {
-            this.vStyle = vStyle;
+    validate(value) {
+
+        let res = this.parseValue(value);
+
+        this.valid = res.valid;
+        this.value = res.value;
+        this.caret = res.caret;
+        this.full = res.full;
+        this.empty = res.empty;
+
+    }
+
+    parseValue(value) {
+
+
+        let query = {
+            value: value,
+            caret: this.getCaret(),
+            full: this.full,
+            empty: this.empty
+        };
+
+        if (this.props.onMask) {
+            query = this.props.onMask(query);
         }
-        if (iStyle) {
-            this.iStyle = merge(vStyle, iStyle);
+
+        let valid = this.valid;
+        if (this.props.onValidate) {
+            valid = this.props.onValidate({
+                value: query.value,
+                full: query.full,
+                empty: query.empty
+            });
         }
+
+        return {
+            valid: valid,
+            value: query.value,
+            caret: query.caret,
+            full: query.full,
+            empty: query.empty
+        }
+
+    }
+
+    updateStyle(valid) {
         if (this.mounted) {
-            if (valid === null || valid === undefined || valid) {
+            if (valid) {
                 apply(this.iStyle,  this.vStyle,  this.ref.current.style);
             } else {
                 apply(this.vStyle,  this.iStyle,  this.ref.current.style);
             }
         }
-    }
-
-    enableEdit(enabled) {
-        this.ref.current.contentEditable = enabled;
     }
 
     showPlaceholder() {
@@ -135,8 +179,12 @@ class Edit extends React.Component {
     }
 
     setText(text) {
-        this.ref.current.innerText = nvl(text,'');
-        this.setCaret(this.caret);
+        this.mute = true;
+        try {
+            this.ref.current.innerText = nvl(text,'');
+        } finally {
+            this.mute = false;
+        }
     }
 
     getCaret() {
@@ -162,13 +210,11 @@ class Edit extends React.Component {
         }
     }
 
-    sendValue() {
-        if (this.props.onChange && this.value !== this.getText()) {
+    sendValue(value) {
+        if (this.props.onChange) {
             clearTimeout(this.timer);
             this.timer = setTimeout(() => {
-                if (this.mounted && this.value !== this.getText()) {
-                    this.value = this.getText();
-                    let value = this.value === '' || !this.valid ? this.props.empty : this.value;
+                if (this.mounted) {
                     this.props.onChange({
                         data: this.props.data,
                         name: this.props.name,
@@ -181,35 +227,52 @@ class Edit extends React.Component {
 
     handleChange() {
 
-        if (this.mute) {
+        if (this.mute || !this.mounted) {
             return;
         }
 
-        if (this.props.onMask) {
-            this.caret = this.getCaret();
-            let result = this.props.onMask({value: this.getText(), caret: this.caret});
-            if (result) {
-                if (result.value) {
-                    this.setText(result.value);
-                }
-                if (!isNaN(result.caret)) {
-                    this.setCaret(result.caret);
-                }
-            }
+        this.value = this.getText();
+        if (this.value === '') {
+            this.value = this.props.empty;
         }
 
-        if (this.props.onValidate) {
-            let valid = this.props.onValidate({value: this.getText()});
-            if (valid !== this.valid) {
-                this.updateStyle(valid);
-                this.valid = valid;
-                this.sendValue();
-            } else if (valid) {
-                this.sendValue();
-            }
+        let res = this.parseValue(this.value);
+
+        this.setText(res.value);
+        if (res.caret === 0) {
+            this.ref.current.focus();
         } else {
-            this.sendValue();
+            this.setCaret(res.caret);
         }
+
+        if (this.valid !== res.valid) {
+            this.updateStyle(res.valid);
+        }
+
+        if (res.valid && res.full) {
+            this.sendValue(res.value);
+        } else if (!res.valid && res.valid !== this.valid) {
+            res.value = this.props.empty;
+            this.sendValue(res.value);
+        } else if (!res.full && res.full !== this.full) {
+            res.value = this.props.empty;
+            this.sendValue(res.value);
+        } else if (res.valid && res.valid !== this.valid) {
+            if (!res.full) {
+                res.value = this.props.empty;
+            }
+            this.sendValue(res.value);
+        } else if (res.full && res.full !== this.full) {
+            if (!res.valid) {
+                res.value = this.props.empty;
+            }
+            this.sendValue(res.value);
+        }
+
+        this.value = res.value;
+        this.valid = res.valid;
+        this.empty = res.empty;
+        this.full = res.full;
 
     }
 
@@ -239,7 +302,7 @@ class Edit extends React.Component {
             this.props.onClick({
                 data: this.props.data,
                 name: this.props.name,
-                value: this.getText()
+                value: this.value
             });
         }
     }
@@ -250,7 +313,7 @@ class Edit extends React.Component {
             this.props.onFocus({
                 data: this.props.data,
                 name: this.props.name,
-                value: this.getText()
+                value: this.value
             });
         }
     }
@@ -260,7 +323,7 @@ class Edit extends React.Component {
             this.props.onBlur({
                 data: this.props.data,
                 name: this.props.name,
-                value: this.getText()
+                value: this.value
             });
         }
         this.showPlaceholder();

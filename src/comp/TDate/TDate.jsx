@@ -37,7 +37,6 @@ class TDate extends React.Component {
     }
 
     handleValidate(event) {
-        console.log(JSON.stringify(event));
         return event.empty || testIsoDate(isoDate(this.props.mask.mask, event.value));
     }
 

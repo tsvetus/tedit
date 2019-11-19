@@ -20,7 +20,7 @@ export function merge(...sources) {
 
 export function apply(from, to, style) {
 
-    if (!to || !style) {
+    if (!from || !to || !style) {
         return;
     }
 

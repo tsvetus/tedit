@@ -20,56 +20,12 @@ class Mask extends React.Component {
                 props.mask.full ? props.mask.full : true,
                 props.value
             );
-            this.full = this.format.isFull();
         }
-        this.handleChange = this.handleChange.bind(this);
-        this.handleValidate = this.handleValidate.bind(this);
     }
 
     componentWillUnmount() {
         if (this.format) {
             delete this.format;
-        }
-    }
-
-    handleChange(event) {
-        if (this.props.onChange) {
-            if (this.format) {
-                let full = this.format.isFull();
-                if (full) {
-                    this.props.onChange({
-                        ...event,
-                        full: this.format.isFull(),
-                        empty: this.format.isEmpty()
-                    });
-                } else if (this.full) {
-                    this.props.onChange({
-                        ...event,
-                        value: this.props.empty,
-                        full: this.format.isFull(),
-                        empty: this.format.isEmpty()
-                    });
-                }
-                this.full = full;
-            } else {
-                this.props.onChange(event);
-            }
-        }
-    }
-
-    handleValidate(event) {
-        if (this.props.onValidate) {
-            if (this.format) {
-                return this.props.onValidate({
-                    ...event,
-                    full: this.format.isFull(),
-                    empty: this.format.isEmpty()
-                });
-            } else {
-                return this.props.onValidate(event);
-            }
-        } else {
-            return true;
         }
     }
 
@@ -95,8 +51,8 @@ class Mask extends React.Component {
                 timeout={this.props.timeout}
                 empty={this.props.empty}
                 onClick={this.props.onClick}
-                onChange={this.handleChange}
-                onValidate={this.handleValidate}
+                onChange={this.props.onChange}
+                onValidate={this.props.onValidate}
                 onFocus={this.props.onFocus}
                 onBlur={this.props.onBlur}
                 onMask={handleMask} />

@@ -13,21 +13,22 @@ class Text extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-        this.handleIcon = this.handleIcon.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleValidate = this.handleValidate.bind(this);
-        this.validate = this.validate.bind(this);
-        this.updateStyle = this.updateStyle.bind(this);
         this.container = React.createRef();
         this.frame = React.createRef();
         this.label = React.createRef();
+        this.handleIcon = this.handleIcon.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleValidate = this.handleValidate.bind(this);
+        this.updateStyle = this.updateStyle.bind(this);
+        this.value = props.value;
         this.valid = true;
-        this.updateStyle(this.valid, props.style);
+        this.vStyle = props.style ? props.style : {};
+        this.iStyle = merge(this.vStyle, this.vStyle.invalid);
     }
 
     componentDidMount() {
         this.mounted = true;
-        this.updateStyle(this.valid, this.props.style);
+        this.updateStyle(this.valid);
     }
 
     componentWillUnmount() {
@@ -36,12 +37,28 @@ class Text extends React.Component {
 
     componentDidUpdate(old) {
         if (old.style !== this.props.style) {
-            this.updateStyle(this.valid, this.props.style);
+            this.vStyle = this.props.style ? this.props.style : {};
+            this.iStyle = merge(this.vStyle, this.vStyle.invalid);
+            this.updateStyle(this.valid);
+        }
+        if (old.value !== this.props.value) {
+            this.value = this.props.value;
         }
     }
 
     handleValidate(event) {
-        return this.validate(event.value);
+        let valid = true;
+        if (this.props.onValidate) {
+            valid = this.props.onValidate(event);
+        }
+        if (valid && this.props.regexp) {
+            valid = this.props.regexp.test(event.value);
+        }
+        if (valid !== this.valid) {
+            this.updateStyle(valid);
+        }
+        this.valid = valid;
+        return this.valid;
     }
 
     handleIcon() {
@@ -50,12 +67,13 @@ class Text extends React.Component {
                 data: this.props.data,
                 name: this.props.name,
                 icon: this.props.icon,
-                value: this.props.value
+                value: this.value
             });
         }
     }
 
     handleChange(event) {
+        this.value = event.value;
         if (this.mounted && this.props.onChange) {
             this.props.onChange({
                 ...event,
@@ -64,15 +82,7 @@ class Text extends React.Component {
         }
     }
 
-    updateStyle(valid, style) {
-        if (style) {
-            this.vStyle = style;
-            if (this.props.showInvalid) {
-                this.iStyle = merge(style, style.invalid);
-            } else {
-                this.iStyle = style;
-            }
-        }
+    updateStyle(valid) {
         if (this.mounted) {
             if (valid) {
                 apply(this.iStyle.container,  this.vStyle.container,  this.container.current.style);
@@ -88,39 +98,6 @@ class Text extends React.Component {
                 }
             }
         }
-    }
-
-    validate(value) {
-
-        let valid = true;
-
-        if (this.props.onValidate) {
-            valid = this.props.onValidate({
-                data: this.props.data,
-                name: this.props.name,
-                icon: this.props.icon,
-                value: value
-            });
-            if (valid !== this.valid) {
-                this.updateStyle(valid);
-                this.valid = valid;
-            }
-        } else {
-            this.valid = valid;
-        }
-
-        if (valid && this.props.regexp) {
-            valid = this.props.regexp.test(value);
-            if (valid !== this.valid) {
-                this.updateStyle(valid);
-                this.valid = valid;
-            }
-        } else {
-            this.valid = valid;
-        }
-
-        return this.valid;
-
     }
 
     render () {
@@ -187,15 +164,10 @@ Text.propTypes = {
     mask: PropTypes.object,
     empty: PropTypes.any,
     regexp: PropTypes.object,
-    showInvalid: PropTypes.any,
     onChange: PropTypes.func,
     onValidate: PropTypes.func,
     onIcon: PropTypes.func,
     onMask: PropTypes.func
-};
-
-Text.defaultProps = {
-    showInvalid: true
 };
 
 export default Text;
