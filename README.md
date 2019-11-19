@@ -201,28 +201,28 @@ import {
 
 registerStyles({
 
-    icon: {
+    TIcon: {
         margin: "4px",
         width: "32px",
         height: "32px"
     },
 
-    component: {
+    TComponent: {
 
         container: {
             margin: "16px 0 0 0",
             width: "100%"
         },
 
+        icon: {
+            width: "18px",
+            height: "18px"
+        },
+
         invalid: {
             edit: {
                 backgroundColor: "#eea"
             }
-        },
-
-        icon: {
-            width: "18px",
-            height: "18px"
         }
 
     }

@@ -270,9 +270,6 @@ class Edit extends React.Component {
 
         return (
             <div
-                style={{
-                    position: "relative"
-                }}
                 ref={this.ref}
                 contentEditable={true} />
         );

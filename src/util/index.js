@@ -17,7 +17,8 @@ import {
 
 import {
     isoDate,
-    strDate
+    strDate,
+    testIsoDate
 } from './date.js';
 
 export {
@@ -34,6 +35,7 @@ export {
 
     isoDate,
     strDate,
+    testIsoDate,
 
     TIMEOUT,
     REGEXP

@@ -36,15 +36,16 @@ function format (mask, empty, value) {
 
 class Format {
 
-    constructor(mask, empty, complete, value) {
+    constructor(mask, empty, full, value) {
         this.mask = mask ? mask : '';
         this.empty = empty && empty.length > 0 ? empty[0] : '-';
         this.value = value ? value : '';
-        this.complete = complete;
+        this.full = full;
         this.value = format(this.mask, this.empty, this.value);
         this.parse = this.parse.bind(this);
         this.correct = this.correct.bind(this);
-        this.completed = this.completed.bind(this);
+        this.isFull = this.isFull.bind(this);
+        this.isEmpty = this.isEmpty.bind(this);
     }
 
     correct(event) {
@@ -91,8 +92,12 @@ class Format {
 
     }
 
-    completed() {
-        return this.complete ? this.value.indexOf(this.empty) < 0 : true;
+    isFull() {
+        return this.full ? this.value.indexOf(this.empty) < 0 : true;
+    }
+
+    isEmpty() {
+        return this.value === this.mask;
     }
 
 }

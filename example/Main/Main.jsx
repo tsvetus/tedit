@@ -217,7 +217,7 @@ class Main extends React.Component {
                             value={this.state.text4}
                             label={'TText with mask:'}
                             name={'text4'}
-                            mask={{mask: '+1 (NNN) NNN-NN-NN', empty: '_', complete: true}}
+                            mask={{mask: '+1 (NNN) NNN-NN-NN', empty: '_'}}
                             onChange={this.handleChange} />
 
                         <TListBox
@@ -269,9 +269,10 @@ class Main extends React.Component {
 
                         <TDate
                             name={'date'}
-                            value={this.state.date}
+//                            value={this.state.date}
                             format={''}
-                            label={'TDate: '}
+                            label={'TDate:'}
+                            showInvalid={true}
                             onChange={this.handleChange} />
 
                     </TGroup>

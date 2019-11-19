@@ -67,7 +67,11 @@ class Text extends React.Component {
     updateStyle(valid, style) {
         if (style) {
             this.vStyle = style;
-            this.iStyle = merge(style, style.invalid);
+            if (this.props.showInvalid) {
+                this.iStyle = merge(style, style.invalid);
+            } else {
+                this.iStyle = style;
+            }
         }
         if (this.mounted) {
             if (valid) {
@@ -183,10 +187,15 @@ Text.propTypes = {
     mask: PropTypes.object,
     empty: PropTypes.any,
     regexp: PropTypes.object,
+    showInvalid: PropTypes.any,
     onChange: PropTypes.func,
     onValidate: PropTypes.func,
     onIcon: PropTypes.func,
     onMask: PropTypes.func
+};
+
+Text.defaultProps = {
+    showInvalid: true
 };
 
 export default Text;

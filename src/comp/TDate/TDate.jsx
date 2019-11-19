@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {Text} from '../../lib';
 
-import {merge, strDate, isoDate, REGEXP} from '../../util';
+import {merge, strDate, isoDate, testIsoDate} from '../../util';
 
 import styles from '../../styles';
 
@@ -37,9 +37,8 @@ class TDate extends React.Component {
     }
 
     handleValidate(event) {
-        console.log(new Date(isoDate(this.props.mask.mask, event.value)));
-
-        return Date.parse(isoDate(this.props.mask.mask, event.value)) !== NaN;
+        console.log(JSON.stringify(event));
+        return event.empty || testIsoDate(isoDate(this.props.mask.mask, event.value));
     }
 
     handleChange(event) {
@@ -84,6 +83,7 @@ class TDate extends React.Component {
                 mask={this.props.mask}
                 regexp={this.props.regexp}
                 empty={this.props.empty}
+                showInvalid={this.props.showInvalid}
                 onValidate={this.handleValidate}
                 onIcon={this.props.onIcon}
                 onMask={this.props.onMask}
@@ -106,6 +106,7 @@ TDate.propTypes = {
     mask: PropTypes.object,
     empty: PropTypes.any,
     format: PropTypes.string,
+    showInvalid: PropTypes.any,
     onChange: PropTypes.func,
     onIcon: PropTypes.func
 };
