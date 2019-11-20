@@ -5,7 +5,7 @@ import Icon from '../Icon';
 import Edit from '../Edit';
 import List from '../List';
 
-import {merge, find} from '../../util';
+import {merge, find, nvl} from '../../util';
 
 import styles from '../../styles';
 
@@ -46,7 +46,9 @@ class ListBox extends React.Component {
 
     componentDidMount() {
         this.updateItems(this.props.items);
-        this.updateValue(this.props.value);
+        if (this.props.value !== undefined) {
+            this.updateValue(this.props.value);
+        }
     }
 
     componentDidUpdate(old) {
@@ -70,20 +72,30 @@ class ListBox extends React.Component {
     updateValue(value) {
 
         if (this.props.onSearch) {
-            let items = this.props.onSearch({key: value});
-            this.updateItems(items);
-        }
-
-        let item = this.helper.getShowItem(value);
-
-        if (item) {
-            if (item.index === -1) {
-                this.setState({showText: '', value: value});
-            } else {
-                this.setState({showText: item.value, value: value});
-            }
+            this.props.onSearch({key: value, value: null}, (items) => {
+                this.updateItems(items);
+                let item = this.helper.getShowItem(value);
+                if (item) {
+                    if (item.index === -1) {
+                        this.setState({showText: '', value: value});
+                    } else {
+                        this.setState({showText: item.value, value: value});
+                    }
+                } else {
+                    this.setState({showText: '', value: value});
+                }
+            });
         } else {
-            this.setState({showText: '', value: value});
+            let item = this.helper.getShowItem(value);
+            if (item) {
+                if (item.index === -1) {
+                    this.setState({showText: '', value: value});
+                } else {
+                    this.setState({showText: item.value, value: value});
+                }
+            } else {
+                this.setState({showText: '', value: value});
+            }
         }
 
     }
@@ -168,18 +180,25 @@ class ListBox extends React.Component {
     }
 
     handleTextChange(event) {
-        if (this.props.onSearch) {
-            let items = this.props.onSearch({value: event.value});
-            this.updateItems(items);
+        if (this.props.onSearch && event.value && event.value.length >= this.props.searchLength) {
+            this.props.onSearch({key: null, value: event.value}, (items) => {
+                this.updateItems(items);
+                this.setState({
+                    showText: event.value,
+                    showList: this.helper.hasItems(),
+                    hover: -1
+                });
+            });
             this.setState({
-                showText: event.value,
-                showList: this.helper.hasItems(),
-                hover: -1
+                showText: event.value
             });
         } else {
             this.setState({
                 showText: event.value
             });
+            if (event.value === null) {
+                this.handleItemClick({key: null});
+            }
         }
     }
 
@@ -282,17 +301,19 @@ ListBox.propTypes = {
     listMode: PropTypes.string,
     showMode: PropTypes.string,
     clickable: PropTypes.string,
+    searchLength: PropTypes.number,
     onChange: PropTypes.func,
     onSearch: PropTypes.func,
     onValidate: PropTypes.func
 };
 
 ListBox.defaultProps = {
-    listMode: 'key val',
+    listMode: 'val',
     showMode: 'val',
     showIcon: true,
     editable: false,
-    clickable: 'label edit'
+    clickable: 'label edit',
+    searchLength: 3
 };
 
 export default ListBox;

@@ -20,7 +20,8 @@ import {
     TSide,
     TScroll,
     TResponse,
-    TDate
+    TDate,
+    TTime
 } from './comp';
 
 import {
@@ -28,7 +29,10 @@ import {
     clone,
     nvl,
     merge,
-    seconds
+    seconds,
+    cutTime,
+    cutDate,
+    isoDate
 } from './util';
 
 import {styles, registerStyles} from './styles/const.js';
@@ -53,12 +57,16 @@ export {
     TScroll,
     TResponse,
     TDate,
+    TTime,
 
     download,
     clone,
     nvl,
     merge,
     seconds,
+    cutTime,
+    cutDate,
+    isoDate,
 
     styles,
     registerStyles

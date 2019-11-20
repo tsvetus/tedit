@@ -1,6 +1,6 @@
 import {REGEXP} from './const.js';
 
-export function isoDate(mask, source) {
+export function isoDate(source, mask) {
     if (source instanceof Date) {
         return source.toISOString().substr(0, 10);
     } else if (source && mask) {
@@ -12,7 +12,7 @@ export function isoDate(mask, source) {
     return null;
 }
 
-export function strDate(mask, empty, source) {
+export function strDate(source, mask, empty) {
 
     let str = null;
     if (source instanceof Date) {
@@ -23,6 +23,10 @@ export function strDate(mask, empty, source) {
         str = source.substr(0, 10);
     } else {
         return source;
+    }
+
+    if (!str) {
+        str = '';
     }
 
     let d = str.substr(8, 2);
@@ -57,3 +61,64 @@ export function testIsoDate(source) {
         return false;
     }
 }
+
+export function cutDate(source) {
+    let date = (new Date(source)).toISOString();
+    let d = date.substr(8, 2);
+    let m = date.substr(5, 2);
+    return d + '.' + m;
+}
+
+export function isoTime(mask, source) {
+    if (source instanceof Date) {
+        return source.toISOString().substr(11, 8);
+    } else if (source && mask) {
+        let h = mask.indexOf('hh') >= 0 ? source.substr(mask.indexOf('hh'), 2) : '00';
+        let m = mask.indexOf('mm') >= 0 ? source.substr(mask.indexOf('mm'), 2) : '00';
+        let s = mask.indexOf('ss') >= 0 ? source.substr(mask.indexOf('ss'), 2) : '00';
+        return h + ':' + m + ':' + s;
+    }
+    return null;
+}
+
+export function strTime(mask, empty, source) {
+
+    let str = null;
+    if (source instanceof Date) {
+        let offset = source.getTimezoneOffset();
+        let d = new Date(source.getTime() - offset*60*1000);
+        str = d.toISOString().substr(11, 8);
+    } else {
+        str = source;
+    }
+
+    if (!str) {
+        str = '';
+    }
+
+    let h = str.substr(0, 2);
+    let m = str.substr(3, 2);
+    let s = str.substr(6, 2);
+
+    return mask.replace('hh', h).replace('mm', m).replace('ss', s);
+
+}
+
+export function testIsoTime(source) {
+    if (REGEXP.isoTime.test(source)) {
+        let h = Number.parseInt(source.substr(0, 2));
+        let m = Number.parseInt(source.substr(3, 2));
+        let s = Number.parseInt(source.substr(6, 2));
+        return (
+            h >= 0 && h <= 59 &&
+            m >= 0 && m <= 59 &&
+            s >= 0 && s <= 59);
+    } else {
+        return false;
+    }
+}
+
+export function cutTime(source) {
+    return source.substring(0, 5);
+}
+

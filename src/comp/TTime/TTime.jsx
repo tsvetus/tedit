@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {Text} from '../../lib';
 
-import {merge, strDate, isoDate, testIsoDate} from '../../util';
+import {merge, strTime, isoTime, testIsoTime} from '../../util';
 
 import styles from '../../styles';
 
@@ -11,12 +11,12 @@ import styles from '../../styles';
  * Component representing icons.
  * @extends React
  */
-class TDate extends React.Component {
+class TTime extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            value: strDate(props.value, props.mask.mask, props.mask.empty)
+            value: strTime(props.mask.mask, props.mask.empty, props.value)
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleValidate = this.handleValidate.bind(this);
@@ -28,7 +28,7 @@ class TDate extends React.Component {
             if (this.props.value === this.props.empty) {
                 value = this.props.empty;
             } else {
-                value = strDate(this.props.value, this.props.mask.mask, this.props.mask.empty);
+                value = strTime(this.props.mask.mask, this.props.mask.empty, this.props.value);
             }
             if (this.props.value !== value) {
                 this.setState({value: value});
@@ -37,7 +37,7 @@ class TDate extends React.Component {
     }
 
     handleValidate(event) {
-        return event.empty || testIsoDate(isoDate(event.value, this.props.mask.mask));
+        return event.empty || testIsoTime(isoTime(this.props.mask.mask, event.value));
     }
 
     handleChange(event) {
@@ -48,9 +48,9 @@ class TDate extends React.Component {
                 let mask = this.props.mask;
                 let format = this.props.format;
                 if (format && format.indexOf('nat') >= 0) {
-                    value = new Date(isoDate(value, mask.mask));
+                    value = new Date(isoTime(mask.mask, value));
                 } else if (format && format.indexOf('iso') >= 0) {
-                    value = isoDate(value, mask.mask);
+                    value = isoTime(mask.mask, value);
                 }
             }
             this.props.onChange({
@@ -93,7 +93,7 @@ class TDate extends React.Component {
 
 }
 
-TDate.propTypes = {
+TTime.propTypes = {
     style: PropTypes.object,
     value: PropTypes.any,
     name: PropTypes.string,
@@ -110,10 +110,10 @@ TDate.propTypes = {
     onIcon: PropTypes.func
 };
 
-TDate.defaultProps = {
-    mask: {mask: 'DD.MM.YYYY', empty: '-', complete: true},
+TTime.defaultProps = {
+    mask: {mask: 'hh:mm', empty: '-', complete: true},
     format: 'iso',
     empty: null
 };
 
-export default TDate;
+export default TTime;

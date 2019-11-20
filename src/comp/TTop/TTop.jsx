@@ -65,6 +65,7 @@ TTop.propTypes = {
     style: PropTypes.object,
     name: PropTypes.string,
     data: PropTypes.any,
+    tools: PropTypes.array,
     caption: PropTypes.string,
     onClick: PropTypes.func
 };

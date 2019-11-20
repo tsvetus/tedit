@@ -1,34 +1,23 @@
-const CL_BORDER = "#3533aa";
-const CL_TEXT = "#000";
-const CL_INVALID = "#a31";
-const CL_WINDOW = "#fff";
-const CL_PANEL = "#eee";
-const CL_ERROR = "#a31";
-const CL_MESSAGE = "#31a";
-
-const BR_BORDER = "1px solid " + CL_BORDER;
-const BR_INVALID = "1px dashed " + CL_INVALID;
-
-const FONT = {
-    fontFamily: "Arial",
-    fontSize: "18px"
-};
+import template from './template.js'
 
 export default {
+
+    colors: template.colors,
+    fonts: template.fonts,
 
     TIcon: {
         padding: "4px",
         width: "32px",
         height: "32px",
-        color: CL_BORDER
+        color: template.colors.border
     },
 
     TButton: {
         padding: "8px",
-        border: BR_BORDER,
-        color: CL_TEXT,
+        border: "1px solid " + template.colors.border,
+        color: template.colors.text,
         borderRadius: "8px",
-        ...FONT
+        ...template.fonts.common
     },
 
     TIndicator: {
@@ -36,7 +25,7 @@ export default {
         flex: "0 0 24px",
         textAlign: "center",
         fontWeight: "bold",
-        ...FONT
+        ...template.fonts.common
     },
 
     TComponent: {
@@ -52,45 +41,45 @@ export default {
         label: {
             padding: "4px 4px 0 0",
             border: "none",
-            color: CL_BORDER,
+            color: template.colors.border,
             outline: "none",
             textAlign: "right",
-            ...FONT
+            ...template.fonts.common
         },
 
         edit: {
             minHeight: "18px",
             padding: "4px 4px 2px 4px",
-            border: BR_BORDER,
-            color: CL_TEXT,
+            border: "1px solid " + template.colors.border,
+            color: template.colors.text,
             outline: "none",
             textAlign: "left",
-            ...FONT
+            ...template.fonts.common
         },
 
         icon: {
             width: "18px",
             height: "18px",
             textAlign: "left",
-            color: CL_BORDER
+            color: template.colors.border
         },
 
         list: {
 
             container: {
-                backgroundColor: CL_WINDOW
+                backgroundColor: template.colors.window
             },
 
             item: {
                 padding: "4px",
-                border: BR_BORDER,
-                color: CL_TEXT,
+                border: "1px solid " + template.colors.border,
+                color: template.colors.text,
                 outline: "none",
-                backgroundColor: CL_WINDOW,
+                backgroundColor: template.colors.window,
                 cursor: "pointer",
                 textAlign: "center",
                 tabindex: "0",
-                ...FONT
+                ...template.fonts.common
             },
 
             selected: {
@@ -121,8 +110,8 @@ export default {
     TModal: {
 
         container: {
-            backgroundColor: CL_WINDOW,
-            border: BR_BORDER,
+            backgroundColor: template.colors.window,
+            border: "1px solid " + template.colors.border,
             borderRadius: "16px",
             maxWidth: "600px",
             width: "55%"
@@ -130,33 +119,33 @@ export default {
 
         header: {
             margin: "16px 16px 0 16px",
-            ...FONT
+            ...template.fonts.common
         },
 
         close: {
             color: "#aaa",
             width: "24px",
             height: "24px",
-            ...FONT
+            ...template.fonts.common
         },
 
         timer: {
-            ...FONT,
+            ...template.fonts.common,
             color: "#f55",
             fontSize: "24px"
         },
 
         caption: {
-            color: CL_BORDER,
+            color: template.colors.border,
             textAlign: "center",
             margin: "0 8px 0 8px",
-            ...FONT
+            ...template.fonts.common
         },
 
         content: {
-            color: CL_TEXT,
+            color: template.colors.text,
             margin: "16px",
-            ...FONT
+            ...template.fonts.common
         }
 
     },
@@ -168,14 +157,14 @@ export default {
         },
 
         message: {
-            ...FONT,
+            ...template.fonts.common,
             margin: "16px",
             color: "#393",
             textAlign: "center"
         },
 
         error: {
-            ...FONT,
+            ...template.fonts.common,
             margin: "16px",
             color: "#f55",
             textAlign: "center"
@@ -184,7 +173,7 @@ export default {
         buttons: {
 
             cancel: {
-                ...FONT,
+                ...template.fonts.common,
                 fontWeight: "bold",
                 color: "#f55",
                 width: "88px",
@@ -192,21 +181,21 @@ export default {
             },
 
             ok: {
-                ...FONT,
+                ...template.fonts.common,
                 color: "#4a4",
                 width: "88px",
                 textAlign: "center"
             },
 
             submit: {
-                ...FONT,
+                ...template.fonts.common,
                 color: "#4a4",
                 width: "88px",
                 textAlign: "center"
             },
 
             save: {
-                ...FONT,
+                ...template.fonts.common,
                 fontWeight: "bold",
                 color: "#4a4",
                 width: "88px",
@@ -214,7 +203,7 @@ export default {
             },
 
             edit: {
-                ...FONT,
+                ...template.fonts.common,
                 fontWeight: "bold",
                 color: "#4a4",
                 width: "88px",
@@ -222,7 +211,7 @@ export default {
             },
 
             disable: {
-                ...FONT,
+                ...template.fonts.common,
                 fontWeight: "bold",
                 color: "#ddd",
                 width: "88px",
@@ -230,7 +219,7 @@ export default {
             },
 
             delete: {
-                ...FONT,
+                ...template.fonts.common,
                 fontWeight: "bold",
                 color: "#f33",
                 width: "88px",
@@ -245,7 +234,7 @@ export default {
 
         edit: {
             minHeight: "18px",
-            border: BR_BORDER
+            border: "1px solid " + template.colors.border
         }
 
     },
@@ -254,37 +243,37 @@ export default {
 
         content: {
             padding: "8px",
-            border: BR_BORDER
+            border: "1px solid " + template.colors.border
         }
 
     },
 
     TPanel: {
-        backgroundImage: "linear-gradient(" + CL_PANEL + ", " + CL_WINDOW + ")",
-        backgroundColor: CL_PANEL,
+        backgroundImage: "linear-gradient(" + template.colors.panel + ", " + template.colors.window + ")",
+        backgroundColor: template.colors.panel,
         padding: "8px",
-        ...FONT,
+        ...template.fonts.common,
         justifyContent: "center",
-        color: CL_BORDER,
+        color: template.colors.border,
         fontSize: "24px"
     },
 
     TTop: {
 
         container: {
-            backgroundColor: CL_PANEL
+            backgroundColor: template.colors.panel
         },
 
         button: {
-            color: CL_BORDER,
+            color: template.colors.border,
             height: "32px",
             width: "32px",
             margin: "4px"
         },
 
         caption: {
-            ...FONT,
-            color: CL_BORDER,
+            ...template.fonts.common,
+            color: template.colors.border,
             fontSize: "24px"
         },
 
@@ -294,7 +283,7 @@ export default {
 
         icon: {
             margin: "0 0 0 8px",
-            color: CL_BORDER,
+            color: template.colors.border,
             height: "32px",
             width: "32px"
         }
@@ -304,19 +293,19 @@ export default {
     TSide: {
 
         container: {
-            backgroundColor: CL_PANEL,
+            backgroundColor: template.colors.panel,
             paddingTop: "60px"
         },
 
         close: {
-            color: CL_BORDER,
+            color: template.colors.border,
         },
 
         item: {
-            ...FONT,
+            ...template.fonts.common,
             padding: "8px 8px 8px 32px",
             fontSize: "24px",
-            color: CL_TEXT
+            color: template.colors.text
         }
 
     },
@@ -352,15 +341,15 @@ export default {
         },
 
         error: {
-            ...FONT,
+            ...template.fonts.common,
             margin: "16px",
-            color: CL_ERROR
+            color: template.colors.error
         },
 
         message: {
-            ...FONT,
+            ...template.fonts.common,
             margin: "16px",
-            color: CL_MESSAGE
+            color: template.colors.message
         }
 
     },
@@ -369,6 +358,10 @@ export default {
         container: {
             width: "220px"
         }
+    },
+
+    TScroll: {
+        ...template.fonts.common
     }
 
 }

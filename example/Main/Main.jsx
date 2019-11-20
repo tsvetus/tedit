@@ -17,6 +17,7 @@ import {
     TSide,
     TScroll,
     TDate,
+    TTime,
     styles,
     registerStyles,
     nvl
@@ -87,9 +88,9 @@ const iconLabelStyle = {
 };
 
 const LIST = [
-    {id: 1, name: 'first item'},
-    {id: 2, name: 'second item'},
-    {id: 3, name: 'third item'}
+    {id: 1, name: 'first item', title: null, description: null},
+    {id: 2, name: 'second item', title: null, description: null},
+    {id: 3, name: 'third item', title: null, description: null}
 ];
 
 
@@ -107,7 +108,8 @@ class Main extends React.Component {
             check: 1,
             listBox: null,
             search: null,
-            date: new Date(),
+            time: new Date(),
+            date: null,
             login: {username: 'user', password: ''},
             showLogin: false,
             showModal: false,
@@ -239,15 +241,17 @@ class Main extends React.Component {
                             style={{label: {width: "180px"}}}
                             name={'search'}
                             label={'TListBox with search:'}
-                            listMode={'key value'}
-                            showMode={'value'}
-                            empty={{id: null, name: '-'}}
-                            value={this.state.search}
+                            // listMode={'key value'}
+                            // showMode={'value'}
+                            // empty={{id: null, name: '-'}}
+                            // value={this.state.search}
                             placeholder={'Type word "item" ...'}
-                            onSearch={event => {
-                                return LIST.filter(v => {
-                                    return v.name.indexOf(event.value) >= 0 || v.id == event.key;
-                                });
+                            onSearch={(event, callback) => {
+                                callback(
+                                    LIST.filter(v => {
+                                        return v.name.indexOf(event.value) >= 0 || v.id == event.key;
+                                    })
+                                )
                             }}
                             onChange={this.handleChange} />
 
@@ -269,10 +273,14 @@ class Main extends React.Component {
 
                         <TDate
                             name={'date'}
-//                            value={this.state.date}
-                            format={''}
+                            value={this.state.date}
                             label={'TDate:'}
-                            showInvalid={true}
+                            onChange={this.handleChange} />
+
+                        <TTime
+                            name={'time'}
+                            value={this.state.time}
+                            label={'TTime:'}
                             onChange={this.handleChange} />
 
                     </TGroup>
