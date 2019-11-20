@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import TForm from '../TForm';
-import TText from '../TText';
 import TInput from '../TInput';
 
 import {merge} from '../../util';
@@ -19,6 +18,7 @@ class TLogin extends React.Component {
         };
         this.handleClick = this.handleClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
         this.setValue = this.setValue.bind(this);
     }
 
@@ -42,19 +42,26 @@ class TLogin extends React.Component {
     }
 
     handleClick(event) {
-        this.props.onLogin({
-            name: this.props.name,
-            data: this.props.data,
-            button: event.button,
-            value: {
-                username: this.state.username,
-                password: this.state.password
-            }
-        });
+        if (this.props.onLogin) {
+            this.props.onLogin({
+                name: this.props.name,
+                data: this.props.data,
+                button: event.button,
+                value: {
+                    username: this.state.username,
+                    password: this.state.password
+                }
+            });
+        }
+    }
+
+    handleKeyPress(event) {
+        if (event.key === 'Enter') {
+            this.handleClick({button: 'submit'});
+        }
     }
 
     handleChange(event) {
-        console.log(JSON.stringify(event));
         this.setState({
             [event.name]: event.value
         });
@@ -75,6 +82,7 @@ class TLogin extends React.Component {
 
             <TForm
                 style={style}
+                wait={this.props.wait}
                 name={this.props.name}
                 data={this.props.data}
                 show={this.props.show}
@@ -95,7 +103,7 @@ class TLogin extends React.Component {
                         label={this.props.labels.username}
                         placeholder={this.props.placeholders.username}
                         value={this.state.username}
-                        timeout={10}
+                        timeout={1}
                         onChange={this.handleChange} />
 
                     <TInput
@@ -106,7 +114,8 @@ class TLogin extends React.Component {
                         label={this.props.labels.password}
                         placeholder={this.props.placeholders.password}
                         value={this.state.password}
-                        timeout={10}
+                        timeout={1}
+                        onKeyPress={this.handleKeyPress}
                         onChange={this.handleChange} />
 
                 </form>
@@ -123,6 +132,7 @@ TLogin.propTypes = {
     style: PropTypes.object,
     name: PropTypes.string,
     data: PropTypes.any,
+    wait: PropTypes.any,
     labels: PropTypes.object,
     value: PropTypes.object,
     placeholders: PropTypes.object,

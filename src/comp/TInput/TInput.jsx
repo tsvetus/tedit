@@ -120,6 +120,8 @@ class TInput extends React.Component {
                         type={this.props.type}
                         autoComplete={this.props.autoComplete}
                         placeholder={this.props.placeholder}
+                        onKeyPress={this.props.onKeyPress}
+                        onKeyDown={this.props.onKeyDown}
                         onChange={this.handleChange} />
                     {icon}
                 </div>
@@ -141,6 +143,8 @@ TInput.propTypes = {
     placeholder: PropTypes.string,
     type: PropTypes.string,
     autoComplete: PropTypes.string,
+    onKeyPress: PropTypes.func,
+    onKeyDown: PropTypes.func,
     onChange: PropTypes.func,
     onValidate: PropTypes.func,
     onIcon: PropTypes.func,

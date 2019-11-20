@@ -96,7 +96,11 @@ export default {
         content: {
             display: "flex",
             flexDirection: "column"
-        },
+        }
+
+    },
+
+    TForm: {
 
         footer: {
             display: "flex",

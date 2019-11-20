@@ -72,6 +72,8 @@ class Input extends React.Component {
                 placeholder={this.props.placeholder}
                 autoComplete={this.props.autoComplete}
                 onChange={this.handleChange}
+                onKeyPress={this.props.onKeyPress}
+                onKeyDown={this.props.onKeyDown}
                 onClick={this.handleClick} />
         );
 
@@ -89,7 +91,9 @@ Input.propTypes = {
     type: PropTypes.string,
     autoComplete: PropTypes.string,
     onClick: PropTypes.func,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    onKeyPress: PropTypes.func,
+    onKeyDown: PropTypes.func
 };
 
 Input.defaultProps = {

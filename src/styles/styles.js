@@ -1,4 +1,4 @@
-const CL_BORDER = "#4a7";
+const CL_BORDER = "#3533aa";
 const CL_TEXT = "#000";
 const CL_INVALID = "#a31";
 const CL_WINDOW = "#fff";
@@ -157,7 +157,11 @@ export default {
             color: CL_TEXT,
             margin: "16px",
             ...FONT
-        },
+        }
+
+    },
+
+    TForm: {
 
         footer: {
             margin: "24px 16px 8px 16px"
@@ -235,7 +239,6 @@ export default {
 
         }
 
-
     },
 
     TMemo: {
@@ -269,11 +272,14 @@ export default {
     TTop: {
 
         container: {
-            backgroundColor: CL_PANEL,
+            backgroundColor: CL_PANEL
         },
 
         button: {
-            color: CL_BORDER
+            color: CL_BORDER,
+            height: "32px",
+            width: "32px",
+            margin: "4px"
         },
 
         caption: {
@@ -289,8 +295,8 @@ export default {
         icon: {
             margin: "0 0 0 8px",
             color: CL_BORDER,
-            height: "24px",
-            width: "24px"
+            height: "32px",
+            width: "32px"
         }
 
     },
@@ -317,10 +323,18 @@ export default {
 
     TLogin: {
 
+        container: {
+            maxWidth: '420px'
+        },
+
         component: {
 
             container: {
                 margin: "16px 16px 0 16px"
+            },
+
+            label: {
+                width: "160px"
             }
 
         }
