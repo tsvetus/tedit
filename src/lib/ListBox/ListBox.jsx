@@ -32,6 +32,8 @@ class ListBox extends React.Component {
         this.handleBlur = this.handleBlur.bind(this);
         this.getContainerStyle = this.getContainerStyle.bind(this);
         this.moveHover = this.moveHover.bind(this);
+        this.search = this.search.bind(this);
+        this.clear = this.clear.bind(this);
         this.container = React.createRef();
         this.frame = React.createRef();
         this.list = React.createRef();
@@ -48,6 +50,7 @@ class ListBox extends React.Component {
         this.updateItems(this.props.items);
         if (this.props.value !== undefined) {
             this.updateValue(this.props.value);
+            this.search(this.props.value);
         }
     }
 
@@ -56,11 +59,13 @@ class ListBox extends React.Component {
             old.showMode !== this.props.showMode) {
             if (this.props.items !== undefined) {
                 this.updateItems(this.props.items);
+                this.updateValue(this.props.value);
+                this.search(this.props.value);
             }
-        }
-        if (old.value !== this.props.value) {
+        } else if (old.value !== this.props.value) {
             if (this.props.value !== undefined) {
                 this.updateValue(this.props.value);
+                this.search(this.props.value);
             }
         }
     }
@@ -70,34 +75,16 @@ class ListBox extends React.Component {
     }
 
     updateValue(value) {
-
-        if (this.props.onSearch) {
-            this.props.onSearch({key: value, value: null}, (items) => {
-                this.updateItems(items);
-                let item = this.helper.getShowItem(value);
-                if (item) {
-                    if (item.index === -1) {
-                        this.setState({showText: '', value: value});
-                    } else {
-                        this.setState({showText: item.value, value: value});
-                    }
-                } else {
-                    this.setState({showText: '', value: value});
-                }
-            });
-        } else {
-            let item = this.helper.getShowItem(value);
-            if (item) {
-                if (item.index === -1) {
-                    this.setState({showText: '', value: value});
-                } else {
-                    this.setState({showText: item.value, value: value});
-                }
-            } else {
+        let item = this.helper.getShowItem(value);
+        if (item) {
+            if (item.index < 0) {
                 this.setState({showText: '', value: value});
+            } else {
+                this.setState({showText: item.value, value: value});
             }
+        } else {
+            this.setState({showText: '', value: value});
         }
-
     }
 
     moveHover(dir) {
@@ -180,25 +167,41 @@ class ListBox extends React.Component {
     }
 
     handleTextChange(event) {
-        if (this.props.onSearch && event.value && event.value.length >= this.props.searchLength) {
-            this.props.onSearch({key: null, value: event.value}, (items) => {
-                this.updateItems(items);
-                this.setState({
-                    showText: event.value,
-                    showList: this.helper.hasItems(),
-                    hover: -1
+        this.setState({
+            showText: event.value
+        }, () => {
+            if (this.props.onSearch && event.value && event.value.length >= this.props.searchLength) {
+                this.props.onSearch({key: null, value: event.value}, (items) => {
+                    this.updateItems(items);
+                    this.setState({
+                        showList: this.helper.hasItems(),
+                        hover: -1
+                    });
                 });
-            });
-            this.setState({
-                showText: event.value
-            });
-        } else {
-            this.setState({
-                showText: event.value
-            });
-            if (event.value === null) {
-                this.handleItemClick({key: null});
+            } else if (event.value === null) {
+                this.clear(null);
             }
+        });
+    }
+
+    clear() {
+        this.updateValue(null);
+        if (this.props.onChange) {
+            this.props.onChange({
+                name: this.props.name,
+                data: this.props.data,
+                value: null
+            });
+        }
+        this.key = null;
+    }
+
+    search(key) {
+        if (this.props.onSearch && key) {
+            this.props.onSearch({key: key, value: null}, (items) => {
+                this.updateItems(items);
+                this.updateValue(key);
+            });
         }
     }
 

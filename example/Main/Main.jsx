@@ -107,7 +107,7 @@ class Main extends React.Component {
             memo: null,
             check: 1,
             listBox: null,
-            search: null,
+            search: 1,
             time: new Date(),
             date: null,
             login: {username: 'user', password: ''},
@@ -117,6 +117,7 @@ class Main extends React.Component {
             showMenu: false
         };
         this.handleChange = this.handleChange.bind(this);
+        this.search = this.search.bind(this);
     }
 
     handleChange(event) {
@@ -145,6 +146,15 @@ class Main extends React.Component {
             });
         }
 
+    }
+
+    search(event, callback) {
+        let items = LIST.filter(v => {
+            return v.name.indexOf(event.value) >= 0 || v.id == event.key;
+        });
+        setTimeout(() => {
+            callback(items);
+        }, 2000);
     }
 
     render() {
@@ -241,17 +251,11 @@ class Main extends React.Component {
                             style={{label: {width: "180px"}}}
                             name={'search'}
                             label={'TListBox with search:'}
-                            // listMode={'key value'}
-                            // showMode={'value'}
-                            // empty={{id: null, name: '-'}}
-                            // value={this.state.search}
+                            empty={{id: null, name: '-'}}
+                            value={this.state.search}
                             placeholder={'Type word "item" ...'}
                             onSearch={(event, callback) => {
-                                callback(
-                                    LIST.filter(v => {
-                                        return v.name.indexOf(event.value) >= 0 || v.id == event.key;
-                                    })
-                                )
+                                this.search(event, callback);
                             }}
                             onChange={this.handleChange} />
 

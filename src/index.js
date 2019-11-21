@@ -32,7 +32,8 @@ import {
     seconds,
     cutTime,
     cutDate,
-    isoDate
+    isoDate,
+    strDate
 } from './util';
 
 import {styles, registerStyles} from './styles/const.js';
@@ -67,6 +68,7 @@ export {
     cutTime,
     cutDate,
     isoDate,
+    strDate,
 
     styles,
     registerStyles

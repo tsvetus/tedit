@@ -33,7 +33,11 @@ export function strDate(source, mask, empty) {
     let m = str.substr(5, 2);
     let y = str.substr(0, 4);
 
-    return mask.replace('DD', d).replace('MM', m).replace('YYYY', y);
+    if (mask) {
+        return mask.replace('DD', d).replace('MM', m).replace('YYYY', y);
+    } else {
+        return 'DD.MM.YYYY'.replace('DD', d).replace('MM', m).replace('YYYY', y);
+    }
 
 }
 
