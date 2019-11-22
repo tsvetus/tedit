@@ -15,13 +15,11 @@ class Icon extends React.Component {
     }
 
     handleClick(event) {
-//        event.stopPropagation();
-        let rect = event.currentTarget.getBoundingClientRect();
+        event.stopPropagation();
         if (this.props.onClick) {
             this.props.onClick({
                 name: this.props.name,
-                data: this.props.data//,
-                //rect: rect
+                data: this.props.data
             });
         }
     }

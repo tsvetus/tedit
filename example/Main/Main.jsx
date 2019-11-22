@@ -154,7 +154,7 @@ class Main extends React.Component {
         });
         setTimeout(() => {
             callback(items);
-        }, 2000);
+        }, 500);
     }
 
     render() {
