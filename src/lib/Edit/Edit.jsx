@@ -96,12 +96,12 @@ class Edit extends React.Component {
 
     parseValue(value) {
 
-
         let query = {
             value: value,
             caret: this.getCaret(),
             full: this.full,
-            empty: this.empty
+            empty: this.empty,
+            key: this.key
         };
 
         if (this.props.onMask) {
@@ -286,6 +286,7 @@ class Edit extends React.Component {
     }
 
     handleKeyDown(event) {
+        this.key = event.keyCode;
         if (this.props.onKeyDown) {
             this.props.onKeyDown(event);
         }

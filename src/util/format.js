@@ -49,6 +49,9 @@ class Format {
             }
         } else if (diff === -1) {
             value = value.substr(0, caret) + this.empty + value.substr(caret);
+            if (event.key === 46) {
+                caret++;
+            }
         } else {
             value = this.value;
         }
@@ -67,8 +70,7 @@ class Format {
         let v = valueStr.length - 1;
 
         let result = '';
-        let total = 0;
-        let found = 0;
+        let count = 0;
 
         while (m >= 0) {
             let from = maskStr[m];
@@ -81,19 +83,19 @@ class Format {
                     }
                 }
             } else {
-                total++;
                 if (v >= 0) {
                     if (isMaskNumber(from)) {
-                        while (v >= 0 && !isValueNumber(valueStr[v])) {
-                            v--;
-                        }
-                        if (v >= 0 && isValueNumber(valueStr[v])) {
-                            found++;
+                        if (isValueNumber(valueStr[v]) || valueStr[v] === emptyStr) {
+                            count++;
                             to = valueStr[v];
                             v--;
+                        } else {
+                            while (v >= 0 && !isValueNumber(valueStr[v])) {
+                                v--;
+                            }
                         }
                     } else {
-                        found++;
+                        count++;
                         to = valueStr[v];
                         v--;
                     }
@@ -103,8 +105,8 @@ class Format {
             m--;
         }
 
-        this.isEmpty = found === 0;
-        this.isFull = total === found;
+        this.isEmpty = count === 0;
+        this.isFull = result.indexOf(emptyStr) < 0;
 
         return result;
 
