@@ -47,18 +47,35 @@ class Text extends React.Component {
     }
 
     handleValidate(event) {
+
         let valid = true;
+
         if (this.props.onValidate) {
             valid = this.props.onValidate(event);
         }
+
         if (valid && this.props.regexp) {
-            valid = this.props.regexp.test(event.value);
+            if (this.props.required) {
+                valid = this.props.regexp.test(event.value);
+            } else if (event.value && event.value !== '' && event.value !== this.props.empty) {
+                valid = this.props.regexp.test(event.value);
+            } else {
+                valid = true;
+            }
         }
+
+        if (valid && this.props.mask) {
+            valid = this.props.required ? event.full === true : event.full === true || event.empty === true;
+        }
+
         if (valid !== this.valid) {
             this.updateStyle(valid);
         }
+
         this.valid = valid;
+
         return this.valid;
+
     }
 
     handleIcon() {
@@ -123,7 +140,7 @@ class Text extends React.Component {
             )
         }
 
-        let validate = this.props.onValidate || this.props.regexp ? this.handleValidate : null;
+        let validate = this.props.onValidate || this.props.regexp || this.props.mask ? this.handleValidate : null;
 
         return (
             <div ref={this.container} style={this.vStyle.container}>
@@ -164,6 +181,7 @@ Text.propTypes = {
     mask: PropTypes.object,
     empty: PropTypes.any,
     regexp: PropTypes.object,
+    required: PropTypes.any,
     onChange: PropTypes.func,
     onValidate: PropTypes.func,
     onIcon: PropTypes.func,

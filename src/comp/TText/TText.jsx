@@ -57,6 +57,7 @@ TText.propTypes = {
     mask: PropTypes.object,
     regexp: PropTypes.object,
     empty: PropTypes.any,
+    required: PropTypes.any,
     onChange: PropTypes.func,
     onValidate: PropTypes.func,
     onIcon: PropTypes.func,

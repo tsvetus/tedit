@@ -21,11 +21,32 @@ class Mask extends React.Component {
                 props.value
             );
         }
+        this.handleValidate = this.handleValidate.bind(this);
     }
 
     componentWillUnmount() {
         if (this.format) {
             delete this.format;
+        }
+    }
+
+    handleValidate(event) {
+        if (this.props.onValidate) {
+            if (this.format) {
+                return this.props.onValidate({
+                    ...event,
+                    empty: this.format.isEmpty(),
+                    full: this.format.isFull()
+                });
+            } else {
+                return this.props.onValidate({
+                    ...event,
+                    empty: false,
+                    full: true
+                });
+            }
+        } else {
+            return true;
         }
     }
 
@@ -37,6 +58,8 @@ class Mask extends React.Component {
         } else if (this.format) {
             handleMask = this.format.parse;
         }
+
+        let handleValidate = this.props.onValidate ? this.props.onValidate : null;
 
         return (
 
@@ -52,7 +75,7 @@ class Mask extends React.Component {
                 empty={this.props.empty}
                 onClick={this.props.onClick}
                 onChange={this.props.onChange}
-                onValidate={this.props.onValidate}
+                onValidate={handleValidate}
                 onFocus={this.props.onFocus}
                 onBlur={this.props.onBlur}
                 onMask={handleMask} />

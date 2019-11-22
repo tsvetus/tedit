@@ -49,9 +49,9 @@ class Format {
             }
         } else if (diff === -1) {
             value = value.substr(0, caret) + this.empty + value.substr(caret);
-            if (event.key === 46) {
-                caret++;
-            }
+            // if (event.key === 46) {
+            //     caret++;
+            // }
         } else {
             value = this.value;
         }
@@ -85,8 +85,11 @@ class Format {
             } else {
                 if (v >= 0) {
                     if (isMaskNumber(from)) {
-                        if (isValueNumber(valueStr[v]) || valueStr[v] === emptyStr) {
+                        if (isValueNumber(valueStr[v])) {
                             count++;
+                            to = valueStr[v];
+                            v--;
+                        } else if (valueStr[v] === emptyStr) {
                             to = valueStr[v];
                             v--;
                         } else {
