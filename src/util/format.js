@@ -58,33 +58,56 @@ class Format {
     }
 
     format(mask, empty, value) {
+
+        let maskStr = mask ? mask : '';
+        let emptyStr = empty && empty.length > 0 ? empty[0] : '_';
+        let valueStr = value ? value : '';
+
+        let m = maskStr.length - 1;
+        let v = valueStr.length - 1;
+
         let result = '';
         let total = 0;
         let found = 0;
-        for (let i=0; i<mask.length; i++) {
-            let from = mask[i];
-            let to = empty[0];
+
+        while (m >= 0) {
+            let from = maskStr[m];
+            let to = emptyStr;
             if (isMaskCore(from)) {
                 to = from;
+                if (v >= 0) {
+                    if (valueStr[v] === to || valueStr[v] === emptyStr) {
+                        v--;
+                    }
+                }
             } else {
                 total++;
-                if (value && i < value.length) {
+                if (v >= 0) {
                     if (isMaskNumber(from)) {
-                        if (isValueNumber(value[i])) {
+                        while (v >= 0 && !isValueNumber(valueStr[v])) {
+                            v--;
+                        }
+                        if (v >= 0 && isValueNumber(valueStr[v])) {
                             found++;
-                            to = value[i];
+                            to = valueStr[v];
+                            v--;
                         }
                     } else {
                         found++;
-                        to = value[i];
+                        to = valueStr[v];
+                        v--;
                     }
                 }
             }
-            result += to;
+            result = to + result;
+            m--;
         }
+
         this.isEmpty = found === 0;
         this.isFull = total === found;
+
         return result;
+
     }
 
     parse(event) {

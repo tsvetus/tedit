@@ -103,7 +103,7 @@ class Main extends React.Component {
             text1: null,
             text2: null,
             text3: null,
-            text4: null,
+            text4: '+7 905 745-81-11',
             memo: null,
             check: 1,
             listBox: null,
