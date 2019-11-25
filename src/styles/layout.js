@@ -221,7 +221,8 @@ export default {
             top: "0",
             left: "0",
             overflowX: "hidden",
-            transition: "0.5s"
+            transition: "0.5s",
+            tabIndex: "-1"
         },
 
         close: {

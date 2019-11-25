@@ -22,6 +22,9 @@ class TSide extends React.Component {
         this.handleStart = this.handleStart.bind(this);
         this.handleEnd = this.handleEnd.bind(this);
         this.handleEndS = this.handleEndS.bind(this);
+        this.handleBlur = this.handleBlur.bind(this);
+        this.calcState = this.calcState.bind(this);
+        this.doClick = this.doClick.bind(this);
     }
 
     componentDidUpdate(old) {
@@ -72,6 +75,11 @@ class TSide extends React.Component {
         } else {
             this.setState({width: this.state.sideWidth});
         }
+    }
+
+    handleBlur() {
+        console.log('blur');
+        this.doClick("close");
     }
 
     calcState(props) {
@@ -131,7 +139,8 @@ class TSide extends React.Component {
                 style={style.container}
                 onTouchMove={this.handleMove}
                 onTouchStart={this.handleStart}
-                onTouchEnd={this.handleEndS}>
+                onTouchEnd={this.handleEndS}
+                onBlur={this.handleBlur}>
 
                 <Icon
                     name="close"

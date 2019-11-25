@@ -72,7 +72,7 @@ export default {
 
             item: {
                 padding: "4px",
-                border: "1px solid " + template.colors.border,
+                border: "1px dotted " + template.colors.border,
                 color: template.colors.text,
                 outline: "none",
                 backgroundColor: template.colors.window,
@@ -176,21 +176,18 @@ export default {
                 ...template.fonts.common,
                 fontWeight: "bold",
                 color: "#f55",
-                width: "88px",
                 textAlign: "center"
             },
 
             ok: {
                 ...template.fonts.common,
                 color: "#4a4",
-                width: "88px",
                 textAlign: "center"
             },
 
             submit: {
                 ...template.fonts.common,
                 color: "#4a4",
-                width: "88px",
                 textAlign: "center"
             },
 
@@ -198,7 +195,6 @@ export default {
                 ...template.fonts.common,
                 fontWeight: "bold",
                 color: "#4a4",
-                width: "88px",
                 textAlign: "center"
             },
 
@@ -206,7 +202,6 @@ export default {
                 ...template.fonts.common,
                 fontWeight: "bold",
                 color: "#4a4",
-                width: "88px",
                 textAlign: "center"
             },
 
@@ -214,7 +209,6 @@ export default {
                 ...template.fonts.common,
                 fontWeight: "bold",
                 color: "#ddd",
-                width: "88px",
                 textAlign: "center"
             },
 
@@ -222,7 +216,6 @@ export default {
                 ...template.fonts.common,
                 fontWeight: "bold",
                 color: "#f33",
-                width: "88px",
                 textAlign: "center"
             }
 

@@ -21,7 +21,8 @@ import {
     TScroll,
     TResponse,
     TDate,
-    TTime
+    TTime,
+    TInput
 } from './comp';
 
 import {
@@ -59,6 +60,7 @@ export {
     TResponse,
     TDate,
     TTime,
+    TInput,
 
     download,
     clone,

@@ -17,6 +17,7 @@ import TScroll from './TScroll';
 import TResponse from './TResponse';
 import TDate from './TDate';
 import TTime from './TTime';
+import TInput from './TInput';
 
 export {
     TIcon,
@@ -37,5 +38,6 @@ export {
     TScroll,
     TResponse,
     TDate,
-    TTime
+    TTime,
+    TInput
 }
