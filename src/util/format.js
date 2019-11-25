@@ -41,10 +41,15 @@ class Format {
             if (isMaskNumber(this.mask[caret - 1]) && !isValueNumber(value[caret - 1])) {
                 value = this.value;
                 caret --;
-            } else {
+            } else if (caret < value.length) {
                 value = value.substr(0, caret) + value.substr(caret + 1);
                 while (isMaskCore(this.mask[caret])) {
                     caret ++;
+                }
+            } else {
+                value = value.substr(0, caret -1);
+                while (isMaskCore(this.mask[caret])) {
+                    caret --;
                 }
             }
         } else if (diff === -1) {
