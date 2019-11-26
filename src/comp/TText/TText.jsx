@@ -35,6 +35,8 @@ class TText extends React.Component {
                 mask={this.props.mask}
                 regexp={this.props.regexp}
                 empty={this.props.empty}
+                required={this.props.required}
+                readOnly={this.props.readOnly}
                 onValidate={this.props.onValidate}
                 onIcon={this.props.onIcon}
                 onMask={this.props.onMask}
@@ -58,6 +60,7 @@ TText.propTypes = {
     regexp: PropTypes.object,
     empty: PropTypes.any,
     required: PropTypes.any,
+    readOnly: PropTypes.any,
     onChange: PropTypes.func,
     onValidate: PropTypes.func,
     onIcon: PropTypes.func,

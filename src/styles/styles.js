@@ -17,6 +17,7 @@ export default {
         border: "1px solid " + template.colors.border,
         color: template.colors.text,
         borderRadius: "8px",
+        textAlign: "center",
         ...template.fonts.common
     },
 
@@ -39,7 +40,7 @@ export default {
         },
 
         label: {
-            padding: "4px 4px 0 0",
+            padding: "4px 8px 0 0",
             border: "none",
             color: template.colors.border,
             outline: "none",

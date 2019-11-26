@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {TIMEOUT, nvl} from '../../util';
+import {nvl} from '../../util';
 
 /**
  * @class
@@ -97,7 +97,7 @@ Input.propTypes = {
 };
 
 Input.defaultProps = {
-    timeout: TIMEOUT
+    timeout: 100
 };
 
 export default Input;

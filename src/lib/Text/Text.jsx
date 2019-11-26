@@ -157,6 +157,7 @@ class Text extends React.Component {
                         wrap={false}
                         mask={this.props.mask}
                         empty={this.props.empty}
+                        readOnly={this.props.readOnly}
                         onMask={this.props.onMask}
                         onValidate={validate}
                         onChange={this.handleChange} />
@@ -182,6 +183,7 @@ Text.propTypes = {
     empty: PropTypes.any,
     regexp: PropTypes.object,
     required: PropTypes.any,
+    readOnly: PropTypes.any,
     onChange: PropTypes.func,
     onValidate: PropTypes.func,
     onIcon: PropTypes.func,

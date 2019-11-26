@@ -39,6 +39,7 @@ class ListBox extends React.Component {
         this.list = React.createRef();
         this.edit = React.createRef();
         this.helper = new List.Helper();
+        this.item = null;
         this.containerHeight = 'auto';
     }
 
@@ -75,12 +76,12 @@ class ListBox extends React.Component {
     }
 
     updateValue(value) {
-        let item = this.helper.getShowItem(value);
-        if (item) {
-            if (item.index < 0) {
+        this.item = this.helper.getShowItem(value);
+        if (this.item) {
+            if (this.item.index < 0) {
                 this.setState({showText: '', value: value});
             } else {
-                this.setState({showText: item.value, value: value});
+                this.setState({showText: this.item.value, value: value});
             }
         } else {
             this.setState({showText: '', value: value});
@@ -160,7 +161,8 @@ class ListBox extends React.Component {
             this.props.onChange({
                 name: this.props.name,
                 data: this.props.data,
-                value: event.key
+                value: event.key,
+                item: this.item
             });
         }
         this.key = event.key;

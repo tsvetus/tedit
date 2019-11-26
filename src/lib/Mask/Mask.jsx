@@ -73,6 +73,7 @@ class Mask extends React.Component {
                 placeholder={this.props.placeholder}
                 timeout={this.props.timeout}
                 empty={this.props.empty}
+                readOnly={this.props.readOnly}
                 onClick={this.props.onClick}
                 onChange={this.props.onChange}
                 onValidate={handleValidate}
@@ -97,6 +98,7 @@ Mask.propTypes = {
     placeholder: PropTypes.string,
     mask: PropTypes.object,
     empty: PropTypes.any,
+    readOnly: PropTypes.any,
     onClick: PropTypes.func,
     onChange: PropTypes.func,
     onMask: PropTypes.func,

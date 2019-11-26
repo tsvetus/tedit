@@ -16,22 +16,10 @@ class TModal extends React.Component {
             timer: null,
             wait: 0
         };
+        this.close = this.close.bind(this);
+        this.setTimer = this.setTimer.bind(this);
+        this.stopTimer = this.stopTimer.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
-    }
-
-    close() {
-        this.stopTimer();
-        if (this.props.onClose) {
-            this.props.onClose({
-                name: this.props.name,
-                data: this.props.data,
-                button: ICON_CLOSE
-            });
-        }
-    }
-
-    handleCancel() {
-        this.close();
     }
 
     componentDidMount() {
@@ -48,6 +36,17 @@ class TModal extends React.Component {
 
     componentWillUnmount() {
         this.stopTimer();
+    }
+
+    close() {
+        this.stopTimer();
+        if (this.props.onClose) {
+            this.props.onClose({
+                name: this.props.name,
+                data: this.props.data,
+                button: ICON_CLOSE
+            });
+        }
     }
 
     setTimer() {
@@ -78,6 +77,10 @@ class TModal extends React.Component {
             clearInterval(this.state.timer);
             this.setState({timer: null});
         }
+    }
+
+    handleCancel() {
+        this.close();
     }
 
     render () {
