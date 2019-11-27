@@ -53,7 +53,7 @@ class TForm extends React.Component {
             for (let key in propButtons) {
                 let buttonStyle = style.buttons[key];
                 if (this.props.disable) {
-                    buttonStyle = style.disable;
+                    buttonStyle = style.buttons.disable;
                 }
                 buttons.push(
                     <TButton

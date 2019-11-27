@@ -112,7 +112,6 @@ export default {
 
         container: {
             backgroundColor: template.colors.window,
-            border: "1px solid " + template.colors.border,
             borderRadius: "16px",
             maxWidth: "600px",
             width: "55%"
@@ -210,7 +209,9 @@ export default {
                 ...template.fonts.common,
                 fontWeight: "bold",
                 color: "#ddd",
-                textAlign: "center"
+                textAlign: "center",
+                border: "1px solid #ddd",
+                cursor: "default"
             },
 
             delete: {
