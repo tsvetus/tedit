@@ -35,6 +35,7 @@ class TListBox extends React.Component {
                 showMode={this.props.showMode}
                 searchLength={this.props.searchLength}
                 clickable={this.props.clickable}
+                readOnly={this.props.readOnly}
                 onSearch={this.props.onSearch}
                 onChange={this.props.onChange}
                 onValidate={this.props.onValidate} />
@@ -59,6 +60,7 @@ TListBox.propTypes = {
     showMode: PropTypes.string,
     clickable: PropTypes.string,
     searchLength: PropTypes.number,
+    readOnly: PropTypes.any,
     onChange: PropTypes.func,
     onValidate: PropTypes.func,
     onSearch: PropTypes.func

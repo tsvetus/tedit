@@ -250,6 +250,10 @@ export default {
             opacity: "0"
         }
 
+    },
+
+    TScroll: {
+        overflow: "auto"
     }
 
 }

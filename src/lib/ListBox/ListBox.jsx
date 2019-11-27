@@ -128,6 +128,9 @@ class ListBox extends React.Component {
     }
 
     handleShow(show) {
+        if (this.props.readOnly) {
+            return;
+        }
         if (show !== this.state.showList) {
             this.setState({
                 showList: show && this.helper.hasItems(),
@@ -157,7 +160,7 @@ class ListBox extends React.Component {
     handleItemClick(event) {
         this.updateValue(event.key);
         this.handleShow(false);
-        if (this.props.onChange && this.key !== event.key) {
+        if (this.props.onChange/* && this.key !== event.key*/) {
             this.props.onChange({
                 name: this.props.name,
                 data: this.props.data,
@@ -181,7 +184,7 @@ class ListBox extends React.Component {
                     });
                 });
             } else if (event.value === null) {
-                this.clear(null);
+//                this.clear(null);
             }
         });
     }
@@ -278,7 +281,7 @@ class ListBox extends React.Component {
                         timeout={this.props.timeout}
                         placeholder={this.props.placeholder}
                         wrap={false}
-                        readOnly={!this.props.onSearch}
+                        readOnly={!this.props.onSearch || this.props.readOnly}
                         onClick={this.handleEditClick}
                         onKeyDown={this.handleKeyDown}
                         onChange={this.handleTextChange} />
@@ -307,6 +310,7 @@ ListBox.propTypes = {
     showMode: PropTypes.string,
     clickable: PropTypes.string,
     searchLength: PropTypes.number,
+    readOnly: PropTypes.any,
     onChange: PropTypes.func,
     onSearch: PropTypes.func,
     onValidate: PropTypes.func
