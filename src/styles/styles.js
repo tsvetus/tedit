@@ -14,7 +14,8 @@ export default {
 
     TButton: {
         padding: "8px",
-        border: "1px solid " + template.colors.border,
+        border: "1px solid " + template.colors.frame,
+        backgroundColor: "#eee",
         color: template.colors.text,
         borderRadius: "8px",
         textAlign: "center",
@@ -51,7 +52,7 @@ export default {
         edit: {
             minHeight: "18px",
             padding: "4px 4px 2px 4px",
-            border: "1px solid " + template.colors.border,
+            border: "1px solid " + template.colors.frame,
             color: template.colors.text,
             outline: "none",
             textAlign: "left",
@@ -72,11 +73,11 @@ export default {
             },
 
             item: {
-                padding: "4px",
+                padding: "8px",
                 border: "1px dotted " + template.colors.border,
                 color: template.colors.text,
                 outline: "none",
-                backgroundColor: template.colors.window,
+                backgroundColor: template.colors.panel,
                 cursor: "pointer",
                 textAlign: "center",
                 tabindex: "0",
@@ -114,7 +115,8 @@ export default {
             backgroundColor: template.colors.window,
             borderRadius: "16px",
             maxWidth: "600px",
-            width: "55%"
+            width: "55%",
+            padding: "4px"
         },
 
         header: {

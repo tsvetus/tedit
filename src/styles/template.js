@@ -2,6 +2,7 @@ export default {
 
     colors: {
         border: "#3533aa",
+        frame: "#bfbbff",
         text: "#000",
         invalid: "#a31",
         window: "#fff",

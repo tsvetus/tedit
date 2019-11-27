@@ -69,10 +69,11 @@ export default {
         },
 
         container: {
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
+            position: "relative",
+            margin: "auto",
+            top: "20%",
+            // left: "50%",
+            // transform: "translate(-50%, -50%)",
             zIndex: "11",
             backgroundColor: "#fff",
             cursor: "default"
