@@ -13,7 +13,7 @@ export default {
     },
 
     TButton: {
-        padding: "8px",
+        padding: "8px 16px 8px 16px",
         border: "1px solid " + template.colors.frame,
         backgroundColor: "#eee",
         color: template.colors.text,
