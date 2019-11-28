@@ -220,7 +220,7 @@ class Main extends React.Component {
                             name={'text3'}
                             placeholder={'Enter more than 3 symbols ...'}
                             onValidate={(event) => {
-                                return nvl(event.value, '').length > 3;
+                                return nvl(event.value, '').length > 10;
                             }}
                             onChange={this.handleChange} />
 

@@ -74,7 +74,7 @@ export default {
 
             item: {
                 padding: "8px",
-                border: "1px dotted " + template.colors.border,
+                border: "1px solid " + template.colors.frame,
                 color: template.colors.text,
                 outline: "none",
                 backgroundColor: template.colors.panel,
@@ -89,7 +89,8 @@ export default {
             },
 
             hover: {
-                backgroundColor: "#eee"
+                backgroundColor: "#fff",
+                border: "1px solid " + template.colors.border
             }
 
         },
