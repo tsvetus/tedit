@@ -78,6 +78,12 @@ registerStyles({
         }
     }
 
+}, {
+
+    colors: {
+        border: "#a69"
+    }
+
 });
 
 const iconLabelStyle = {
