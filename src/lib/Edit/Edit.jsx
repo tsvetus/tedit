@@ -37,6 +37,7 @@ class Edit extends React.Component {
         this.valid = true;
         this.full = true;
         this.empty = false;
+        this.sending = false;
     }
 
     componentDidMount() {
@@ -71,8 +72,7 @@ class Edit extends React.Component {
             this.iStyle = merge(this.props.vStyle, this.props.iStyle);
             this.updateStyle(this.valid);
         }
-        if (/*(this.valid || this.full || this.empty) &&*/
-            this.props.value !== undefined && this.value !== this.props.value) {
+        if (!this.sending && this.props.value !== undefined && this.value !== this.props.value) {
             this.value = this.props.value === undefined ? null : this.props.value;
             this.validate(this.value);
             this.updateStyle(this.valid);
@@ -80,6 +80,8 @@ class Edit extends React.Component {
             this.setCaret(this.caret);
             this.showPlaceholder();
         }
+
+        this.sending = false;
 
     }
 
@@ -216,6 +218,7 @@ class Edit extends React.Component {
             clearTimeout(this.timer);
             this.timer = setTimeout(() => {
                 if (this.mounted) {
+                    this.sending = true;
                     this.props.onChange({
                         data: this.props.data,
                         name: this.props.name,

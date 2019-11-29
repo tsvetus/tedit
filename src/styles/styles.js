@@ -72,7 +72,7 @@ export default function defaultStyles(template) {
 
                 item: {
                     padding: "8px",
-                    border: "1px dotted " + template.colors.border,
+                    border: "1px solid " + template.colors.frame,
                     color: template.colors.text,
                     outline: "none",
                     backgroundColor: template.colors.panel,
@@ -87,7 +87,8 @@ export default function defaultStyles(template) {
                 },
 
                 hover: {
-                    backgroundColor: "#eee"
+                    backgroundColor: "#fff",
+                    border: "1px solid " + template.colors.border
                 }
 
             },
@@ -239,6 +240,10 @@ export default function defaultStyles(template) {
             content: {
                 padding: "8px",
                 border: "1px solid " + template.colors.border
+            },
+
+            label: {
+                backgroundColor: template.colors.window
             }
 
         },
@@ -354,7 +359,8 @@ export default function defaultStyles(template) {
         },
 
         TScroll: {
-            ...template.fonts.common
+            ...template.fonts.common,
+            backgroundColor: template.colors.window
         }
 
     }

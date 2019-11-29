@@ -23,68 +23,74 @@ import {
     nvl
 } from 'tedit';
 
-registerStyles({
+registerStyles(
 
-    TIcon: {
-        width: "32px",
-        height: "32px"
-    },
+    {
 
-    TComponent: {
-
-        container: {
-            margin: "8px 0 0 0",
-            width: "100%",
-            maxWidth: "440px"
+        TIcon: {
+            width: "32px",
+            height: "32px"
         },
 
-        label: {
-            textAlign: "right"
+        TComponent: {
+
+            container: {
+                margin: "8px 0 0 0",
+                width: "100%",
+                maxWidth: "440px"
+            },
+
+            label: {
+                textAlign: "right"
+            },
+
+            icon: {
+                width: "18px",
+                height: "18px"
+            }
+
         },
 
-        icon: {
-            width: "18px",
-            height: "18px"
+        TGroup: {
+
+            container: {
+                maxWidth: "520px",
+                margin: "auto",
+                marginTop: "16px"
+            },
+
+            content: {
+                justifyContent: "space-around"
+            }
+
+        },
+
+        TPanel: {
+            padding: "16px"
+        },
+
+        TScroll: {
+            padding: "16px"
+        },
+
+        memo: {
+            container: {
+                maxWidth: "auto",
+                width: "100%"
+            }
         }
 
     },
 
-    TGroup: {
+    {
 
-        container: {
-            maxWidth: "520px",
-            margin: "auto",
-            marginTop: "16px"
-        },
-
-        content: {
-            justifyContent: "space-around"
+        colors: {
+            window: "#999"
         }
 
-    },
-
-    TPanel: {
-        padding: "16px"
-    },
-
-    TScroll: {
-        padding: "16px"
-    },
-
-    memo: {
-        container: {
-            maxWidth: "auto",
-            width: "100%"
-        }
     }
 
-}, {
-
-    colors: {
-        border: "#a69"
-    }
-
-});
+);
 
 const iconLabelStyle = {
     ...styles.TComponent.label,
@@ -226,7 +232,7 @@ class Main extends React.Component {
                             name={'text3'}
                             placeholder={'Enter more than 3 symbols ...'}
                             onValidate={(event) => {
-                                return nvl(event.value, '').length > 3;
+                                return nvl(event.value, '').length > 10;
                             }}
                             onChange={this.handleChange} />
 
