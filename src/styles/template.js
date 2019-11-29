@@ -1,14 +1,19 @@
 export default {
 
     colors: {
-        border: "#3533aa",
+        border: "rgba(42,41,117,0.89)",
+        face: "#eee",
         frame: "#bfbbff",
+        control: "#777",
+        placeholder: "#777",
         text: "#000",
         invalid: "#a31",
         window: "#fff",
         panel: "#eee",
         error: "#a31",
-        message: "#31a"
+        message: "#31a",
+        signal: "#f55",
+        indicator: "#a31"
     },
 
     fonts: {

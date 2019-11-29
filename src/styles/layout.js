@@ -5,7 +5,7 @@ export default {
     },
 
     TIndicator: {
-        cursor: "default"
+//        cursor: "default"
     },
 
     TComponent: {
@@ -194,7 +194,7 @@ export default {
     },
 
     TPanel: {
-        display: "flex"
+//        display: "flex"
     },
 
     TTop: {

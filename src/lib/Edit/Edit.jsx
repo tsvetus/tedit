@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import {TIMEOUT, nvl, apply, merge} from '../../util';
 
+import styles from '../../styles';
+
 /**
  * @class
  * @ignore
@@ -142,7 +144,7 @@ class Edit extends React.Component {
 
     showPlaceholder() {
         if (this.props.placeholder && this.getText() === '' && this.getHtml().indexOf('<span') < 0) {
-             this.setHtml('<span style="pointer-events: none; color: #aaa;">' +
+             this.setHtml('<span style="pointer-events: none; color: ' + styles.colors.placeholder + ';">' +
                  this.props.placeholder + '</span>');
         }
     }

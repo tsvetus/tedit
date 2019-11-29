@@ -15,7 +15,7 @@ export default function defaultStyles(template) {
         TButton: {
             padding: "8px 16px 8px 16px",
             border: "1px solid " + template.colors.frame,
-            backgroundColor: "#eee",
+            backgroundColor: template.colors.face,
             color: template.colors.text,
             borderRadius: "8px",
             textAlign: "center",
@@ -23,7 +23,7 @@ export default function defaultStyles(template) {
         },
 
         TIndicator: {
-            color: "#aaa",
+            color: template.colors.indicator,
             flex: "0 0 24px",
             textAlign: "center",
             fontWeight: "bold",
@@ -124,7 +124,7 @@ export default function defaultStyles(template) {
             },
 
             close: {
-                color: "#aaa",
+                color: template.colors.border,
                 width: "24px",
                 height: "24px",
                 ...template.fonts.common
@@ -132,7 +132,7 @@ export default function defaultStyles(template) {
 
             timer: {
                 ...template.fonts.common,
-                color: "#f55",
+                color: template.colors.signal,
                 fontSize: "24px"
             },
 
@@ -167,7 +167,7 @@ export default function defaultStyles(template) {
             error: {
                 ...template.fonts.common,
                 margin: "16px",
-                color: "#f55",
+                color: "#a13b3b",
                 textAlign: "center"
             },
 
@@ -176,33 +176,33 @@ export default function defaultStyles(template) {
                 cancel: {
                     ...template.fonts.common,
                     fontWeight: "bold",
-                    color: "#f55",
+                    color: "#2a2975",
                     textAlign: "center"
                 },
 
                 ok: {
                     ...template.fonts.common,
-                    color: "#4a4",
+                    color: "#3f943f",
                     textAlign: "center"
                 },
 
                 submit: {
                     ...template.fonts.common,
-                    color: "#4a4",
+                    color: "#3f943f",
                     textAlign: "center"
                 },
 
                 save: {
                     ...template.fonts.common,
                     fontWeight: "bold",
-                    color: "#4a4",
+                    color: "#3f943f",
                     textAlign: "center"
                 },
 
                 edit: {
                     ...template.fonts.common,
                     fontWeight: "bold",
-                    color: "#4a4",
+                    color: "#3f943f",
                     textAlign: "center"
                 },
 
@@ -218,7 +218,7 @@ export default function defaultStyles(template) {
                 delete: {
                     ...template.fonts.common,
                     fontWeight: "bold",
-                    color: "#f33",
+                    color: "#a13b3b",
                     textAlign: "center"
                 }
 
@@ -251,11 +251,8 @@ export default function defaultStyles(template) {
         TPanel: {
             backgroundImage: "linear-gradient(" + template.colors.panel + ", " + template.colors.window + ")",
             backgroundColor: template.colors.panel,
-            padding: "8px",
-            ...template.fonts.common,
-            justifyContent: "center",
             color: template.colors.border,
-            fontSize: "24px"
+            ...template.fonts.common
         },
 
         TTop: {
