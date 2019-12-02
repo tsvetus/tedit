@@ -42,16 +42,22 @@ class TLogin extends React.Component {
     }
 
     handleClick(event) {
-        if (this.props.onLogin) {
-            this.props.onLogin({
-                name: this.props.name,
-                data: this.props.data,
-                button: event.button,
-                value: {
-                    username: this.state.username,
-                    password: this.state.password
-                }
-            });
+        if (event.button === 'ok') {
+            if (this.props.onClear) {
+                this.props.onClear();
+            }
+        } else {
+            if (this.props.onLogin) {
+                this.props.onLogin({
+                    name: this.props.name,
+                    data: this.props.data,
+                    button: event.button,
+                    value: {
+                        username: this.state.username,
+                        password: this.state.password
+                    }
+                });
+            }
         }
     }
 
@@ -86,6 +92,7 @@ class TLogin extends React.Component {
                 name={this.props.name}
                 data={this.props.data}
                 show={this.props.show}
+                error={this.props.error}
                 showHeader={false}
                 buttons={{
                     'cancel': this.props.labels.cancel,
@@ -135,9 +142,11 @@ TLogin.propTypes = {
     wait: PropTypes.any,
     labels: PropTypes.object,
     value: PropTypes.object,
+    error: PropTypes.string,
     placeholders: PropTypes.object,
     show: PropTypes.any,
-    onLogin: PropTypes.func
+    onLogin: PropTypes.func,
+    onClear: PropTypes.func
 };
 
 TLogin.defaultProps = {

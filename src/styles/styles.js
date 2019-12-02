@@ -310,19 +310,22 @@ export default function defaultStyles(template) {
         TLogin: {
 
             container: {
-                maxWidth: '420px'
+                maxWidth: "420px",
+                minWidth: "320px"
+
             },
 
             component: {
-
-                container: {
-                    margin: "16px 16px 0 16px"
-                },
-
                 label: {
                     width: "160px"
                 }
+            },
 
+            form: {
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-around",
+                height: "100px"
             }
 
         },
