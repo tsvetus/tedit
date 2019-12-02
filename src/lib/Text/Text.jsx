@@ -141,11 +141,13 @@ class Text extends React.Component {
         }
 
         let validate = this.props.onValidate || this.props.regexp || this.props.mask ? this.handleValidate : null;
+        let top = this.props.layout && this.props.layout.indexOf('top') >= 0;
 
         return (
             <div ref={this.container} style={this.vStyle.container}>
+                {top ? label : null}
                 <div style={this.vStyle.frame} ref={this.frame}>
-                    {label}
+                    {!top ? label : null}
                     <Mask
                         vStyle={this.vStyle.edit}
                         iStyle={this.iStyle.edit}
@@ -184,6 +186,7 @@ Text.propTypes = {
     regexp: PropTypes.object,
     required: PropTypes.any,
     readOnly: PropTypes.any,
+    layout: PropTypes.string,
     onChange: PropTypes.func,
     onValidate: PropTypes.func,
     onIcon: PropTypes.func,

@@ -41,7 +41,7 @@ registerStyles(
             },
 
             label: {
-                textAlign: "right"
+//                textAlign: "right"
             },
 
             icon: {
@@ -213,6 +213,7 @@ class Main extends React.Component {
                             value={this.state.text1}
                             label={'TText component:'}
                             name={'text1'}
+                            layout={'top'}
                             placeholder={'Enter single line text ...'}
                             onChange={this.handleChange} />
 
@@ -246,6 +247,7 @@ class Main extends React.Component {
 
                         <TListBox
                             style={{label: {width: "180px"}}}
+                            layout={'top'}
                             name={'listBox'}
                             label={'TListBox with items:'}
                             listMode={'key value'}

@@ -107,10 +107,13 @@ class TInput extends React.Component {
             )
         }
 
+        let top = this.props.layout && this.props.layout.indexOf('top') >= 0;
+
         return (
             <div style={style.container}>
+                {top ? label : null}
                 <div style={style.frame}>
-                    {label}
+                    {!top ? label : null}
                     <Input
                         style={style.edit}
                         data={this.props.data}
@@ -143,6 +146,7 @@ TInput.propTypes = {
     placeholder: PropTypes.string,
     type: PropTypes.string,
     autoComplete: PropTypes.string,
+    layout: PropTypes.string,
     onKeyPress: PropTypes.func,
     onKeyDown: PropTypes.func,
     onChange: PropTypes.func,

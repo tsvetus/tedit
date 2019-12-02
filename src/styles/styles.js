@@ -43,7 +43,7 @@ export default function defaultStyles(template) {
                 border: "none",
                 color: template.colors.border,
                 outline: "none",
-                textAlign: "right",
+                textAlign: "left",
                 ...template.fonts.common
             },
 
@@ -310,22 +310,16 @@ export default function defaultStyles(template) {
         TLogin: {
 
             container: {
-                maxWidth: "420px",
-                minWidth: "320px"
+                maxWidth: "320px",
+                minWidth: "220px"
 
-            },
-
-            component: {
-                label: {
-                    width: "160px"
-                }
             },
 
             form: {
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-around",
-                height: "100px"
+                height: "120px"
             }
 
         },

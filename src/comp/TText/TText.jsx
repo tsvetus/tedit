@@ -37,6 +37,7 @@ class TText extends React.Component {
                 empty={this.props.empty}
                 required={this.props.required}
                 readOnly={this.props.readOnly}
+                layout={this.props.layout}
                 onValidate={this.props.onValidate}
                 onIcon={this.props.onIcon}
                 onMask={this.props.onMask}
@@ -61,6 +62,7 @@ TText.propTypes = {
     empty: PropTypes.any,
     required: PropTypes.any,
     readOnly: PropTypes.any,
+    layout: PropTypes.string,
     onChange: PropTypes.func,
     onValidate: PropTypes.func,
     onIcon: PropTypes.func,

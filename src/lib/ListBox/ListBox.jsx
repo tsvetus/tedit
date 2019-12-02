@@ -266,11 +266,14 @@ class ListBox extends React.Component {
 
         let containerStyle = merge(style.container, this.getContainerStyle());
 
+        let top = this.props.layout && this.props.layout.indexOf('top') >= 0;
+
         return (
             <div style={containerStyle} ref={this.container}
                  onBlur={this.handleBlur} tabIndex={-1}>
+                {top ? label : null}
                 <div style={style.frame} ref={this.frame}>
-                    {label}
+                    {!top ? label : null}
                     <Edit
                         ref={this.edit}
                         vStyle={style.edit}
@@ -311,6 +314,7 @@ ListBox.propTypes = {
     clickable: PropTypes.string,
     searchLength: PropTypes.number,
     readOnly: PropTypes.any,
+    layout: PropTypes.string,
     onChange: PropTypes.func,
     onSearch: PropTypes.func,
     onValidate: PropTypes.func

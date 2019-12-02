@@ -107,6 +107,7 @@ class TLogin extends React.Component {
                         name={'username'}
                         autoComplete={'username'}
                         type={'text'}
+                        layout={'top'}
                         label={this.props.labels.username}
                         placeholder={this.props.placeholders.username}
                         value={this.state.username}
@@ -118,6 +119,7 @@ class TLogin extends React.Component {
                         name={'password'}
                         autoComplete={'new-password'}
                         type={'password'}
+                        layout={'top'}
                         label={this.props.labels.password}
                         placeholder={this.props.placeholders.password}
                         value={this.state.password}
