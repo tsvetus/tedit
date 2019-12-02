@@ -20,6 +20,7 @@ class Edit extends React.Component {
         this.handleClick = this.handleClick.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
         this.handleBlur = this.handleBlur.bind(this);
+        this.handlePaste = this.handlePaste.bind(this);
         this.getHtml = this.getHtml.bind(this);
         this.setHtml = this.setHtml.bind(this);
         this.getText = this.getText.bind(this);
@@ -55,10 +56,12 @@ class Edit extends React.Component {
         this.ref.current.addEventListener('click', this.handleClick);
         this.ref.current.addEventListener('focus', this.handleFocus);
         this.ref.current.addEventListener('blur', this.handleBlur);
+        this.ref.current.addEventListener('paste', this.handlePaste);
     }
 
     componentWillUnmount() {
         this.mounted = false;
+        this.ref.current.removeEventListener('paste', this.handlePaste);
         this.ref.current.removeEventListener('blur', this.handleBlur);
         this.ref.current.removeEventListener('focus', this.handleFocus);
         this.ref.current.removeEventListener('click', this.handleClick);
@@ -228,6 +231,23 @@ class Edit extends React.Component {
                     });
                 }
             }, this.props.timeout);
+        }
+    }
+
+    handlePaste(event) {
+        event.preventDefault();
+        this.mute = true;
+        try {
+            let text = (event.clipboardData || window.clipboardData).getData('text');
+            if (text) {
+                text = text.replace(/<[^>]*>?/gm, '');
+                this.value = text;
+                this.setText(text);
+                this.setCaret(text.length);
+                this.handleChange();
+            }
+        } finally {
+            this.mute = false;
         }
     }
 

@@ -23,6 +23,8 @@ import {
     nvl
 } from 'tedit';
 
+import {Edit} from '../../src/lib';
+
 registerStyles(
 
     {
