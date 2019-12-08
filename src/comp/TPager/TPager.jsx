@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {Pager, merge} from '../../util';
+import {Pager, merge, clone} from '../../util';
 
 import styles from '../../styles';
 
@@ -9,19 +9,21 @@ class TPager extends React.Component {
 
     constructor (props) {
         super(props);
-        this.pager = new Pager(props.size, props.length);
+        this.items = props.items ? props.items : [];
+        this.pager = new Pager(props.size, this.items.length);
         this.state = {page: this.pager.page};
         this.handleClick = this.handleClick.bind(this);
         this.change = this.change.bind(this);
     }
 
     componentDidUpdate(old) {
-        if (old.size !== this.props.size || old.length !== this.props.length) {
+        if (old.size !== this.props.size || old.items !== this.props.items) {
             if (old.size !== this.props.size) {
                 this.pager.setSize(this.props.size);
             }
-            if (old.length !== this.props.length) {
-                this.pager.setLength(this.props.length);
+            if (old.items !== this.props.items) {
+                this.items = this.props.items ? this.props.items : [];
+                this.pager.setLength(this.items.length);
             }
             this.setState({page: this.pager.page}, () => {
                 this.change();
@@ -33,9 +35,14 @@ class TPager extends React.Component {
         if (this.props.onChange) {
             clearTimeout(this.timer);
             this.timer = setTimeout(() => {
+                let items = [];
+                for (let i=this.pager.from; i<=this.pager.to; i++) {
+                    items.push(clone(this.items[i]));
+                }
                 this.props.onChange({
                     name: this.props.name,
                     data: this.props.data,
+                    items: items,
                     ...this.pager.getParams()
                 });
             }, 700);
@@ -103,7 +110,7 @@ TPager.propTypes = {
     name: PropTypes.string,
     date: PropTypes.any,
     size: PropTypes.number,
-    length: PropTypes.number,
+    items: PropTypes.array,
     onChange: PropTypes.func
 };
 

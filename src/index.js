@@ -35,7 +35,8 @@ import {
     cutTime,
     cutDate,
     isoDate,
-    strDate
+    strDate,
+    Sizer
 } from './util';
 
 import {styles, registerStyles} from './styles/const.js';
@@ -73,6 +74,7 @@ export {
     cutDate,
     isoDate,
     strDate,
+    Sizer,
 
     styles,
     registerStyles

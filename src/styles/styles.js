@@ -1,5 +1,11 @@
 export default function defaultStyles(template) {
 
+    let button = {
+        ...template.fonts.common,
+        margin: "4px",
+        textAlign: "center"
+    };
+
     return {
 
         colors: template.colors,
@@ -174,52 +180,51 @@ export default function defaultStyles(template) {
             buttons: {
 
                 cancel: {
-                    ...template.fonts.common,
+                    ...button,
                     fontWeight: "bold",
-                    color: "#2a2975",
-                    textAlign: "center"
+                    color: "#2a2975"
                 },
 
                 ok: {
-                    ...template.fonts.common,
-                    color: "#3f943f",
-                    textAlign: "center"
+                    ...button,
+                    color: "#3f943f"
                 },
 
                 submit: {
-                    ...template.fonts.common,
-                    color: "#3f943f",
-                    textAlign: "center"
+                    ...button,
+                    color: "#3f943f"
                 },
 
                 save: {
-                    ...template.fonts.common,
+                    ...button,
                     fontWeight: "bold",
-                    color: "#3f943f",
-                    textAlign: "center"
+                    color: "#3f943f"
                 },
 
                 edit: {
-                    ...template.fonts.common,
+                    ...button,
                     fontWeight: "bold",
-                    color: "#3f943f",
-                    textAlign: "center"
+                    color: "#3f943f"
+                },
+
+                add: {
+                    ...button,
+                    fontWeight: "bold",
+                    color: "#3f943f"
                 },
 
                 disable: {
-                    ...template.fonts.common,
+                    ...button,
                     fontWeight: "bold",
                     color: "#ddd",
-                    textAlign: "center",
                     border: "1px solid #ddd",
                     cursor: "default"
                 },
 
                 delete: {
-                    ...template.fonts.common,
+                    ...button,
                     fontWeight: "bold",
-                    color: "#a13b3b",
-                    textAlign: "center"
+                    color: "#a13b3b"
                 }
 
             }
@@ -360,7 +365,6 @@ export default function defaultStyles(template) {
         TPager: {
 
             container: {
-                margin: "0 8px 0 8px"
             },
 
             edit: {

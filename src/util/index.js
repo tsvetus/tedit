@@ -10,6 +10,7 @@ import {
 
 import Format from './format.js';
 import Pager from './pager.js';
+import Sizer from './sizer.js';
 
 import {
     TIMEOUT,
@@ -39,6 +40,7 @@ export {
 
     Format,
     Pager,
+    Sizer,
 
     isoDate,
     strDate,

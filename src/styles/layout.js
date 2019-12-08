@@ -106,7 +106,7 @@ export default {
         footer: {
             display: "flex",
             justifyContent: "space-around",
-            flexWrap: "nowrap"
+            flexWrap: "wrap"
         }
 
     },
@@ -243,7 +243,7 @@ export default {
 
         touch: {
             position: "fixed",
-            zIndex: 21,
+            zIndex: "21",
             top: "0",
             left: "0",
             height: "100vh",
@@ -262,6 +262,7 @@ export default {
         container: {
             display: "flex",
             justifyContent: "space-between",
+            alignItems: "center"
         },
 
         edit: {

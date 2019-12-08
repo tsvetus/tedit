@@ -21,6 +21,6 @@ export default {
             fontFamily: "Arial",
             fontSize: "18px"
         }
-    }
+    },
 
 }

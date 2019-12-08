@@ -9,7 +9,7 @@ import styles from '../../styles';
 
 const DEFAULT_SIDE_WIDTH = "300px";
 const DEFAULT_TOUCH_WIDTH = 50;
-const DEFAULT_INIT_WIDTH = "8px";
+const DEFAULT_INIT_WIDTH = "16px";
 
 class TSide extends React.Component {
 
