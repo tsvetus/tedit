@@ -255,6 +255,37 @@ export default {
 
     TScroll: {
         overflow: "auto"
+    },
+
+    TPager: {
+
+        container: {
+            display: "flex",
+            justifyContent: "space-between",
+        },
+
+        edit: {
+            display: "flex",
+            justifyContent: "flex-end"
+        },
+
+        label: {
+            display: "flex",
+            justifyContent: "flex-start"
+        },
+
+        page: {
+            cursor: "pointer"
+        },
+
+        current: {
+            cursor: "pointer"
+        },
+
+        control: {
+            cursor: "pointer"
+        }
+
     }
 
 }

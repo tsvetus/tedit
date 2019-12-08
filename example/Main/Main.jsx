@@ -42,10 +42,6 @@ registerStyles(
                 maxWidth: "440px"
             },
 
-            label: {
-//                textAlign: "right"
-            },
-
             icon: {
                 width: "18px",
                 height: "18px"

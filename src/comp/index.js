@@ -18,6 +18,7 @@ import TResponse from './TResponse';
 import TDate from './TDate';
 import TTime from './TTime';
 import TInput from './TInput';
+import TPager from './TPager';
 
 export {
     TIcon,
@@ -39,5 +40,6 @@ export {
     TResponse,
     TDate,
     TTime,
-    TInput
+    TInput,
+    TPager
 }

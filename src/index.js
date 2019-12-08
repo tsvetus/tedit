@@ -22,7 +22,8 @@ import {
     TResponse,
     TDate,
     TTime,
-    TInput
+    TInput,
+    TPager
 } from './comp';
 
 import {
@@ -61,6 +62,7 @@ export {
     TDate,
     TTime,
     TInput,
+    TPager,
 
     download,
     clone,

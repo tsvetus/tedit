@@ -355,6 +355,33 @@ export default function defaultStyles(template) {
         TScroll: {
             ...template.fonts.common,
             backgroundColor: template.colors.window
+        },
+
+        TPager: {
+
+            container: {
+                margin: "0 8px 0 8px"
+            },
+
+            edit: {
+            },
+
+            label: {
+            },
+
+            page: {
+                margin: "0 1px 0 1px",
+                padding: "1px 6px 0 6px",
+                border: "1px solid " + template.colors.frame
+            },
+
+            current: {
+                margin: "0 1px 0 1px",
+                padding: "1px 6px 0 6px",
+                border: "1px solid " + template.colors.frame,
+                backgroundColor: template.colors.face
+            }
+
         }
 
     }
