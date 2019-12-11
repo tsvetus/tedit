@@ -36,6 +36,8 @@ import {
     cutDate,
     isoDate,
     strDate,
+    strip,
+    flood,
     Sizer
 } from './util';
 
@@ -74,6 +76,8 @@ export {
     cutDate,
     isoDate,
     strDate,
+    strip,
+    flood,
     Sizer,
 
     styles,

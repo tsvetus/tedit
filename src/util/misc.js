@@ -106,3 +106,38 @@ export function find(node, parent) {
     return null;
 }
 
+export function strip(source) {
+    return source
+        .replace(/<br>/gm, '\r')
+        .replace(/<[^>]*>?/gm, '')
+        .replace(/&(.*?);+/gm, ' ');
+}
+
+export function flood(source) {
+
+    let arr = source
+        .replace(/\r/gm, '<br>')
+        .replace(/<[^>]*>?/gm, '')
+        .split(' ');
+
+    let res = '';
+
+    if (arr.length > 0) {
+        res = arr[0];
+        for (let i=1; i<arr.length; i++) {
+            if (arr[i - 1] !== '' && arr[i] !== '') {
+                res += ' ' + arr[i];
+            } else {
+                res += '&nbsp;' + arr[i];
+            }
+        }
+    }
+
+    return res;
+
+    // return source
+    //     .replace(/\r/gm, '<br>')
+    //     .replace(/<[^>]*>?/gm, '')
+    //     .replace(/\s/gm, '&nbsp;');
+//        .replace(/(?<!(&nbsp;))(&nbsp;)/gm, ' ');
+}

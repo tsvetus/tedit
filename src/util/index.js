@@ -5,7 +5,9 @@ import {
     merge,
     seconds,
     apply,
-    find
+    find,
+    strip,
+    flood
 } from './misc.js';
 
 import Format from './format.js';
@@ -37,6 +39,8 @@ export {
     seconds,
     apply,
     find,
+    strip,
+    flood,
 
     Format,
     Pager,

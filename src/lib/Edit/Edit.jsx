@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {TIMEOUT, nvl, apply, merge} from '../../util';
+import {TIMEOUT, nvl, apply, merge, strip, flood} from '../../util';
 
 import styles from '../../styles';
 
@@ -173,26 +173,19 @@ class Edit extends React.Component {
     }
 
     getText() {
-        if (this.getHtml().indexOf('<span') < 0) {
-            let text = this.ref.current.innerText;
+        let text = this.getHtml();
+        if (text.indexOf('<span') < 0) {
             if (!this.props.wrap) {
-                return text
-                    .replace(/[\r\n]+$/, '')
-                    .replace(/[\r\n]+/gm, ' ');
+                return strip(text).replace(/<br>/gm, '');
             } else {
-                return text;
+                return strip(text);
             }
         }
         return this.props.empty;
     }
 
     setText(text) {
-        this.mute = true;
-        try {
-            this.ref.current.innerText = nvl(text,'');
-        } finally {
-            this.mute = false;
-        }
+        this.setHtml(flood(nvl(text,'')));
     }
 
     getCaret() {
@@ -240,10 +233,9 @@ class Edit extends React.Component {
         try {
             let text = (event.clipboardData || window.clipboardData).getData('text');
             if (text) {
-                text = text.replace(/<[^>]*>?/gm, '');
-                this.value = text;
                 this.setText(text);
-                this.setCaret(text.length);
+                this.value = this.getText();
+                this.setCaret(this.value.length);
                 this.handleChange();
             }
         } finally {
