@@ -386,7 +386,19 @@ export default function defaultStyles(template) {
                 backgroundColor: template.colors.face
             }
 
+        },
+
+        TLoad: {
+            border: "1px solid " + template.colors.frame,
+            borderRadius: "16px",
+            backgroundColor: template.colors.face,
+            color: template.colors.border,
+            padding: "16px",
+            opacity: "0.7",
+            fontSize: "20px",
+            fontWeight: "bold"
         }
+
 
     }
 

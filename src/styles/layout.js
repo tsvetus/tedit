@@ -287,6 +287,15 @@ export default {
             cursor: "pointer"
         }
 
+    },
+
+    TLoad: {
+        position: "fixed",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -80%)",
+        zIndex: "40",
+        cursor: "default"
     }
 
 }

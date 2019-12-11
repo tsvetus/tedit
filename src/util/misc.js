@@ -135,9 +135,25 @@ export function flood(source) {
 
     return res;
 
-    // return source
-    //     .replace(/\r/gm, '<br>')
-    //     .replace(/<[^>]*>?/gm, '')
-    //     .replace(/\s/gm, '&nbsp;');
-//        .replace(/(?<!(&nbsp;))(&nbsp;)/gm, ' ');
+}
+
+export function params(source) {
+    let res = {};
+    let path = source ? source : window.location.pathname;
+    if (path) {
+        let arr = path.split('?');
+        if (arr.length > 1) {
+            let query = arr[1];
+            if (query) {
+                let q = query.split('&');
+                q.forEach(param => {
+                    if (param) {
+                        let p = param.split('=');
+                        res[p[0]] = p[1];
+                    }
+                });
+            }
+        }
+    }
+    return res;
 }

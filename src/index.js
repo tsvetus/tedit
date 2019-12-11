@@ -23,7 +23,8 @@ import {
     TDate,
     TTime,
     TInput,
-    TPager
+    TPager,
+    TLoad
 } from './comp';
 
 import {
@@ -36,8 +37,7 @@ import {
     cutDate,
     isoDate,
     strDate,
-    strip,
-    flood,
+    params,
     Sizer
 } from './util';
 
@@ -66,6 +66,7 @@ export {
     TTime,
     TInput,
     TPager,
+    TLoad,
 
     download,
     clone,
@@ -76,8 +77,7 @@ export {
     cutDate,
     isoDate,
     strDate,
-    strip,
-    flood,
+    params,
     Sizer,
 
     styles,
