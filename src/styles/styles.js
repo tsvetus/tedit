@@ -201,6 +201,12 @@ export default function defaultStyles(template) {
                     color: "#3f943f"
                 },
 
+                open: {
+                    ...button,
+                    fontWeight: "bold",
+                    color: "#ff9838"
+                },
+
                 edit: {
                     ...button,
                     fontWeight: "bold",

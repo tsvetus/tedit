@@ -1,43 +1,59 @@
 class Uploader {
 
-    constructor (id, url, params) {
+    constructor (owner) {
+        this.owner = owner;
         this.handleChange = this.handleChange.bind(this);
         this.release = this.release.bind(this);
         this.upload = this.upload.bind(this);
+        this.data = this.data.bind(this);
+        this.clear = this.clear.bind(this);
         this.input  = document.createElement("input");
         this.input.setAttribute('style', 'display: none;');
         this.input.setAttribute('type', 'file');
-        this.input.setAttribute('id', id);
         document.body.appendChild(this.input);
         this.input.addEventListener('change', this.handleChange);
-        this.url = url;
-        this.params = params;
     }
 
     handleChange(event) {
         if (event.target.files) {
-            let data = new FormData();
-            if (this.params) {
-                for (let key in this.params) {
-                    data.append(key, this.params[key]);
-                }
+            this.file = event.target.files[0];
+            if (this.owner) {
+                this.owner.setState({file: this.file.name});
             }
-            data.append('file', event.target.files[0], event.target.files[0].name);
-            let request = new XMLHttpRequest();
-            request.open("POST", this.url);
-            request.send(data);
-            console.log('upload send to ' + this.url);
         }
     }
 
+    data(params) {
+        let data = null;
+        if (this.file) {
+            data = new FormData();
+            if (params) {
+                for (let key in params) {
+                    data.append(key, params[key]);
+                }
+            }
+            data.append('file', this.file, this.file.name);
+        }
+        return data;
+    }
+
     upload(url, params) {
-        if (url) {
-            this.url = url;
+        if (url && this.file) {
+            let request = new XMLHttpRequest();
+            request.open("POST", url);
+            request.send(this.data(params));
         }
-        if (params) {
-            this.params = params;
-        }
+    }
+
+    open() {
         this.input.click();
+    }
+
+    clear() {
+        this.file = null;
+        if (this.owner) {
+            this.owner.setState({file: this.file});
+        }
     }
 
     release() {
