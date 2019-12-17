@@ -14,6 +14,7 @@ import {
 import Format from './format.js';
 import Pager from './pager.js';
 import Sizer from './sizer.js';
+import Uploader from './uploader.js'
 
 import {
     TIMEOUT,
@@ -47,6 +48,7 @@ export {
     Format,
     Pager,
     Sizer,
+    Uploader,
 
     isoDate,
     strDate,

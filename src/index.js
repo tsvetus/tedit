@@ -38,7 +38,8 @@ import {
     isoDate,
     strDate,
     params,
-    Sizer
+    Sizer,
+    Uploader
 } from './util';
 
 import {styles, registerStyles} from './styles/const.js';
@@ -78,7 +79,9 @@ export {
     isoDate,
     strDate,
     params,
+
     Sizer,
+    Uploader,
 
     styles,
     registerStyles
