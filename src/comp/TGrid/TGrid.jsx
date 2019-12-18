@@ -69,37 +69,7 @@ class TGrid extends React.Component {
         );
 
         let body = null;
-        // if (this.props.items) {
-        //     let items = this.props.items.map((v, i) => {
-        //         let cs = i === this.state.index ? merge(style.cell, style.current) : style.cell;
-        //         return (
-        //             <div key={i} style={style.row} data={i} onClick={this.handleClick}>
-        //                 <div style={cs}>{strDate(v.date)}</div>
-        //                 <div style={cs}>{v.contract}</div>
-        //             </div>
-        //         );
-        //     });
-        //     body = (
-        //         <div style={style.body}>
-        //             {items}
-        //         </div>
-        //     );
-        // }
-
         let head = null;
-        // if (this.props.captions) {
-        //     let captions = this.props.captions.map((v, i) => {
-        //         <div key={i} style={style.cap}>{v}</div>
-        //     });
-        //     head = (
-        //         <div style={style.head}>
-        //             <div style={style.row}>
-        //                 {captions}
-        //             </div>
-        //         </div>
-        //     );
-        // }
-
         let rowStyle = style.row;
 
         if (this.props.columns) {
@@ -177,7 +147,6 @@ TGrid.propTypes = {
     data: PropTypes.any,
     items: PropTypes.string,
     columns: PropTypes.string,
-    captions: PropTypes.array,
     index: PropTypes.number,
     onChange: PropTypes.func
 };
