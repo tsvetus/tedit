@@ -1,3 +1,5 @@
+import {styles} from "./const";
+
 export default {
 
     TButton: {
@@ -254,7 +256,9 @@ export default {
     },
 
     TScroll: {
-        overflow: "auto"
+        content: {
+            overflow: "auto"
+        }
     },
 
     TPager: {
@@ -296,6 +300,23 @@ export default {
         transform: "translate(-50%, -80%)",
         zIndex: "40",
         cursor: "default"
+    },
+
+    TGrid: {
+
+        head: {
+            display: "grid",
+            zIndex: "1"
+        },
+
+        body: {
+            display: "grid"
+        },
+
+        row: {
+            display: "grid"
+        }
+
     }
 
 }

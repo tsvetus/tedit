@@ -1,3 +1,5 @@
+import {styles} from "./const";
+
 export default function defaultStyles(template) {
 
     let button = {
@@ -364,8 +366,12 @@ export default function defaultStyles(template) {
         },
 
         TScroll: {
-            ...template.fonts.common,
-            backgroundColor: template.colors.window
+            container: {
+                ...template.fonts.common,
+                backgroundColor: template.colors.window
+            },
+            content: {
+            }
         },
 
         TPager: {
@@ -403,8 +409,43 @@ export default function defaultStyles(template) {
             opacity: "0.7",
             fontSize: "20px",
             fontWeight: "bold"
-        }
+        },
 
+        TGrid: {
+
+            head: {
+                padding: "1px 16px 0 16px",
+                textAlign: "center",
+                fontWeight: "bold"
+            },
+
+            cap: {
+                border: "1px solid " + template.colors.border,
+                marginLeft: "-1px",
+                marginTop: "-1px",
+                overflowX: "hidden",
+                padding: "8px",
+            },
+
+            body: {
+                padding: "0 16px 16px 16px",
+            },
+
+            cell: {
+                backgroundColor: template.colors.panel,
+                border: "1px solid " + template.colors.border,
+                marginLeft: "-1px",
+                marginTop: "-1px",
+                overflowX: "hidden",
+                padding: "8px",
+                cursor: "pointer"
+            },
+
+            current: {
+                backgroundColor: template.colors.window
+            }
+
+        }
 
     }
 

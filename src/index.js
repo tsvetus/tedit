@@ -24,7 +24,8 @@ import {
     TTime,
     TInput,
     TPager,
-    TLoad
+    TLoad,
+    TGrid
 } from './comp';
 
 import {
@@ -68,6 +69,7 @@ export {
     TInput,
     TPager,
     TLoad,
+    TGrid,
 
     download,
     clone,

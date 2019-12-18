@@ -72,13 +72,9 @@ class TScroll extends React.Component {
             this.props.style
         );
 
-        let containerStyle = {
-            backgroundColor: style.backgroundColor
-        };
-
         return (
-            <div ref={this.ref} style={containerStyle}>
-                <div style={style}>
+            <div ref={this.ref} style={style.container}>
+                <div style={style.content}>
                     {this.props.children}
                 </div>
             </div>

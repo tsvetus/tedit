@@ -20,6 +20,7 @@ import TTime from './TTime';
 import TInput from './TInput';
 import TPager from './TPager';
 import TLoad from './TLoad';
+import TGrid from './TGrid';
 
 export {
     TIcon,
@@ -43,5 +44,6 @@ export {
     TTime,
     TInput,
     TPager,
-    TLoad
+    TLoad,
+    TGrid
 }
