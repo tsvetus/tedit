@@ -1,5 +1,3 @@
-import {styles} from "./const";
-
 export default function defaultStyles(template) {
 
     let button = {
@@ -395,7 +393,8 @@ export default function defaultStyles(template) {
                 margin: "0 1px 0 1px",
                 padding: "1px 6px 0 6px",
                 border: "1px solid " + template.colors.frame,
-                backgroundColor: template.colors.face
+                backgroundColor: template.colors.face,
+                fontWeight: "bold"
             }
 
         },
@@ -414,17 +413,19 @@ export default function defaultStyles(template) {
         TGrid: {
 
             head: {
+                position: "sticky",
                 padding: "1px 16px 0 16px",
                 textAlign: "center",
                 fontWeight: "bold"
             },
 
             cap: {
+                backgroundColor: template.colors.window,
                 border: "1px solid " + template.colors.border,
                 marginLeft: "-1px",
                 marginTop: "-1px",
                 overflowX: "hidden",
-                padding: "8px",
+                padding: "4px",
             },
 
             body: {
@@ -432,17 +433,18 @@ export default function defaultStyles(template) {
             },
 
             cell: {
-                backgroundColor: template.colors.panel,
+                backgroundColor: template.colors.window,
                 border: "1px solid " + template.colors.border,
                 marginLeft: "-1px",
                 marginTop: "-1px",
                 overflowX: "hidden",
-                padding: "8px",
+                padding: "4px",
                 cursor: "pointer"
             },
 
             current: {
-                backgroundColor: template.colors.window
+                backgroundColor: template.colors.panel,
+                fontWeight: "bold"
             }
 
         }
