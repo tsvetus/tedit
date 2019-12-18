@@ -69,35 +69,95 @@ class TGrid extends React.Component {
         );
 
         let body = null;
-        if (this.props.items) {
-            let items = this.props.items.map((v, i) => {
+        // if (this.props.items) {
+        //     let items = this.props.items.map((v, i) => {
+        //         let cs = i === this.state.index ? merge(style.cell, style.current) : style.cell;
+        //         return (
+        //             <div key={i} style={style.row} data={i} onClick={this.handleClick}>
+        //                 <div style={cs}>{strDate(v.date)}</div>
+        //                 <div style={cs}>{v.contract}</div>
+        //             </div>
+        //         );
+        //     });
+        //     body = (
+        //         <div style={style.body}>
+        //             {items}
+        //         </div>
+        //     );
+        // }
+
+        let head = null;
+        // if (this.props.captions) {
+        //     let captions = this.props.captions.map((v, i) => {
+        //         <div key={i} style={style.cap}>{v}</div>
+        //     });
+        //     head = (
+        //         <div style={style.head}>
+        //             <div style={style.row}>
+        //                 {captions}
+        //             </div>
+        //         </div>
+        //     );
+        // }
+
+        let rowStyle = style.row;
+
+        if (this.props.columns) {
+
+            let captions = [];
+            let widths = '';
+
+            for (let key in this.props.columns) {
+                let column = this.props.columns[key];
+                captions.push(
+                    <div key={key} style={style.cap}>{column.caption ? column.caption : ''}</div>
+                );
+                widths += ' ' + (column.width ? column.width : '1fr');
+            }
+
+            rowStyle = merge(rowStyle, {gridTemplateColumns: widths});
+
+            head = (
+                <div style={style.head}>
+                    <div style={rowStyle}>
+                        {captions}
+                    </div>
+                </div>
+            );
+
+        }
+
+        if (this.props.items && this.props.columns) {
+
+            let items = [];
+
+            this.props.items.forEach((v, i) => {
                 let cs = i === this.state.index ? merge(style.cell, style.current) : style.cell;
-                return (
-                    <div key={i} style={style.row} data={i} onClick={this.handleClick}>
-                        <div style={cs}>{strDate(v.date)}</div>
-                        <div style={cs}>{v.contract}</div>
+                let row = [];
+                for (let key in this.props.columns) {
+                    if (v[key] === undefined) {
+                        row.push(
+                            <div style={cs} key={key}></div>
+                        );
+                    } else {
+                        row.push(
+                            <div style={cs} key={key}>{v[key]}</div>
+                        );
+                    }
+                }
+                items.push(
+                    <div key={i} style={rowStyle} data={i} onClick={this.handleClick}>
+                        {row}
                     </div>
                 );
             });
+
             body = (
                 <div style={style.body}>
                     {items}
                 </div>
             );
-        }
 
-        let head = null;
-        if (this.props.captions) {
-            let captions = this.props.captions.map((v, i) => {
-                <div key={i} style={style.cap}>{v}</div>
-            });
-            head = (
-                <div style={style.head}>
-                    <div style={style.row}>
-                        {captions}
-                    </div>
-                </div>
-            );
         }
 
         return (
