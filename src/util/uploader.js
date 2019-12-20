@@ -32,6 +32,7 @@ class Uploader {
                     data.append(key, params[key]);
                 }
             }
+            data.append('fileName', this.file.name);
             data.append('file', this.file, this.file.name);
         }
         return data;

@@ -255,12 +255,6 @@ export default {
 
     },
 
-    TScroll: {
-        content: {
-            overflow: "auto"
-        }
-    },
-
     TPager: {
 
         container: {
@@ -302,9 +296,19 @@ export default {
         cursor: "default"
     },
 
+    TScroll: {
+        container: {
+            position: "relative"
+        }
+    },
+
     TGrid: {
 
         head: {
+            position: "sticky",
+            top: "0",
+            left: "0",
+            right: "0",
             display: "grid",
             zIndex: "1"
         },

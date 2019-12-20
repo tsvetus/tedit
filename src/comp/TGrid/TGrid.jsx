@@ -93,15 +93,18 @@ class TGrid extends React.Component {
             for (let key in this.props.columns) {
                 let column = this.props.columns[key];
                 captions.push(
-                    <div key={key} style={style.cap}>{column.caption ? column.caption : ''}</div>
+                    <div key={key} style={style.caption}>{column.caption ? column.caption : ''}</div>
                 );
                 widths += ' ' + (column.width ? column.width : '1fr');
             }
 
             rowStyle = merge(rowStyle, {gridTemplateColumns: widths});
 
+            let title = this.props.children ? (<div style={style.title}>{this.props.children}</div>) : null;
+
             head = (
                 <div style={style.head}>
+                    {title}
                     <div style={rowStyle}>
                         {captions}
                     </div>

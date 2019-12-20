@@ -405,7 +405,7 @@ export default function defaultStyles(template) {
             backgroundColor: template.colors.face,
             color: template.colors.border,
             padding: "16px",
-            opacity: "0.7",
+            opacity: "0.8",
             fontSize: "20px",
             fontWeight: "bold"
         },
@@ -413,13 +413,20 @@ export default function defaultStyles(template) {
         TGrid: {
 
             head: {
-                position: "sticky",
                 padding: "1px 16px 0 16px",
                 textAlign: "center",
                 fontWeight: "bold"
             },
 
-            cap: {
+            title: {
+                backgroundColor: template.colors.window,
+                marginTop: "-1px",
+                marginLeft: "-1px",
+                padding: "4px 0 4px 0",
+                fontWeight: "normal"
+            },
+
+            caption: {
                 backgroundColor: template.colors.window,
                 border: "1px solid " + template.colors.border,
                 marginLeft: "-1px",

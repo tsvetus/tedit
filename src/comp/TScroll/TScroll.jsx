@@ -57,8 +57,7 @@ class TScroll extends React.Component {
         let rect = this.ref.current.getBoundingClientRect();
         let margin = this.props.margin ? this.props.margin : 0;
 //        let width = this.props.width ? this.props.width : window.innerWidth - 4 + 'px';
-        let height = this.props.height ? this.props.height : window.innerHeight - rect.top - margin - 4 + 'px';
-
+        let height = this.props.height ? this.props.height : window.innerHeight - rect.top - margin + 'px';
 //        this.ref.current.style.width = width;
         this.ref.current.style.height = height;
 
@@ -95,7 +94,7 @@ TScroll.propTypes = {
 };
 
 TScroll.defaultProps = {
-    margin: 0,
+    margin: 4,
     scrollBars: 'bot',
     overflow: 'auto',
     showTop: true
