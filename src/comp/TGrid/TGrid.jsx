@@ -24,7 +24,7 @@ class TGrid extends React.Component {
 
     componentDidUpdate(old) {
         if (old.index !== this.props.index || old.items !== this.props.items) {
-            this.scroll(0);
+            this.scroll(this.state.index);
         }
     }
 
@@ -65,6 +65,14 @@ class TGrid extends React.Component {
 
     handleClick(event) {
         let index = Number(event.currentTarget.getAttribute('data'));
+        if (this.props.onClick) {
+            this.props.onClick({
+                name: this.props.name,
+                data: this.props.data,
+                index: index,
+                item: this.props.items[index]
+            });
+        }
         if (index !== this.state.index) {
             this.scroll(index);
         }
@@ -181,7 +189,8 @@ TGrid.propTypes = {
     columns: PropTypes.string,
     index: PropTypes.number,
     onChange: PropTypes.func,
-    onRowStyle: PropTypes.func
+    onRowStyle: PropTypes.func,
+    onClick: PropTypes.func
 };
 
 export default TGrid;
