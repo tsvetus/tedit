@@ -117,6 +117,12 @@ class TGrid extends React.Component {
             this.props.items.forEach((v, i) => {
                 let cs = i === this.state.index ? merge(style.cell, style.current) : style.cell;
                 let row = [];
+                if (this.props.onRowStyle) {
+                    let rs = this.props.onRowStyle(v);
+                    if (rs) {
+                        cs = merge(cs, rs);
+                    }
+                }
                 for (let key in this.props.columns) {
                     if (v[key] === undefined) {
                         row.push(
@@ -127,6 +133,7 @@ class TGrid extends React.Component {
                         if (this.props.columns[key].style !== undefined) {
                             css = merge(css, this.props.columns[key].style);
                         }
+//                        if (this.props.onCellStyle)
                         if (this.props.columns[key].func === undefined) {
                             row.push(
                                 <div style={css} key={key}>{v[key]}</div>
@@ -171,7 +178,8 @@ TGrid.propTypes = {
     items: PropTypes.string,
     columns: PropTypes.string,
     index: PropTypes.number,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    onRowStyle: PropTypes.func
 };
 
 export default TGrid;
