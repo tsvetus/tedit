@@ -58,7 +58,6 @@ class TCheck extends React.Component {
     }
 
     handleIcon() {
-        console.log('icon');
         this.updateChecked(!this.state.checked, true);
     }
 

@@ -78,7 +78,6 @@ class TSide extends React.Component {
     }
 
     handleBlur() {
-        console.log('blur');
         this.doClick("close");
     }
 

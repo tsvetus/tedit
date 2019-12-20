@@ -8,6 +8,10 @@ export function isoDate(source, mask) {
         let m = mask.indexOf('MM') >= 0 ? source.substr(mask.indexOf('MM'), 2) : '01';
         let y = mask.indexOf('YYYY') >= 0 ? source.substr(mask.indexOf('YYYY'), 4) : '1970';
         return y + '-' + m + '-' + d;
+    } else if (source) {
+        if (testIsoDate(source)) {
+            return source;
+        }
     }
     return null;
 }
