@@ -26,23 +26,27 @@ Other components:
 Every component in `tedit` library has `style` property stands for providing custom style for each component:
 
 ```javascript
+import React from 'react';
 import {TText} from 'tedit';
 
-const style = {...};
-...
-    <TText style={style} />
-...    
+const style = {container: {border: "1px solid red"}};
+
+class MyComponent extends React.Component {
+    render () {
+         return <TText style={style} />   
+    }   
+}  
 ```
  
 Each component has it's own style structure described below. In addition one can register global project 
-styles using `registerStyles` function as follows:
+styles using `registerStyles` function as follows: 
 
 ```javascript
 import {registerStyles} from 'tedit';
 
 const styles = {    
     TComponent: {
-        /** Global style for components: TText, TListBox, TMemo, TCheck, TGroup */
+        /** Global style for components: TText, TListBox, TMemo, TCheck, TGroup e.t.c. */
         container: {
             backgroundColor: '#eee'
         },
@@ -51,14 +55,13 @@ const styles = {
         }
     },
     TMemo: {
-        /** Custom style for TMemo component. 
-        * Use component name without 't' letter for assigning style to custom component */
+        /** Custom style for TMemo component. */
         edit: {
             border: "1px solid green"
         }
     },
     MyListBox: {
-        /** Custom style for component with 'name' property equals 'MyListBox' */
+        /** Custom style for component with 'name' property equals to 'MyListBox' */
         list: {
             item: {
                 backgroundColor: "yellow"
@@ -67,76 +70,98 @@ const styles = {
     }
 };
 
-registerStyles(styles);
+const templates = {
+    /** Global color pallet */
+    colors: {
+        window: "#ddd",
+        frame: "rgba(60,59,194,0.48)",
+    }
+};
+
+registerStyles(styles, templates);
 ```
-This makes all controls appeared on grey background then all editable controls have `red` border except `green` 
-border for `TMemo` and with yellow list items in `TListBox` component with `name="MyListBox"`.  
+New `styles` make all controls appeared on grey background then all editable controls have `red` border except `green` 
+border for `TMemo` and with yellow list items in `TListBox` component with `name="MyListBox"`. New `templates` change
+global component background color to `#ddd` and frame border to `rgba(60,59,194,0.48)`.      
 
 ## Events
 
-All events are occur with delay determined by `timeout` property. Default timeout is `500 ms`. There are five 
-types of events in `tedit` components:  
+Some events are occur with delay determined by `timeout` property. Default timeout is `500 ms`. 
+All events have one argument `event` of type `Object`. The structure of `event` object depends on caller 
+component. The most common events are: 
 
-#### `IconClickEvent`:
-Emerges each time when user clicks an icon. Applies to `TIcon` component itself and when
-nested icons in `TText`, `TMemo`, `TListBox` components are clicked.
+#### `ClickEvent`
+Emerges each time when user clicks on component.
 
-Argument: `{name: ..., data: ..., icon: ...}` where
+`event={name: ..., data: ...}`
 * `name` - component name from `name` property.
 * `data` - any data from `data` property.
+
+Any other events has `name` and `data` property as wel so we discuss below only newer properties.       
+
+#### `IconClickEvent`
+Emerges each time when user clicks on component nested icon.
+
+`event={icon: ..., value: ...}`
 * `icon` - contains icon name.      
+* `value` - current component value.
 
-#### `TexChangeEvent`:
+#### `ValueChangeEvent`
 
-Emerges each time when edit text is changed in text edit components. Applies to `TText` 
-and `TMemo` components.
+Emerges each time when edit text is changed.
 
-Argument: `{value: ..., name: ..., data: ..., icon: ...}` where
+`event={value: ...}`
 * `value` - edited text.
-* `name` - component name from `name` property.
-* `data` - any data from `data` property.
-* `icon` - contains name of current component depending of it's state.      
 
-#### `ListChangeEvent`:
+#### `ListChangeEvent`
 
-Emerges each time when item selected from list in list edit components. Applies to
-`TListBox` components. 
+Emerges each time when item selected from list in list edit components.
 
-Argument: `{value: ..., name: ..., data: ...}` where
-* `value` - key value of clicked list item.
-* `name` - component name from `name` property.
-* `data` - any data from `data` property      
+`event={value: ..., item: ..., index: ...}`
+* `value` - contains selected item key value.
+* `item` - contains whole selected list item.
+* `index` - contains selected item index.
 
-#### `ValidateEvent`:
+#### `ValidateEvent`
 
-Emerges when text validation is needed. Applies to `TText` and `TMemo` components.
+Emerges when text validation is needed..
 
-Argument: `{value: ..., name: ..., data: ...}` similar to other events.
-Returns: - `boolean` When event returns `false` the component changes it's style to `invalid` 
+`event={value: ..., empty: ..., full: ...}` similar to other events.
+* `value` - contains last entered text.
+* `empty` - indicates whether component is empty.
+* `full` - indicates whether component contains valid text.
+* Returns: - `boolean`. When event returns `false` the component changes it's style to `invalid` 
       (see style structure).
        
-#### `MaskCheckEvent`:
+#### `MaskCheckEvent`
 
-Emerges when text mask checking is needed. Applies to `TText` component when `mask`
-    property is empty. If `mask` property contains any available masks `TText` component uses internal formatting 
-    engine to mask entered text.
+Emerges when text mask checking is needed when when `mask` property is empty. Developers can 
+use `omMask` property in `TText` component to write own mask check logic. If `mask` property 
+contains any available masks `TText` component uses internal formatting engine to mask entered text.
 
-Argument: `{value: ..., caret: ...}`
+`event={value: ..., full: ..., empty: ... , caret: ..., key: ...}`
 * `value` - contains current edited text.
+* `empty` - indicates whether component is empty.
+* `full` - indicates whether component contains valid text.
 * `caret` - contains current caret position.
-* Returns: - `boolean` The event mast returns the same type of object back `{value: ..., caret: ...}` with 
-      `value` and `caret` containing new values of text and caret position.  
+* `key` - contains last entered key code.
+* Returns: - `boolean` The event mast returns the same type of object back 
+`{value: ..., full: ..., empty: ... , caret: ..., key: ...}` with `value` and `caret` containing new 
+values of text and caret position.  
 
-#### `SearchkEvent`:
+#### `SearchEvent`
 
-Emerges when list box items is needed. Applies to `TListBox` component when `items`
-    property is empty.
+Emerges when list box items is needed. Has two arguments: `event` and `callback`.
 
-Argument: `{value: ...}`
+`event={value: ..., key: ...}`
 * `value` - contains current edited text.
+* `key` - contains current item key value.
 
-Returns: - `Arrray` of items like {&lt;key field name&gr;: ..., &lt;value field name&gt;: ...} where first field contains item
-    key value and the second - item text.  
+`callback` - function which returns `Arrray` of items like 
+`{key: ..., value: ...}` where first field contains item
+key value and the second - item text. One can use any names for fields. There are only sequence 
+has matter. `callback` function cn be called for instance after receiving 
+items from remote server or at any other moment asynchronously.    
 
 # Component descriptions
 
@@ -165,216 +190,151 @@ Returns: - `Arrray` of items like {&lt;key field name&gr;: ..., &lt;value field 
             near text editor. 
 * `timeout` - Timeout for `onChange` event. Default: `700 ms`.
 * `placeholder` - Placeholder text.
+* `layout` - Label position towards text editor. Available values:
+  * `left` - Label is on the left from text editor. The default position.
+  * `top` - Label is on the top of text editor. 
 * `mask` - Text mask. Now only text masks like `NN:NN` are supported where `N` is any number. `mask` property 
-    represents object of type: `{mask: ..., empty: ..., complete: ...}` where:
+    represents object of type: `{mask: ..., empty: ...}` where:
   * `mask` - String field of the form `+1 (NNN) NNN-NN-NN` where `N` - any number.
   * `empty` - String represents empty symbol. If `empty` length more tan one symbol only first is used.
-  * `complete` - Optional. If true `onChange` event fires only when masked text is fully typed or empty instead.
 * `regexp` - Regular expression. If assigned component tries to test entered text in comparison with entered 
     regular expression. If test failed then invalid style is applied (see style structure).          
-* `empty` - Value used by `onChange` event when edit text is empty.
+* `empty` - Value used by `onChange` event when edit text is empty. Default is `null`. 
+* `required` - Forces component switch to invalid style when value is invalid. Default is `true`. 
+* `readOnly`- Prevents from user input. Default is `false`.
 
 ### Component events:
 
-* `onChange`: [`TextChangeEvent`](textchangeevent)
-* `onValidate`: [`ValidateEvent`](validateevent)  
-* `onIcon`: [`IconClickEvent`](iconclickevent)
-* `onMask`: [`MaskCheckEvent`](maskcheckevent)
+* `onChange`: [`TextChangeEvent`](#valuechangeevent)
+* `onValidate`: [`ValidateEvent`](#validateevent)  
+* `onIcon`: [`IconClickEvent`](#iconclickevent)
+* `onMask`: [`MaskCheckEvent`](#maskcheckevent)
+
+## `TDate`
+
+`TDate` represents component for date value.  
+Performs date validation while entering. Extends `TText` component. 
+
+### Style structure:
+
+See [`TText`](#ttext)
+
+### Component properties:
+
+* `mask` - Date mask. Default mask is: `{mask: 'DD.MM.YYYY', empty: '-'}`.
+  * `DD`- day
+  * `MM` - month
+  * `YYYY` - year
+  
+For other properties see [`TText`](#tdate) except `placeholder` and `regexp`. 
+
+### Component events:
+
+* `onChange`: [`TextChangeEvent`](#valuechangeevent)
+* `onIcon`: [`IconClickEvent`](#iconclickevent)
+
+## `TTime`
+
+`TTime` represents component for time value.  
+Performs time validation while entering. Extends `TText` component. 
+
+### Style structure:
+
+See [`TText`](#ttext)
+
+### Component properties:
+
+* `mask` - Time mask. Default mask is: `{mask: 'hh:mm', empty: '-'}`.
+  * `hh` - hours
+  * `mm` - minutes
+  * `ss` - seconds 
+
+For other properties see [`TText`](#tdate) except `placeholder` and `regexp`. 
+
+### Component events:
+
+See [`TDate`](#tdate)
+
+## `TCheck`
+
+`TCheck` represents check box.
+
+### Style structure:
+
+* `container` - Outer component container style.
+* `frame` - Style for label and icon box.
+* `label` - Component label style.
+* `icon`- Check box icon style.
+
+### Component properties:
+
+* `style` - Component style.
+* `name` - Component name. Use `name` property if you have one `onChange` events for multiply components. 
+* `data` - Component data. Use `data` property if you want to associate component with some object. 
+* `value` - Text to display.
+* `label` - Label text.
+* `checked` - Value returned when icon is checked. Default `true`.
+* `unchecked` - Value returned when value is unchecked. Default is `false`.
+
+### Component events:
+
+* `onChange`: [`ValueChangeEvent`](#valuechangeevent)
+
+## `TButton`
+
+`TButton` represents button.
+
+### Style structure:
+
+Doesn't have any special style structure.
+
+### Component properties:
+
+* `style` - Component style.
+* `name` - Component name. Use `name` property if you have one `onChange` events for multiply components. 
+* `data` - Component data. Use `data` property if you want to associate component with some object. 
+* `wait` - When `true` component appears in grey color and doesn't respond on `onClick` event.
+
+### Component events:
+
+* `onClick`: [`ClickEvent`](#clickevent)
+
+## `TIcon`
+
+`TIcon` draws svg icon. 
+
+### Style structure:
+
+Doesn't have any special style structure.
+
+### Component properties:
+
+* `style` - Component style.
+* `name` - Icon name name. Available icon list:
+  * `edit`
+  * `save`
+  * `add`
+  * `delete`
+  * `up`
+  * `down`
+  * `checked`
+  * `unchecked`
+  * `menu`
+  * `close`
+  * `car`
+  * `refresh`
+  * `bagel` 
+* `data` - Component data. Use `data` property if you want to associate component with some object. 
+
+For other properties see [`TDate`](#tdate). 
+
+### Component events:
+
+* `onClick`: [`ClickEvent`](#clickevent)
 
 ### Example:  
 
 ```javascript
-import React from 'react';
-
-import {
-    TIcon,
-    Text,
-    TMemo,
-    TGroup,
-    TListBox,
-    TCheck,
-    TSearch,
-    styles,
-    registerStyles,
-    nvl
-} from 'tedit';
-
-registerStyles({
-
-    TIcon: {
-        margin: "4px",
-        width: "32px",
-        height: "32px"
-    },
-
-    TComponent: {
-
-        container: {
-            margin: "16px 0 0 0",
-            width: "100%"
-        },
-
-        icon: {
-            width: "18px",
-            height: "18px"
-        },
-
-        invalid: {
-            edit: {
-                backgroundColor: "#eea"
-            }
-        }
-
-    }
-
-});
-
-const iconLabelStyle = {
-    ...styles.component.label,
-    display: "flex",
-    alignItems: "center",
-    margin: "8px"
-};
-
-const LIST = [
-    {id: 1, name: 'first item'},
-    {id: 2, name: 'second item'},
-    {id: 3, name: 'third item'}
-];
-
-
-class Main extends React.Component {
-
-    constructor(props, context) {
-        super(props, context);
-        this.state = {
-            events: '',
-            ttext: null,
-            ttext1: null,
-            ttext2: null,
-            tmemo: null,
-            tcheck: 1,
-            tlistbox: null,
-            tsearch: null
-        };
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    handleChange(event) {
-        let events = this.state.events + JSON.stringify(event) + ' ';
-        this.setState({
-            events: events,
-            [event.name]: event.value
-        });
-    }
-
-    render() {
-
-        let icons = [];
-        for (let key in TIcon.icons) {
-            icons.push(
-                <div key={key} style={iconLabelStyle}>
-                    {key + ':'}
-                    <TIcon
-                        name={key}
-                        style={styles.icon} />
-                </div>);
-        }
-
-        return (
-
-            <div style={{maxWidth: "420px", margin: "auto", padding: "8px"}}>
-
-                <TGroup label={'TEdit component examples'}>
-
-                    <Text
-                        value={this.state.ttext}
-                        label={TText                        name={'ttext'}
-                        placeholder={'Enter single line text ...'}
-                        onChange={this.handleChange} />
-
-                    <TText
-        Text           value={this.state.ttext1}
-                        label={Text}
-         Text          name={'ttext1'}
-                        placeholder={'Enter more than 3 symbols ...'}
-                        onValidate={(event) => {
-                            return nvl(event.value, '').length >= 3;
-                        }}
-                        onChange={this.handleChange} />
-
-                    <TText
-                        valuTextis.state.ttext2}
-                        label={'Enter phone number:'}
-                        name={'ttext2'}
-                        mask={{mask: '+1 (NNN) NNN-NN-NN', empty: '_', complete: true}}
-                        onChange={this.handleChange} />
-
-                    <TListBox
-                        name={'tlistbox'}
-                        label={'TList box:'}
-                        listMode={'key value'}
-                        showMode={'value'}
-                        empty={{id: null, name: '-'}}
-                        value={this.state.tlistbox}
-                        items={[
-                            {id: 1, name: 'first item'},
-                            {id: 2, name: 'second item'}
-                        ]}
-                        placeholder={'Choose item from list ...'}
-                        onChange={this.handleChange} />
-
-                    <TCheck
-                        label={'Check me:'}
-                        name={'tcheck'}
-                        value={this.state.tcheck}
-                        checked={1}
-                        unchecked={0}
-                        onChange={this.handleChange} />
-
-                    <TSearch
-                        name={'tsearch'}
-                        label={'TSearch:'}
-                        listMode={'key value'}
-                        showMode={'value'}
-                        value={this.state.tsearch}
-                        placeholder={'Type word "item"'}
-                        onSearch={event => {
-                                return LIST.filter(v => {
-                                    return v.name.indexOf(nvl(event.value, '')) >= 0 ||
-                                        v.id == event.key;
-                                });
-                            }
-                        }
-                        onChange={this.handleChange} />
-
-                    <TMemo
-                        value={this.state.tmemo}
-                        label={'TMemo component:'}
-                        name={'tmemo'}
-                        data={3}
-                        placeholder={'Enter multiline text. Use "wrap" property to enable caret returns.'}
-                        onChange={this.handleChange} />
-
-                    <TMemo
-                        value={this.state.events}
-                        label={'Events:'} />
-
-                </TGroup>
-
-                <TGroup label={'TEdit icon list'}>
-                    {icons}
-                </TGroup>
-
-            </div>
-
-        );
-
-    }
-
-}
-
-export default Main;
 
 ```
 

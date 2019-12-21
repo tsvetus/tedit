@@ -113,12 +113,18 @@ class Edit extends React.Component {
         };
 
         if (this.props.onMask) {
-            query = this.props.onMask(query);
+            query = this.props.onMask({
+                name: this.props.name,
+                data: this.props.data,
+                ...query
+            });
         }
 
         let valid = this.valid;
         if (this.props.onValidate) {
             valid = this.props.onValidate({
+                name: this.props.name,
+                data: this.props.data,
                 value: query.value,
                 full: query.full,
                 empty: query.empty

@@ -82,7 +82,6 @@ class TDate extends React.Component {
                 mask={this.props.mask}
                 regexp={this.props.regexp}
                 empty={this.props.empty}
-                showInvalid={this.props.showInvalid}
                 readOnly={this.props.readOnly}
                 onValidate={this.handleValidate}
                 onIcon={this.props.onIcon}
@@ -102,18 +101,16 @@ TDate.propTypes = {
     label: PropTypes.string,
     icon: PropTypes.string,
     timeout: PropTypes.number,
-    placeholder: PropTypes.string,
     mask: PropTypes.object,
     empty: PropTypes.any,
     format: PropTypes.string,
     readOnly: PropTypes.any,
-    showInvalid: PropTypes.any,
     onChange: PropTypes.func,
     onIcon: PropTypes.func
 };
 
 TDate.defaultProps = {
-    mask: {mask: 'DD.MM.YYYY', empty: '-', complete: true},
+    mask: {mask: 'DD.MM.YYYY', empty: '-'},
     format: 'iso',
     empty: null
 };

@@ -157,7 +157,7 @@ class ListBox extends React.Component {
         }
     }
 
-    handleItemClick(event) {
+    handleItemClick(event, index) {
         this.updateValue(event.key);
         this.handleShow(false);
         if (this.props.onChange/* && this.key !== event.key*/) {
@@ -165,7 +165,8 @@ class ListBox extends React.Component {
                 name: this.props.name,
                 data: this.props.data,
                 value: event.key,
-                item: this.item
+                item: this.item,
+                index: index
             });
         }
         this.key = event.key;
@@ -176,7 +177,12 @@ class ListBox extends React.Component {
             showText: event.value
         }, () => {
             if (this.props.onSearch && event.value && event.value.length >= this.props.searchLength) {
-                this.props.onSearch({key: null, value: event.value}, (items) => {
+                this.props.onSearch({
+                    name: this.props.name,
+                    data: this.props.data,
+                    key: null,
+                    value: event.value
+                }, (items) => {
                     this.updateItems(items);
                     this.setState({
                         showList: this.helper.hasItems(),
@@ -203,7 +209,12 @@ class ListBox extends React.Component {
 
     search(key) {
         if (this.props.onSearch && key) {
-            this.props.onSearch({key: key, value: null}, (items) => {
+            this.props.onSearch({
+                name: this.props.name,
+                data: this.props.data,
+                key: key,
+                value: null
+            }, (items) => {
                 this.updateItems(items);
                 this.updateValue(key);
             });

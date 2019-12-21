@@ -23,7 +23,7 @@ class List extends React.Component {
 
     handleUse(index) {
         if (this.props.onClick && this.props.items && index >= 0 && index < this.props.items.length) {
-            this.props.onClick(this.props.items[index]);
+            this.props.onClick(this.props.items[index], index);
         }
     }
 
