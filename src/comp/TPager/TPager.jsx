@@ -82,24 +82,32 @@ class TPager extends React.Component {
             pages.push(<div key={i} style={st} data={i} onClick={this.handleClick}>{i + 1}</div>);
         }
 
-        return (
-            <div style={style.container}>
-                {params.to >= params.from ?
-                    <div style={style.label}>
+        if (params.pageTo < 1 && this.props.hide) {
+
+            return (<div style={style.container}></div>);
+
+        } else {
+
+            return (
+                <div style={style.container}>
+                    {params.to >= params.from ?
+                        <div style={style.label}>
                             <div>{params.from + 1}</div>
                             <div>{'-'}</div>
                             <div>{params.to + 1}</div>
                             <div>&#47;</div>
                             <div>{params.length}</div>
+                        </div>
+                        : <div style={style.label}></div>}
+                    <div style={style.edit}>
+                        <div style={style.page} data={'left'} onClick={this.handleClick}>&lt;</div>
+                        {pages}
+                        <div style={style.page} data={'right'} onClick={this.handleClick}>&gt;</div>
                     </div>
-                    : <div style={style.label}></div>}
-                <div style={style.edit}>
-                    <div style={style.page} data={'left'} onClick={this.handleClick}>&lt;</div>
-                    {pages}
-                    <div style={style.page} data={'right'} onClick={this.handleClick}>&gt;</div>
                 </div>
-            </div>
-        );
+            );
+
+        }
 
     }
 
@@ -111,12 +119,14 @@ TPager.propTypes = {
     date: PropTypes.any,
     size: PropTypes.number,
     items: PropTypes.array,
+    hide: PropTypes.any,
     onChange: PropTypes.func
 };
 
 TPager.defaultProps = {
     size: 100,
-    length: 0
+    length: 0,
+    hide: false
 };
 
 export default TPager;

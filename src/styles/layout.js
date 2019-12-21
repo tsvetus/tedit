@@ -265,7 +265,8 @@ export default {
 
         edit: {
             display: "flex",
-            justifyContent: "flex-end"
+            justifyContent: "flex-end",
+            flexWrap: "wrap"
         },
 
         label: {
@@ -319,6 +320,17 @@ export default {
 
         row: {
             display: "grid"
+        }
+
+    },
+
+    TFilm: {
+
+        title: {
+            position: "sticky",
+            top: "0",
+            left: "0",
+            right: "0"
         }
 
     }

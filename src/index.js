@@ -25,7 +25,8 @@ import {
     TInput,
     TPager,
     TLoad,
-    TGrid
+    TGrid,
+    TFilm
 } from './comp';
 
 import {
@@ -70,6 +71,7 @@ export {
     TPager,
     TLoad,
     TGrid,
+    TFilm,
 
     download,
     clone,

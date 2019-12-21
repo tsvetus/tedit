@@ -454,6 +454,15 @@ export default function defaultStyles(template) {
                 fontWeight: "bold"
             }
 
+        },
+
+        TFilm: {
+
+            title: {
+                backgroundColor: template.colors.window,
+                padding: "4px 0 4px 0"
+            }
+
         }
 
     }

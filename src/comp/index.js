@@ -21,6 +21,7 @@ import TInput from './TInput';
 import TPager from './TPager';
 import TLoad from './TLoad';
 import TGrid from './TGrid';
+import TFilm from './TFilm';
 
 export {
     TIcon,
@@ -45,5 +46,6 @@ export {
     TInput,
     TPager,
     TLoad,
-    TGrid
+    TGrid,
+    TFilm
 }

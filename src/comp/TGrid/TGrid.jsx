@@ -64,7 +64,7 @@ class TGrid extends React.Component {
     }
 
     handleClick(event) {
-        let index = Number(event.currentTarget.getAttribute('data'));
+        let index = Number(event.currentTarget.getAttribute('index'));
         if (this.props.onClick) {
             this.props.onClick({
                 name: this.props.name,
@@ -135,15 +135,21 @@ class TGrid extends React.Component {
                     }
                 }
                 for (let key in this.props.columns) {
+                    let css = cs;
+                    if (this.props.columns[key].style !== undefined) {
+                        css = merge(css, this.props.columns[key].style(v[key], key, v));
+                    }
                     if (v[key] === undefined) {
-                        row.push(
-                            <div style={cs} key={key}></div>
-                        );
-                    } else {
-                        let css = cs;
-                        if (this.props.columns[key].style !== undefined) {
-                            css = merge(css, this.props.columns[key].style(v[key], key, v));
+                        if (this.props.columns[key].value === undefined) {
+                            row.push(
+                                <div style={css} key={key}></div>
+                            );
+                        } else {
+                            row.push(
+                                <div style={css} key={key}>{this.props.columns[key].value(undefined, key, v)}</div>
+                            );
                         }
+                    } else {
                         if (this.props.columns[key].value === undefined) {
                             row.push(
                                 <div style={css} key={key}>{v[key]}</div>
@@ -156,7 +162,7 @@ class TGrid extends React.Component {
                     }
                 }
                 items.push(
-                    <div key={i} style={rowStyle} data={i} onClick={this.handleClick}>
+                    <div key={i} style={rowStyle} index={i} onClick={this.handleClick}>
                         {row}
                     </div>
                 );
