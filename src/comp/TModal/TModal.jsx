@@ -14,7 +14,7 @@ class TModal extends React.Component {
         super(props, context);
         this.state = {
             timer: null,
-            wait: 0
+            countdown: 0
         };
         this.close = this.close.bind(this);
         this.setTimer = this.setTimer.bind(this);
@@ -50,18 +50,18 @@ class TModal extends React.Component {
     }
 
     setTimer() {
-        let wait = this.props.wait;
-        if (wait) {
-            if (isNaN(wait)) {
-                wait = seconds(wait);
+        let countdown = this.props.countdown;
+        if (countdown) {
+            if (isNaN(countdown)) {
+                countdown = seconds(countdown);
             }
-            if (wait > 0) {
+            if (countdown > 0) {
                 this.setState({
-                    wait: wait,
+                    countdown: countdown,
                     timer: setInterval(
                         () => {
-                            this.setState({wait: this.state.wait - 1});
-                            if (this.state.wait <= 0) {
+                            this.setState({countdown: this.state.countdown - 1});
+                            if (this.state.countdown <= 0) {
                                 this.close();
                             }
                         },
@@ -95,13 +95,13 @@ class TModal extends React.Component {
             }
         );
 
-        let wait = this.state.wait > 0 ? this.state.wait : null;
+        let countdown = this.state.countdown > 0 ? this.state.countdown : null;
 
         let header = null;
         if (this.props.showHeader) {
             header =
                 <div style={style.header}>
-                    <div style={style.timer}>{wait}</div>
+                    <div style={style.timer}>{countdown}</div>
                     <div style={style.caption} dangerouslySetInnerHTML={{ __html: this.props.caption}}></div>
                     <Icon style={style.close} name={ICON_CLOSE} onClick={this.handleCancel} />
                 </div>
@@ -127,7 +127,7 @@ TModal.propTypes = {
     name: PropTypes.string,
     data: PropTypes.any,
     show: PropTypes.any,
-    wait: PropTypes.any,
+    countdown: PropTypes.any,
     caption: PropTypes.string,
     showHeader: PropTypes.any,
     onClose: PropTypes.func.isRequired

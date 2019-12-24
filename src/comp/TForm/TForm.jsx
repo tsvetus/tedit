@@ -17,7 +17,7 @@ class TForm extends React.Component {
     }
 
     handleButtonClick(event) {
-        if (!this.props.disable) {
+        if (!this.props.wait) {
             this.props.onClose({
                 name: this.props.name,
                 data: this.props.data,
@@ -52,8 +52,8 @@ class TForm extends React.Component {
         if (propButtons) {
             for (let key in propButtons) {
                 let buttonStyle = style.buttons[key];
-                if (this.props.disable) {
-                    buttonStyle = style.buttons.disable;
+                if (this.props.wait) {
+                    buttonStyle = style.buttons.wait;
                 }
                 buttons.push(
                     <TButton
@@ -75,13 +75,15 @@ class TForm extends React.Component {
             (<div style={style.message}>{this.props.message}</div>) :
             null;
 
+        console.log('form ' + this.props.wait);
+
         return (
             <TModal
                     style={style}
                     name={this.props.name}
                     data={this.props.data}
                     show={this.props.show}
-                    wait={this.props.wait}
+                    countdown={this.props.countdown}
                     caption={this.props.caption}
                     showHeader={this.props.showHeader}
                     onClose={this.handleCancel}>
@@ -101,9 +103,9 @@ TForm.propTypes = {
     name: PropTypes.string,
     data: PropTypes.any,
     show: PropTypes.any,
-    wait: PropTypes.any,
+    countdown: PropTypes.any,
     caption: PropTypes.string,
-    disable: PropTypes.any,
+    wait: PropTypes.any,
     onClose: PropTypes.func,
     buttons: PropTypes.object,
     error: PropTypes.string,

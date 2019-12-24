@@ -219,7 +219,7 @@ export default function defaultStyles(template) {
                     color: "#3f943f"
                 },
 
-                disable: {
+                wait: {
                     ...button,
                     fontWeight: "bold",
                     color: "#ddd",
