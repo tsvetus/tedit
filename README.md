@@ -29,11 +29,11 @@ Every component in `tedit` library has `style` property stands for providing cus
 import React from 'react';
 import {TText} from 'tedit';
 
-const style = {container: {border: "1px solid red"}};
+const style = {container: {border: "1px solid red"}, label: {width: "100px"}};
 
 class MyComponent extends React.Component {
     render () {
-         return <TText style={style} />   
+         return <TText style={style} label={'TText component:'} />   
     }   
 }  
 ```
@@ -83,6 +83,43 @@ registerStyles(styles, templates);
 New `styles` make all controls appeared on grey background then all editable controls have `red` border except `green` 
 border for `TMemo` and with yellow list items in `TListBox` component with `name="MyListBox"`. New `templates` change
 global component background color to `#ddd` and frame border to `rgba(60,59,194,0.48)`.      
+
+## Properties
+
+Each component has it's own set of properties. The whole list of `tedit` component properties 
+listed below:
+
+* `style` - `Object` containing component styles organized in hierarchical structure. If assigned component 
+  merges supplied styles with internal styles. Styles assigned to `style` property has highest priority than 
+  any other component styles. Default value is `undefined`.
+* `name` - `String` containing component name. If assigned any component events return back `name` value in 
+  `event` object. In addition `name` value may be used in global styles registered by `registerStyles` function to
+  assign to this component individual style. This style has higher priority than internal styles but lower priority
+  than style assigned to `style` property. Default value is `undefined`.
+* `data` - Property of `any type`. Contains any data associated with component. If assigned any component events 
+  return back `data` value in `event` object. Default is `undefined`.  
+* `label` - `String` contains label text. Default is `undefined`.
+* `placeholder` - `String` placeholder text. Default is `undefined`.
+* `value` - Component value. Type of `value` depends on component itself. In text edit component `value` is of 
+  `String` type. In list box components `value` contains list item key value. Default is `null`.  
+* `icon` - Icon name from available icon list (see [`TIcon`](#ticon)). If assigned the appropriate icon appeared 
+  near text editor.  
+* `timeout` - `Number` contains timeout for `onChange` event. Default: `700 ms`.
+* `layout` - Label position towards text editor. Available values:
+  * `left` - Label is on the left from text editor. The default position for [`TText`](#ttext) and 
+  [`TListBox`](#tlistbox) components.
+  * `top` - Label is on the top of text editor. The default position for [`TMemo`](#tmemo) and [`TGroup`](#tgroup)
+  components
+* `mask` - Text mask. Now only text masks like `NN:NN` are supported where `N` is any number. `mask` property 
+    represents object of type: `{mask: ..., empty: ...}` where:
+* `mask` - String field of the form `+1 (NNN) NNN-NN-NN` where `N` - any number.
+* `empty` - String represents empty symbol. If `empty` length more than one symbol only first is used.
+#### `regexp` - Regular expression. If assigned component tries to test entered text in comparison with entered 
+    regular expression. If test failed then invalid style is applied (see style structure).          
+#### `empty` - Value used by `onChange` event when edit text is empty. Default is `null`. 
+#### `required` - Forces component switch to invalid style when value is invalid. Default is `true`. 
+#### `readOnly`- Prevents from user input. Default is `false`.
+
 
 ## Events
 
@@ -196,7 +233,7 @@ items from remote server or at any other moment asynchronously.
 * `mask` - Text mask. Now only text masks like `NN:NN` are supported where `N` is any number. `mask` property 
     represents object of type: `{mask: ..., empty: ...}` where:
   * `mask` - String field of the form `+1 (NNN) NNN-NN-NN` where `N` - any number.
-  * `empty` - String represents empty symbol. If `empty` length more tan one symbol only first is used.
+  * `empty` - String represents empty symbol. If `empty` length more than one symbol only first is used.
 * `regexp` - Regular expression. If assigned component tries to test entered text in comparison with entered 
     regular expression. If test failed then invalid style is applied (see style structure).          
 * `empty` - Value used by `onChange` event when edit text is empty. Default is `null`. 
@@ -212,8 +249,8 @@ items from remote server or at any other moment asynchronously.
 
 ## `TDate`
 
-`TDate` represents component for date value.  
-Performs date validation while entering. Extends `TText` component. 
+`TDate` represents component for date value. Performs date validation while entering. 
+Extends `TText` component. 
 
 ### Style structure:
 
@@ -235,8 +272,8 @@ For other properties see [`TText`](#tdate) except `placeholder` and `regexp`.
 
 ## `TTime`
 
-`TTime` represents component for time value.  
-Performs time validation while entering. Extends `TText` component. 
+`TTime` represents component for time value. Performs time validation while entering. 
+Extends `TText` component. 
 
 ### Style structure:
 
