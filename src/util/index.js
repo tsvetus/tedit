@@ -8,7 +8,8 @@ import {
     find,
     strip,
     flood,
-    params
+    params,
+    contain
 } from './misc.js';
 
 import Format from './format.js';
@@ -44,6 +45,7 @@ export {
     strip,
     flood,
     params,
+    contain,
 
     Format,
     Pager,

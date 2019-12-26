@@ -27,7 +27,7 @@ import {
     TLoad,
     TGrid,
     TFilm
-} from './comp';
+} from './components';
 
 import {
     download,

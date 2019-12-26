@@ -12,28 +12,37 @@ export default function defaultStyles(template) {
         fonts: template.fonts,
 
         TIcon: {
-            padding: "4px",
-            width: "32px",
-            height: "32px",
-            color: template.colors.border
+            container: {
+                padding: "4px",
+                width: "32px",
+                height: "32px",
+                color: template.colors.border
+            }
         },
 
         TButton: {
-            padding: "8px 16px 8px 16px",
-            border: "1px solid " + template.colors.frame,
-            backgroundColor: template.colors.face,
-            color: template.colors.text,
-            borderRadius: "8px",
-            textAlign: "center",
-            ...template.fonts.common
+            container: {
+                padding: "8px 16px 8px 16px",
+                border: "1px solid " + template.colors.frame,
+                backgroundColor: template.colors.face,
+                color: template.colors.text,
+                borderRadius: "8px",
+                textAlign: "center",
+                ...template.fonts.common
+            },
+            wait: {
+                color: "#ddd"
+            }
         },
 
         TIndicator: {
-            color: template.colors.indicator,
-            flex: "0 0 24px",
-            textAlign: "center",
-            fontWeight: "bold",
-            ...template.fonts.common
+            container: {
+                color: template.colors.indicator,
+                flex: "0 0 24px",
+                textAlign: "center",
+                fontWeight: "bold",
+                ...template.fonts.common
+            }
         },
 
         TComponent: {

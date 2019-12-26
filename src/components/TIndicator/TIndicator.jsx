@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {merge} from '../../util';
+import {merge, contain} from '../../util';
 
 import styles from '../../styles';
 
@@ -14,15 +14,15 @@ class TIndicator extends React.Component {
     render () {
 
         let style = merge(
-            styles.TIndicator,
-            styles[this.props.name],
-            this.props.style
+            contain(styles.TIndicator),
+            contain(styles[this.props.name]),
+            contain(this.props.style)
         );
 
         let char = (this.props.open === true) ? this.props.charOpen : this.props.charClosed;
 
         return (
-            <div style={style} dangerouslySetInnerHTML={{ __html: char}}></div>
+            <div style={style.container} dangerouslySetInnerHTML={{ __html: char}}></div>
         );
 
     }

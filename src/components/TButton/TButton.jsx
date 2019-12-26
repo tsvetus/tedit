@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {merge} from '../../util';
+import {merge, contain} from '../../util';
 
 import styles from '../../styles';
 
+/**
+ * Button
+ */
 class TButton extends React.Component {
 
     constructor(props, context) {
@@ -24,21 +27,19 @@ class TButton extends React.Component {
     render () {
 
         let style = merge(
-            styles.TButton,
-            styles[this.props.name],
-            this.props.style
+            contain(styles.TButton),
+            contain(styles[this.props.name]),
+            contain(this.props.style)
         );
 
+        let cst = style.container;
         if (this.props.wait) {
-            style = {
-                ...style,
-                color: "#ddd"
-            }
+            cst = merge(cst, style.wait);
         }
 
         return (
             <div
-                style={style}
+                style={cst}
                 name={this.props.name}
                 onClick={this.handleClick}>
                     {this.props.children}
@@ -50,10 +51,22 @@ class TButton extends React.Component {
 }
 
 TButton.propTypes = {
+    /** Inline React style */
     style: PropTypes.object,
+    /** Component name */
     name: PropTypes.string,
+    /** Component data */
     data: PropTypes.any,
+    /** Component wait state. When <i>true</i> component appears in grey color and doesn't respond
+     * on <i>onClick</i> event
+     */
     wait: PropTypes.any,
+    /**
+     * On click event
+     * @param {Object} event event object with following structure:<br/>
+     * @param {String} event.name component name from <i>name</i> property<br/>
+     * @param {Object} event.data component data from <i>data</i> property<br/>
+     */
     onClick: PropTypes.func
 };
 

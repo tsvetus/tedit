@@ -3,11 +3,12 @@ import {styles} from "./const";
 export default {
 
     TButton: {
-        cursor: "pointer"
+        container: {
+            cursor: "pointer"
+        }
     },
 
     TIndicator: {
-//        cursor: "default"
     },
 
     TComponent: {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {Icon} from '../../lib';
 
-import {merge} from '../../util';
+import {merge, contain} from '../../util';
 
 import styles from '../../styles';
 
@@ -12,14 +12,14 @@ class TIcon extends React.Component {
     render () {
 
         let style = merge(
-            styles.TIcon,
-            styles[this.props.name],
-            this.props.style
+            contain(styles.TIcon),
+            contain(styles[this.props.name]),
+            contain(this.props.style)
         );
 
         return (
             <Icon
-                style={style}
+                style={style.container}
                 name={this.props.name}
                 data={this.props.data}
                 onClick={this.props.onClick} />

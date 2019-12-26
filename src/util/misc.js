@@ -157,3 +157,21 @@ export function params(source) {
     }
     return res;
 }
+
+export function contain(source) {
+    if (source) {
+        let res = clone(source);
+        if (!res.container) {
+            res.container = {};
+        }
+        for (let key in source) {
+            if (!(source[key] instanceof Object)) {
+                res.container[key] = source[key];
+                res[key] = undefined;
+            }
+        }
+        return res;
+    } else {
+        return source;
+    }
+}

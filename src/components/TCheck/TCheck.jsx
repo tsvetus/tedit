@@ -3,40 +3,9 @@ import PropTypes from 'prop-types';
 
 import {Icon} from '../../lib';
 
-import {merge} from '../../util';
+import {merge, contain} from '../../util';
 
 import styles from '../../styles';
-
-/**
- * @class TCheck
- * @property {object} style - React style
- * @property {any} value - Current value representing checked/unchecked state
- * @property {string} name - Component name which is returned in onChange event back to parent component,
- * @property {any} data - Any component data which is returned in onChange event back to parent component,
- * @property {string} label - Component caption
- * @property {any} checked=true - Value returned if component is checked
- * @property {any} unchecked=false - Value returned if component is unchecked
- * @property {func} onChange - On change event. Returns object: <i>{value: [checked value], name:
- * [component name], data: [component data]}</i>
- * @extends React.Component
- * @example
- * class Test extends React.Component {
- *     constructor() {
- *         super();
- *         this.state = {value: 1}
- *     }
- *     render() {
- *         return (
- *             <TCheck
- *                 label={'Check me:'}
- *                 value={this.state.value}
- *                 checked={1}
- *                 unchecked={0}
- *                 onChange={(event) => {this.setState({value: event.value});}} />
- *         );
- *     }
- * }
- */
 
 class TCheck extends React.Component {
 
@@ -84,10 +53,10 @@ class TCheck extends React.Component {
     render () {
 
         let style = merge(
-            styles.TComponent,
-            styles.TCheck,
-            styles[this.props.name],
-            this.props.style
+            contain(styles.TComponent),
+            contain(styles.TCheck),
+            contain(styles[this.props.name]),
+            contain(this.props.style)
         );
 
         let label = null;
@@ -118,6 +87,11 @@ class TCheck extends React.Component {
 }
 
 TCheck.propTypes = {
+    /**
+     * Component style
+     * @property {Object} style Style structure:
+     * @property {String} style.container React inline style for component container
+     */
     style: PropTypes.object,
     value: PropTypes.any,
     name: PropTypes.string,
