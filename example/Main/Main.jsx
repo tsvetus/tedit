@@ -8,7 +8,6 @@ import {
     TListBox,
     TCheck,
     TButton,
-    TIndicator,
     TLogin,
     TModal,
     TForm,
@@ -18,82 +17,42 @@ import {
     TScroll,
     TDate,
     TTime,
-    styles,
     registerStyles,
-    nvl
+    nvl,
+    styles
 } from 'tedit';
 
-registerStyles(
+const style = {
 
-    {
-
-        TIcon: {
-            width: "32px",
-            height: "32px"
-        },
-
-        TComponent: {
-
-            container: {
-                margin: "8px 0 0 0",
-                width: "100%",
-                maxWidth: "440px"
-            },
-
-            icon: {
-                width: "18px",
-                height: "18px"
-            }
-
-        },
-
-        TGroup: {
-
-            container: {
-                maxWidth: "520px",
-                margin: "auto",
-                marginTop: "16px"
-            },
-
-            content: {
-                justifyContent: "space-around"
-            }
-
-        },
-
-        TPanel: {
-            padding: "16px"
-        },
-
-        TScroll: {
-            padding: "16px"
-        },
-
-        memo: {
-            container: {
-                maxWidth: "auto",
-                width: "100%"
-            }
+    TScroll: {
+        content: {
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            padding: "8px"
         }
-
     },
 
-    {
-
-        colors: {
-            window: "#999"
+    TComponent: {
+        container: {
+            margin: "8px"
         }
+    },
 
+    TGroup: {
+        container: {
+            margin: "8px",
+            maxWidth: "600px"
+        },
+        content: {
+            display: "flex",
+            justifyContent: "flex-start"
+        }
     }
 
-);
-
-const iconLabelStyle = {
-    ...styles.TComponent.label,
-    display: "flex",
-    alignItems: "center",
-    margin: "8px"
 };
+
+registerStyles(style);
 
 const LIST = [
     {id: 1, name: 'first item', title: null, description: null},
@@ -107,53 +66,66 @@ class Main extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
+
             events: '',
-            text1: null,
-            text2: null,
-            text3: null,
-            text4: '+7 905 745-81-11',
-            memo: null,
-            check: 1,
-            listBox: null,
-            search: 1,
-            time: new Date(),
-            date: null,
+
+            topLabel: null,
+            regExp: null,
+            customVal: null,
+            maskVal: '+7 111 111-11-11',
+
+            listBox: 2,
+            searchBox: null,
+
+
+            memoEdit: null,
+            timeEdit: new Date(),
+            dateEdit: null,
+
+            sideMenu: false,
+
+
             login: {username: 'user', password: ''},
-            showLogin: false,
-            showModal: false,
-            showForm: false,
-            showMenu: false
+
+            modalDialog: false,
+            modalForm: false,
+            loginForm: false,
+
         };
-        this.handleChange = this.handleChange.bind(this);
+
+        this.handleIconClick = this.handleIconClick.bind(this);
+        this.handleMenuClick = this.handleMenuClick.bind(this);
+        this.handleComponentChange = this.handleComponentChange.bind(this);
+        this.handleDialogs = this.handleDialogs.bind(this);
         this.search = this.search.bind(this);
+
     }
 
-    handleChange(event) {
+    handleIconClick(event) {
+        this.setState({events: this.state.events + JSON.stringify(event) + ' '})
+    }
 
-        let events = this.state.events + JSON.stringify(event) + ' ';
-
-        if (event.name === 'top' && event.icon === 'menu') {
-            this.setState({
-                events: events,
-                showMenu: true
-            });
-        } else if (event.name === 'side') {
-            this.setState({
-                events: events,
-                showMenu: false
-            });
-        } else if (event.name.indexOf('show') >= 0) {
-            this.setState({
-                events: events,
-                [event.name]: !this.state[event.name]
-            });
-        } else {
-            this.setState({
-                events: events,
-                [event.name]: event.value
-            });
+    handleMenuClick(event) {
+        if (event.name === 'topMenu' && event.icon === 'menu') {
+            this.setState({sideMenu: true})
+        } else if (event.name === 'sideMenu') {
+            this.setState({sideMenu: false});
         }
+        this.setState({events: this.state.events + JSON.stringify(event) + ' '})
+    }
 
+    handleComponentChange(event) {
+        this.setState({
+            events: this.state.events + JSON.stringify(event) + ' ',
+            [event.name]: event.value
+        });
+    }
+
+    handleDialogs(event) {
+        this.setState({
+            events: this.state.events + JSON.stringify(event) + ' ',
+            [event.name]: !this.state[event.name]
+        })
     }
 
     search(event, callback) {
@@ -170,12 +142,11 @@ class Main extends React.Component {
         let icons = [];
         for (let key in TIcon.icons) {
             icons.push(
-                <div key={key} style={iconLabelStyle}>
+                <div key={key} style={{margin: "8px", color: styles.colors.border}}>
                     {key + ':'}
                     <TIcon
                         name={key}
-                        style={styles.icon}
-                        onClick={this.handleChange} />
+                        onClick={this.handleIconClick} />
                 </div>);
         }
 
@@ -184,71 +155,68 @@ class Main extends React.Component {
             <div style={{textAlign: "center"}}>
 
                 <TSide
-                    name={'side'}
-                    show={this.state.showMenu}
+                    name={'sideMenu'}
+                    show={this.state.sideMenu}
                     items={[
                         {name: 'first', caption: 'First menu item'},
                         {name: 'second', caption: 'Second menu item', style: {fontWeight: "bold"}}
                     ]}
-                    onClick={this.handleChange} />
+                    onClick={this.handleMenuClick} />
 
                 <TTop
-                    name={'top'}
-                    onClick={this.handleChange} />
+                    name={'topMenu'}
+                    onClick={this.handleMenuClick} />
 
                 <TPanel>
-                    tedit library example page
+                    {'tedit library example page'}
                 </TPanel>
 
                 <TScroll>
 
-                    <TGroup label={'Edit component examples'}>
+                    <TGroup
+                        label={'Edit component examples'}>
 
                         <TText
-                            style={{label: {width: "180px"}}}
-                            value={this.state.text1}
-                            label={'TText component:'}
-                            name={'text1'}
+                            value={this.state.topLabel}
+                            label={'TText with top label:'}
+                            name={'topLabel'}
                             layout={'top'}
                             placeholder={'Enter single line text ...'}
-                            onChange={this.handleChange} />
+                            onChange={this.handleComponentChange} />
 
                         <TText
                             style={{label: {width: "180px"}}}
-                            value={this.state.text2}
+                            value={this.state.regExp}
                             label={'TText with RegExp validation:'}
-                            name={'text2'}
+                            name={'regExp'}
                             regexp={TText.regexp['email']}
                             placeholder={'Enter email address ...'}
-                            onChange={this.handleChange} />
+                            onChange={this.handleComponentChange} />
 
                         <TText
                             style={{label: {width: "180px"}}}
-                            value={this.state.text3}
+                            value={this.state.customVal}
                             label={'TText with custom validation:'}
-                            name={'text3'}
+                            name={'customVal'}
                             placeholder={'Enter more than 3 symbols ...'}
                             onValidate={(event) => {
-                                console.log(event.value);
                                 return nvl(event.value, '').length > 3;
                             }}
-                            onChange={this.handleChange} />
+                            onChange={this.handleComponentChange} />
 
                         <TText
                             style={{label: {width: "180px"}}}
-                            value={this.state.text4}
+                            value={this.state.maskVal}
                             label={'TText with mask:'}
-                            name={'text4'}
+                            name={'maskVal'}
                             mask={{mask: '+1 (NNN) NNN-NN-NN', empty: '_'}}
-                            onChange={this.handleChange} />
+                            onChange={this.handleComponentChange} />
 
                         <TListBox
                             style={{label: {width: "180px"}}}
                             layout={'top'}
                             name={'listBox'}
                             label={'TListBox with items:'}
-                            listMode={'key value'}
-                            showMode={'value'}
                             empty={{id: null, name: '-'}}
                             value={this.state.listBox}
                             items={[
@@ -256,83 +224,82 @@ class Main extends React.Component {
                                 {id: 2, name: 'second item'}
                             ]}
                             placeholder={'Choose item from list ...'}
-                            onChange={this.handleChange} />
+                            onChange={this.handleComponentChange} />
 
                         <TListBox
                             style={{label: {width: "180px"}}}
-                            name={'search'}
+                            showIcon={false}
+                            name={'searchBox'}
                             label={'TListBox with search:'}
                             empty={{id: null, name: '-'}}
-                            value={this.state.search}
+                            value={this.state.searchBox}
                             placeholder={'Type word "item" ...'}
                             onSearch={(event, callback) => {
                                 this.search(event, callback);
                             }}
-                            onChange={this.handleChange} />
+                            onChange={this.handleComponentChange} />
 
                         <TCheck
-                            style={{frame: {justifyContent: "flex-start"}, label: {width: "180px"}}}
+                            style={{container: {width: "160px"}}}
                             label={'TCheck:'}
-                            name={'check'}
-                            value={this.state.check}
+                            name={'checkBox'}
+                            value={this.state.checkBox}
                             checked={1}
                             unchecked={0}
-                            onChange={this.handleChange} />
-
-                        <TMemo
-                            value={this.state.memo}
-                            label={'TMemo:'}
-                            name={'memo'}
-                            placeholder={'Enter multiline text. Use "wrap" property to enable caret returns.'}
-                            onChange={this.handleChange} />
+                            onChange={this.handleComponentChange} />
 
                         <TDate
-                            name={'date'}
-                            value={this.state.date}
+                            style={{container: {width: "160px"}}}
+                            name={'dateEdit'}
+                            value={this.state.dateEdit}
                             label={'TDate:'}
-                            onChange={this.handleChange} />
+                            onChange={this.handleComponentChange} />
 
                         <TTime
-                            name={'time'}
-                            value={this.state.time}
+                            style={{container: {width: "160px"}}}
+                            name={'timeEdit'}
+                            value={this.state.timeEdit}
                             label={'TTime:'}
-                            onChange={this.handleChange} />
+                            onChange={this.handleComponentChange} />
+
+                        <TMemo
+                            style={{edit: {minHeight: "80px"}}}
+                            value={this.state.memoEdit}
+                            label={'TMemo:'}
+                            name={'memoEdit'}
+                            placeholder={'Enter multiline text. Use "wrap" property to enable caret returns.'}
+                            onChange={this.handleComponentChange} />
 
                     </TGroup>
 
                     <TGroup label={'Other controls'}>
 
                         <TButton
-                            style={{...styles.button, margin: "16px"}}
-                            name={'showLogin'}
-                            onClick={this.handleChange}>
-                            Show login
+                            style={{margin: "16px"}}
+                            name={'loginDialog'}
+                            onClick={this.handleDialogs}>
+                            {'Show login'}
                         </TButton>
 
                         <TButton
-                            style={{...styles.button, margin: "16px"}}
-                            name={'showModal'}
-                            onClick={this.handleChange}>
-                            Show modal
+                            style={{margin: "16px"}}
+                            name={'modalDialog'}
+                            onClick={this.handleDialogs}>
+                            {'Show modal'}
                         </TButton>
 
                         <TButton
-                            style={{...styles.button, margin: "16px"}}
-                            name={'showForm'}
-                            onClick={this.handleChange}>
-                            Show form
+                            style={{margin: "16px"}}
+                            name={'formDialog'}
+                            onClick={this.handleDialogs}>
+                            {'Show form'}
                         </TButton>
 
                         <TButton
-                            style={{...styles.button, margin: "16px"}}
+                            style={{margin: "16px"}}
                             onClick={() => {this.setState({events: ''})}}>
-                            Clear events
+                            {'Clear events'}
                         </TButton>
-
-                        <div style={{width: "100%", display: "flex"}}>
-                            <TIndicator open={true} />
-                            <TIndicator open={false} />
-                        </div>
 
                     </TGroup>
 
@@ -359,18 +326,17 @@ class Main extends React.Component {
                                 }
                             }
                         }}
-                        name={'showLogin'}
+                        name={'loginDialog'}
                         value={this.state.login}
-                        show={this.state.showLogin}
-                        onLogin={this.handleChange} />
+                        show={this.state.loginDialog}
+                        onLogin={this.handleDialogs} />
 
-                    <TModal
-                        style={{content: {textAlign: "center"}}}
-                        name={'showModal'}
+                    <TModal style={{content: {textAlign: "center"}}}
+                        name={'modalDialog'}
                         caption={'CAPTION'}
-                        show={this.state.showModal}
+                        show={this.state.modalDialog}
                         wait={10}
-                        onClose={this.handleChange} >
+                        onClose={this.handleDialogs} >
                         Modal content
                     </TModal>
 
@@ -380,21 +346,13 @@ class Main extends React.Component {
                                 textAlign: "center"
                             }
                         }}
-                        name={'showForm'}
+                        name={'formDialog'}
                         caption={'FORM'}
-                        show={this.state.showForm}
+                        show={this.state.formDialog}
                         buttons={{'cancel': 'Cancel', 'save': 'Save'}}
-                        onClose={this.handleChange} >
+                        onClose={this.handleDialogs} >
                         Form content
                     </TForm>
-
-                    <div style={{margin: "16px"}}>
-                        <a
-                            style={styles.TComponent.label}
-                            href={'./jsdoc/index.html'}>
-                            See full generated documentation here
-                        </a>
-                    </div>
 
                 </TScroll>
 

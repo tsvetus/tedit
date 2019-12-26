@@ -7,7 +7,6 @@
     "watch": "webpack --watch --config webpack.config.watch.js",
     "dev": "webpack-dev-server --color --hot --inline --watch --config webpack.config.dev.js",
     "exam": "webpack --display-error-details --config webpack.config.exam.js",
-    "test": "webpack-dev-server --color --hot --inline --watch --config webpack.config.test.js",
     "prod": "webpack --display-error-details --config webpack.config.prod.js",
     "doc": "jsdoc src README.md --verbose -r -d docs/jsdoc",
     "build": "webpack --config webpack.config.prod.js && webpack --config webpack.config.exam.js && jsdoc src/index.js --destination doc"
@@ -17,6 +16,7 @@
     "url": "https://github.com/tsvetus/tedit.git"
   },
   "keywords": [
+    "edit",
     "input",
     "ReactJS",
     "component"

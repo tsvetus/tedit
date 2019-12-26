@@ -6,17 +6,34 @@ Set of visual React components designed for constructing web application interfa
 * [`TText`](#ttext)
 * [`TMemo`](#tmemo)
 * [`TListBox`](#tlistbox)
+* [`TSearch`](#tsearch)
+* [`TDate`](#tdate)
+* [`TTime`](#ttime)
 
-Other components:
+No text editor components:
 * [`TCheck`](#tcheck)
+
+Buttons and icons:
+* [`TButton`](#tbutton)
 * [`TIcon`](#ticon)
+
+Grids and lists:
+* [`TGrid`](#tgrid)
+* [`TFilm`](#tfilm)
+
+Control organizers:
 * [`TGroup`](#tgroup)
+* [`TPanel`](#tcheck)
+* [`TScroll`](#tscroll)
+* [`TPager`](#tpager)
+
+Menus:
 * [`TTop`](#tgroup)
 * [`TSide`](#tgroup)
+
+Modals:
 * [`TModal`](#tgroup)
 * [`TForm`](#tgroup)
-* [`TPanel`](#tcheck)
-* [`TLogin`](#tcheck)
 
 ## Example
 [Example page](https://tsvetus.github.io/tedit/)
@@ -143,10 +160,7 @@ class MyComponent extends React.Component {
     }
     
     change(event) {
-        this.setState({
-            ...clone(this.state), 
-            [event.name]: event.value
-        });
+        this.setState({[event.name]: event.value});
     } 
 
     render () {

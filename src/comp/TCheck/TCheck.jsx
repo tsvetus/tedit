@@ -37,6 +37,7 @@ import styles from '../../styles';
  *     }
  * }
  */
+
 class TCheck extends React.Component {
 
     constructor(props, context) {
@@ -133,3 +134,4 @@ TCheck.defaultProps = {
 };
 
 export default TCheck;
+
