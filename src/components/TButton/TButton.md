@@ -1,19 +1,21 @@
 ```jsx inside Markdown
-import {TButton, TMemo, TGroup} from 'tedit';
+import {TButton, TMemo, TGroup, nvl} from 'tedit';
 
 const style = {
     container: {width: "120px", margin: "8px 0 8px 0"} 
 };
 
 function click(event) {
-    setState({event: state.event + ', ' + JSON.stringify(event)});
+    setState({event: nvl(state.event, ' ') + JSON.stringify(event)});
 }
 
 function clear() {
     setState({event: null});
 }
 
-<TGroup style={{content: {padding: "16px"}}} label={'TButton component example'}>
+<TGroup 
+    style={{content: {border: "none", padding: "16px"}}} 
+    label={'TButton component example:'}>
 
     <TButton
         style={style} 

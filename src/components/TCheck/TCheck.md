@@ -1,5 +1,5 @@
 ```jsx inside Markdown
-import {TCheck, TMemo, TGroup, TIcon} from 'tedit';
+import {TCheck, TMemo, TGroup, TIcon, nvl} from 'tedit';
 
 const style = {
     container: {width: "120px", margin: "8px 0 8px 0"}, 
@@ -7,20 +7,22 @@ const style = {
 };
 
 function change(event) {
-    setState({event: state.event + ', ' + JSON.stringify(event)});
+    setState({event: nvl(state.event, ' ') + JSON.stringify(event)});
 }
 
 function clear() {
     setState({event: null});
 }
 
-<TGroup style={{content: {padding: "16px"}}} label={'TCheck component example'}>
+<TGroup 
+    style={{content: {border: "none", padding: "16px"}}} 
+    label={'TCheck component example:'}>
 
     <TCheck
         style={style} 
         name={'myCkeckBox'}
         data={{foo: 'bar'}}
-        label={'Click me: '}
+        label={'Click me:'}
         checked={1}
         unchecked={0}
         onChange={change} />
