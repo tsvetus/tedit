@@ -27,7 +27,7 @@ function clear() {
 
     <TMemo 
         style={{edit: {minHeight: "48px"}}} 
-        label={'Events'} 
+        label={'onClick events:'} 
         icon={'refresh'} 
         value={state.event}
         onIcon={clear} />

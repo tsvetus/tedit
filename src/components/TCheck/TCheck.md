@@ -1,5 +1,5 @@
 ```jsx inside Markdown
-import {TCheck, TMemo, TGroup, TIcon, nvl} from 'tedit';
+import {TCheck, TMemo, TGroup, nvl} from 'tedit';
 
 const style = {
     container: {width: "120px", margin: "8px 0 8px 0"}, 
@@ -29,7 +29,7 @@ function clear() {
         
     <TMemo 
         style={{edit: {minHeight: "48px"}}} 
-        label={'Events'} 
+        label={'onChange events:'} 
         icon={'refresh'} 
         value={state.event}
         onIcon={clear} />

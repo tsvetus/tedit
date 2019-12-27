@@ -5,38 +5,49 @@ import Edit from '../Edit';
 
 import {Format} from '../../util';
 
-/**
- * @class
- * @ignore
- */
+function createFormatter(props) {
+    if (props.format && !props.onMask) {
+        return new Format(
+            props.format.mask,
+            props.format.empty ? props.format.empty : '_',
+            props.format.full ? props.format.full : true,
+            props.value
+        );
+    } else {
+        return undefined;
+    }
+}
+
 class Mask extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-        if (props.mask && !props.onMask) {
-            this.format = new Format(
-                props.mask.mask,
-                props.mask.empty,
-                props.mask.full ? props.mask.full : true,
-                props.value
-            );
-        }
+        this.formatter = createFormatter(props);
         this.handleValidate = this.handleValidate.bind(this);
     }
 
+    componentDidUpdate(old) {
+        if (old.format !== this.props.format && this.formatter) {
+            if (this.formatter) {
+                delete this.formatter;
+                this.formatter = createFormatter(this.props);
+            }
+        }
+    }
+
     componentWillUnmount() {
-        if (this.format) {
-            delete this.format;
+        if (this.formatter) {
+            delete this.formatter;
         }
     }
 
     handleValidate(event) {
         if (this.props.onValidate) {
-            if (this.format) {
+            if (this.formatter) {
                 return this.props.onValidate({
                     ...event,
-                    empty: this.format.isEmpty(),
-                    full: this.format.isFull()
+                    empty: this.formatter.isEmpty(),
+                    full: this.formatter.isFull()
                 });
             } else {
                 return this.props.onValidate({
@@ -55,8 +66,8 @@ class Mask extends React.Component {
         let handleMask = null;
         if (this.props.onMask) {
             handleMask = this.props.onMask;
-        } else if (this.format) {
-            handleMask = this.format.parse;
+        } else if (this.formatter) {
+            handleMask = this.formatter.parse;
         }
 
         let handleValidate = this.props.onValidate ? this.props.onValidate : null;
@@ -96,7 +107,7 @@ Mask.propTypes = {
     wrap: PropTypes.any,
     timeout: PropTypes.number,
     placeholder: PropTypes.string,
-    mask: PropTypes.object,
+    format: PropTypes.object,
     empty: PropTypes.any,
     readOnly: PropTypes.any,
     onClick: PropTypes.func,

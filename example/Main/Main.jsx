@@ -209,7 +209,8 @@ class Main extends React.Component {
                             value={this.state.maskVal}
                             label={'TText with mask:'}
                             name={'maskVal'}
-                            mask={{mask: '+1 (NNN) NNN-NN-NN', empty: '_'}}
+                            format={{mask: '+1 (NNN) NNN-NN-NN', empty: '_'}}
+                            required={true}
                             onChange={this.handleComponentChange} />
 
                         <TListBox

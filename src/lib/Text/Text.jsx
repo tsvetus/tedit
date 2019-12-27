@@ -157,7 +157,7 @@ class Text extends React.Component {
                         timeout={this.props.timeout}
                         placeholder={this.props.placeholder}
                         wrap={false}
-                        mask={this.props.mask}
+                        format={this.props.format}
                         empty={this.props.empty}
                         readOnly={this.props.readOnly}
                         onMask={this.props.onMask}
@@ -181,7 +181,7 @@ Text.propTypes = {
     icon: PropTypes.string,
     timeout: PropTypes.number,
     placeholder: PropTypes.string,
-    mask: PropTypes.object,
+    format: PropTypes.object,
     empty: PropTypes.any,
     regexp: PropTypes.object,
     required: PropTypes.any,

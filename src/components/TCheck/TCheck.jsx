@@ -7,6 +7,9 @@ import {merge, contain} from '../../util';
 
 import styles from '../../styles';
 
+/**
+ * TCheck component
+ */
 class TCheck extends React.Component {
 
     constructor(props, context) {
@@ -88,17 +91,32 @@ class TCheck extends React.Component {
 
 TCheck.propTypes = {
     /**
-     * Component style
-     * @property {Object} style Style structure:
-     * @property {String} style.container React inline style for component container
+     * Component style.
+     *
+     * Style structure: {container: {...}, label: {...}, icon: {...}}
      */
     style: PropTypes.object,
+    /** Component value. If equals to <i>true</i> or <i>props.checked</i> component is checked.
+     * Otherwise it is unchecked */
     value: PropTypes.any,
+    /** Component name */
     name: PropTypes.string,
+    /** Component data */
     data: PropTypes.any,
+    /** Component label caption */
     label: PropTypes.string,
+    /** Checked state value */
     checked: PropTypes.any,
+    /** Unchecked state value */
     unchecked: PropTypes.any,
+    /**
+     * On click event
+     * @param {Object} event event object with following structure:<br/>
+     * @param {String} event.name component name from <i>name</i> property<br/>
+     * @param {Object} event.data component data from <i>data</i> property<br/>
+     * @param {Object} event.value component value. If component state is checked then <i>value</i> equals to
+     * <i>checked</i> property. Otherwise it equals to <i>unchecked</i> property<br/>
+     */
     onChange: PropTypes.func
 };
 

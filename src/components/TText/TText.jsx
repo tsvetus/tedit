@@ -32,7 +32,7 @@ class TText extends React.Component {
                 icon={this.props.icon}
                 timeout={this.props.timeout}
                 placeholder={this.props.placeholder}
-                mask={this.props.mask}
+                format={this.props.format}
                 regexp={this.props.regexp}
                 empty={this.props.empty}
                 required={this.props.required}
@@ -57,7 +57,7 @@ TText.propTypes = {
     icon: PropTypes.string,
     timeout: PropTypes.number,
     placeholder: PropTypes.string,
-    mask: PropTypes.object,
+    format: PropTypes.object,
     regexp: PropTypes.object,
     empty: PropTypes.any,
     required: PropTypes.any,

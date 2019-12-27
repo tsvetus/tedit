@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {Text} from '../../lib';
 
-import {merge, strTime, isoTime, testIsoTime} from '../../util';
+import {merge, strTime, isoTime, testIsoTime, isoDate} from '../../util';
 
 import styles from '../../styles';
 
@@ -16,19 +16,19 @@ class TTime extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: strTime(props.mask.mask, props.mask.empty, props.value)
+            value: strTime(props.format.mask, props.format.empty, props.value)
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleValidate = this.handleValidate.bind(this);
     }
 
     componentDidUpdate(old) {
-        if (old.value !== this.props.value || old.mask !== this.props.mask) {
+        if (old.value !== this.props.value || old.format !== this.props.format) {
             let value = null;
             if (this.props.value === this.props.empty) {
                 value = this.props.empty;
             } else {
-                value = strTime(this.props.mask.mask, this.props.mask.empty, this.props.value);
+                value = strTime(this.props.format.mask, this.props.format.empty, this.props.value);
             }
             if (this.props.value !== value) {
                 this.setState({value: value});
@@ -37,7 +37,7 @@ class TTime extends React.Component {
     }
 
     handleValidate(event) {
-        return event.empty || testIsoTime(isoTime(this.props.mask.mask, event.value));
+        return event.empty || testIsoTime(isoTime(this.props.format.mask, event.value));
     }
 
     handleChange(event) {
@@ -45,12 +45,13 @@ class TTime extends React.Component {
         if (this.props.onChange) {
             let value = event.value;
             if (value) {
-                let mask = this.props.mask;
                 let format = this.props.format;
-                if (format && format.indexOf('nat') >= 0) {
-                    value = new Date(isoTime(mask.mask, value));
-                } else if (format && format.indexOf('iso') >= 0) {
-                    value = isoTime(mask.mask, value);
+                if (format && format.type && format.type.indexOf('nat') >= 0) {
+                    value = new Date(isoTime(format.mask, value));
+                } else if (format && format.type && format.type.indexOf('iso') >= 0) {
+                    value = isoTime(format.mask, value);
+                } else if (format && !format.type) {
+                    value = isoDate(value, format.mask);
                 }
             }
             this.props.onChange({
@@ -78,14 +79,11 @@ class TTime extends React.Component {
                 label={this.props.label}
                 icon={this.props.icon}
                 timeout={this.props.timeout}
-                placeholder={this.props.placeholder}
-                mask={this.props.mask}
-                regexp={this.props.regexp}
+                format={this.props.format}
                 empty={this.props.empty}
-                showInvalid={this.props.showInvalid}
+                required={this.props.required}
                 onValidate={this.handleValidate}
                 onIcon={this.props.onIcon}
-                onMask={this.props.onMask}
                 onChange={this.handleChange} />
         );
 
@@ -101,18 +99,16 @@ TTime.propTypes = {
     label: PropTypes.string,
     icon: PropTypes.string,
     timeout: PropTypes.number,
-    placeholder: PropTypes.string,
-    mask: PropTypes.object,
+    format: PropTypes.object,
     empty: PropTypes.any,
-    format: PropTypes.string,
-    showInvalid: PropTypes.any,
+    required: PropTypes.any,
     onChange: PropTypes.func,
     onIcon: PropTypes.func
 };
 
 TTime.defaultProps = {
-    mask: {mask: 'hh:mm', empty: '-', complete: true},
-    format: 'iso',
+    format: {mask: 'hh:mm', empty: '-', full: true, type: 'iso'},
+    required: true,
     empty: null
 };
 

@@ -16,19 +16,19 @@ class TDate extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: strDate(props.value, props.mask.mask, props.mask.empty)
+            value: strDate(props.value, props.format.mask, props.format.empty)
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleValidate = this.handleValidate.bind(this);
     }
 
     componentDidUpdate(old) {
-        if (old.value !== this.props.value || old.mask !== this.props.mask) {
+        if (old.value !== this.props.value || old.format !== this.props.format) {
             let value = null;
             if (this.props.value === this.props.empty) {
                 value = this.props.empty;
             } else {
-                value = strDate(this.props.value, this.props.mask.mask, this.props.mask.empty);
+                value = strDate(this.props.value, this.props.format.mask, this.props.format.empty);
             }
             if (this.props.value !== value) {
                 this.setState({value: value});
@@ -37,7 +37,7 @@ class TDate extends React.Component {
     }
 
     handleValidate(event) {
-        return event.empty || testIsoDate(isoDate(event.value, this.props.mask.mask));
+        return event.empty || testIsoDate(isoDate(event.value, this.props.format.mask));
     }
 
     handleChange(event) {
@@ -45,12 +45,13 @@ class TDate extends React.Component {
         if (this.props.onChange) {
             let value = event.value;
             if (value) {
-                let mask = this.props.mask;
                 let format = this.props.format;
-                if (format && format.indexOf('nat') >= 0) {
-                    value = new Date(isoDate(value, mask.mask));
-                } else if (format && format.indexOf('iso') >= 0) {
-                    value = isoDate(value, mask.mask);
+                if (format && format.type && format.type.indexOf('nat') >= 0) {
+                    value = new Date(isoDate(value, format.mask));
+                } else if (format && format.type && format.type.indexOf('iso') >= 0) {
+                    value = isoDate(value, format.mask);
+                } else if (format && !format.type) {
+                    value = isoDate(value, format.mask);
                 }
             }
             this.props.onChange({
@@ -78,14 +79,12 @@ class TDate extends React.Component {
                 label={this.props.label}
                 icon={this.props.icon}
                 timeout={this.props.timeout}
-                placeholder={this.props.placeholder}
-                mask={this.props.mask}
-                regexp={this.props.regexp}
+                format={this.props.format}
                 empty={this.props.empty}
                 readOnly={this.props.readOnly}
+                required={this.props.required}
                 onValidate={this.handleValidate}
                 onIcon={this.props.onIcon}
-                onMask={this.props.onMask}
                 onChange={this.handleChange} />
         );
 
@@ -101,17 +100,17 @@ TDate.propTypes = {
     label: PropTypes.string,
     icon: PropTypes.string,
     timeout: PropTypes.number,
-    mask: PropTypes.object,
+    format: PropTypes.object,
     empty: PropTypes.any,
-    format: PropTypes.string,
+    required: PropTypes.any,
     readOnly: PropTypes.any,
     onChange: PropTypes.func,
     onIcon: PropTypes.func
 };
 
 TDate.defaultProps = {
-    mask: {mask: 'DD.MM.YYYY', empty: '-'},
-    format: 'iso',
+    format: {mask: 'DD.MM.YYYY', empty: '-', full: true, type: 'iso'},
+    required: true,
     empty: null
 };
 
