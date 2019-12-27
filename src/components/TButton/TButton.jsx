@@ -6,7 +6,7 @@ import {merge, contain} from '../../util';
 import styles from '../../styles';
 
 /**
- * Button
+ * Button with text caption
  */
 class TButton extends React.Component {
 
@@ -51,7 +51,10 @@ class TButton extends React.Component {
 }
 
 TButton.propTypes = {
-    /** Inline React style */
+    /**
+     * Inline React style<br/>
+     * style structure<br/>
+     */
     style: PropTypes.object,
     /** Component name */
     name: PropTypes.string,
