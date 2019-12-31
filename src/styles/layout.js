@@ -1,5 +1,3 @@
-import {styles} from "./const";
-
 export default {
 
     TButton: {

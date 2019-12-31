@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import layout from './layout.js';
-
 import icons from './icons.js';
 
 import styles from '../../styles';
+import {contain, merge} from "../../util";
 
 class Icon extends React.Component {
 
@@ -28,11 +27,11 @@ class Icon extends React.Component {
 
         let icon = icons[this.props.name];
 
-        let svgStyle = {
-            ...layout.svg,
-            ...styles.TIcon,
-            ...this.props.style
-        };
+        let style = merge(
+            contain(styles.TIcon),
+            contain(styles[this.props.name]),
+            contain(this.props.style)
+        );
 
         let content = null;
         let w = "0 0 384 384";
@@ -40,15 +39,15 @@ class Icon extends React.Component {
             let pathStyle = {
                 ...icon.s
             };
-            if (svgStyle.color) {
-                pathStyle.fill = svgStyle.color;
+            if (style.container.color) {
+                pathStyle.fill = style.container.color;
             }
             content = (<path style={pathStyle} d={icon.d}></path>);
             w = icon.w;
         }
 
         return (
-            <svg style={svgStyle} viewBox={w}
+            <svg style={style.container} viewBox={w}
                 onClick={this.handleClick}>
                 {content}
             </svg>
