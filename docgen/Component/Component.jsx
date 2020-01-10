@@ -22,8 +22,9 @@ class Component extends React.Component {
     componentDidMount() {
         this.mounted = true;
         let name = this.props.data ? this.props.data.displayName : null;
+        console.log(window.location);
         if (name && this.props.data.example) {
-            getFile('/components/' + name + '.html', (html) => {
+            getFile(window.location.href + 'components/' + name + '.html', (html) => {
                 if (this.mounted && html) {
                     this.setState({html: html});
                 }

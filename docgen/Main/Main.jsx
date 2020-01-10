@@ -34,7 +34,7 @@ class Main extends React.Component {
 
     componentDidMount() {
         this.mounted = true;
-        getFile('/' + this.props.fileName, (json) => {
+        getFile(window.location.href  + this.props.fileName, (json) => {
             if (this.mounted && json) {
                 this.setState({data: JSON.parse(json), page: 'TDate'});
             }
