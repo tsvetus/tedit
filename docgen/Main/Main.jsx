@@ -34,7 +34,7 @@ class Main extends React.Component {
 
     componentDidMount() {
         this.mounted = true;
-        getFile(window.location.origin + '/' + this.props.fileName, (json) => {
+        getFile('/tedit/' + this.props.fileName, (json) => {
             if (this.mounted && json) {
                 this.setState({data: JSON.parse(json), page: 'TDate'});
             }

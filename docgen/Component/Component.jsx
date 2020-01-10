@@ -24,7 +24,7 @@ class Component extends React.Component {
         let name = this.props.data ? this.props.data.displayName : null;
         console.log(JSON.stringify(window.location));
         if (name && this.props.data.example) {
-            getFile(window.location.origin + '/components/' + name + '.html', (html) => {
+            getFile('/tedit/components/' + name + '.html', (html) => {
                 if (this.mounted && html) {
                     this.setState({html: html});
                 }
