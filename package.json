@@ -8,7 +8,8 @@
     "dev": "webpack-dev-server --color --hot --inline --watch --config webpack.config.dev.js",
     "exam": "webpack --display-error-details --config webpack.config.exam.js",
     "docs": "webpack-dev-server --color --hot --inline --watch --config webpack.config.docs.js",
-    "prod": "webpack --display-error-details --config webpack.config.prod.js"
+    "prod": "webpack --display-error-details --config webpack.config.prod.js",
+    "docs.prod": "webpack --display-error-details --config webpack.config.docs.prod.js"
   },
   "repository": {
     "type": "git",

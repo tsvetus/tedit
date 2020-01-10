@@ -3,18 +3,14 @@ const path = require('path');
 module.exports = {
     mode: 'production',
     entry: {
-        tedit: [
-            path.resolve(__dirname, './src/index.js')
-        ],
-        exammples: [
-            path.resolve(__dirname, './src/examples.js')
+        index: [
+            path.resolve(__dirname, './docgen/index.jsx')
         ]
     },
     output: {
-        path: path.resolve(__dirname, 'build'),
+        path: path.resolve(__dirname, 'docs'),
         publicPath: '/',
-        filename: '[name].js',
-        libraryTarget: 'commonjs2'
+        filename: 'index.js'
     },
     resolve: {
         extensions: ['.js', '.jsx'],
@@ -33,8 +29,5 @@ module.exports = {
             use: ['babel-loader'],
             exclude: [/node_modules/, /build/]
         }]
-    },
-    externals: {
-        'react': 'commonjs react'
     }
 };
