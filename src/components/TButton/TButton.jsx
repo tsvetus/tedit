@@ -6,7 +6,7 @@ import {merge, contain} from '../../util';
 import styles from '../../styles';
 
 /**
- * Button with text caption
+ * Clickable button with text caption
  */
 class TButton extends React.Component {
 

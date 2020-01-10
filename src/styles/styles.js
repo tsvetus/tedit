@@ -13,7 +13,6 @@ export default function defaultStyles(template) {
 
         TIcon: {
             container: {
-                padding: "4px",
                 width: "32px",
                 height: "32px",
                 color: template.colors.border
@@ -73,10 +72,11 @@ export default function defaultStyles(template) {
             },
 
             icon: {
-                width: "18px",
-                height: "18px",
-                textAlign: "left",
-                color: template.colors.border
+                width: "21px",
+                height: "21px",
+                textAlign: "right",
+                color: template.colors.border,
+                cursor: "pointer"
             },
 
             list: {
@@ -258,11 +258,13 @@ export default function defaultStyles(template) {
         TGroup: {
 
             content: {
-                padding: "8px",
+                padding: "12px",
                 border: "1px solid " + template.colors.border
             },
 
             label: {
+                margin: "0 0 -8px 8px",
+                padding: "0 4px 0 4px",
                 backgroundColor: template.colors.window
             }
 
@@ -315,7 +317,7 @@ export default function defaultStyles(template) {
             },
 
             close: {
-                color: template.colors.border,
+                color: template.colors.border
             },
 
             item: {

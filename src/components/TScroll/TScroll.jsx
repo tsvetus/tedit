@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {merge} from '../../util';
+import {merge, contain} from '../../util';
 
 import styles from '../../styles';
 
@@ -17,11 +17,13 @@ class TScroll extends React.Component {
     componentDidMount() {
         this.resize();
         this.ref.current.addEventListener('resize', this.resize);
+        this.ref.current.addEventListener('DOMNodeInserted', this.resize);
         window.addEventListener('resize', this.resize);
     }
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.resize);
+        this.ref.current.removeEventListener('DOMNodeInserted', this.resize);
         this.ref.current.removeEventListener('resize', this.resize);
     }
 
@@ -66,10 +68,15 @@ class TScroll extends React.Component {
     render () {
 
         let style = merge(
-            styles.TScroll,
-            styles[this.props.name],
-            this.props.style
+            contain(styles.TScroll),
+            contain(styles[this.props.name]),
+            contain(this.props.style)
         );
+
+        if (style.container.padding) {
+            style.content.padding = style.container.padding;
+            style.container.padding = undefined;
+        }
 
         return (
             <div ref={this.ref} style={style.container}>

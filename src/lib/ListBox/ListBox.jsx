@@ -5,7 +5,7 @@ import Icon from '../Icon';
 import Edit from '../Edit';
 import List from '../List';
 
-import {merge, find, nvl} from '../../util';
+import {merge, find, compare} from '../../util';
 
 import styles from '../../styles';
 
@@ -56,7 +56,7 @@ class ListBox extends React.Component {
     }
 
     componentDidUpdate(old) {
-        if (old.items !== this.props.items || old.listMode !== this.props.listMode ||
+        if (!compare(old.items,this.props.items) || old.listMode !== this.props.listMode ||
             old.showMode !== this.props.showMode) {
             if (this.props.items !== undefined) {
                 this.updateItems(this.props.items);

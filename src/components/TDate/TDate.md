@@ -22,7 +22,7 @@ function clear() {
 }
 
 <TGroup 
-    style={{content: {border: "none", padding: "16px"}}} 
+    style={{content: {border: "none"}}} 
     label={'TDate component example:'}>
 
     <TDate
@@ -36,7 +36,7 @@ function clear() {
         
     <TMemo 
         style={{edit: {minHeight: "48px"}}} 
-        label={'onChange events:'} 
+        label={'TDate onChange events:'} 
         icon={'refresh'} 
         value={state.event}
         onIcon={clear} />

@@ -2,7 +2,8 @@ export default {
 
     TButton: {
         container: {
-            cursor: "pointer"
+            cursor: "pointer",
+            userSelect: "none"
         }
     },
 
@@ -12,7 +13,8 @@ export default {
     TComponent: {
 
         container: {
-            outline: "none"
+            outline: "none",
+            userSelect: "none"
         },
 
         frame: {
@@ -144,9 +146,6 @@ export default {
 
         label: {
             display: "inline",
-            margin: "0 0 -8px 16px",
-            padding: "0 4px 0 4px",
-            backgroundColor: "#fff",
             opacity: "1",
             zIndex: "1",
             alignSelf: "flex-start"
@@ -232,6 +231,8 @@ export default {
             position: "absolute",
             top: "12px",
             right: "12px",
+            width: "32px",
+            height: "32px",
             transition: "0.3s"
         },
 

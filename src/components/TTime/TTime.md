@@ -22,7 +22,7 @@ function clear() {
 }
 
 <TGroup 
-    style={{content: {border: "none", padding: "16px"}}} 
+    style={{content: {border: "none"}}} 
     label={'TTime component example:'}>
 
     <TTime

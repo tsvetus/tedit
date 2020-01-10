@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {merge} from '../../util';
+import {merge, contain} from '../../util';
 
 import styles from '../../styles';
 
@@ -12,27 +12,31 @@ class TPanel extends React.Component {
         let dir = {};
         if (this.props.dir === 'row') {
             dir = {
-                flexDirection: "row"
+                container: {
+                    flexDirection: "row"
+                }
             }
         }
 
         let align = {};
         if (this.props.align === 'right') {
             align = {
-                justifyContent: "flex-end"
+                container: {
+                    justifyContent: "flex-end"
+                }
             }
         }
 
         let style = merge(
-            styles.TPanel,
-            styles[this.props.name],
+            contain(styles.TPanel),
+            contain(styles[this.props.name]),
             dir,
             align,
-            this.props.style
+            contain(this.props.style)
         );
 
         return (
-            <div style={style}>
+            <div style={style.container}>
                 {this.props.children}
             </div>
         );

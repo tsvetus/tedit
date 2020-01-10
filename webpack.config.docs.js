@@ -4,13 +4,13 @@ module.exports = {
     mode: 'development',
     entry: {
         example: [
-            path.resolve(__dirname, './example/example.jsx')
+            path.resolve(__dirname, './docgen/index.jsx')
         ]
     },
     output: {
-        path: path.resolve(__dirname, 'docs/example'),
+        path: path.resolve(__dirname, 'docs'),
         publicPath: '/',
-        filename: 'example.js'
+        filename: 'index.js'
     },
     resolve: {
         extensions: ['.js', '.jsx'],
@@ -30,9 +30,9 @@ module.exports = {
         }]
     },
     devServer: {
-        contentBase: path.resolve(__dirname, 'docs/example'),
+        contentBase: path.resolve(__dirname, 'docs'),
         publicPath: '/',
-        port: 9090,
+        port: 7070,
         host: '0.0.0.0'
     }
 };

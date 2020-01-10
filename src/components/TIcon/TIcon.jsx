@@ -19,7 +19,7 @@ class TIcon extends React.Component {
 
         return (
             <Icon
-                style={style.container}
+                style={style}
                 name={this.props.name}
                 data={this.props.data}
                 onClick={this.props.onClick} />

@@ -91,12 +91,15 @@ class Main extends React.Component {
             modalForm: false,
             loginForm: false,
 
+            wait: false
+
         };
 
         this.handleIconClick = this.handleIconClick.bind(this);
         this.handleMenuClick = this.handleMenuClick.bind(this);
         this.handleComponentChange = this.handleComponentChange.bind(this);
         this.handleDialogs = this.handleDialogs.bind(this);
+        this.handleWait = this.handleWait.bind(this);
         this.search = this.search.bind(this);
 
     }
@@ -126,6 +129,13 @@ class Main extends React.Component {
             events: this.state.events + JSON.stringify(event) + ' ',
             [event.name]: !this.state[event.name]
         })
+    }
+
+    handleWait() {
+        this.setState({wait: true});
+        setTimeout(() => {
+            this.setState({wait: false});
+        }, 1000);
     }
 
     search(event, callback) {
@@ -300,6 +310,14 @@ class Main extends React.Component {
                             style={{margin: "16px"}}
                             onClick={() => {this.setState({events: ''})}}>
                             {'Clear events'}
+                        </TButton>
+
+                        <TButton
+                            style={{margin: "16px"}}
+                            name={'waitButton'}
+                            wait={this.state.wait}
+                            onClick={this.handleWait}>
+                            {'Wait button'}
                         </TButton>
 
                     </TGroup>

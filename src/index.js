@@ -40,6 +40,7 @@ import {
     isoDate,
     strDate,
     params,
+    getFile,
     Sizer,
     Uploader
 } from './util';
@@ -83,6 +84,7 @@ export {
     isoDate,
     strDate,
     params,
+    getFile,
 
     Sizer,
     Uploader,

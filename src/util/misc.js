@@ -175,3 +175,41 @@ export function contain(source) {
         return source;
     }
 }
+
+export function getFile(url, callback){
+    let request = new XMLHttpRequest();
+    request.open('GET', url, true);
+    request.send(null);
+    request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.status === 200) {
+            callback(request.responseText);
+        }
+    }
+}
+
+export function compare(foo, bar) {
+    if (foo instanceof Array && bar instanceof Array) {
+        let m = foo.length > bar.length ? foo.length : bar.length;
+        for (let i=0; i<m; i++) {
+            if (!compare(foo[i], bar[i])) {
+                return false;
+            }
+        }
+    } else if (foo instanceof Object && bar instanceof Object) {
+        for (let key in foo) {
+            if (!compare(foo[key], bar[key])) {
+                return false;
+            }
+        }
+        for (let key in bar) {
+            if (!compare(bar[key], foo[key])) {
+                return false;
+            }
+        }
+    } else {
+        if (foo !== bar) {
+            return false;
+        }
+    }
+    return true;
+}

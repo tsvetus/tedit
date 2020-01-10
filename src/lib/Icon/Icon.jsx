@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import icons from './icons.js';
+import {contain} from '../../util';
 
-import styles from '../../styles';
-import {contain, merge} from "../../util";
+import icons from './icons.js';
 
 class Icon extends React.Component {
 
@@ -27,22 +26,16 @@ class Icon extends React.Component {
 
         let icon = icons[this.props.name];
 
-        let style = merge(
-            contain(styles.TIcon),
-            contain(styles[this.props.name]),
-            contain(this.props.style)
-        );
+        let style = contain(this.props.style);
 
         let content = null;
         let w = "0 0 384 384";
         if (icon) {
-            let pathStyle = {
-                ...icon.s
-            };
+            let ps = {};
             if (style.container.color) {
-                pathStyle.fill = style.container.color;
+                ps.fill = style.container.color;
             }
-            content = (<path style={pathStyle} d={icon.d}></path>);
+            content = (<path style={ps} d={icon.d}></path>);
             w = icon.w;
         }
 

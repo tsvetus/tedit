@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {Icon} from '../../lib';
 
-import {merge} from '../../util';
+import {merge, contain} from '../../util';
 
 import styles from '../../styles';
 
@@ -35,12 +35,19 @@ class TSide extends React.Component {
 
     handleClose() {
         this.setState({width: 0});
-        this.doClick("close");
+        this.doClick(-1, {name: "close"});
     }
 
     handleClick(event) {
         this.setState({width: 0});
-        this.doClick(event.target.getAttribute('name'));
+        let name = event.target.getAttribute('name');
+        let index = event.target.getAttribute('index');
+        let item = this.props.items && index >= 0 ? this.props.items[index] : null;
+        if (item) {
+            this.doClick(index, item);
+        } else {
+            this.doClick(-1, {name: name});
+        }
     }
 
     handleMove(event) {
@@ -61,7 +68,7 @@ class TSide extends React.Component {
             this.setState({width: this.state.sideWidth});
         } else {
             this.setState({width: 0});
-            this.doClick("close");
+            this.doClick(-1, {name: "close"});
         }
     }
 
@@ -71,14 +78,14 @@ class TSide extends React.Component {
         let diff = pos - this.pos;
         if (diff < -this.state.touchWidth) {
             this.setState({width: 0});
-            this.doClick("close");
+            this.doClick(-1, {name: "close"});
         } else {
             this.setState({width: this.state.sideWidth});
         }
     }
 
     handleBlur() {
-        this.doClick("close");
+        this.doClick(-1, {name: "close"});
     }
 
     calcState(props) {
@@ -93,12 +100,13 @@ class TSide extends React.Component {
         }
     }
 
-    doClick(name) {
+    doClick(index, item) {
         if (this.props.onClick) {
             this.props.onClick({
                 name: this.props.name,
                 data: this.props.data,
-                item: name
+                index: index,
+                item: item
             });
         }
     }
@@ -106,11 +114,11 @@ class TSide extends React.Component {
     render () {
 
         let style = merge(
-            styles.TSide,
-            styles[this.props.name],
+            contain(styles.TSide),
+            contain(styles[this.props.name]),
             {container: {width: this.state.width}},
             {frame: {width: this.props.width}},
-            this.props.style
+            contain(this.props.style)
         );
 
         let items = [];
@@ -120,6 +128,7 @@ class TSide extends React.Component {
                     <div
                         onTouchMove={this.handleMove}
                         key={i}
+                        index={i}
                         style={{
                             ...style.item,
                             ...v.style

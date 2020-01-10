@@ -75,8 +75,6 @@ class TForm extends React.Component {
             (<div style={style.message}>{this.props.message}</div>) :
             null;
 
-        console.log('form ' + this.props.wait);
-
         return (
             <TModal
                     style={style}
