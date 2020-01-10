@@ -4,6 +4,9 @@ let docs = require('react-docgen');
 
 let config = require(path.resolve(process.cwd(), 'docgen.config.js'));
 
+let showdown = require('showdown');
+let converter = new showdown.Converter();
+
 function run() {
 
     let inputPath = config && config.input && config.input.path ?
@@ -25,11 +28,24 @@ function run() {
     if (config && config.components && config.components instanceof Array) {
         config.components.forEach((v) => {
             let compName = v.name;
-            let compPath = path.resolve(inputPath, v.path);
+            let compPath = path.resolve(inputPath, compName, compName + '.jsx');
             let compSource = fs.readFileSync(compPath, 'utf8');
             let compInfo = docs.parse(compSource);
             if (compInfo) {
                 data.components[compName] = compInfo;
+                data.components[compName].example = v.example ? v.example : {};
+                if (v.example && v.example.name) {
+                    let examPath = path.resolve(inputPath, compName, v.example.name + '.jsx');
+                    let examSrc = fs.readFileSync(examPath, 'utf8');
+                    if (examSrc) {
+                        examSrc = examSrc.replace(/\n/g, ' ')
+                        let html = converter.makeHtml(examSrc);
+                        if (html) {
+                            let examOut = path.resolve(outputPath, 'components', compName + '.html');
+                            fs.writeFileSync(examOut, html,  'utf8');
+                        }
+                    }
+                }
                 console.log('    ' + compName);
                 count++;
             }

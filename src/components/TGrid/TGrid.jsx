@@ -110,8 +110,13 @@ class TGrid extends React.Component {
 
             let title = this.props.children ? (<div style={style.title}>{this.props.children}</div>) : null;
 
+            let hs = style.head;
+            if (!this.props.options.scroll) {
+                hs = merge(hs, style.noScroll);
+            }
+
             head = (
-                <div style={style.head}>
+                <div style={hs}>
                     {title}
                     <div style={rowStyle}>
                         {captions}
@@ -126,7 +131,12 @@ class TGrid extends React.Component {
             let items = [];
 
             this.props.items.forEach((v, i) => {
-                let cs = i === this.state.index ? merge(style.cell, style.current) : style.cell;
+                let cs = style.cell;
+                if (this.props.options.select) {
+                    cs = i === this.state.index ? merge(style.cell, style.current) : style.cell;
+                } else {
+                    cs = merge(cs, style.noSelect);
+                }
                 let row = [];
                 if (this.props.onRowStyle) {
                     let rs = this.props.onRowStyle(v);
@@ -194,9 +204,20 @@ TGrid.propTypes = {
     items: PropTypes.array,
     columns: PropTypes.object,
     index: PropTypes.number,
+    options: PropTypes.shape({
+        scroll: PropTypes.any,
+        select: PropTypes.any
+    }),
     onChange: PropTypes.func,
     onRowStyle: PropTypes.func,
     onClick: PropTypes.func
+};
+
+TGrid.defaultProps = {
+    options: {
+        scroll: true,
+        select: true
+    }
 };
 
 export default TGrid;

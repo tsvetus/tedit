@@ -8,7 +8,8 @@
     "dev": "webpack-dev-server --color --hot --inline --watch --config webpack.config.dev.js",
     "exam": "webpack --display-error-details --config webpack.config.exam.js",
     "docs": "webpack-dev-server --color --hot --inline --watch --config webpack.config.docs.js",
-    "prod": "webpack --display-error-details --config webpack.config.prod.js"  },
+    "prod": "webpack --display-error-details --config webpack.config.prod.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/tsvetus/tedit.git"
@@ -33,6 +34,8 @@
     "@babel/preset-react": "^7.7.4",
     "babel-loader": "^8.0.6",
     "path": "^0.12.7",
+    "react-docgen": "^5.1.0",
+    "showdown": "^1.9.1",
     "webpack": "^4.41.4",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.1"

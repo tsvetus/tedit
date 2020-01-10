@@ -3,14 +3,17 @@ const path = require('path');
 module.exports = {
     mode: 'production',
     entry: {
-        index: [
+        tedit: [
             path.resolve(__dirname, './src/index.js')
+        ],
+        exammples: [
+            path.resolve(__dirname, './src/examples.js')
         ]
     },
     output: {
         path: path.resolve(__dirname, 'build'),
         publicPath: '/',
-        filename: 'tedit.js',
+        filename: '[name].js',
         libraryTarget: 'commonjs2'
     },
     resolve: {

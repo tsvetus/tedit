@@ -424,7 +424,7 @@ export default function defaultStyles(template) {
         TGrid: {
 
             head: {
-                padding: "1px 16px 0 16px",
+                padding: "1px 0 0 0",
                 textAlign: "center",
                 fontWeight: "bold"
             },
@@ -447,7 +447,7 @@ export default function defaultStyles(template) {
             },
 
             body: {
-                padding: "0 16px 16px 16px",
+                padding: "0 0 16px 0",
             },
 
             cell: {

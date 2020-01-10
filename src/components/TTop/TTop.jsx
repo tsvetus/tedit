@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {Icon} from '../../lib';
 
-import {merge} from '../../util';
+import {merge, contain} from '../../util';
 
 import styles from '../../styles';
 
@@ -27,9 +27,9 @@ class TTop extends React.Component {
     render () {
 
         let style = merge(
-            styles.TTop,
-            styles[this.props.name],
-            this.props.style
+            contain(styles.TTop),
+            contain(styles[this.props.name]),
+            contain(this.props.style)
         );
 
         let tools = [];

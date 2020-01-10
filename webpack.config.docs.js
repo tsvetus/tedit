@@ -19,7 +19,8 @@ module.exports = {
         	path.resolve(__dirname, 'node_modules')
         ],
         alias: {
-            tedit: path.resolve(__dirname, 'src')
+            tedit: path.resolve(__dirname, 'src'),
+            examples: path.resolve(__dirname, 'src/examples')
         }
     },
     module: {

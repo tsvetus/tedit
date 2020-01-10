@@ -1,3 +1,5 @@
+import React from 'react';
+
 export function merge(...sources) {
     let res = {};
     for (const source of sources) {
@@ -56,6 +58,8 @@ export function clone(source) {
         for (let i=0; i<dest.length; i++) {
             dest[i] = clone(dest[i]);
         }
+    } else if (React.isValidElement(source)) {
+        dest = source;
     } else if (source instanceof Object) {
         dest = Object.assign({}, source);
         let keys = Object.keys(dest);

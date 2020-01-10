@@ -15,7 +15,7 @@ function iterate(level, name, data, callback) {
 
         let required = data.required;
         let description = data.description;
-        let defaultValue = data.defaultValue ? JSON.stringify(data.defaultValue) : '';
+        let defaultValue = data.defaultValue && data.defaultValue.value ? JSON.stringify(data.defaultValue.value) : '';
         defaultValue = defaultValue
             .replace(/"/g, '')
             .replace(/:/g, ': ')
@@ -32,7 +32,7 @@ function iterate(level, name, data, callback) {
             level: level
         });
 
-        if (typeName === 'shape') {
+        if (level !== null && level !== undefined && typeName === 'shape') {
             if (data.type && data.type.value) {
                 for (let key in data.type.value) {
                     iterate(level + 1, key, data.type.value[key], callback);
@@ -57,13 +57,33 @@ class Props extends React.Component {
         let items = [];
         let props = this.props.data ? this.props.data : {};
         for (let key in props) {
-            iterate(0, key, props[key], (event) => {
-                let sn = merge(style.name, {paddingLeft: event.level*16 + "px"});
+            iterate(null, key, props[key], (event) => {
+                let desc = [];
+                if (event.type === 'shape') {
+                    iterate(0, key, props[key], (event) => {
+                        if (event.level === 0) {
+                            desc.push(
+                                <div  key={-1} style={style.description}>{event.description}</div>
+                            );
+                        } else {
+                            let sn = merge(style.name, {paddingLeft: + event.level*16 + "px"});
+                            desc.push(
+                                <div key={event.name + '_' + event.level} style={style.row}>
+                                    <div style={sn}>{event.name}</div>
+                                    <div style={style.description}>{event.description}</div>
+                                </div>
+                            );
+                        }
+                    });
+                } else {
+                    desc = [<div key={-1} style={style.description}>{event.description}</div>];
+                }
                 items.push({
-                    prop: (<div>{event.name}</div>),
-                    type: event.type,
-                    def: event.def,
-                    description: event.description
+                    prop: <div style={style.name}>{event.name}</div>,
+                    type: <div style={style.type}>{event.type}</div>,
+                    def: <div style={style.def}>{event.def}</div>,
+                    required: <div style={style.required}>{event.required ? '*' : ''}</div>,
+                    description: <div>{desc}</div>
                 });
             });
         }
@@ -71,12 +91,17 @@ class Props extends React.Component {
         return (
             <TGrid
                 columns={{
-                    prop: {caption: 'name', width: '120px'},
-                    type: {caption: 'type', width: '120px'},
+                    prop: {caption: 'name', width: '80px'},
+                    type: {caption: 'type', width: '80px'},
                     def: {caption: 'default', width: '120px'},
+                    required: {caption: 'req', width: '40px'},
                     description: {caption: 'description'}
                 }}
-                items={items} />
+                items={items}
+                options={{
+                    select: false,
+                    scroll: false
+                }} />
         );
 
     }

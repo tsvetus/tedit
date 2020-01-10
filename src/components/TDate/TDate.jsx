@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {Text} from '../../lib';
 
-import {merge, strDate, isoDate, testIsoDate} from '../../util';
+import {merge, compare, strDate, isoDate, testIsoDate} from '../../util';
 
 import styles from '../../styles';
 
@@ -22,7 +22,7 @@ class TDate extends React.Component {
     }
 
     componentDidUpdate(old) {
-        if (old.value !== this.props.value || old.format !== this.props.format) {
+        if (old.value !== this.props.value || !compare(old.format, this.props.format)) {
             let value = null;
             if (this.props.value === this.props.empty) {
                 value = this.props.empty;
@@ -40,7 +40,6 @@ class TDate extends React.Component {
     }
 
     handleChange(event) {
-        this.setState({value: event.value});
         if (this.props.onChange) {
             let value = event.value;
             if (value) {
@@ -92,17 +91,17 @@ class TDate extends React.Component {
 }
 
 TDate.propTypes = {
-    /** Component style */
+    /** - Component style: */
     style: PropTypes.shape({
         /** Style for outer component container */
         container: PropTypes.object,
-        /** Style for component label */
+        /** - Style for component label */
         label: PropTypes.object,
-        /** Style for component editor */
+        /** - Style for component editor */
         edit: PropTypes.object,
-        /** Style for component icon */
+        /** - Style for component icon */
         icon: PropTypes.object,
-        /** Style for invalid component state. Contains all listed above fields */
+        /** - Style for invalid component state. Contains all listed above fields: */
         invalid:  PropTypes.shape({
             container: PropTypes.object,
             label: PropTypes.object,
@@ -125,16 +124,16 @@ TDate.propTypes = {
     icon: PropTypes.string,
     /** Represents timeout for "onChange" event in milliseconds. Default is "700" */
     timeout: PropTypes.number,
-    /** Date format */
+    /** Date format: */
     format: PropTypes.shape({
-        /** Date mask. Default is "DD.MM.YYYY" */
+        /** - Date mask. Default is "DD.MM.YYYY" */
         mask: PropTypes.string,
-        /** Empty char. If length of empty char is grate than 1 then only first character is used. Default is "_" */
+        /** - Empty char. If length of empty char is grate than 1 then only first character is used. Default is "_" */
         empty: PropTypes.string,
-        /** If true then onChange event fires only if date is completely entered or completely cleared.
+        /** - If true then onChange event fires only if date is completely entered or completely cleared.
          * Default is "true" */
         full: PropTypes.bool,
-        /** Date format appeared in onChange event. Default is "iso" ("YYYY-MM-DD") */
+        /** - Date format appeared in onChange event. Default is "iso" ("YYYY-MM-DD") */
         type: PropTypes.oneOf(['iso', 'native'])
     }),
     /** Value appeared in onChange event then date is not completely entered or invalid. Default is "null" */

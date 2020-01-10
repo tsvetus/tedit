@@ -314,12 +314,20 @@ export default {
             zIndex: "1"
         },
 
+        noScroll: {
+            position: "relative"
+        },
+
         body: {
             display: "grid"
         },
 
         row: {
             display: "grid"
+        },
+
+        noSelect: {
+            cursor: "default"
         }
 
     },

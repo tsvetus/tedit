@@ -52,7 +52,7 @@ class Main extends React.Component {
             this.setState({
                 menu: false,
                 page: event.item.name,
-                caption: '"' + event.item.name + '" component'
+                caption: event.item.name
             });
         }
     }
@@ -95,6 +95,7 @@ class Main extends React.Component {
                     items={items} />
 
                 <TTop
+                    style={style.top}
                     caption={caption}
                     onClick={this.menuToggle} />
 
