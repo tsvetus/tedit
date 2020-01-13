@@ -424,24 +424,25 @@ export default function defaultStyles(template) {
         TGrid: {
 
             head: {
-                padding: "1px 0 0 0",
+                padding: "${width} 0 0 0",
                 textAlign: "center",
-                fontWeight: "bold"
+                fontWeight: "bold",
+                color: template.colors.border
             },
 
             title: {
                 backgroundColor: template.colors.window,
-                marginTop: "-1px",
-                marginLeft: "-1px",
+                marginTop: "-${width}",
+                marginLeft: "-${width}",
                 padding: "4px 0 4px 0",
                 fontWeight: "normal"
             },
 
             caption: {
                 backgroundColor: template.colors.window,
-                border: "1px solid " + template.colors.border,
-                marginLeft: "-1px",
-                marginTop: "-1px",
+                border: "${width} solid " + template.colors.border,
+                marginLeft: "-${width}",
+                marginTop: "-${width}",
                 overflowX: "hidden",
                 padding: "4px",
             },
@@ -452,9 +453,9 @@ export default function defaultStyles(template) {
 
             cell: {
                 backgroundColor: template.colors.window,
-                border: "1px solid " + template.colors.border,
-                marginLeft: "-1px",
-                marginTop: "-1px",
+                border: "${width} solid " + template.colors.border,
+                marginLeft: "-${width}",
+                marginTop: "-${width}",
                 overflowX: "hidden",
                 padding: "4px",
                 cursor: "pointer"

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {merge, clone, TIMEOUT} from '../../util';
+import {merge, clone, contain, replace, TIMEOUT} from '../../util';
 
 import styles from '../../styles';
 
@@ -80,14 +80,17 @@ class TGrid extends React.Component {
 
     render () {
 
+        let options = merge(TGrid.defaultProps.options, this.props.options);
+
         let columns = {row: {gridTemplateColumns: this.props.columns}};
 
         let style = merge(
-            styles.TGrid,
-            styles[this.props.name],
+            contain(styles.TGrid),
+            contain(styles[this.props.name]),
             columns,
-            this.props.style
+            contain(this.props.style)
         );
+        style = replace(style, 'width', options.borderWidth);
 
         let body = null;
         let head = null;
@@ -111,16 +114,17 @@ class TGrid extends React.Component {
             let title = this.props.children ? (<div style={style.title}>{this.props.children}</div>) : null;
 
             let hs = style.head;
-            if (!this.props.options.scroll) {
+            if (!options.scroll) {
                 hs = merge(hs, style.noScroll);
+            }
+            if (!options.showHead) {
+                hs = merge(hs, style.hideHead);
             }
 
             head = (
                 <div style={hs}>
                     {title}
-                    <div style={rowStyle}>
-                        {captions}
-                    </div>
+                    {options.showHead ? <div style={rowStyle}>{captions}</div> : null}
                 </div>
             );
 
@@ -132,7 +136,7 @@ class TGrid extends React.Component {
 
             this.props.items.forEach((v, i) => {
                 let cs = style.cell;
-                if (this.props.options.select) {
+                if (options.select) {
                     cs = i === this.state.index ? merge(style.cell, style.current) : style.cell;
                 } else {
                     cs = merge(cs, style.noSelect);
@@ -206,7 +210,12 @@ TGrid.propTypes = {
     index: PropTypes.number,
     options: PropTypes.shape({
         scroll: PropTypes.any,
-        select: PropTypes.any
+        select: PropTypes.any,
+        borderWidth: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number
+        ]),
+        showHead: PropTypes.any
     }),
     onChange: PropTypes.func,
     onRowStyle: PropTypes.func,
@@ -216,7 +225,9 @@ TGrid.propTypes = {
 TGrid.defaultProps = {
     options: {
         scroll: true,
-        select: true
+        select: true,
+        borderWidth: "1px",
+        showHead: true
     }
 };
 

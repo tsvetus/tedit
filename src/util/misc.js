@@ -217,3 +217,18 @@ export function compare(foo, bar) {
     }
     return true;
 }
+
+export function replace(source, name, value) {
+    if ((typeof source) === 'string') {
+        let r = new RegExp('\\$\\{' + name + '\\}','gm');
+        return source.replace(r, value);
+    } else if ((typeof source) === 'object') {
+        for (let key in source) {
+            source[key] = replace(source[key], name, value);
+        }
+        return source;
+    } else {
+        return source;
+    }
+}
+

@@ -7,6 +7,30 @@ export default {
         flexDirection: "column"
     },
 
+    grid: {
+        head: {
+            textAlign: "left"
+        },
+        caption: {
+            padding: '4px 4px 4px 0'
+        },
+        cell: {
+            padding: '4px 4px 16px 0'
+        }
+    },
+
+    subGrid: {
+        head: {
+            textAlign: "left"
+        },
+        caption: {
+            padding: '4px 4px 4px 0'
+        },
+        cell: {
+            padding: '4px 4px 4px 0'
+        }
+    },
+
     name: {
         margin: "0 4px 0 0",
         color: "#f00",

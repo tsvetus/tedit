@@ -318,6 +318,10 @@ export default {
             position: "relative"
         },
 
+        hideHead: {
+            display: "none"
+        },
+
         body: {
             display: "grid"
         },

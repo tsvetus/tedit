@@ -91,17 +91,17 @@ class TDate extends React.Component {
 }
 
 TDate.propTypes = {
-    /** - Component style: */
+    /** Component style: */
     style: PropTypes.shape({
         /** Style for outer component container */
         container: PropTypes.object,
-        /** - Style for component label */
+        /** Style for component label */
         label: PropTypes.object,
-        /** - Style for component editor */
+        /** Style for component editor */
         edit: PropTypes.object,
-        /** - Style for component icon */
+        /** Style for component icon */
         icon: PropTypes.object,
-        /** - Style for invalid component state. Contains all listed above fields: */
+        /** Style for invalid component state. Contains all listed above fields: */
         invalid:  PropTypes.shape({
             container: PropTypes.object,
             label: PropTypes.object,
@@ -110,11 +110,13 @@ TDate.propTypes = {
         })
     }),
     /** Component initial value. "value" should be native avaScript "Date" object or date in iso format like
-     * "YYYY-MM-DD" */
+     * "YYYY-MM-DD"
+     */
     value: PropTypes.any,
     /** Any component name that associated with component and returned in "onChange" event in "event.name" field.
      * In addition component name can be used in global styles registered by "registerStyles" function to
-     * associate particular style with this component */
+     * associate particular style with this component
+     */
     name: PropTypes.string,
     /** Any data that associated with component and returned in "onChange" event in "event.data" field */
     data: PropTypes.any,
@@ -126,39 +128,39 @@ TDate.propTypes = {
     timeout: PropTypes.number,
     /** Date format: */
     format: PropTypes.shape({
-        /** - Date mask. Default is "DD.MM.YYYY" */
+        /** Date mask. Default is "DD.MM.YYYY" */
         mask: PropTypes.string,
-        /** - Empty char. If length of empty char is grate than 1 then only first character is used. Default is "_" */
+        /** Empty char. If length of empty char is grate than 1 then only first character is used. Default is "_" */
         empty: PropTypes.string,
-        /** - If true then onChange event fires only if date is completely entered or completely cleared.
-         * Default is "true" */
+        /** If true then onChange event fires only if date is completely entered or completely cleared.
+         * Default is "true"
+         */
         full: PropTypes.bool,
-        /** - Date format appeared in onChange event. Default is "iso" ("YYYY-MM-DD") */
+        /** Date format appeared in onChange event. Default is "iso" ("YYYY-MM-DD") */
         type: PropTypes.oneOf(['iso', 'native'])
     }),
     /** Value appeared in onChange event then date is not completely entered or invalid. Default is "null" */
     empty: PropTypes.any,
     /** Indicates if necessary to change component color when entered date is invalid or incomplete.
-     * Default is "true" */
+     * Default is "true"
+     */
     required: PropTypes.any,
     /** Prevents from changing component value from user input, Default is "false" */
     readOnly: PropTypes.any,
     /**
      * On date change event
-     * @param {Object} event Event object with following structure:<br/>
-     * @param {String} event.name Component name from "name" property<br/>
-     * @param {Object} event.data Component data from "data" property<br/>
+     * @param {Object} event Event object with following structure:
+     * @param {String} event.name Component name from "name" property
+     * @param {Object} event.data Component data from "data" property
      * @param {Any} event.value Component date value. Date value format is determined by "format.type" property.
-     * Default is "iso" ("YYYY-MM-DD")
      */
     onChange: PropTypes.func,
     /**
      * On icon click event
-     * @param {Object} event Event object with following structure:<br/>
-     * @param {String} event.name Component name from "name" property<br/>
-     * @param {Object} event.data Component data from "data" property<br/>
+     * @param {Object} event Event object with following structure:
+     * @param {String} event.name Component name from "name" property
+     * @param {Object} event.data Component data from "data" property
      * @param {String} event.icon Clicked icon name
-     * Default is "iso" ("YYYY-MM-DD")
      */
     onIcon: PropTypes.func
 };
