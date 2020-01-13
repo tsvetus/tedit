@@ -36,7 +36,7 @@ class Main extends React.Component {
         this.mounted = true;
         getFile(window.location.pathname + this.props.fileName, (json) => {
             if (this.mounted && json) {
-                this.setState({data: JSON.parse(json), page: 'TDate', caption: 'TDate'});
+                this.setState({data: JSON.parse(json), page: 'readme', caption: ''});
             }
         });
     }
@@ -64,12 +64,9 @@ class Main extends React.Component {
         let caption = this.state.data && this.state.data.title ? this.state.data.title.caption : null;
         let component = null;
         if (this.state.page === 'readme') {
-            // if (this.state.data && this.state.data.title) {
-            //     description = this.state.data.title.caption;
-            // }
+            component = <div style={style.readme}>{'Click menu icon to choose component'}</div>;
         } else {
-            let comp = this.state.data.components[this.state.page];
-            component = <Component data={comp} />;
+            component = <Component data={this.state.data.components[this.state.page]} />;
         }
 
         let items = [{

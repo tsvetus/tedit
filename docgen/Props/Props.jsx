@@ -60,9 +60,14 @@ function parseDescription(description, style) {
                 let w = v.trim().replace(/\r/gm, '').replace(/\n/gm, ' ');
                 let words = w.split(' ');
                 let type = words.shift();
+                type = type.replace('{', '').replace('}', '');
                 let name = words.shift();
                 let text = words.join(' ');
-                params.push({name: name, type: type, text: text});
+                params.push({
+                    name: <div style={style.name}>{name}</div>,
+                    type: <div style={style.type}>{type}</div>,
+                    text: <div>{text}</div>
+                });
             }
         });
         if (params.length > 0) {
@@ -70,9 +75,9 @@ function parseDescription(description, style) {
                 <div key={1}>
                     <TGrid
                         key={1}
-                        // style={style.subGrid}
+                        style={style.subGrid}
                         columns={{
-                            name: {caption: 'name', width: '100px'},
+                            name: {caption: 'name', width: '120px'},
                             type: {caption: 'type', width: '100px'},
                             text: {caption: 'description'}
                         }}
@@ -108,13 +113,13 @@ class Props extends React.Component {
                     iterate(0, key, props[key], (event) => {
                         if (event.level === 0) {
                             desc.push(
-                                <div  key={-1} style={style.description}>{parseDescription(event.description)}</div>
+                                <div  key={-1} style={style.description}>{parseDescription(event.description, style)}</div>
                             );
                         } else {
                             let sn = merge(style.name, {paddingLeft: + (event.level - 1)*16 + "px"});
                             subItems.push({
                                 subName: <div style={sn}>{event.name}</div>,
-                                subDesc: <div style={style.description}>{parseDescription(event.description)}</div>
+                                subDesc: <div style={style.description}>{parseDescription(event.description, style)}</div>
                             });
                         }
                     });
@@ -137,7 +142,7 @@ class Props extends React.Component {
                         );
                     }
                 } else {
-                    desc = [<div key={-1} style={style.description}>{parseDescription(event.description)}</div>];
+                    desc = [<div key={-1} style={style.description}>{parseDescription(event.description, style)}</div>];
                 }
                 items.push({
                     prop: <div style={style.name}>{event.name}</div>,
@@ -153,7 +158,7 @@ class Props extends React.Component {
             <TGrid
                 style={style.grid}
                 columns={{
-                    prop: {caption: 'name', width: '80px'},
+                    prop: {caption: 'name', width: '120px'},
                     type: {caption: 'type', width: '80px'},
                     def: {caption: 'default', width: '120px'},
                     required: {caption: 'req', width: '40px'},
@@ -163,7 +168,7 @@ class Props extends React.Component {
                 options={{
                     select: false,
                     scroll: false,
-                    borderWidth: 0
+                    borderWidth: '1px'
                 }} />
         );
 

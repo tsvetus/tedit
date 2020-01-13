@@ -8,15 +8,15 @@ export default {
     },
 
     grid: {
-        head: {
-            textAlign: "left"
-        },
-        caption: {
-            padding: '4px 4px 4px 0'
-        },
-        cell: {
-            padding: '4px 4px 16px 0'
-        }
+        // head: {
+        //     textAlign: "left"
+        // },
+        // caption: {
+        //     padding: '4px 4px 4px 0'
+        // },
+        // cell: {
+        //     padding: '4px 4px 16px 0'
+        // }
     },
 
     subGrid: {

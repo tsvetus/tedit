@@ -1,3 +1,5 @@
+import {styles} from 'tedit';
+
 export default {
     top: {
         padding: "16px"
@@ -9,5 +11,10 @@ export default {
     },
     scroll: {
         padding: "16px"
+    },
+    readme: {
+        ...styles.fonts.common,
+        color: styles.colors.border,
+        textAlign: "center"
     }
 }

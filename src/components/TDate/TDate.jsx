@@ -149,18 +149,18 @@ TDate.propTypes = {
     readOnly: PropTypes.any,
     /**
      * On date change event
-     * @param {Object} event Event object with following structure:
-     * @param {String} event.name Component name from "name" property
-     * @param {Object} event.data Component data from "data" property
-     * @param {Any} event.value Component date value. Date value format is determined by "format.type" property.
+     * @param {object} event Event object with following structure:
+     * @param {string} event.name Component name from "name" property
+     * @param {object} event.data Component data from "data" property
+     * @param {any} event.value Component date value. Date value format is determined by "format.type" property.
      */
     onChange: PropTypes.func,
     /**
      * On icon click event
-     * @param {Object} event Event object with following structure:
-     * @param {String} event.name Component name from "name" property
-     * @param {Object} event.data Component data from "data" property
-     * @param {String} event.icon Clicked icon name
+     * @param {object} event Event object with following structure:
+     * @param {string} event.name Component name from "name" property
+     * @param {object} event.data Component data from "data" property
+     * @param {string} event.icon Clicked icon name
      */
     onIcon: PropTypes.func
 };
