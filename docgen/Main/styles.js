@@ -10,9 +10,7 @@ export default {
         fontSize: "38px"
     },
     scroll: {
-        padding: "16px",
-        maxWidth: "1024px",
-        margin: "auto"
+        padding: "16px"
     },
     readme: {
         ...styles.fonts.common,

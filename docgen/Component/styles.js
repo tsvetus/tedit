@@ -2,6 +2,11 @@ import {styles} from 'tedit';
 
 export default {
 
+    container: {
+        maxWidth: "1024px",
+        margin: "auto"
+    },
+
     name: {
         margin: "0 0 0 0",
         ...styles.fonts.common,

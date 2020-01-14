@@ -61,7 +61,7 @@ class Component extends React.Component {
         }
 
         return (
-            <div>
+            <div style={style.container}>
                 <div style={style.desc}>{desc}</div>
                 {example}
                 {props}
