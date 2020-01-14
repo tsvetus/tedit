@@ -273,26 +273,24 @@ class Edit extends React.Component {
             this.updateStyle(res.valid);
         }
 
-        if (this.value !== res.value) {
-            if (res.valid && res.full) {
-                this.sendValue(res.value);
-            } else if (!res.valid && res.valid !== this.valid) {
+        if (res.valid && res.full) {
+            this.sendValue(res.value);
+        } else if (!res.valid && res.valid !== this.valid) {
+            res.value = this.props.empty;
+            this.sendValue(res.value);
+        } else if (!res.full && res.full !== this.full) {
+            res.value = this.props.empty;
+            this.sendValue(res.value);
+        } else if (res.valid && res.valid !== this.valid) {
+            if (!res.full) {
                 res.value = this.props.empty;
-                this.sendValue(res.value);
-            } else if (!res.full && res.full !== this.full) {
-                res.value = this.props.empty;
-                this.sendValue(res.value);
-            } else if (res.valid && res.valid !== this.valid) {
-                if (!res.full) {
-                    res.value = this.props.empty;
-                }
-                this.sendValue(res.value);
-            } else if (res.full && res.full !== this.full) {
-                if (!res.valid) {
-                    res.value = this.props.empty;
-                }
-                this.sendValue(res.value);
             }
+            this.sendValue(res.value);
+        } else if (res.full && res.full !== this.full) {
+            if (!res.valid) {
+                res.value = this.props.empty;
+            }
+            this.sendValue(res.value);
         }
 
         this.value = res.value;

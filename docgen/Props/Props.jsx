@@ -11,7 +11,6 @@ import styles from "./styles.js";
 function iterate(data, callback, level) {
     if (data) {
         let lv  = level === undefined ? 0 : level + 1;
-        console.log('level: ' + lv);
         for (let key in data) {
             if (typeof (data[key]) === 'object') {
                 callback(data[key], key, lv);

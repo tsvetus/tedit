@@ -8,7 +8,7 @@ import {merge, contain, strTime, isoTime, testIsoTime, isoDate} from '../../util
 import styles from '../../styles';
 
 /**
- * Time editor
+ * Time editor with time value validation
  */
 class TTime extends React.Component {
 
@@ -127,6 +127,11 @@ TTime.propTypes = {
     data: PropTypes.any,
     /** Label caption. Default is undefined and label is hidden */
     label: PropTypes.string,
+    /** Label position towards text editor. Can be one of: */
+    layout: PropTypes.oneOf([
+        'top',
+        'left'
+    ]),
     /** Icon name to show. Default is undefined and icon is hidden */
     icon: PropTypes.string,
     /** Represents timeout for "onChange" event in milliseconds. Default is "700" */
@@ -173,7 +178,9 @@ TTime.propTypes = {
 TTime.defaultProps = {
     format: {mask: 'hh:mm', empty: '-', full: true, type: 'iso'},
     required: true,
-    empty: null
+    empty: null,
+    readOnly: false,
+    layout: 'left'
 };
 
 export default TTime;

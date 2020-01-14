@@ -127,6 +127,11 @@ TDate.propTypes = {
     data: PropTypes.any,
     /** Label caption. Default is undefined and label is hidden */
     label: PropTypes.string,
+    /** Label position towards text editor. Can be one of: */
+    layout: PropTypes.oneOf([
+        'top',
+        'left'
+    ]),
     /** Icon name to show. Default is undefined and icon is hidden */
     icon: PropTypes.string,
     /** Represents timeout for "onChange" event in milliseconds. Default is "700" */
@@ -173,7 +178,9 @@ TDate.propTypes = {
 TDate.defaultProps = {
     format: {mask: 'DD.MM.YYYY', empty: '-', full: true, type: 'iso'},
     required: true,
-    empty: null
+    empty: null,
+    readOnly: false,
+    layout: 'left'
 };
 
 export default TDate;

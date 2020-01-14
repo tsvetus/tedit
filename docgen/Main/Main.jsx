@@ -21,7 +21,7 @@ class Main extends React.Component {
         this.state = {
             data: null,
             menu: false,
-            page: 'readme',
+            page: 'TText',
             caption: ''
         };
         this.menuToggle = this.menuToggle.bind(this);
@@ -36,7 +36,7 @@ class Main extends React.Component {
         this.mounted = true;
         getFile(window.location.pathname + this.props.fileName, (json) => {
             if (this.mounted && json) {
-                this.setState({data: JSON.parse(json), page: 'readme', caption: ''});
+                this.setState({data: JSON.parse(json)});
             }
         });
     }
@@ -71,7 +71,7 @@ class Main extends React.Component {
         let component = null;
         if (this.state.page === 'readme') {
             component = <div style={style.readme}>{'Click menu icon to choose component'}</div>;
-        } else {
+        } else if (this.state.data) {
             component = <Component data={this.state.data.components[this.state.page]} />;
         }
 

@@ -13,6 +13,11 @@ module.exports = {
     },
 
     components: [{
+        name: "TText",
+        example: {
+            name: "TTextExample"
+        }
+    }, {
         name: "TButton",
         example: {
             name: "TButtonExample"
