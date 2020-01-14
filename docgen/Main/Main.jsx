@@ -21,7 +21,7 @@ class Main extends React.Component {
         this.state = {
             data: null,
             menu: false,
-            page: 'TText',
+            page: 'readme',
             caption: ''
         };
         this.menuToggle = this.menuToggle.bind(this);

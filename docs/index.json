@@ -53,17 +53,9 @@
           }
         },
         "value": {
-          "type": "union",
-          "description": "Component initial value. Can be one of:",
-          "required": false,
-          "structure": {
-            "string": {
-              "description": "Date in \"iso\" format (\"YYYY-MM-DD\")"
-            },
-            "Date": {
-              "description": "Native JavaScript Date"
-            }
-          }
+          "type": "string",
+          "description": "Component initial value",
+          "required": false
         },
         "name": {
           "type": "string",

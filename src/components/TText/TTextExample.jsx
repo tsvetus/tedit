@@ -37,7 +37,7 @@ class TTextExample extends React.Component {
                 <TGroup style={{container: {margin: "0 0 16px 0"}}}>
 
                     <TText
-                        style={{container: {maxWidth: "440px"}}}
+                        style={{container: {maxWidth: "440px", margin: "8px"}}}
                         value={this.state.layout}
                         label={'TText with top label:'}
                         name={'layout'}
@@ -46,7 +46,7 @@ class TTextExample extends React.Component {
                         onChange={this.change} />
 
                     <TText
-                        style={{container: {maxWidth: "440px"}, label: {width: "180px"}}}
+                        style={{container: {maxWidth: "440px", margin: "8px"}, label: {width: "180px"}}}
                         value={this.state.regexp}
                         label={'TText with RegExp validation:'}
                         name={'regexp'}
@@ -55,7 +55,7 @@ class TTextExample extends React.Component {
                         onChange={this.change} />
 
                     <TText
-                        style={{container: {maxWidth: "440px"}, label: {width: "180px"}}}
+                        style={{container: {maxWidth: "440px", margin: "8px"}, label: {width: "180px"}}}
                         value={this.state.validation}
                         label={'TText with custom validation:'}
                         name={'validation'}
@@ -66,7 +66,7 @@ class TTextExample extends React.Component {
                         onChange={this.change} />
 
                     <TText
-                        style={{container: {maxWidth: "440px"}, label: {width: "180px"}}}
+                        style={{container: {maxWidth: "440px", margin: "8px"}, label: {width: "180px"}}}
                         value={this.state.mask}
                         label={'TText with mask:'}
                         name={'mask'}
