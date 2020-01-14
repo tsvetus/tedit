@@ -18,7 +18,6 @@ class Component extends React.Component {
         }
     }
 
-
     componentDidMount() {
         this.mounted = true;
         let name = this.props.data ? this.props.data.displayName : null;

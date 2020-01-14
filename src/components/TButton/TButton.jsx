@@ -51,24 +51,24 @@ class TButton extends React.Component {
 }
 
 TButton.propTypes = {
-    /**
-     * Inline React style<br/>
-     * style structure<br/>
-     */
-    style: PropTypes.object,
+    /** Component style: */
+    style: PropTypes.shape({
+        /** Style for outer component container */
+        container: PropTypes.object
+    }),
     /** Component name */
     name: PropTypes.string,
     /** Component data */
     data: PropTypes.any,
-    /** Component wait state. When <i>true</i> component appears in grey color and doesn't respond
-     * on <i>onClick</i> event
+    /** Component wait state. When "true" component appears in grey color and doesn't respond
+     * on "onClick" event
      */
     wait: PropTypes.any,
     /**
      * On click event
-     * @param {Object} event event object with following structure:<br/>
-     * @param {String} event.name component name from <i>name</i> property<br/>
-     * @param {Object} event.data component data from <i>data</i> property<br/>
+     * @param {object} event Event object with following structure:
+     * @param {string} event.name Component name from "name" property
+     * @param {object} event.data Component data from "data" property
      */
     onClick: PropTypes.func
 };

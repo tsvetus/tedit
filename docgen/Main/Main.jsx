@@ -48,6 +48,12 @@ class Main extends React.Component {
     menuClick(event) {
         if (event.item.name === 'close') {
             this.setState({menu: false});
+        } else if (event.item.name === 'readme') {
+            this.setState({
+                menu: false,
+                page: event.item.name,
+                caption: ''
+            });
         } else {
             this.setState({
                 menu: false,

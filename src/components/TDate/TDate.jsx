@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {Text} from '../../lib';
 
-import {merge, compare, strDate, isoDate, testIsoDate} from '../../util';
+import {merge, compare, contain, strDate, isoDate, testIsoDate} from '../../util';
 
 import styles from '../../styles';
 
@@ -14,8 +14,9 @@ class TDate extends React.Component {
 
     constructor(props) {
         super(props);
+        this.format = merge(TDate.format, props.format);
         this.state = {
-            value: strDate(props.value, props.format.mask, props.format.empty)
+            value: strDate(props.value, this.format.mask, this.format.empty)
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleValidate = this.handleValidate.bind(this);
@@ -23,11 +24,12 @@ class TDate extends React.Component {
 
     componentDidUpdate(old) {
         if (old.value !== this.props.value || !compare(old.format, this.props.format)) {
+            this.format = merge(TDate.format, this.props.format);
             let value = null;
             if (this.props.value === this.props.empty) {
                 value = this.props.empty;
             } else {
-                value = strDate(this.props.value, this.props.format.mask, this.props.format.empty);
+                value = strDate(this.props.value, this.format.mask, this.format.empty);
             }
             if (this.props.value !== value) {
                 this.setState({value: value});
@@ -36,14 +38,14 @@ class TDate extends React.Component {
     }
 
     handleValidate(event) {
-        return event.empty || testIsoDate(isoDate(event.value, this.props.format.mask));
+        return event.empty || testIsoDate(isoDate(event.value, this.format.mask));
     }
 
     handleChange(event) {
         if (this.props.onChange) {
             let value = event.value;
             if (value) {
-                let format = this.props.format;
+                let format = this.format;
                 if (format && format.type && format.type.indexOf('nat') >= 0) {
                     value = new Date(isoDate(value, format.mask));
                 } else if (format && format.type && format.type.indexOf('iso') >= 0) {
@@ -62,10 +64,10 @@ class TDate extends React.Component {
     render () {
 
         let style = merge(
-            styles.TComponent,
-            styles.TDate,
-            styles[this.props.name],
-            this.props.style
+            contain(styles.TComponent),
+            contain(styles.TDate),
+            contain(styles[this.props.name]),
+            contain(this.props.style)
         );
 
         return (
@@ -77,7 +79,7 @@ class TDate extends React.Component {
                 label={this.props.label}
                 icon={this.props.icon}
                 timeout={this.props.timeout}
-                format={this.props.format}
+                format={this.format}
                 empty={this.props.empty}
                 readOnly={this.props.readOnly}
                 required={this.props.required}

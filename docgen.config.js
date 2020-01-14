@@ -1,11 +1,11 @@
 module.exports = {
 
-    output: {
-        path: "docs"
-    },
-
     input: {
         path: "src/components"
+    },
+
+    output: {
+        path: "docs"
     },
 
     title: {
@@ -13,7 +13,10 @@ module.exports = {
     },
 
     components: [{
-        name: "TButton"
+        name: "TButton",
+        example: {
+            name: "TButtonExample"
+        }
     }, {
         name: "TDate",
         example: {

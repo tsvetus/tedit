@@ -1,14 +1,13 @@
 <pre><code>
 import React from 'react';
 
-import {TDate, TMemo, TGroup} from 'tedit';
+import {TButton, TMemo, TGroup} from 'tedit';
 
-class TDateExample extends React.Component {
+class TButtonExample extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            value: new Date(),
             event: ''
         };
         this.change = this.change.bind(this);
@@ -17,7 +16,6 @@ class TDateExample extends React.Component {
 
     change(event) {
         this.setState({
-            value: event.value,
             event: this.state.event + ' ' + JSON.stringify(event)
         });
     }
@@ -34,13 +32,12 @@ class TDateExample extends React.Component {
 
                 &lt;TGroup style={{container: {margin: "0 0 16px 0"}}}&gt;
 
-                    &lt;TDate
+                    &lt;TButton
                         style={{container: {width: "280px", margin: "8px 0 8px 0"}}}
-                        name={'myDateEdit'}
-                        value={this.state.value}
-                        label={'Enter valid date:'}
-                        format={{mask: 'DD/MM/YYYY', empty: '_', full: true, type: 'iso'}}
-                        onChange={this.change} /&gt;
+                        name={'myButton'}
+                        onChange={this.change}&gt;
+                        Click me!
+                    &lt;/TButton&gt;
 
                 &lt;/TGroup&gt;
 
@@ -59,5 +56,5 @@ class TDateExample extends React.Component {
 
 }
 
-export default TDateExample;
+export default TButtonExample;
 </code></pre>
