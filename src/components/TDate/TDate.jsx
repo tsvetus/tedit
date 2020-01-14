@@ -176,7 +176,7 @@ TDate.propTypes = {
 };
 
 TDate.defaultProps = {
-    format: {mask: 'DD.MM.YYYY', empty: '-', full: true, type: 'iso'},
+    format: {mask: 'DD.MM.YYYY', empty: '_', full: true, type: 'iso'},
     required: true,
     empty: null,
     readOnly: false,

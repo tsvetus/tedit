@@ -101,7 +101,7 @@ TText.propTypes = {
     }),
     /** Regular expression to validate entered text */
     regexp: PropTypes.object,
-    /** Value appeared in onChange event then date is not completely entered or invalid. Default is "null" */
+    /** Value appeared in onChange event when editor is empty. Default is "null" */
     empty: PropTypes.any,
     /** Indicates if necessary to change component color when entered date is invalid or incomplete.
      * Default is "true"

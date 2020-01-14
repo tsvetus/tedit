@@ -18,6 +18,11 @@ module.exports = {
             name: "TTextExample"
         }
     }, {
+        name: "TMemo",
+        example: {
+            name: "TMemoExample"
+        }
+    }, {
         name: "TButton",
         example: {
             name: "TButtonExample"

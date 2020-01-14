@@ -151,7 +151,7 @@ TTime.propTypes = {
     }),
     /** Value appeared in onChange event then date is not completely entered or invalid. Default is "null" */
     empty: PropTypes.any,
-    /** Indicates if necessary to change component color when entered date is invalid or incomplete.
+    /** Indicates if necessary to change component color when entered time is invalid or incomplete.
      * Default is "true"
      */
     required: PropTypes.any,
@@ -176,7 +176,7 @@ TTime.propTypes = {
 };
 
 TTime.defaultProps = {
-    format: {mask: 'hh:mm', empty: '-', full: true, type: 'iso'},
+    format: {mask: 'hh:mm', empty: '_', full: true, type: 'iso'},
     required: true,
     empty: null,
     readOnly: false,

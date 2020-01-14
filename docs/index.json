@@ -123,7 +123,7 @@
         },
         "empty": {
           "type": "any",
-          "description": "Value appeared in onChange event then date is not completely entered or invalid. Default is \"null\"",
+          "description": "Value appeared in onChange event when editor is empty. Default is \"null\"",
           "required": false,
           "defaultValue": "null"
         },
@@ -223,6 +223,169 @@
         "onMask": {
           "type": "func",
           "description": "",
+          "required": false
+        }
+      }
+    },
+    "TMemo": {
+      "description": "Component representing multi line editor",
+      "displayName": "TMemo",
+      "methods": [
+        {
+          "name": "handleIcon",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        }
+      ],
+      "example": {
+        "name": "TMemoExample"
+      },
+      "props": {
+        "style": {
+          "type": "shape",
+          "description": "Component style:",
+          "required": false,
+          "structure": {
+            "container": {
+              "type": "object",
+              "description": "Style for outer component container"
+            },
+            "label": {
+              "type": "object",
+              "description": "Style for component label"
+            },
+            "edit": {
+              "type": "object",
+              "description": "Style for component editor"
+            },
+            "icon": {
+              "type": "object",
+              "description": "Style for component icon"
+            },
+            "invalid": {
+              "type": "shape",
+              "description": "Style for invalid component state. Contains all listed above fields:",
+              "structure": {
+                "container": {
+                  "type": "object"
+                },
+                "label": {
+                  "type": "object"
+                },
+                "edit": {
+                  "type": "object"
+                },
+                "icon": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "value": {
+          "type": "string",
+          "description": "Component initial value",
+          "required": false
+        },
+        "name": {
+          "type": "string",
+          "description": "Any component name that associated with component and returned in \"onChange\" event in \"event.name\" field.\r\nIn addition component name can be used in global styles registered by \"registerStyles\" function to\r\nassociate particular style with this component",
+          "required": false
+        },
+        "data": {
+          "type": "any",
+          "description": "Any data that associated with component and returned in \"onChange\" event in \"event.data\" field",
+          "required": false
+        },
+        "label": {
+          "type": "string",
+          "description": "Label caption. Default is undefined and label is hidden",
+          "required": false
+        },
+        "icon": {
+          "type": "string",
+          "description": "Icon name to show. Default is undefined and icon is hidden",
+          "required": false
+        },
+        "timeout": {
+          "type": "number",
+          "description": "Represents timeout for \"onChange\" event in milliseconds. Default is \"700\"",
+          "required": false
+        },
+        "placeholder": {
+          "type": "string",
+          "description": "Text to show when editor is empty",
+          "required": false
+        },
+        "wrap": {
+          "type": "any",
+          "description": "If \"false\" editor ignores enter press events",
+          "required": false
+        },
+        "empty": {
+          "type": "any",
+          "description": "Value appeared in onChange event when editor is empty. Default is \"null\"",
+          "required": false
+        },
+        "readOnly": {
+          "type": "any",
+          "description": "Prevents from changing component value from user input, Default is \"false\"",
+          "required": false
+        },
+        "onChange": {
+          "type": "func",
+          "description": "On text change event ",
+          "arguments": {
+            "event": {
+              "name": "event",
+              "type": "object",
+              "description": "Event object with following structure:"
+            },
+            "event.name": {
+              "name": "event.name",
+              "type": "string",
+              "description": "Component name from \"name\" property"
+            },
+            "event.data": {
+              "name": "event.data",
+              "type": "object",
+              "description": "Component data from \"data\" property"
+            },
+            "event.value": {
+              "name": "event.value",
+              "type": "string",
+              "description": "Entered text."
+            }
+          },
+          "required": false
+        },
+        "onIcon": {
+          "type": "func",
+          "description": "On icon click event ",
+          "arguments": {
+            "event": {
+              "name": "event",
+              "type": "object",
+              "description": "Event object with following structure:"
+            },
+            "event.name": {
+              "name": "event.name",
+              "type": "string",
+              "description": "Component name from \"name\" property"
+            },
+            "event.data": {
+              "name": "event.data",
+              "type": "object",
+              "description": "Component data from \"data\" property"
+            },
+            "event.icon": {
+              "name": "event.icon",
+              "type": "string",
+              "description": "Clicked icon name"
+            }
+          },
           "required": false
         }
       }
@@ -419,7 +582,7 @@
           "type": "shape",
           "description": "Date format:",
           "required": false,
-          "defaultValue": "{mask: 'DD.MM.YYYY', empty: '-', full: true, type: 'iso'}",
+          "defaultValue": "{mask: 'DD.MM.YYYY', empty: '_', full: true, type: 'iso'}",
           "structure": {
             "mask": {
               "type": "string",
@@ -639,7 +802,7 @@
           "type": "shape",
           "description": "Time format:",
           "required": false,
-          "defaultValue": "{mask: 'hh:mm', empty: '-', full: true, type: 'iso'}",
+          "defaultValue": "{mask: 'hh:mm', empty: '_', full: true, type: 'iso'}",
           "structure": {
             "mask": {
               "type": "string",
@@ -667,7 +830,7 @@
         },
         "required": {
           "type": "any",
-          "description": "Indicates if necessary to change component color when entered date is invalid or incomplete.\r\nDefault is \"true\"",
+          "description": "Indicates if necessary to change component color when entered time is invalid or incomplete.\r\nDefault is \"true\"",
           "required": false,
           "defaultValue": "true"
         },

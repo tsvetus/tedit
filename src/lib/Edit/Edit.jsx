@@ -239,7 +239,9 @@ class Edit extends React.Component {
         try {
             let text = (event.clipboardData || window.clipboardData).getData('text');
             if (text) {
-                this.setText(text);
+                let old = this.getText();
+                let caret = this.getCaret();
+                this.setText(old.substring(0, caret) + text + old.substring(caret));
                 this.value = this.getText();
                 this.setCaret(this.value.length);
                 this.handleChange();
