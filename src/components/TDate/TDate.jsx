@@ -111,10 +111,13 @@ TDate.propTypes = {
             icon: PropTypes.object
         })
     }),
-    /** Component initial value. "value" should be native avaScript "Date" object or date in iso format like
-     * "YYYY-MM-DD"
-     */
-    value: PropTypes.any,
+    /** Component initial value. Can be one of: */
+    value: PropTypes.oneOfType([
+        /** Date in "iso" format ("YYYY-MM-DD") */
+        PropTypes.string,
+        /** Native JavaScript Date */
+        PropTypes.instanceOf(Date)
+    ]),
     /** Any component name that associated with component and returned in "onChange" event in "event.name" field.
      * In addition component name can be used in global styles registered by "registerStyles" function to
      * associate particular style with this component

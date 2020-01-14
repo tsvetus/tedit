@@ -22,6 +22,11 @@ module.exports = {
         example: {
             name: "TDateExample"
         }
+    }, {
+        name: "TTime",
+        example: {
+            name: "TTimeExample"
+        }
     }]
 
 };

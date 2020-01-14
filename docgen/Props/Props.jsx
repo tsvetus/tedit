@@ -42,7 +42,7 @@ class Props extends React.Component {
                     items.push({
                         name: <div style={style.name}>{k}</div>,
                         type: <div style={style.type}>{v.type}</div>,
-                        description: <div style={style.description}>{v.description}</div>
+                        description: <div style={style.desc}>{v.description}</div>
                     });
                 });
                 args = <TGrid
@@ -68,7 +68,7 @@ class Props extends React.Component {
                     let sn = merge(style.name, {marginLeft: l*16 + 'px'});
                     items.push({
                         name: <div style={sn}>{k}</div>,
-                        description: <div style={style.description}>{v.description}</div>
+                        description: <div style={style.desc}>{v.description}</div>
                     });
                 });
                 struct = <TGrid
@@ -86,10 +86,12 @@ class Props extends React.Component {
                     }} />
             }
 
+            let def  = props[key].defaultValue;
+
             items.push({
                 name: <div style={style.name}>{key}</div>,
                 type: <div style={style.type}>{props[key].type}</div>,
-                defaultValue: <div style={style.defaultValue}><code>{props[key].defaultValue}</code></div>,
+                defaultValue: <div style={style.defaultValue}><code>{def}</code></div>,
                 required: <div style={style.required}>{props[key].required ? '*' : ''}</div>,
                 description: <div>
                     <div style={style.description}>{props[key].description}</div>

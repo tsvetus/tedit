@@ -1,8 +1,8 @@
-<pre><code>import React from 'react';
+import React from 'react';
 
-import {TDate, TMemo, TGroup} from 'tedit';
+import {TTime, TMemo, TGroup} from 'tedit';
 
-class TDateExample extends React.Component {
+class TTimeExample extends React.Component {
 
     constructor(props) {
         super(props);
@@ -29,28 +29,28 @@ class TDateExample extends React.Component {
 
         return (
 
-            &lt;div&gt;
+            <div>
 
-                &lt;TGroup style={{container: {margin: "0 0 16px 0"}}}&gt;
+                <TGroup style={{container: {margin: "0 0 16px 0"}}}>
 
-                    &lt;TDate
+                    <TTime
                         style={{container: {width: "280px", margin: "8px 0 8px 0"}}}
-                        name={'myDateEdit'}
+                        name={'myTimeEdit'}
                         value={this.state.value}
-                        label={'Enter valid date:'}
-                        format={{mask: 'DD/MM/YYYY', empty: '_', full: true, type: 'iso'}}
-                        onChange={this.change} /&gt;
+                        label={'Enter valid time:'}
+                        format={{mask: 'hh:mm', empty: '_', full: true, type: 'iso'}}
+                        onChange={this.change} />
 
-                &lt;/TGroup&gt;
+                </TGroup>
 
-                &lt;TMemo
+                <TMemo
                     style={{edit: {minHeight: "48px"}}}
                     label={'onChange events:'}
                     icon={'refresh'}
                     value={this.state.event}
-                    onIcon={this.clear} /&gt;
+                    onIcon={this.clear} />
 
-            &lt;/div&gt;
+            </div>
 
         );
 
@@ -58,4 +58,4 @@ class TDateExample extends React.Component {
 
 }
 
-export default TDateExample;</code></pre>
+export default TTimeExample;

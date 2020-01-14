@@ -20,6 +20,10 @@ export default {
         common: {
             fontFamily: "Arial",
             fontSize: "18px"
+        },
+        code: {
+            fontFamily: "Helvetica",
+            fontSize: "16px"
         }
     },
 

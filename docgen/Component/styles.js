@@ -37,7 +37,7 @@ export default {
     code: {
         backgroundColor: "#eee",
         color: "#90167f",
-        padding: "4px 8px 4px 8px",
+        padding: "8px",
         fontSize: "16px"
     }
 

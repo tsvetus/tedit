@@ -1,20 +1,22 @@
 <pre><code>import React from 'react';
 
-import {TButton, TMemo, TGroup} from 'tedit';
+import {TTime, TMemo, TGroup} from 'tedit';
 
-class TButtonExample extends React.Component {
+class TTimeExample extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            value: new Date(),
             event: ''
         };
-        this.click = this.click.bind(this);
+        this.change = this.change.bind(this);
         this.clear = this.clear.bind(this);
     }
 
-    click(event) {
+    change(event) {
         this.setState({
+            value: event.value,
             event: this.state.event + ' ' + JSON.stringify(event)
         });
     }
@@ -31,12 +33,13 @@ class TButtonExample extends React.Component {
 
                 &lt;TGroup style={{container: {margin: "0 0 16px 0"}}}&gt;
 
-                    &lt;TButton
-                        style={{container: {width: "180px", margin: "8px 0 8px 0"}}}
-                        name={'myButton'}
-                        onClick={this.click}&gt;
-                        Click me!
-                    &lt;/TButton&gt;
+                    &lt;TTime
+                        style={{container: {width: "280px", margin: "8px 0 8px 0"}}}
+                        name={'myTimeEdit'}
+                        value={this.state.value}
+                        label={'Enter valid time:'}
+                        format={{mask: 'hh:mm', empty: '_', full: true, type: 'iso'}}
+                        onChange={this.change} /&gt;
 
                 &lt;/TGroup&gt;
 
@@ -55,4 +58,4 @@ class TButtonExample extends React.Component {
 
 }
 
-export default TButtonExample;</code></pre>
+export default TTimeExample;</code></pre>

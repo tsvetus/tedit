@@ -46,6 +46,12 @@ export default {
         fontSize: "16px"
     },
 
+    desc: {
+        margin: "0 4px 0 0 ",
+        color: "#146238",
+        fontSize: "16px"
+    },
+
     row: {
         display: "flex"
     }

@@ -6,20 +6,28 @@ let config = require(path.resolve(process.cwd(), 'docgen.config.js'));
 
 function structure(source) {
     let result = {};
-    for (let key in source) {
-        let obj = source[key];
-        result[key] = {
-            type: obj.name,
-            description: obj.description
-        };
-        if (obj.value) {
-            if (obj.name === 'shape') {
-                result[key].structure = structure(obj.value);
-            } else if (obj.name === 'enum') {
-                let val = obj.value.map(v => {
-                    return v.value;
-                });
-                result[key].type += ' of [' + val.join(', ') + ']';
+    if (Array.isArray(source)) {
+        source.forEach(v => {
+            result[v.value ? v.value : v.name] = {
+                description: v.description
+            }
+        });
+    } else {
+        for (let key in source) {
+            let obj = source[key];
+            result[key] = {
+                type: obj.name,
+                description: obj.description
+            };
+            if (obj.value) {
+                if (obj.name === 'shape') {
+                    result[key].structure = structure(obj.value);
+                } else if (obj.name === 'enum') {
+                    let val = obj.value.map(v => {
+                        return v.value;
+                    });
+                    result[key].type += ' of [' + val.join(', ') + ']';
+                }
             }
         }
     }
@@ -123,7 +131,7 @@ function run() {
                         examSrc = examSrc.replace(/\r/gm, '')
                             .replace(/</gm, '&lt;')
                             .replace(/>/gm, '&gt;');
-                        let html = '<pre><code>\n' + examSrc + '\n</code></pre>';
+                        let html = '<pre><code>' + examSrc + '</code></pre>';
                         let examOut = path.resolve(outputPath, 'components', compName + '.html');
                         fs.writeFileSync(examOut, html,  'utf8');
                     }
