@@ -176,7 +176,7 @@ class ListBox extends React.Component {
         this.setState({
             showText: event.value
         }, () => {
-            if (this.props.onSearch && event.value && event.value.length >= this.props.searchLength) {
+            if (this.props.onSearch && event.value && event.value.length >= this.props.chars) {
                 this.props.onSearch({
                     name: this.props.name,
                     data: this.props.data,
@@ -190,7 +190,7 @@ class ListBox extends React.Component {
                     });
                 });
             } else if (event.value === null) {
-//                this.clear(null);
+                this.clear(null);
             }
         });
     }
@@ -323,7 +323,7 @@ ListBox.propTypes = {
     listMode: PropTypes.string,
     showMode: PropTypes.string,
     clickable: PropTypes.string,
-    searchLength: PropTypes.number,
+    chars: PropTypes.number,
     readOnly: PropTypes.any,
     layout: PropTypes.string,
     onChange: PropTypes.func,
@@ -337,7 +337,7 @@ ListBox.defaultProps = {
     showIcon: true,
     editable: false,
     clickable: 'label edit',
-    searchLength: 3
+    chars: 3
 };
 
 export default ListBox;

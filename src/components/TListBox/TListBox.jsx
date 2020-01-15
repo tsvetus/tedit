@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {ListBox} from '../../lib';
 
-import {merge} from '../../util';
+import {merge, contain} from '../../util';
 
 import styles from '../../styles';
 
@@ -15,10 +15,10 @@ class TListBox extends React.Component {
     render() {
 
         let style = merge(
-            styles.TComponent,
-            styles.TListBox,
-            styles[this.props.name],
-            this.props.style
+            contain(styles.TComponent),
+            contain(styles.TListBox),
+            contain(styles[this.props.name]),
+            contain(this.props.style)
         );
 
         return (
@@ -35,11 +35,9 @@ class TListBox extends React.Component {
                 items={this.props.items}
                 listMode={this.props.listMode}
                 showMode={this.props.showMode}
-                searchLength={this.props.searchLength}
                 clickable={this.props.clickable}
                 readOnly={this.props.readOnly}
                 layout={this.props.layout}
-                onSearch={this.props.onSearch}
                 onChange={this.props.onChange}
                 onValidate={this.props.onValidate} />
         );
@@ -90,8 +88,13 @@ TListBox.propTypes = {
         'top',
         'left'
     ]),
-    /** Value appeared in onChange event when editor is empty. Default is "null" */
-    empty: PropTypes.any,
+    /** Empty item */
+    empty: PropTypes.shape({
+        /** Empty item key */
+        key: PropTypes.any,
+        /** Empty item value */
+        value: PropTypes.string
+    }),
     /** Indicates if necessary to change component color when entered date is invalid or incomplete.
      * Default is "true"
      */
@@ -107,6 +110,7 @@ TListBox.propTypes = {
         /** Item name */
         value: PropTypes.string
     })),
+    chars: PropTypes.number,
     /** Determines what part of "item" should be shown in dropdown list */
     listMode: PropTypes.string,
     /** Determines what part of "item" should be shown in editor */
@@ -139,14 +143,16 @@ TListBox.propTypes = {
      * @param {object} event.data Component data from "data" property
      * @param {string} event.value Text to validate
      */
-    onValidate: PropTypes.func
+    onValidate: PropTypes.func,
+    onSearch: PropTypes.func
 };
 
 TListBox.defaultProps = {
     listMode: 'value',
     showMode: 'value',
     showIcon: true,
-    clickable: 'label edit'
+    clickable: 'label edit',
+    chars: 3
 };
 
 export default TListBox;

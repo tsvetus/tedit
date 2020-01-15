@@ -163,6 +163,14 @@ export default {
 
     },
 
+    TListBox: {
+
+    },
+
+    TSearch: {
+
+    },
+
     TLogin: {
 
         screen: {
@@ -194,7 +202,6 @@ export default {
     },
 
     TPanel: {
-//        display: "flex"
     },
 
     TTop: {

@@ -1,8 +1,8 @@
-import React from 'react';
+<pre><code>import React from 'react';
 
-import {TListBox, TMemo, TGroup} from 'tedit';
+import {TSearch, TMemo, TGroup} from 'tedit';
 
-class TListBoxExample extends React.Component {
+class TSearchExample extends React.Component {
 
     constructor(props) {
         super(props);
@@ -29,35 +29,27 @@ class TListBoxExample extends React.Component {
 
         return (
 
-            <div>
+            &lt;div&gt;
 
-                <TGroup style={{container: {margin: "0 0 16px 0"}}}>
+                &lt;TGroup style={{container: {margin: "0 0 16px 0"}}}&gt;
 
-                    <TListBox
+                    &lt;TSearch
                         style={{container: {width: "380px", margin: "8px 0 8px 0"}}}
-                        name={'myListBox'}
-                        empty={{key: 0, value: '-'}}
-                        items={[
-                            {key: 1, value: 'First item'},
-                            {key: 2, value: 'Second item'},
-                            {key: 3, value: 'Third item'}
-                        ]}
+                        name={'mySearch'}
                         value={this.state.value}
-                        showMode={'value'}
-                        listMode={'key value'}
                         label={'Choose item:'}
-                        onChange={this.change} />
+                        onChange={this.change} /&gt;
 
-                </TGroup>
+                &lt;/TGroup&gt;
 
-                <TMemo
+                &lt;TMemo
                     style={{edit: {minHeight: "48px"}}}
                     label={'onChange events:'}
                     icon={'refresh'}
                     value={this.state.event}
-                    onIcon={this.clear} />
+                    onIcon={this.clear} /&gt;
 
-            </div>
+            &lt;/div&gt;
 
         );
 
@@ -65,4 +57,4 @@ class TListBoxExample extends React.Component {
 
 }
 
-export default TListBoxExample;
+export default TSearchExample;</code></pre>

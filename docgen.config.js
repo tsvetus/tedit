@@ -30,6 +30,11 @@ module.exports = {
             name: "TListBoxExample"
         }
     }, {
+        name: "TSearch",
+        example: {
+            name: "TSearchExample"
+        }
+    }, {
         name: "TButton",
         example: {
             name: "TButtonExample"

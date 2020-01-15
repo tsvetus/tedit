@@ -5,6 +5,7 @@ import TTextExample from './components/TText/TTextExample.jsx';
 import TMemoExample from './components/TMemo/TMemoExample.jsx';
 import TCheckExample from './components/TCheck/TCheckExample.jsx';
 import TListBoxExample from './components/TListBox/TListBoxExample.jsx';
+import TSearchExample from './components/TSearch/TSearchExample.jsx';
 
 export {
     TDateExample,
@@ -13,5 +14,6 @@ export {
     TTextExample,
     TMemoExample,
     TCheckExample,
-    TListBoxExample
+    TListBoxExample,
+    TSearchExample
 }

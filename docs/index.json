@@ -520,6 +520,12 @@
             }
           }
         },
+        "chars": {
+          "type": "number",
+          "description": "",
+          "required": false,
+          "defaultValue": "3"
+        },
         "listMode": {
           "type": "string",
           "description": "Determines what part of \"item\" should be shown in dropdown list",
@@ -627,6 +633,98 @@
               "description": "Text to validate"
             }
           },
+          "required": false
+        },
+        "onSearch": {
+          "type": "func",
+          "description": "",
+          "required": false
+        }
+      }
+    },
+    "TSearch": {
+      "description": "",
+      "displayName": "TSearch",
+      "methods": [],
+      "example": {
+        "name": "TSearchExample"
+      },
+      "props": {
+        "style": {
+          "type": "object",
+          "description": "",
+          "required": false
+        },
+        "value": {
+          "type": "any",
+          "description": "",
+          "required": false
+        },
+        "name": {
+          "type": "string",
+          "description": "",
+          "required": false
+        },
+        "data": {
+          "type": "any",
+          "description": "",
+          "required": false
+        },
+        "label": {
+          "type": "string",
+          "description": "",
+          "required": false
+        },
+        "showIcon": {
+          "type": "any",
+          "description": "",
+          "required": false,
+          "defaultValue": "true"
+        },
+        "timeout": {
+          "type": "number",
+          "description": "",
+          "required": false
+        },
+        "placeholder": {
+          "type": "string",
+          "description": "",
+          "required": false
+        },
+        "chars": {
+          "type": "number",
+          "description": "",
+          "required": false,
+          "defaultValue": "3"
+        },
+        "listMode": {
+          "type": "string",
+          "description": "",
+          "required": false
+        },
+        "clickable": {
+          "type": "string",
+          "description": "",
+          "required": false
+        },
+        "showMode": {
+          "type": "string",
+          "description": "",
+          "required": false
+        },
+        "onChange": {
+          "type": "func",
+          "description": "",
+          "required": false
+        },
+        "onValidate": {
+          "type": "func",
+          "description": "",
+          "required": false
+        },
+        "onSearch": {
+          "type": "func",
+          "description": "",
           "required": false
         }
       }

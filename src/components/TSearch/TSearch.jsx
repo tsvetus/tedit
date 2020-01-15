@@ -3,68 +3,31 @@ import PropTypes from 'prop-types';
 
 import {ListBox} from '../../lib';
 
-import {nvl, merge} from '../../util';
+import {merge, contain} from '../../util';
 
 import styles from '../../styles';
 
 class TSearch extends React.Component {
 
-    constructor(props, context) {
-        super(props, context);
-        this.state = {
-            items: []
-        };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSearch = this.handleSearch.bind(this);
-        this.updateValue = this.updateValue.bind(this);
+    constructor(props) {
+        super(props);
+        this.search = this.search.bind(this);
     }
 
-    componentWillUnmount() {
-    }
-
-    componentDidMount() {
-        this.updateValue(this.props.value);
-    }
-
-    componentDidUpdate(old) {
-        if (old.value !== this.props.value) {
-            this.updateValue(this.props.value);
-        }
-    }
-
-    updateValue(value) {
+    search(event, callback) {
+//        console.log(event);
         if (this.props.onSearch) {
-            let items = this.props.onSearch({key: value});
-            if (items) {
-                this.setState({items: items, value: value});
-            }
-        }
-    }
-
-    handleSearch(event) {
-        if (nvl(event.value, '').length >= this.props.chars && this.props.onSearch) {
-            let items = this.props.onSearch(event);
-            if (items && items instanceof Array) {
-                this.setState({items: items});
-                return items;
-            }
-        }
-        return null;
-    }
-
-    handleChange(event) {
-        if (this.props.onChange) {
-            this.props.onChange(event);
+            return this.props.onSearch(event, callback);
         }
     }
 
     render () {
 
         let style = merge(
-            styles.TComponent,
-            styles.TSearch,
-            styles[this.props.name],
-            this.props.style
+            contain(styles.TComponent),
+            contain(styles.TSearch),
+            contain(styles[this.props.name]),
+            contain(this.props.style)
         );
 
         return (
@@ -79,11 +42,11 @@ class TSearch extends React.Component {
                 listMode={this.props.listMode}
                 showMode={this.props.showMode}
                 onChange={this.props.onChange}
-                items={this.state.items}
-                value={this.state.value}
-                editable={true}
+                value={this.props.value}
+                empty={this.props.empty}
+                readOnly={false}
                 clickable={this.props.clickable}
-                onSearch={this.handleSearch} />
+                onSearch={this.search} />
         );
 
     }
@@ -97,6 +60,13 @@ TSearch.propTypes = {
     data: PropTypes.any,
     label: PropTypes.string,
     showIcon: PropTypes.any,
+    /** Empty item */
+    empty: PropTypes.shape({
+        /** Empty item key */
+        key: PropTypes.any,
+        /** Empty item value */
+        value: PropTypes.string
+    }),
     timeout: PropTypes.number,
     placeholder: PropTypes.string,
     chars: PropTypes.number,
