@@ -68,10 +68,6 @@
     <li><code>TForm</code></li>
 </ul>
 
-<h2 id="fulldocumentationwithexamples">Full documentation with Examples:</h2>
-
-<p><a href="https://tsvetus.github.io/tedit/">Project page</a></p>
-
 <h2 id="stylization">Stylization</h2>
 
 <p>Every component in <code>tedit</code> library has <code>style</code> property stands for providing custom style for each component:</p>
@@ -90,7 +86,7 @@ class MyComponent extends React.Component {
 export default MyComponent;
 </code></pre>
 
-<p>Each component has it's own style structure described in <a href="https://tsvetus.github.io/tedit/">Project page</a>. Every
+<p>Each component has it's own style structure described in component's page. Every
     component style has <code>container</code> field represents outer component box. Any <code>string</code> fields on zero level of style treated
     as <code>container</code> style fields. It means that <code>style={{width: "100px"}}</code> equals to <code>style={{container: {width: "100px"}}}</code></p>
 
@@ -141,7 +137,7 @@ registerStyles(styles, templates);
 
 <h2 id="properties">Properties</h2>
 
-<p>Each component has it's own set of properties described in <a href="https://tsvetus.github.io/tedit/">Project page</a>. The
+<p>Each component has it's own set of properties described in component's page. The
     most common properties are:</p>
 
 <ul>
@@ -164,7 +160,7 @@ registerStyles(styles, templates);
     <li><code>value</code> - Component value. Type of <code>value</code> depends on component itself. In text edit component <code>value</code> is of
         <code>String</code> type. In list box components <code>value</code> contains list item key value.  </li>
 
-    <li><code>icon</code> - Icon name from available icon list (see <code>TIcon</code> from <a href="https://tsvetus.github.io/tedit/">Project page</a>).
+    <li><code>icon</code> - Icon name from available icon list (see <code>TIcon</code> component description).
         If assigned the appropriate icon appeared near text editor. </li>
 
     <li><code>timeout</code> - <code>Number</code> contains timeout for <code>onChange</code> event. Default: <code>700 ms</code>.</li>
@@ -179,7 +175,7 @@ registerStyles(styles, templates);
     </li>
 </ul>
 
-<p>The full list of properties shown in <a href="https://tsvetus.github.io/tedit/">Project page</a></p>
+<p>The full list of properties shown in component's page</p>
 
 <h3 id="example">Example</h3>
 
@@ -256,7 +252,7 @@ export default MyComponent;
 
 <p>Some events are occur with delay determined by <code>timeout</code> property. Default timeout is <code>700 ms</code>.
     All events have one argument <code>event</code> of type <code>Object</code>. The structure of <code>event</code> object depends on caller
-    component. The mos common list of <code>event</code> fields listed below: </p>
+    component. The most common list of <code>event</code> fields listed below: </p>
 
 <ul>
     <li><code>name</code> - component name from <code>name</code> property.</li>
@@ -266,4 +262,4 @@ export default MyComponent;
     <li><code>value</code> - current component value. Text editors contain entered tex but list boxes contain selected item key value. </li>
 </ul>
 
-<p>The full list of event fields shown in <a href="https://tsvetus.github.io/tedit/">Project page</a></p>
+<p>The full list of event fields shown in component's page</p>

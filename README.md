@@ -209,7 +209,7 @@ export default MyComponent;
 
 Some events are occur with delay determined by `timeout` property. Default timeout is `700 ms`. 
 All events have one argument `event` of type `Object`. The structure of `event` object depends on caller 
-component. The mos common list of `event` fields listed below: 
+component. The most common list of `event` fields listed below: 
 
 * `name` - component name from `name` property.
 * `data` - any data from `data` property.
