@@ -82,7 +82,9 @@ class Edit extends React.Component {
             this.validate(this.value);
             this.updateStyle(this.valid);
             this.setText(this.value);
-            this.setCaret(this.caret);
+            if (!this.props.wrap) {
+                this.setCaret(this.caret);
+            }
             this.showPlaceholder();
         }
 
@@ -181,17 +183,21 @@ class Edit extends React.Component {
     getText() {
         let text = this.getHtml();
         if (text.indexOf('<span') < 0) {
-            if (!this.props.wrap) {
-                return strip(text).replace(/<br>/gm, '');
+            if (this.props.wrap) {
+                return text;
             } else {
-                return strip(text);
+                return strip(text).replace(/<br>/gm, '');
             }
         }
         return this.props.empty;
     }
 
     setText(text) {
-        this.setHtml(flood(nvl(text,'')));
+        if (this.props.wrap) {
+            this.setHtml(nvl(text,''));
+        } else {
+            this.setHtml(flood(nvl(text,'')));
+        }
     }
 
     getCaret() {
@@ -264,10 +270,13 @@ class Edit extends React.Component {
 
         let res = this.parseValue(this.value);
 
-        this.setText(res.value);
+        if (!this.props.wrap) {
+            this.setText(res.value);
+        }
+
         if (res.caret === 0) {
             this.ref.current.focus();
-        } else {
+        } else if (!this.props.wrap) {
             this.setCaret(res.caret);
         }
 

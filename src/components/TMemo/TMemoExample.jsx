@@ -36,6 +36,7 @@ class TMemoExample extends React.Component {
                     <TMemo
                         style={{edit: {minHeight: "48px"}}}
                         label={'Enter long text:'}
+                        wrap={true}
                         value={this.state.value}
                         onChange={this.change} />
 

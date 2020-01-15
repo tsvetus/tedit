@@ -9,7 +9,7 @@ import styles from '../../styles';
 import TText from "../TText";
 
 /**
- * Component representing multi line editor
+ * Component representing multiline editor
  */
 class TMemo extends React.Component {
 
