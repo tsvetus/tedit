@@ -8,7 +8,7 @@ import {merge, contain} from '../../util';
 import styles from '../../styles';
 
 /**
- * TCheck component
+ * Represents checkbox with label
  */
 class TCheck extends React.Component {
 
@@ -90,20 +90,25 @@ class TCheck extends React.Component {
 }
 
 TCheck.propTypes = {
-    /**
-     * Component style.
-     *
-     * Style structure: {container: {...}, label: {...}, icon: {...}}
+    /** Component style: */
+    style: PropTypes.shape({
+        /** Style for outer component container */
+        container: PropTypes.object,
+        /** Style for component label */
+        label: PropTypes.object,
+        /** Style for component icon */
+        icon: PropTypes.object
+    }),
+    /** Component initial value */
+    value: PropTypes.string,
+    /** Any component name that associated with component and returned in "onChange" event in "event.name" field.
+     * In addition component name can be used in global styles registered by "registerStyles" function to
+     * associate particular style with this component
      */
-    style: PropTypes.object,
-    /** Component value. If equals to <i>true</i> or <i>props.checked</i> component is checked.
-     * Otherwise it is unchecked */
-    value: PropTypes.any,
-    /** Component name */
     name: PropTypes.string,
-    /** Component data */
+    /** Any data that associated with component and returned in "onChange" event in "event.data" field */
     data: PropTypes.any,
-    /** Component label caption */
+    /** Label caption. Default is undefined and label is hidden */
     label: PropTypes.string,
     /** Checked state value */
     checked: PropTypes.any,
@@ -111,11 +116,11 @@ TCheck.propTypes = {
     unchecked: PropTypes.any,
     /**
      * On click event
-     * @param {Object} event event object with following structure:<br/>
-     * @param {String} event.name component name from <i>name</i> property<br/>
-     * @param {Object} event.data component data from <i>data</i> property<br/>
-     * @param {Object} event.value component value. If component state is checked then <i>value</i> equals to
-     * <i>checked</i> property. Otherwise it equals to <i>unchecked</i> property<br/>
+     * @param {object} event event object with following structure:
+     * @param {string} event.name component name from "name" property
+     * @param {object} event.data component data from "data" property
+     * @param {object} event.value component value. If component state is checked then "value" equals to
+     * "checked" property. Otherwise it equals to "unchecked" property
      */
     onChange: PropTypes.func
 };

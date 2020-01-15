@@ -37,6 +37,11 @@ module.exports = {
         example: {
             name: "TTimeExample"
         }
+    }, {
+        name: "TCheck",
+        example: {
+            name: "TCheckExample"
+        }
     }]
 
 };

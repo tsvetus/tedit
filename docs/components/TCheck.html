@@ -1,13 +1,13 @@
-import React from 'react';
+<pre><code>import React from 'react';
 
-import {TMemo, TGroup, nvl} from 'tedit';
+import {TCheck, TGroup, TMemo} from 'tedit';
 
-class TMemoExample extends React.Component {
+class TCheckExample extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            value: null,
+            value: 1,
             event: ''
         };
         this.change = this.change.bind(this);
@@ -29,28 +29,29 @@ class TMemoExample extends React.Component {
 
         return (
 
-            <div>
+            &lt;div&gt;
 
-                <TGroup style={{container: {margin: "0 0 16px 0"}}}>
+                &lt;TGroup style={{container: {margin: "0 0 16px 0"}}}&gt;
 
-                    <TMemo
-                        style={{edit: {minHeight: "48px"}}}
-                        label={'Enter long text:'}
-                        wrap={true}
+                    &lt;TCheck
+                        style={{container: {width: "120px"}}}
+                        label={'Check me:'}
                         value={this.state.value}
-                        onChange={this.change} />
+                        checked={1}
+                        unchecked={0}
+                        onChange={this.change} /&gt;
 
-                </TGroup>
+                &lt;/TGroup&gt;
 
-                <TMemo
+                &lt;TMemo
                     style={{edit: {minHeight: "48px"}}}
                     label={'onChange events:'}
                     icon={'refresh'}
                     wrap={true}
                     value={this.state.event}
-                    onIcon={this.clear} />
+                    onIcon={this.clear} /&gt;
 
-            </div>
+            &lt;/div&gt;
 
         );
 
@@ -58,4 +59,4 @@ class TMemoExample extends React.Component {
 
 }
 
-export default TMemoExample;
+export default TCheckExample;</code></pre>

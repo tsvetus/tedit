@@ -228,7 +228,7 @@
       }
     },
     "TMemo": {
-      "description": "Component representing multi line editor",
+      "description": "Component representing multiline editor",
       "displayName": "TMemo",
       "methods": [
         {
@@ -321,7 +321,7 @@
         },
         "wrap": {
           "type": "any",
-          "description": "If \"false\" editor ignores enter press events",
+          "description": "If \"false\" editor ignores new line characters and entered text treated as single string",
           "required": false
         },
         "empty": {
@@ -890,6 +890,130 @@
               "name": "event.icon",
               "type": "string",
               "description": "Clicked icon name"
+            }
+          },
+          "required": false
+        }
+      }
+    },
+    "TCheck": {
+      "description": "Represents checkbox with label",
+      "displayName": "TCheck",
+      "methods": [
+        {
+          "name": "handleIcon",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "handleChange",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "event",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "updateChecked",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "value",
+              "type": null
+            },
+            {
+              "name": "change",
+              "type": null
+            }
+          ],
+          "returns": null
+        }
+      ],
+      "example": {
+        "name": "TCheckExample"
+      },
+      "props": {
+        "style": {
+          "type": "shape",
+          "description": "Component style:",
+          "required": false,
+          "structure": {
+            "container": {
+              "type": "object",
+              "description": "Style for outer component container"
+            },
+            "label": {
+              "type": "object",
+              "description": "Style for component label"
+            },
+            "icon": {
+              "type": "object",
+              "description": "Style for component icon"
+            }
+          }
+        },
+        "value": {
+          "type": "string",
+          "description": "Component initial value",
+          "required": false
+        },
+        "name": {
+          "type": "string",
+          "description": "Any component name that associated with component and returned in \"onChange\" event in \"event.name\" field.\r\nIn addition component name can be used in global styles registered by \"registerStyles\" function to\r\nassociate particular style with this component",
+          "required": false
+        },
+        "data": {
+          "type": "any",
+          "description": "Any data that associated with component and returned in \"onChange\" event in \"event.data\" field",
+          "required": false
+        },
+        "label": {
+          "type": "string",
+          "description": "Label caption. Default is undefined and label is hidden",
+          "required": false
+        },
+        "checked": {
+          "type": "any",
+          "description": "Checked state value",
+          "required": false,
+          "defaultValue": "true"
+        },
+        "unchecked": {
+          "type": "any",
+          "description": "Unchecked state value",
+          "required": false,
+          "defaultValue": "false"
+        },
+        "onChange": {
+          "type": "func",
+          "description": "On click event ",
+          "arguments": {
+            "event": {
+              "name": "event",
+              "type": "object",
+              "description": "event object with following structure:"
+            },
+            "event.name": {
+              "name": "event.name",
+              "type": "string",
+              "description": "component name from \"name\" property"
+            },
+            "event.data": {
+              "name": "event.data",
+              "type": "object",
+              "description": "component data from \"data\" property"
+            },
+            "event.value": {
+              "name": "event.value",
+              "type": "object",
+              "description": "component value. If component state is checked then \"value\" equals to \"checked\" property. Otherwise it equals to \"unchecked\" property"
             }
           },
           "required": false

@@ -107,7 +107,7 @@ TMemo.propTypes = {
     timeout: PropTypes.number,
     /** Text to show when editor is empty */
     placeholder: PropTypes.string,
-    /** If "false" editor ignores enter press events */
+    /** If "false" editor ignores new line characters and entered text treated as single string */
     wrap: PropTypes.any,
     /** Value appeared in onChange event when editor is empty. Default is "null" */
     empty: PropTypes.any,

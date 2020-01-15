@@ -36,6 +36,7 @@ class TMemoExample extends React.Component {
                     &lt;TMemo
                         style={{edit: {minHeight: "48px"}}}
                         label={'Enter long text:'}
+                        wrap={true}
                         value={this.state.value}
                         onChange={this.change} /&gt;
 
@@ -45,6 +46,7 @@ class TMemoExample extends React.Component {
                     style={{edit: {minHeight: "48px"}}}
                     label={'onChange events:'}
                     icon={'refresh'}
+                    wrap={true}
                     value={this.state.event}
                     onIcon={this.clear} /&gt;
 
