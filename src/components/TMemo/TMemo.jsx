@@ -92,7 +92,8 @@ TMemo.propTypes = {
     }),
     /** Component initial value */
     value: PropTypes.string,
-    /** Any component name that associated with component and returned in "onChange" event in "event.name" field.
+    /**
+     * Any component name that associated with component and returned in "onChange" event in "event.name" field.
      * In addition component name can be used in global styles registered by "registerStyles" function to
      * associate particular style with this component
      */
@@ -107,7 +108,10 @@ TMemo.propTypes = {
     timeout: PropTypes.number,
     /** Text to show when editor is empty */
     placeholder: PropTypes.string,
-    /** If "false" editor ignores new line characters and entered text treated as single string */
+    /**
+     * If "true" editor preserves end of line characters in text and allows to wrap text when Enter key is pressed.
+     * Otherwise (by default) it ignores new line characters and entered text treated as single string
+     */
     wrap: PropTypes.any,
     /** Value appeared in onChange event when editor is empty. Default is "null" */
     empty: PropTypes.any,
@@ -131,7 +135,7 @@ TMemo.propTypes = {
     onIcon: PropTypes.func
 };
 
-TText.defaultProps = {
+TMemo.defaultProps = {
     empty: null,
     readOnly: false,
     wrap: false
