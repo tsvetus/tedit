@@ -68,7 +68,8 @@ TText.propTypes = {
     }),
     /** Component initial value */
     value: PropTypes.string,
-    /** Any component name that associated with component and returned in "onChange" event in "event.name" field.
+    /**
+     * Any component name that associated with component and returned in "onChange" event in "event.name" field.
      * In addition component name can be used in global styles registered by "registerStyles" function to
      * associate particular style with this component
      */
@@ -94,7 +95,8 @@ TText.propTypes = {
         mask: PropTypes.string,
         /** Empty char. If length of empty char is grate than 1 then only first character is used. Default is "_" */
         empty: PropTypes.string,
-        /** If true then onChange event fires only if date is completely entered or completely cleared.
+        /**
+         * If true then onChange event fires only if date is completely entered or completely cleared.
          * Default is "true"
          */
         full: PropTypes.bool
@@ -103,7 +105,8 @@ TText.propTypes = {
     regexp: PropTypes.object,
     /** Value appeared in onChange event when editor is empty. Default is "null" */
     empty: PropTypes.any,
-    /** Indicates if necessary to change component color when entered date is invalid or incomplete.
+    /**
+     * Indicates if necessary to change component color when entered date is invalid or incomplete.
      * Default is "true"
      */
     required: PropTypes.any,

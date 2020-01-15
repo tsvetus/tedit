@@ -12,6 +12,8 @@ function structure(source) {
                 description: v.description
             }
         });
+    } else if (source.name === 'shape') {
+        return structure(source.value);
     } else {
         for (let key in source) {
             let obj = source[key];
@@ -86,6 +88,9 @@ function refactor(source) {
                 defaultValue: prop.defaultValue ? prop.defaultValue.value : undefined
             };
             if (prop.type && prop.type.value) {
+                // if (props[key].type === 'arrayOf') {
+                //     console.log(prop.type.value);
+                // }
                 props[key].structure = structure(prop.type.value);
             }
         }

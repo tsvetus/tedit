@@ -25,6 +25,11 @@ module.exports = {
             name: "TMemoExample"
         }
     }, {
+        name: "TListBox",
+        example: {
+            name: "TListBoxExample"
+        }
+    }, {
         name: "TButton",
         example: {
             name: "TButtonExample"
