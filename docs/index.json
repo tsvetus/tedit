@@ -1,8 +1,11 @@
 {
   "title": {
-    "caption": "tedit component library"
+    "caption": "'tedit' component library documentation"
   },
   "components": {
+    "Readme": {
+      "displayName": "Readme"
+    },
     "TText": {
       "description": "Component representing single line text editor",
       "displayName": "TText",
@@ -960,7 +963,7 @@
           }
         },
         "value": {
-          "type": "string",
+          "type": "any",
           "description": "Component initial value",
           "required": false
         },

@@ -9,10 +9,12 @@ module.exports = {
     },
 
     title: {
-        caption: "tedit component library"
+        caption: "'tedit' component library documentation"
     },
 
     components: [{
+        name: "Readme"
+    }, {
         name: "TText",
         example: {
             name: "TTextExample"

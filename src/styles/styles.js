@@ -380,6 +380,8 @@ export default function defaultStyles(template) {
                 backgroundColor: template.colors.window
             },
             content: {
+            },
+            close: {
             }
         },
 
@@ -475,6 +477,22 @@ export default function defaultStyles(template) {
                 padding: "4px 0 4px 0"
             }
 
+        },
+
+        TMenu: {
+            content: {
+                paddingTop: "8px"
+            },
+            item: {
+                ...template.fonts.common,
+                padding: "8px 8px 8px 32px",
+                fontSize: "24px",
+                color: template.colors.text
+            },
+            current: {
+                fontWeight: "bold",
+                marginLeft: "8px"
+            }
         }
 
     }

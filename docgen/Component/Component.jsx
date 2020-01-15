@@ -15,18 +15,32 @@ class Component extends React.Component {
         super(props)
         this.state = {
             html: null
-        }
+        };
+        this.refresh = this.refresh.bind(this);
     }
 
-    componentDidMount() {
-        this.mounted = true;
-        let name = this.props.data ? this.props.data.displayName : null;
-        if (name && this.props.data.example) {
+    refresh() {
+        let data = this.props.data;
+        let name = data ? data.displayName : null;
+        if (name) {
             getFile(window.location.pathname + 'components/' + name + '.html', (html) => {
                 if (this.mounted && html) {
                     this.setState({html: html});
                 }
             });
+        } else {
+            this.setState({html: null});
+        }
+    }
+
+    componentDidMount() {
+        this.mounted = true;
+        this.refresh();
+    }
+
+    componentDidUpdate(old) {
+        if (old.data !== this.props.data) {
+            this.refresh();
         }
     }
 
@@ -35,6 +49,7 @@ class Component extends React.Component {
         let style = merge(styles, this.props.style);
 
         let desc = this.props.data ? this.props.data.description : null;
+        let name = this.props.data ? this.props.data.displayName : null;
 
         let props = null;
         if (this.props.data && this.props.data.props) {
@@ -45,7 +60,7 @@ class Component extends React.Component {
         }
 
         let example = null;
-        if (this.props.data.example && this.props.data.example.name) {
+        if (this.props.data && this.props.data.example && this.props.data.example.name) {
             let code = null;
             if (this.state.html) {
                 code = <div style={style.code} dangerouslySetInnerHTML={{__html: this.state.html}}></div>;
@@ -60,11 +75,18 @@ class Component extends React.Component {
             );
         }
 
+        let html = null;
+        if (example === null && this.state.html) {
+            html = <div dangerouslySetInnerHTML={{__html: this.state.html}}></div>;
+        }
+
         return (
             <div style={style.container}>
+                <div style={style.name}>{name}</div>
                 <div style={style.desc}>{desc}</div>
                 {example}
                 {props}
+                {html}
             </div>
         );
 

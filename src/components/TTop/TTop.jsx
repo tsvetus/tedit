@@ -48,10 +48,10 @@ class TTop extends React.Component {
 
         return (
             <div style={style.container}>
-                <Icon
+                {this.props.burger ? <Icon
                     name="menu"
                     style={style.button}
-                    onClick={this.handleClick} />
+                    onClick={this.handleClick} /> : <div></div>}
                 <div style={style.caption}>{caption}</div>
                 <div style={style.tools}>{tools}</div>
             </div>
@@ -67,7 +67,12 @@ TTop.propTypes = {
     data: PropTypes.any,
     tools: PropTypes.array,
     caption: PropTypes.string,
+    burger: PropTypes.any,
     onClick: PropTypes.func
+};
+
+TTop.defaultProps = {
+    burger: true
 };
 
 export default TTop;

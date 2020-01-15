@@ -100,7 +100,7 @@ TCheck.propTypes = {
         icon: PropTypes.object
     }),
     /** Component initial value */
-    value: PropTypes.string,
+    value: PropTypes.any,
     /** Any component name that associated with component and returned in "onChange" event in "event.name" field.
      * In addition component name can be used in global styles registered by "registerStyles" function to
      * associate particular style with this component

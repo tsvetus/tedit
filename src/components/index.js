@@ -22,6 +22,7 @@ import TPager from './TPager';
 import TLoad from './TLoad';
 import TGrid from './TGrid';
 import TFilm from './TFilm';
+import TMenu from './TMenu';
 
 export {
     TIcon,
@@ -47,5 +48,6 @@ export {
     TPager,
     TLoad,
     TGrid,
-    TFilm
+    TFilm,
+    TMenu
 }

@@ -118,26 +118,33 @@ function run() {
         config.components.forEach((v) => {
             let compName = v.name;
             let compPath = path.resolve(inputPath, compName, compName + '.jsx');
-            let compSource = fs.readFileSync(compPath, 'utf8');
-            let compInfo = docs.parse(compSource);
-            if (compInfo) {
-                compInfo = refactor(compInfo);
-                data.components[compName] = compInfo;
-                data.components[compName].example = v.example ? v.example : {};
-                if (v.example && v.example.name) {
-                    let examPath = path.resolve(inputPath, compName, v.example.name + '.jsx');
-                    let examSrc = fs.readFileSync(examPath, 'utf8');
-                    if (examSrc) {
-                        examSrc = examSrc.replace(/\r/gm, '')
-                            .replace(/</gm, '&lt;')
-                            .replace(/>/gm, '&gt;');
-                        let html = '<pre><code>' + examSrc + '</code></pre>';
-                        let examOut = path.resolve(outputPath, 'components', compName + '.html');
-                        fs.writeFileSync(examOut, html,  'utf8');
+            if (fs.existsSync(compPath)) {
+                let compSource = fs.readFileSync(compPath, 'utf8');
+                let compInfo = docs.parse(compSource);
+                if (compInfo) {
+                    compInfo = refactor(compInfo);
+                    data.components[compName] = compInfo;
+                    data.components[compName].example = v.example ? v.example : {};
+                    if (v.example && v.example.name) {
+                        let examPath = path.resolve(inputPath, compName, v.example.name + '.jsx');
+                        let examSrc = fs.readFileSync(examPath, 'utf8');
+                        if (examSrc) {
+                            examSrc = examSrc.replace(/\r/gm, '')
+                                .replace(/</gm, '&lt;')
+                                .replace(/>/gm, '&gt;');
+                            let html = '<pre><code>' + examSrc + '</code></pre>';
+                            let examOut = path.resolve(outputPath, 'components', compName + '.html');
+                            fs.writeFileSync(examOut, html,  'utf8');
+                        }
                     }
+                    console.log('    ' + compName);
+                    count++;
                 }
+            } else {
                 console.log('    ' + compName);
-                count++;
+                data.components[compName] = {
+                    displayName: compName
+                };
             }
         });
         let docPath = path.resolve(outputPath, 'index.json');

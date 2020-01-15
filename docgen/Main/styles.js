@@ -1,17 +1,37 @@
 import {styles} from 'tedit';
 
 export default {
+
     top: {
-        padding: "16px"
-    },
-    panel: {
         padding: "16px",
-        textAlign: "center",
-        fontSize: "38px"
+//        borderBottom: "2px solid " + styles.colors.frame
     },
+
+    box: {
+        display: "flex"
+    },
+
+    menu: {
+        container: {
+            flex: "0 0 220px",
+            backgroundColor: styles.colors.face,
+            borderRight: "1px solid " + styles.colors.frame
+        },
+        frame: {
+            paddingTop: "8px"
+        }
+    },
+
     scroll: {
-        padding: "16px"
+        container: {
+            width: "100%"
+        },
+        content: {
+            padding: "32px 8px 0 8px",
+            borderTop: "1px solid " + styles.colors.frame
+        }
     },
+
     readme: {
         ...styles.fonts.common,
         color: styles.colors.border,

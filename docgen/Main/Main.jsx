@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {
     TTop,
     TSide,
-    TPanel,
+    TMenu,
     TScroll,
     merge
 } from 'tedit';
@@ -21,8 +21,7 @@ class Main extends React.Component {
         this.state = {
             data: null,
             menu: false,
-            page: 'readme',
-            caption: ''
+            page: 'Readme'
         };
         this.menuToggle = this.menuToggle.bind(this);
         this.menuClick = this.menuClick.bind(this);
@@ -48,17 +47,10 @@ class Main extends React.Component {
     menuClick(event) {
         if (event.item.name === 'close') {
             this.setState({menu: false});
-        } else if (event.item.name === 'readme') {
-            this.setState({
-                menu: false,
-                page: event.item.name,
-                caption: ''
-            });
         } else {
             this.setState({
                 menu: false,
-                page: event.item.name,
-                caption: event.item.name
+                page: event.item.name
             });
         }
     }
@@ -69,16 +61,11 @@ class Main extends React.Component {
 
         let caption = this.state.data && this.state.data.title ? this.state.data.title.caption : null;
         let component = null;
-        if (this.state.page === 'readme') {
-            component = <div style={style.readme}>{'Click menu icon to choose component'}</div>;
-        } else if (this.state.data) {
+        if (this.state.data) {
             component = <Component data={this.state.data.components[this.state.page]} />;
         }
 
-        let items = [{
-            name: 'readme',
-            caption: 'Description'
-        }];
+        let items = [];
         if (this.state.data && this.state.data.components) {
             for (let key in this.state.data.components) {
                 items.push({
@@ -100,15 +87,23 @@ class Main extends React.Component {
                 <TTop
                     style={style.top}
                     caption={caption}
+                    burger={false}
                     onClick={this.menuToggle} />
 
-                <TPanel style={style.panel}>
-                    {this.state.caption}
-                </TPanel>
+                <div style={style.box}>
 
-                <TScroll style={style.scroll}>
-                    {component}
-                </TScroll>
+                    <TMenu
+                        style={style.menu}
+                        onClick={this.menuClick}
+                        item={this.state.page}
+                        items={items} />
+
+                    <TScroll
+                        style={style.scroll}>
+                        {component}
+                    </TScroll>
+
+                </div>
 
             </div>
         );

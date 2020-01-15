@@ -345,6 +345,14 @@ export default {
             right: "0"
         }
 
+    },
+
+    TMenu: {
+        item: {
+            display: "block",
+            textDecoration: "none",
+            cursor: "pointer"
+        }
     }
 
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {contain} from '../../util';
+import {merge, contain} from '../../util';
 
 import icons from './icons.js';
 
@@ -26,7 +26,7 @@ class Icon extends React.Component {
 
         let icon = icons[this.props.name];
 
-        let style = contain(this.props.style);
+        let style = merge({container: {}}, contain(this.props.style));
 
         let content = null;
         let w = "0 0 384 384";
