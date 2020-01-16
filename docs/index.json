@@ -1496,6 +1496,117 @@
           "required": false
         }
       }
+    },
+    "TGroup": {
+      "description": "Groups components in a single block",
+      "displayName": "TGroup",
+      "methods": [],
+      "example": {
+        "name": "TGroupExample"
+      },
+      "props": {
+        "style": {
+          "type": "shape",
+          "description": "Component style:",
+          "required": false,
+          "structure": {
+            "container": {
+              "type": "object",
+              "description": "Style for outer component container"
+            },
+            "label": {
+              "type": "object",
+              "description": "Style for component label"
+            },
+            "content": {
+              "type": "object",
+              "description": "Style for group content"
+            }
+          }
+        },
+        "label": {
+          "type": "string",
+          "description": "Label caption. Default is undefined and label is hidden",
+          "required": false
+        }
+      }
+    },
+    "TScroll": {
+      "description": "Component represents scroll box",
+      "displayName": "TScroll",
+      "methods": [
+        {
+          "name": "getHeight",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "updateStyle",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "resize",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        }
+      ],
+      "example": {
+        "name": "TScrollExample"
+      },
+      "props": {
+        "style": {
+          "type": "shape",
+          "description": "Component style:",
+          "required": false,
+          "structure": {
+            "container": {
+              "type": "object",
+              "description": "Style for outer component container"
+            },
+            "content": {
+              "type": "object",
+              "description": "Style for group content"
+            }
+          }
+        },
+        "margin": {
+          "type": "number",
+          "description": "",
+          "required": false,
+          "defaultValue": "4"
+        },
+        "scrollBars": {
+          "type": "enum",
+          "description": "Scroll bars to show. Can be one of:",
+          "required": false,
+          "defaultValue": "'both'",
+          "structure": {
+            "'both'": {},
+            "'horizontal'": {},
+            "'vertical'": {},
+            "'none'": {}
+          }
+        },
+        "overflow": {
+          "type": "enum",
+          "description": "Overflow attribute. Can be one of^",
+          "required": false,
+          "defaultValue": "'auto'",
+          "structure": {
+            "'auto'": {},
+            "'scroll'": {},
+            "'hidden'": {},
+            "'visible'": {}
+          }
+        }
+      }
     }
   }
 }

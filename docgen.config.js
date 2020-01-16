@@ -54,6 +54,16 @@ module.exports = {
         example: {
             name: "TCheckExample"
         }
+    }, {
+        name: "TGroup",
+        example: {
+            name: "TGroupExample"
+        }
+    }, {
+        name: "TScroll",
+        example: {
+            name: "TScrollExample"
+        }
     }]
 
 };

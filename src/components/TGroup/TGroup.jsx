@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {merge} from '../../util';
+import {merge, contain} from '../../util';
 
 import styles from '../../styles';
 
+/**
+ * Groups components in a single block
+ * */
 class TGroup extends React.Component {
 
     constructor(props, context) {
@@ -15,10 +18,10 @@ class TGroup extends React.Component {
     render () {
 
         let style = merge(
-            styles.TComponent,
-            styles.TGroup,
-            styles[this.props.name],
-            this.props.style
+            contain(styles.TComponent),
+            contain(styles.TGroup),
+            contain(styles[this.props.name]),
+            contain(this.props.style)
         );
 
         let label = null;
@@ -40,8 +43,17 @@ class TGroup extends React.Component {
 }
 
 TGroup.propTypes = {
-    style: PropTypes.object,
-    label: PropTypes.string
+    /** Component style: */
+    style: PropTypes.shape({
+        /** Style for outer component container */
+        container: PropTypes.object,
+        /** Style for component label */
+        label: PropTypes.object,
+        /** Style for group content */
+        content: PropTypes.object
+    }),
+    /** Label caption. Default is undefined and label is hidden */
+    label: PropTypes.string,
 };
 
 export default TGroup;

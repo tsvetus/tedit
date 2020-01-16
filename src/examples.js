@@ -6,6 +6,8 @@ import TMemoExample from './components/TMemo/TMemoExample.jsx';
 import TCheckExample from './components/TCheck/TCheckExample.jsx';
 import TListBoxExample from './components/TListBox/TListBoxExample.jsx';
 import TSearchExample from './components/TSearch/TSearchExample.jsx';
+import TGroupExample from './components/TGroup/TGroupExample.jsx';
+import TScrollExample from './components/TScroll/TScrollExample.jsx';
 
 export {
     TDateExample,
@@ -15,5 +17,7 @@ export {
     TMemoExample,
     TCheckExample,
     TListBoxExample,
-    TSearchExample
+    TSearchExample,
+    TGroupExample,
+    TScrollExample
 }

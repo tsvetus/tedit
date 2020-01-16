@@ -43,6 +43,7 @@ class TListBoxExample extends React.Component {
                             {key: 3, value: 'Third item'}
                         ]}
                         value={this.state.value}
+                        placeholder={'Select item from list ...'}
                         showMode={'value'}
                         listMode={'key value'}
                         label={'Choose item:'}
