@@ -49,7 +49,10 @@ TGroup.propTypes = {
         container: PropTypes.object,
         /** Style for component label */
         label: PropTypes.object,
-        /** Style for group content */
+        /**
+         * Style for group content. By default content is a "flex box" so it is possible to use
+         * "flex" styles without specifying "display: 'flex'" in "content" section
+         */
         content: PropTypes.object
     }),
     /** Label caption. Default is undefined and label is hidden */

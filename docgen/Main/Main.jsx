@@ -5,7 +5,8 @@ import {
     TSide,
     TMenu,
     TScroll,
-    merge
+    merge,
+    Sizer
 } from 'tedit';
 
 import {getFile} from 'tedit';
@@ -25,10 +26,12 @@ class Main extends React.Component {
         };
         this.menuToggle = this.menuToggle.bind(this);
         this.menuClick = this.menuClick.bind(this);
+        this.sizer = new Sizer(this);
     }
 
     componentWillUnmount() {
         this.mounted = false;
+        delete this.sizer;
     }
 
     componentDidMount() {
@@ -75,28 +78,40 @@ class Main extends React.Component {
             }
         }
 
-        return (
-
-            <div>
-
+        let side = null;
+        let menu = null;
+        if (this.state.width < 800) {
+            side = (
                 <TSide
                     onClick={this.menuClick}
                     show={this.state.menu}
                     items={items} />
+            );
+        } else {
+            menu = (
+                <TMenu
+                    style={style.menu}
+                    onClick={this.menuClick}
+                    item={this.state.page}
+                    items={items} />
+            );
+        }
+
+        return (
+
+            <div>
+
+                {side}
 
                 <TTop
                     style={style.top}
                     caption={caption}
-                    burger={false}
+                    burger={side ? true : false}
                     onClick={this.menuToggle} />
 
                 <div style={style.box}>
 
-                    <TMenu
-                        style={style.menu}
-                        onClick={this.menuClick}
-                        item={this.state.page}
-                        items={items} />
+                    {menu}
 
                     <TScroll
                         style={style.scroll}>

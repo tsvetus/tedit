@@ -1520,7 +1520,7 @@
             },
             "content": {
               "type": "object",
-              "description": "Style for group content"
+              "description": "Style for group content. By default content is a \"flex box\" so it is possible to use\r\n\"flex\" styles without specifying \"display: 'flex'\" in \"content\" section"
             }
           }
         },

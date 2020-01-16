@@ -4,6 +4,7 @@ export default {
 
     top: {
         padding: "16px",
+        flexWrap: "wrap"
 //        borderBottom: "2px solid " + styles.colors.frame
     },
 
