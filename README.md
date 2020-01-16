@@ -128,8 +128,7 @@ const templates = {
 registerStyles(styles, templates);
 ```
 New `styles` make all controls appeared on grey background then all editable controls have `red` border except `green` 
-border for `TMemo` and with yellow list items in `TListBox` component with `name="MyListBox"`. New `templates` change
-global component background color to `#ddd` and frame border to `rgba(60,59,194,0.48)`.      
+border for `TMemo` and with yellow list items in `TListBox` component with `name="MyListBox"`.      
 
 ## Properties
 
