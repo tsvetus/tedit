@@ -1596,7 +1596,7 @@
         },
         "overflow": {
           "type": "enum",
-          "description": "Overflow attribute. Can be one of^",
+          "description": "Overflow attribute. Can be one of:",
           "required": false,
           "defaultValue": "'auto'",
           "structure": {

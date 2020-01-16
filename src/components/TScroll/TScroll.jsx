@@ -128,7 +128,7 @@ TScroll.propTypes = {
     margin: PropTypes.number,
     /** Scroll bars to show. Can be one of: */
     scrollBars: PropTypes.oneOf(['both', 'horizontal', 'vertical', 'none']),
-    /** Overflow attribute. Can be one of^ */
+    /** Overflow attribute. Can be one of: */
     overflow: PropTypes.oneOf(['auto', 'scroll', 'hidden', 'visible'])
 };
 
