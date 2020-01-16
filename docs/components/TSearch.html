@@ -1,22 +1,44 @@
 <pre><code>import React from 'react';
 
-import {TSearch, TMemo, TGroup} from 'tedit';
+import {TSearch, TMemo, TGroup, TListBox} from 'tedit';
+
+const ITEMS = [
+    {key: 'key1', value: 'First item'},
+    {key: 'key2', value: 'Second item'},
+    {key: 'key3', value: 'Third item'},
+    {key: 'key4', value: 'Forth item'}
+];
 
 class TSearchExample extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            value: 2,
+            mySearch1: 'key2',
+            mySearch2: null,
             event: ''
         };
         this.change = this.change.bind(this);
         this.clear = this.clear.bind(this);
+        this.search = this.search.bind(this);
+    }
+
+    search(event, callback) {
+        let items = ITEMS.filter(v =&gt; {
+            return (
+                v.value.indexOf(event.value) &gt;= 0 ||
+                v.key.indexOf(event.value) &gt;= 0 ||
+                v.key == event.key
+            );
+        });
+        setTimeout(() =&gt; {
+            callback(items);
+        }, 500);
     }
 
     change(event) {
         this.setState({
-            value: event.value,
+            [event.name]: event.value,
             event: this.state.event + ' ' + JSON.stringify(event)
         });
     }
@@ -35,9 +57,24 @@ class TSearchExample extends React.Component {
 
                     &lt;TSearch
                         style={{container: {width: "380px", margin: "8px 0 8px 0"}}}
-                        name={'mySearch'}
-                        value={this.state.value}
+                        name={'mySearch1'}
+                        value={this.state.mySearch1}
                         label={'Choose item:'}
+                        placeholder={'Type word "item" or "key"'}
+                        empty={{key: 0, value: '-'}}
+                        onSearch={this.search}
+                        onChange={this.change} /&gt;
+
+                    &lt;TSearch
+                        style={{container: {width: "380px", margin: "8px 0 8px 0"}}}
+                        name={'mySearch2'}
+                        value={this.state.mySearch2}
+                        label={'Choose item:'}
+                        placeholder={'Type word "item" or "key"'}
+                        showMode={'key'}
+                        listMode={'key value'}
+                        empty={{key: 0, value: '-'}}
+                        onSearch={this.search}
                         onChange={this.change} /&gt;
 
                 &lt;/TGroup&gt;

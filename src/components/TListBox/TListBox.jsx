@@ -95,10 +95,6 @@ TListBox.propTypes = {
         /** Empty item value */
         value: PropTypes.string
     }),
-    /** Indicates if necessary to change component color when entered date is invalid or incomplete.
-     * Default is "true"
-     */
-    required: PropTypes.any,
     /** Prevents from changing component value from user input */
     readOnly: PropTypes.any,
     /** If "true" drop up/down indicator is shown */
@@ -110,7 +106,6 @@ TListBox.propTypes = {
         /** Item name */
         value: PropTypes.string
     })),
-    chars: PropTypes.number,
     /** Determines what part of "item" should be shown in dropdown list */
     listMode: PropTypes.string,
     /** Determines what part of "item" should be shown in editor */
@@ -128,14 +123,6 @@ TListBox.propTypes = {
      */
     onChange: PropTypes.func,
     /**
-     * On icon click event
-     * @param {object} event Event object with following structure:
-     * @param {string} event.name Component name from "name" property
-     * @param {object} event.data Component data from "data" property
-     * @param {string} event.icon Clicked icon name
-     */
-    onIcon: PropTypes.func,
-    /**
      * On text validate event. Fires if text validation is needed. Must return "true" if text is valid or
      * "false" in other cases
      * @param {object} event Event object with following structure:
@@ -143,16 +130,14 @@ TListBox.propTypes = {
      * @param {object} event.data Component data from "data" property
      * @param {string} event.value Text to validate
      */
-    onValidate: PropTypes.func,
-    onSearch: PropTypes.func
+    onValidate: PropTypes.func
 };
 
 TListBox.defaultProps = {
     listMode: 'value',
     showMode: 'value',
     showIcon: true,
-    clickable: 'label edit',
-    chars: 3
+    clickable: 'label edit'
 };
 
 export default TListBox;

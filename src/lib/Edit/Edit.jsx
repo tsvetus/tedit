@@ -268,6 +268,14 @@ class Edit extends React.Component {
             this.value = this.props.empty;
         }
 
+        if (this.props.onInput) {
+            this.props.onInput({
+                data: this.props.data,
+                name: this.props.name,
+                value: this.value
+            });
+        }
+
         let res = this.parseValue(this.value);
 
         if (!this.props.wrap) {
@@ -395,7 +403,8 @@ Edit.propTypes = {
     onKeyDown: PropTypes.func,
     onValidate: PropTypes.func,
     onFocus: PropTypes.func,
-    onBlur: PropTypes.func
+    onBlur: PropTypes.func,
+    onInput: PropTypes.func
 };
 
 Edit.defaultProps = {

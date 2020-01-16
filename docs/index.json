@@ -485,14 +485,19 @@
           }
         },
         "empty": {
-          "type": "any",
-          "description": "Value appeared in onChange event when editor is empty. Default is \"null\"",
-          "required": false
-        },
-        "required": {
-          "type": "any",
-          "description": "Indicates if necessary to change component color when entered date is invalid or incomplete.\r\nDefault is \"true\"",
-          "required": false
+          "type": "shape",
+          "description": "Empty item",
+          "required": false,
+          "structure": {
+            "key": {
+              "type": "any",
+              "description": "Empty item key"
+            },
+            "value": {
+              "type": "string",
+              "description": "Empty item value"
+            }
+          }
         },
         "readOnly": {
           "type": "any",
@@ -520,9 +525,224 @@
             }
           }
         },
+        "listMode": {
+          "type": "string",
+          "description": "Determines what part of \"item\" should be shown in dropdown list",
+          "required": false,
+          "defaultValue": "'value'"
+        },
+        "showMode": {
+          "type": "string",
+          "description": "Determines what part of \"item\" should be shown in editor",
+          "required": false,
+          "defaultValue": "'value'"
+        },
+        "clickable": {
+          "type": "string",
+          "description": "Determines what components reacts on \"onClick\" events",
+          "required": false,
+          "defaultValue": "'label edit'"
+        },
+        "onChange": {
+          "type": "func",
+          "description": "On text change event ",
+          "arguments": {
+            "event": {
+              "name": "event",
+              "type": "object",
+              "description": "Event object with following structure:"
+            },
+            "event.name": {
+              "name": "event.name",
+              "type": "string",
+              "description": "Component name from \"name\" property"
+            },
+            "event.data": {
+              "name": "event.data",
+              "type": "object",
+              "description": "Component data from \"data\" property"
+            },
+            "event.value": {
+              "name": "event.value",
+              "type": "string",
+              "description": "Selected item \"key\" value"
+            },
+            "event.index": {
+              "name": "event.index",
+              "type": "string",
+              "description": "Selected item index"
+            },
+            "event.item": {
+              "name": "event.item",
+              "type": "string",
+              "description": "Selected item"
+            }
+          },
+          "required": false
+        },
+        "onValidate": {
+          "type": "func",
+          "description": "On text validate event. Fires if text validation is needed. Must return \"true\" if text is valid or \"false\" in other cases ",
+          "arguments": {
+            "event": {
+              "name": "event",
+              "type": "object",
+              "description": "Event object with following structure:"
+            },
+            "event.name": {
+              "name": "event.name",
+              "type": "string",
+              "description": "Component name from \"name\" property"
+            },
+            "event.data": {
+              "name": "event.data",
+              "type": "object",
+              "description": "Component data from \"data\" property"
+            },
+            "event.value": {
+              "name": "event.value",
+              "type": "string",
+              "description": "Text to validate"
+            }
+          },
+          "required": false
+        }
+      }
+    },
+    "TSearch": {
+      "description": "",
+      "displayName": "TSearch",
+      "methods": [
+        {
+          "name": "search",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "event",
+              "type": null
+            },
+            {
+              "name": "callback",
+              "type": null
+            }
+          ],
+          "returns": null
+        }
+      ],
+      "example": {
+        "name": "TSearchExample"
+      },
+      "props": {
+        "style": {
+          "type": "shape",
+          "description": "Component style:",
+          "required": false,
+          "structure": {
+            "container": {
+              "type": "object",
+              "description": "Style for outer component container"
+            },
+            "label": {
+              "type": "object",
+              "description": "Style for component label"
+            },
+            "edit": {
+              "type": "object",
+              "description": "Style for component editor"
+            },
+            "icon": {
+              "type": "object",
+              "description": "Style for component icon"
+            },
+            "list": {
+              "type": "shape",
+              "description": "Style for dropdown list. Contains all listed above fields:",
+              "structure": {
+                "container": {
+                  "type": "object",
+                  "description": "Style for dropdown list container"
+                },
+                "item": {
+                  "type": "object",
+                  "description": "Style for list items"
+                },
+                "selected": {
+                  "type": "object",
+                  "description": "Style for selected list item"
+                }
+              }
+            }
+          }
+        },
+        "value": {
+          "type": "any",
+          "description": "Component initial value. Contains \"key\" value of default list item",
+          "required": false
+        },
+        "name": {
+          "type": "string",
+          "description": "Any component name that associated with component and returned in \"onChange\" event in \"event.name\" field.\r\nIn addition component name can be used in global styles registered by \"registerStyles\" function to\r\nassociate particular style with this component",
+          "required": false
+        },
+        "data": {
+          "type": "any",
+          "description": "Any data that associated with component and returned in \"onChange\" event in \"event.data\" field",
+          "required": false
+        },
+        "label": {
+          "type": "string",
+          "description": "Label caption. Default is undefined and label is hidden",
+          "required": false
+        },
+        "timeout": {
+          "type": "number",
+          "description": "Icon name to show. Default is undefined and icon is hidden",
+          "required": false
+        },
+        "placeholder": {
+          "type": "string",
+          "description": "Text to show when editor is empty",
+          "required": false
+        },
+        "layout": {
+          "type": "enum",
+          "description": "Label position towards text editor. Can be one of:",
+          "required": false,
+          "structure": {
+            "'top'": {},
+            "'left'": {}
+          }
+        },
+        "empty": {
+          "type": "shape",
+          "description": "Empty item",
+          "required": false,
+          "structure": {
+            "key": {
+              "type": "any",
+              "description": "Empty item key"
+            },
+            "value": {
+              "type": "string",
+              "description": "Empty item value"
+            }
+          }
+        },
+        "readOnly": {
+          "type": "any",
+          "description": "Prevents from changing component value from user input",
+          "required": false
+        },
+        "showIcon": {
+          "type": "any",
+          "description": "If \"true\" drop up/down indicator is shown",
+          "required": false,
+          "defaultValue": "true"
+        },
         "chars": {
           "type": "number",
-          "description": "",
+          "description": "Minimal number of characters entered in editor required for \"onSearch\" event to be called",
           "required": false,
           "defaultValue": "3"
         },
@@ -581,36 +801,9 @@
           },
           "required": false
         },
-        "onIcon": {
-          "type": "func",
-          "description": "On icon click event ",
-          "arguments": {
-            "event": {
-              "name": "event",
-              "type": "object",
-              "description": "Event object with following structure:"
-            },
-            "event.name": {
-              "name": "event.name",
-              "type": "string",
-              "description": "Component name from \"name\" property"
-            },
-            "event.data": {
-              "name": "event.data",
-              "type": "object",
-              "description": "Component data from \"data\" property"
-            },
-            "event.icon": {
-              "name": "event.icon",
-              "type": "string",
-              "description": "Clicked icon name"
-            }
-          },
-          "required": false
-        },
         "onValidate": {
           "type": "func",
-          "description": "On text validate event. Fires if text validation is needed. Must return \"true\" if text is valid or \"false\" in other cases ",
+          "description": "On text validate event. Component calls \"onValidate\" event when text validation is needed. Must return \"true\" if text is valid or \"false\" in other cases ",
           "arguments": {
             "event": {
               "name": "event",
@@ -637,94 +830,39 @@
         },
         "onSearch": {
           "type": "func",
-          "description": "",
-          "required": false
-        }
-      }
-    },
-    "TSearch": {
-      "description": "",
-      "displayName": "TSearch",
-      "methods": [],
-      "example": {
-        "name": "TSearchExample"
-      },
-      "props": {
-        "style": {
-          "type": "object",
-          "description": "",
-          "required": false
-        },
-        "value": {
-          "type": "any",
-          "description": "",
-          "required": false
-        },
-        "name": {
-          "type": "string",
-          "description": "",
-          "required": false
-        },
-        "data": {
-          "type": "any",
-          "description": "",
-          "required": false
-        },
-        "label": {
-          "type": "string",
-          "description": "",
-          "required": false
-        },
-        "showIcon": {
-          "type": "any",
-          "description": "",
-          "required": false,
-          "defaultValue": "true"
-        },
-        "timeout": {
-          "type": "number",
-          "description": "",
-          "required": false
-        },
-        "placeholder": {
-          "type": "string",
-          "description": "",
-          "required": false
-        },
-        "chars": {
-          "type": "number",
-          "description": "",
-          "required": false,
-          "defaultValue": "3"
-        },
-        "listMode": {
-          "type": "string",
-          "description": "",
-          "required": false
-        },
-        "clickable": {
-          "type": "string",
-          "description": "",
-          "required": false
-        },
-        "showMode": {
-          "type": "string",
-          "description": "",
-          "required": false
-        },
-        "onChange": {
-          "type": "func",
-          "description": "",
-          "required": false
-        },
-        "onValidate": {
-          "type": "func",
-          "description": "",
-          "required": false
-        },
-        "onSearch": {
-          "type": "func",
-          "description": "",
+          "description": "On search event. Component calls \"onSearch\" event whenever component text is changed and count of characters entered more than value determined by \"chars\" property. User defined \"onSearch\" event must call \"callback\" function with array of items like \"[{key: ..., value: ...}, ...]\" as parameter ",
+          "arguments": {
+            "event": {
+              "name": "event",
+              "type": "object",
+              "description": "Event object with following structure:"
+            },
+            "event.name": {
+              "name": "event.name",
+              "type": "string",
+              "description": "Component name from \"name\" property"
+            },
+            "event.data": {
+              "name": "event.data",
+              "type": "object",
+              "description": "Component data from \"data\" property"
+            },
+            "event.value": {
+              "name": "event.value",
+              "type": "string",
+              "description": "Component text. Component fills \"event.value\" with editor text when text is changed and calls \"onSearch\" event"
+            },
+            "event.key": {
+              "name": "event.key",
+              "type": "string",
+              "description": "Component fills \"event.key\" with current item key value and calls \"onSearch\" event when search by key is needed. For example when \"value\" component property is assigned"
+            },
+            "callback": {
+              "name": "callback",
+              "type": "string",
+              "description": "Callback function. Call \"callback\" to return items list back to component in form of \"[{key: ..., value: ...}, ...]\" as function argument"
+            }
+          },
           "required": false
         }
       }

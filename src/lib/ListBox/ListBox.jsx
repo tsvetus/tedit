@@ -30,6 +30,7 @@ class ListBox extends React.Component {
         this.handleTextChange = this.handleTextChange.bind(this);
         this.handleKeyDown = this.handleKeyDown.bind(this);
         this.handleBlur = this.handleBlur.bind(this);
+        this.handleInput = this.handleInput.bind(this);
         this.getContainerStyle = this.getContainerStyle.bind(this);
         this.moveHover = this.moveHover.bind(this);
         this.search = this.search.bind(this);
@@ -173,26 +174,22 @@ class ListBox extends React.Component {
     }
 
     handleTextChange(event) {
-        this.setState({
-            showText: event.value
-        }, () => {
-            if (this.props.onSearch && event.value && event.value.length >= this.props.chars) {
-                this.props.onSearch({
-                    name: this.props.name,
-                    data: this.props.data,
-                    key: null,
-                    value: event.value
-                }, (items) => {
-                    this.updateItems(items);
-                    this.setState({
-                        showList: this.helper.hasItems(),
-                        hover: -1
-                    });
+        if (this.props.onSearch && event.value && event.value.length >= this.props.chars) {
+            this.props.onSearch({
+                name: this.props.name,
+                data: this.props.data,
+                key: null,
+                value: event.value
+            }, (items) => {
+                this.updateItems(items);
+                this.setState({
+                    showList: this.helper.hasItems(),
+                    hover: -1
                 });
-            } else if (event.value === null) {
-                this.clear(null);
-            }
-        });
+            });
+        } else if (event.value === null) {
+            this.clear(null);
+        }
     }
 
     clear() {
@@ -225,6 +222,10 @@ class ListBox extends React.Component {
         if (!find(event.relatedTarget, event.currentTarget)) {
             this.handleShow(false);
         }
+    }
+
+    handleInput(event) {
+        this.setState({showText: event.value});
     }
 
     getContainerStyle() {
@@ -296,6 +297,7 @@ class ListBox extends React.Component {
                         placeholder={this.props.placeholder}
                         wrap={false}
                         readOnly={!this.props.onSearch || this.props.readOnly}
+                        onInput={this.handleInput}
                         onClick={this.handleEditClick}
                         onKeyDown={this.handleKeyDown}
                         onChange={this.handleTextChange} />
