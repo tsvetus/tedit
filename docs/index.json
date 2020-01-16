@@ -1568,11 +1568,11 @@
           "structure": {
             "container": {
               "type": "object",
-              "description": "Style for outer component container"
+              "description": "Style for outer component container. If \"container\" does not contain \"height\" field (by default)\r\n\"TScroll\" fills all remaining space up to the bottom of screen"
             },
             "content": {
               "type": "object",
-              "description": "Style for group content"
+              "description": "Style for scroll content"
             }
           }
         },

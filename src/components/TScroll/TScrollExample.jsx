@@ -14,39 +14,18 @@ class TGroupExample extends React.Component {
 
                     <TScroll
                         style={{
-                            container: {height: "300px", width: "100%"},
-                            content: {padding: "16px"}
+                            container: {height: "150px"},
+                            content: {padding: "16px", display: "flex", justifyContent: "center"}
                         }} >
 
-                        <TGroup
-                            style={{
-                                container: {marginTop: "16px"},
-                                content: {
-                                    minHeight: "200px",
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    justifyContent: "space-around"
-                                }
-                            }}
-                            label={'Group 1'}>
-                            <div>Group 1 content</div>
-                            <div>Group 1 content</div>
-                        </TGroup>
-
-                        <TGroup
-                            style={{
-                                container: {marginTop: "16px"},
-                                content: {
-                                    minHeight: "200px",
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    justifyContent: "space-around"
-                                }
-                            }}
-                            label={'Group 2'}>
-                            <div>Group 2 content</div>
-                            <div>Group 2 content</div>
-                        </TGroup>
+                        <div style={{width: "300px", textAlign: "justify"}}>
+                            Tears glistened in her eyes. And when we steamed slowly out of the lagoon,
+                            making our way gingerly through the opening in the reef, and then steered
+                            for the open sea, a certain melancholy fell upon me. The breeze was laden
+                            still with the pleasant odours of the land. Tahiti is very far away, and I
+                            knew that I should never see it again. A chapter of my life was closed,
+                            and I felt a little nearer to inevitable death.
+                        </div>
 
                     </TScroll>
 

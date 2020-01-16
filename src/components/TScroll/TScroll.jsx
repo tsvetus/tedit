@@ -120,9 +120,11 @@ class TScroll extends React.Component {
 TScroll.propTypes = {
     /** Component style: */
     style: PropTypes.shape({
-        /** Style for outer component container */
+        /** Style for outer component container. If "container" does not contain "height" field (by default)
+         * "TScroll" fills all remaining space up to the bottom of screen
+         */
         container: PropTypes.object,
-        /** Style for group content */
+        /** Style for scroll content */
         content: PropTypes.object
     }),
     margin: PropTypes.number,

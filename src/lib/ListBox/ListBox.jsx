@@ -45,10 +45,12 @@ class ListBox extends React.Component {
     }
 
     componentWillUnmount() {
+        this.mounted = false;
         delete this.helper;
     }
 
     componentDidMount() {
+        this.mounted = true;
         this.updateItems(this.props.items);
         if (this.props.value !== undefined) {
             this.updateValue(this.props.value);
@@ -73,19 +75,23 @@ class ListBox extends React.Component {
     }
 
     updateItems(items) {
-        this.helper.load(items, this.props.empty, this.props.listMode, this.props.showMode);
+        if (this.mounted) {
+            this.helper.load(items, this.props.empty, this.props.listMode, this.props.showMode);
+        }
     }
 
     updateValue(value) {
-        this.item = this.helper.getShowItem(value);
-        if (this.item) {
-            if (this.item.index < 0) {
-                this.setState({showText: '', value: value});
+        if (this.mounted) {
+            this.item = this.helper.getShowItem(value);
+            if (this.item) {
+                if (this.item.index < 0) {
+                    this.setState({showText: '', value: value});
+                } else {
+                    this.setState({showText: this.item.value, value: value});
+                }
             } else {
-                this.setState({showText: this.item.value, value: value});
+                this.setState({showText: '', value: value});
             }
-        } else {
-            this.setState({showText: '', value: value});
         }
     }
 

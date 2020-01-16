@@ -377,7 +377,8 @@ export default function defaultStyles(template) {
         TScroll: {
             container: {
                 ...template.fonts.common,
-                backgroundColor: template.colors.window
+                backgroundColor: template.colors.window,
+                width: "100%"
             },
             content: {
             },
