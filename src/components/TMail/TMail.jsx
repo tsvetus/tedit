@@ -8,7 +8,7 @@ import {merge, contain, REGEXP} from '../../util';
 import styles from '../../styles';
 
 /**
- * Component representing editor for email input. "TMask" is a special case of "TText" component designed
+ * Component representing editor for email input. "TMail" is a special case of "TText" component designed
  * for mail input
  */
 class TMail extends React.Component {
