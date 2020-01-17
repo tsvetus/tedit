@@ -9,8 +9,11 @@ import styles from '../../styles';
 
 const DEFAULT_SIDE_WIDTH = "300px";
 const DEFAULT_TOUCH_WIDTH = 50;
-const DEFAULT_INIT_WIDTH = "16px";
+const DEFAULT_INIT_WIDTH = 16;
 
+/**
+ * Represents left sided slide menu
+ */
 class TSide extends React.Component {
 
     constructor(props, context) {
@@ -129,10 +132,11 @@ class TSide extends React.Component {
                         onTouchMove={this.handleMove}
                         key={i}
                         index={i}
-                        style={{
-                            ...style.item,
-                            ...v.style
-                        }}
+                        style={merge(
+                            style.item,
+                            style[v.name],
+                            v.style
+                         )}
                         onClick={this.handleClick}
                         name={v.name}>
                         {v.caption}
@@ -155,13 +159,13 @@ class TSide extends React.Component {
                     style={style.close}
                     onClick={this.handleClose} />
 
-                <div style={style.frame}>
+                <div style={style.content}>
                     {items}
                     {this.props.children}
                 </div>
 
                 <div
-                    style={{...style.touch, width: this.state.initWidth}}
+                    style={{...style.touch, width: this.state.initWidth + 'px'}}
                     onTouchMove={this.handleMove}
                     onTouchStart={this.handleStart}
                     onTouchEnd={this.handleEnd}>
@@ -176,15 +180,47 @@ class TSide extends React.Component {
 }
 
 TSide.propTypes = {
-    style: PropTypes.object,
+    /** Component style: */
+    style: PropTypes.shape({
+        /** Style for outer component container */
+        container: PropTypes.object,
+        /** Style for close button */
+        close: PropTypes.object,
+        /** Style for menu content */
+        content: PropTypes.object,
+    }),
+    /**
+     * Any component name that associated with component and returned in "onChange" event in "event.name" field.
+     * In addition component name can be used in global styles registered by "registerStyles" function to
+     * associate particular style with this component
+     */
     name: PropTypes.string,
+    /** Any data that associated with component and returned in "onChange" event in "event.data" field */
     data: PropTypes.any,
-    items: PropTypes.array,
+    /** List menu items */
+    items: PropTypes.arrayOf(PropTypes.shape({
+        /** Item name */
+        name: PropTypes.string,
+        /** Item caption */
+        caption: PropTypes.any,
+        /** Item custom style. In addition one can specify custom item style by use of item name in "style" property */
+        style: PropTypes.object
+    })),
+    /** Indicates weather to show or close menu */
     show: PropTypes.any,
-    params: PropTypes.object,
+    /** Menu default width */
     width: PropTypes.string,
+    /** The minimum touch move length in pixels required for menu to show/hide */
     touchWidth: PropTypes.number,
-    initWidth: PropTypes.string,
+    /** Left side area width in which component listens touch events when menu is closed */
+    initWidth: PropTypes.number,
+    /**
+     * On click event. Fires when main menu button or tools icon are clicked
+     * @param {object} event Event object with following structure:
+     * @param {string} event.name Component name from "name" property
+     * @param {object} event.data Component data from "data" property
+     * @param {string} event.icon Clicked icon name
+     */
     onClick: PropTypes.func
 };
 

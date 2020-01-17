@@ -284,6 +284,7 @@ export default function defaultStyles(template) {
             },
 
             button: {
+                flexShrink: "0",
                 color: template.colors.border,
                 height: "32px",
                 width: "32px",
@@ -293,7 +294,8 @@ export default function defaultStyles(template) {
             caption: {
                 ...template.fonts.common,
                 color: template.colors.border,
-                fontSize: "24px"
+                fontSize: "24px",
+                textAlign: "center"
             },
 
             tools: {
@@ -305,6 +307,10 @@ export default function defaultStyles(template) {
                 color: template.colors.border,
                 height: "32px",
                 width: "32px"
+            },
+
+            clickable: {
+                cursor: "pointer"
             }
 
         },
@@ -313,7 +319,8 @@ export default function defaultStyles(template) {
 
             container: {
                 backgroundColor: template.colors.panel,
-                paddingTop: "60px"
+                paddingTop: "60px",
+                borderRight: "1px solid " + template.colors.frame
             },
 
             close: {
@@ -345,8 +352,6 @@ export default function defaultStyles(template) {
             }
 
         },
-
-        TText: {},
 
         TResponse: {
 

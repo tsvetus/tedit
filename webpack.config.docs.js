@@ -1,9 +1,9 @@
 const path = require('path');
 
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     entry: {
-        example: [
+        index: [
             path.resolve(__dirname, './docgen/index.jsx')
         ]
     },
@@ -29,11 +29,5 @@ module.exports = {
             use: ['babel-loader'],
             exclude: [/node_modules/, /build/]
         }]
-    },
-    devServer: {
-        contentBase: path.resolve(__dirname, 'docs'),
-        publicPath: '/',
-        port: 7070,
-        host: '0.0.0.0'
     }
 };

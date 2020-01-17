@@ -1,22 +1,20 @@
 import React from 'react';
 
-import {TMemo, TGroup} from 'tedit';
+import {TTop, TGroup, TMemo} from 'tedit';
 
-class TMemoExample extends React.Component {
+class TTopExample extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            value: null,
             event: ''
         };
-        this.change = this.change.bind(this);
+        this.click = this.click.bind(this);
         this.clear = this.clear.bind(this);
     }
 
-    change(event) {
+    click(event) {
         this.setState({
-            value: event.value,
             event: this.state.event + ' ' + JSON.stringify(event)
         });
     }
@@ -33,12 +31,14 @@ class TMemoExample extends React.Component {
 
                 <TGroup style={{container: {margin: "0 0 16px 0"}}}>
 
-                    <TMemo
-                        style={{edit: {minHeight: "48px"}}}
-                        label={'Enter long text:'}
-                        wrap={true}
-                        value={this.state.value}
-                        onChange={this.change} />
+                    <TTop
+                        style={{container: {width: "100%", padding: "8px"}}}
+                        name={'top'}
+                        caption={'Menu caption'}
+                        tools={[
+                            {icon: 'tinput', onClick: (event) => {alert(JSON.stringify(event))}}
+                        ]}
+                        onClick={this.click} />
 
                 </TGroup>
 
@@ -58,4 +58,4 @@ class TMemoExample extends React.Component {
 
 }
 
-export default TMemoExample;
+export default TTopExample;

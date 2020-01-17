@@ -107,7 +107,7 @@ class Main extends React.Component {
                 <TTop
                     style={style.top}
                     caption={side ? name : caption}
-                    burger={side ? true : false}
+                    button={side ? true : false}
                     tools={[{icon: 'tinput'}]}
                     onClick={this.menuToggle} />
 

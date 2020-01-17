@@ -360,6 +360,18 @@ export default {
             textDecoration: "none",
             cursor: "pointer"
         }
+    },
+
+    TText: {
+
+    },
+
+    TMail: {
+
+    },
+
+    TMask: {
+
     }
 
 }

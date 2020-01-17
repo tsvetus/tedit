@@ -1,8 +1,8 @@
-<pre><code>import React from 'react';
+import React from 'react';
 
-import {TMemo, TGroup} from 'tedit';
+import {TMail, TMemo, TGroup} from 'tedit';
 
-class TMemoExample extends React.Component {
+class TMailExample extends React.Component {
 
     constructor(props) {
         super(props);
@@ -29,28 +29,28 @@ class TMemoExample extends React.Component {
 
         return (
 
-            &lt;div&gt;
+            <div>
 
-                &lt;TGroup style={{container: {margin: "0 0 16px 0"}}}&gt;
+                <TGroup style={{container: {margin: "0 0 16px 0"}}}>
 
-                    &lt;TMemo
-                        style={{edit: {minHeight: "48px"}}}
-                        label={'Enter long text:'}
-                        wrap={true}
+                    <TMail
+                        style={{container: {maxWidth: "300px", margin: "8px"}}}
                         value={this.state.value}
-                        onChange={this.change} /&gt;
+                        label={'Email:'}
+                        name={'email'}
+                        placeholder={'Enter email address ...'}
+                        onChange={this.change} />
 
-                &lt;/TGroup&gt;
+                </TGroup>
 
-                &lt;TMemo
+                <TMemo
                     style={{edit: {minHeight: "48px"}}}
                     label={'onChange events:'}
                     icon={'refresh'}
-                    wrap={true}
                     value={this.state.event}
-                    onIcon={this.clear} /&gt;
+                    onIcon={this.clear} />
 
-            &lt;/div&gt;
+            </div>
 
         );
 
@@ -58,4 +58,4 @@ class TMemoExample extends React.Component {
 
 }
 
-export default TMemoExample;</code></pre>
+export default TMailExample;

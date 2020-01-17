@@ -5,6 +5,8 @@
 import {
     TIcon,
     TText,
+    TMask,
+    TMail,
     TMemo,
     TGroup,
     TListBox,
@@ -52,6 +54,8 @@ export {
 
     TIcon,
     TText,
+    TMask,
+    TMail,
     TMemo,
     TGroup,
     TListBox,

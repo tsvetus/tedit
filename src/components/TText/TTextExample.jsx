@@ -10,7 +10,7 @@ class TTextExample extends React.Component {
             layout: null,
             regexp: null,
             validation: null,
-            mask: '+7 111 111-11-11',
+            mask: '+1 111 111-11-11',
             event: ''
         };
         this.change = this.change.bind(this);

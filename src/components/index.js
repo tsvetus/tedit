@@ -1,5 +1,7 @@
 import TIcon from './TIcon';
 import TText from './TText';
+import TMask from './TMask';
+import TMail from './TMail';
 import TMemo from './TMemo';
 import TGroup from './TGroup';
 import TListBox from './TListBox';
@@ -27,6 +29,8 @@ import TMenu from './TMenu';
 export {
     TIcon,
     TText,
+    TMask,
+    TMail,
     TMemo,
     TGroup,
     TListBox,

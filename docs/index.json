@@ -231,6 +231,393 @@
         }
       }
     },
+    "TMask": {
+      "description": "Component representing single line text editor with masked input. All functionality of masked input\r\nrealized in \"TText\" component. \"TMask\" represented only for compatibility reasons with previous versions",
+      "displayName": "TMask",
+      "methods": [],
+      "example": {
+        "name": "TMaskExample"
+      },
+      "props": {
+        "style": {
+          "type": "shape",
+          "description": "Component style:",
+          "required": false,
+          "structure": {
+            "container": {
+              "type": "object",
+              "description": "Style for outer component container"
+            },
+            "label": {
+              "type": "object",
+              "description": "Style for component label"
+            },
+            "edit": {
+              "type": "object",
+              "description": "Style for component editor"
+            },
+            "icon": {
+              "type": "object",
+              "description": "Style for component icon"
+            },
+            "invalid": {
+              "type": "shape",
+              "description": "Style for invalid component state. Contains all listed above fields:",
+              "structure": {
+                "container": {
+                  "type": "object"
+                },
+                "label": {
+                  "type": "object"
+                },
+                "edit": {
+                  "type": "object"
+                },
+                "icon": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "value": {
+          "type": "string",
+          "description": "Component initial value",
+          "required": false
+        },
+        "name": {
+          "type": "string",
+          "description": "Any component name that associated with component and returned in \"onChange\" event in \"event.name\" field.\r\nIn addition component name can be used in global styles registered by \"registerStyles\" function to\r\nassociate particular style with this component",
+          "required": false
+        },
+        "data": {
+          "type": "any",
+          "description": "Any data that associated with component and returned in \"onChange\" event in \"event.data\" field",
+          "required": false
+        },
+        "label": {
+          "type": "string",
+          "description": "Label caption. Default is undefined and label is hidden",
+          "required": false
+        },
+        "icon": {
+          "type": "string",
+          "description": "Icon name to show. Default is undefined and icon is hidden",
+          "required": false
+        },
+        "timeout": {
+          "type": "number",
+          "description": "Represents timeout for \"onChange\" event in milliseconds. Default is \"700\"",
+          "required": false
+        },
+        "placeholder": {
+          "type": "string",
+          "description": "Text to show when editor is empty",
+          "required": false
+        },
+        "layout": {
+          "type": "enum",
+          "description": "Label position towards text editor. Can be one of:",
+          "required": false,
+          "defaultValue": "'left'",
+          "structure": {
+            "'top'": {},
+            "'left'": {}
+          }
+        },
+        "format": {
+          "type": "shape",
+          "description": "Text format. If specified entered text is checked with \"format.mask\" value:",
+          "required": true,
+          "structure": {
+            "mask": {
+              "type": "string",
+              "description": "Text mask. \"N\" represents any number and \"A\" - any symbol"
+            },
+            "empty": {
+              "type": "string",
+              "description": "Empty char. If length of empty char is grate than 1 then only first character is used. Default is \"_\""
+            },
+            "full": {
+              "type": "bool",
+              "description": "If true then onChange event fires only if date is completely entered or completely cleared.\r\nDefault is \"true\""
+            }
+          }
+        },
+        "regexp": {
+          "type": "object",
+          "description": "Regular expression to validate entered text",
+          "required": false
+        },
+        "empty": {
+          "type": "any",
+          "description": "Value appeared in onChange event when editor is empty. Default is \"null\"",
+          "required": false,
+          "defaultValue": "null"
+        },
+        "required": {
+          "type": "any",
+          "description": "Indicates if necessary to change component color when entered date is invalid or incomplete.\r\nDefault is \"true\"",
+          "required": false,
+          "defaultValue": "true"
+        },
+        "readOnly": {
+          "type": "any",
+          "description": "Prevents from changing component value from user input, Default is \"false\"",
+          "required": false,
+          "defaultValue": "false"
+        },
+        "onChange": {
+          "type": "func",
+          "description": "On text change event ",
+          "arguments": {
+            "event": {
+              "name": "event",
+              "type": "object",
+              "description": "Event object with following structure:"
+            },
+            "event.name": {
+              "name": "event.name",
+              "type": "string",
+              "description": "Component name from \"name\" property"
+            },
+            "event.data": {
+              "name": "event.data",
+              "type": "object",
+              "description": "Component data from \"data\" property"
+            },
+            "event.value": {
+              "name": "event.value",
+              "type": "string",
+              "description": "Entered text."
+            }
+          },
+          "required": false
+        },
+        "onIcon": {
+          "type": "func",
+          "description": "On icon click event ",
+          "arguments": {
+            "event": {
+              "name": "event",
+              "type": "object",
+              "description": "Event object with following structure:"
+            },
+            "event.name": {
+              "name": "event.name",
+              "type": "string",
+              "description": "Component name from \"name\" property"
+            },
+            "event.data": {
+              "name": "event.data",
+              "type": "object",
+              "description": "Component data from \"data\" property"
+            },
+            "event.icon": {
+              "name": "event.icon",
+              "type": "string",
+              "description": "Clicked icon name"
+            }
+          },
+          "required": false
+        },
+        "onValidate": {
+          "type": "func",
+          "description": "On text validate event. Fires if text validation is needed. Must return \"true\" if text is valid or \"false\" in other cases ",
+          "arguments": {
+            "event": {
+              "name": "event",
+              "type": "object",
+              "description": "Event object with following structure:"
+            },
+            "event.name": {
+              "name": "event.name",
+              "type": "string",
+              "description": "Component name from \"name\" property"
+            },
+            "event.data": {
+              "name": "event.data",
+              "type": "object",
+              "description": "Component data from \"data\" property"
+            },
+            "event.value": {
+              "name": "event.value",
+              "type": "string",
+              "description": "Text to validate"
+            }
+          },
+          "required": false
+        }
+      }
+    },
+    "TMail": {
+      "description": "Component representing editor for email input. \"TMask\" is a special case of \"TText\" component designed\r\nfor mail input",
+      "displayName": "TMail",
+      "methods": [],
+      "example": {
+        "name": "TMailExample"
+      },
+      "props": {
+        "style": {
+          "type": "shape",
+          "description": "Component style:",
+          "required": false,
+          "structure": {
+            "container": {
+              "type": "object",
+              "description": "Style for outer component container"
+            },
+            "label": {
+              "type": "object",
+              "description": "Style for component label"
+            },
+            "edit": {
+              "type": "object",
+              "description": "Style for component editor"
+            },
+            "icon": {
+              "type": "object",
+              "description": "Style for component icon"
+            },
+            "invalid": {
+              "type": "shape",
+              "description": "Style for invalid component state. Contains all listed above fields:",
+              "structure": {
+                "container": {
+                  "type": "object"
+                },
+                "label": {
+                  "type": "object"
+                },
+                "edit": {
+                  "type": "object"
+                },
+                "icon": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "value": {
+          "type": "string",
+          "description": "Component initial value",
+          "required": false
+        },
+        "name": {
+          "type": "string",
+          "description": "Any component name that associated with component and returned in \"onChange\" event in \"event.name\" field.\r\nIn addition component name can be used in global styles registered by \"registerStyles\" function to\r\nassociate particular style with this component",
+          "required": false
+        },
+        "data": {
+          "type": "any",
+          "description": "Any data that associated with component and returned in \"onChange\" event in \"event.data\" field",
+          "required": false
+        },
+        "label": {
+          "type": "string",
+          "description": "Label caption. Default is undefined and label is hidden",
+          "required": false
+        },
+        "icon": {
+          "type": "string",
+          "description": "Icon name to show. Default is undefined and icon is hidden",
+          "required": false
+        },
+        "timeout": {
+          "type": "number",
+          "description": "Represents timeout for \"onChange\" event in milliseconds. Default is \"700\"",
+          "required": false
+        },
+        "placeholder": {
+          "type": "string",
+          "description": "Text to show when editor is empty",
+          "required": false
+        },
+        "layout": {
+          "type": "enum",
+          "description": "Label position towards text editor. Can be one of:",
+          "required": false,
+          "defaultValue": "'left'",
+          "structure": {
+            "'top'": {},
+            "'left'": {}
+          }
+        },
+        "empty": {
+          "type": "any",
+          "description": "Value appeared in onChange event when editor is empty. Default is \"null\"",
+          "required": false,
+          "defaultValue": "null"
+        },
+        "required": {
+          "type": "any",
+          "description": "Indicates if necessary to change component color when entered date is invalid or incomplete.\r\nDefault is \"true\"",
+          "required": false,
+          "defaultValue": "true"
+        },
+        "readOnly": {
+          "type": "any",
+          "description": "Prevents from changing component value from user input, Default is \"false\"",
+          "required": false,
+          "defaultValue": "false"
+        },
+        "onChange": {
+          "type": "func",
+          "description": "On text change event ",
+          "arguments": {
+            "event": {
+              "name": "event",
+              "type": "object",
+              "description": "Event object with following structure:"
+            },
+            "event.name": {
+              "name": "event.name",
+              "type": "string",
+              "description": "Component name from \"name\" property"
+            },
+            "event.data": {
+              "name": "event.data",
+              "type": "object",
+              "description": "Component data from \"data\" property"
+            },
+            "event.value": {
+              "name": "event.value",
+              "type": "string",
+              "description": "Entered text."
+            }
+          },
+          "required": false
+        },
+        "onIcon": {
+          "type": "func",
+          "description": "On icon click event ",
+          "arguments": {
+            "event": {
+              "name": "event",
+              "type": "object",
+              "description": "Event object with following structure:"
+            },
+            "event.name": {
+              "name": "event.name",
+              "type": "string",
+              "description": "Component name from \"name\" property"
+            },
+            "event.data": {
+              "name": "event.data",
+              "type": "object",
+              "description": "Component data from \"data\" property"
+            },
+            "event.icon": {
+              "name": "event.icon",
+              "type": "string",
+              "description": "Clicked icon name"
+            }
+          },
+          "required": false
+        }
+      }
+    },
     "TMemo": {
       "description": "Component representing multiline editor",
       "displayName": "TMemo",
@@ -1606,6 +1993,346 @@
             "'hidden'": {},
             "'visible'": {}
           }
+        }
+      }
+    },
+    "TTop": {
+      "description": "Component represents top menu",
+      "displayName": "TTop",
+      "methods": [
+        {
+          "name": "handleClick",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "event",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "iconClick",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "event",
+              "type": null
+            }
+          ],
+          "returns": null
+        }
+      ],
+      "example": {
+        "name": "TTopExample"
+      },
+      "props": {
+        "style": {
+          "type": "shape",
+          "description": "Component style:",
+          "required": false,
+          "structure": {
+            "container": {
+              "type": "object",
+              "description": "Style for outer component container"
+            },
+            "button": {
+              "type": "object",
+              "description": "Style for main menu button"
+            },
+            "caption": {
+              "type": "object",
+              "description": "Style for caption"
+            },
+            "tools": {
+              "type": "object",
+              "description": "Style for tool box appeared in right corner of component"
+            },
+            "icon": {
+              "type": "object",
+              "description": "Style for all tool icons. In addition one can specify custom icon style by icon name"
+            }
+          }
+        },
+        "name": {
+          "type": "string",
+          "description": "Any component name that associated with component and returned in \"onChange\" event in \"event.name\" field.\r\nIn addition component name can be used in global styles registered by \"registerStyles\" function to\r\nassociate particular style with this component",
+          "required": false
+        },
+        "data": {
+          "type": "any",
+          "description": "Any data that associated with component and returned in \"onChange\" event in \"event.data\" field",
+          "required": false
+        },
+        "button": {
+          "type": "any",
+          "description": "If \"true\" (by default) main menu button appears in the left corner of component",
+          "required": false,
+          "defaultValue": "true"
+        },
+        "caption": {
+          "type": "any",
+          "description": "Component caption",
+          "required": false
+        },
+        "tools": {
+          "type": "shape",
+          "description": "Array of component tools",
+          "required": false,
+          "structure": {
+            "icon": {
+              "type": "string",
+              "description": "Tool icon name to show"
+            },
+            "onClick": {
+              "type": "func",
+              "description": "Tool icon click event"
+            },
+            "style": {
+              "type": "object",
+              "description": "Tool icon custom style"
+            }
+          }
+        },
+        "onClick": {
+          "type": "func",
+          "description": "On click event. Fires when main menu button or tools icon are clicked ",
+          "arguments": {
+            "event": {
+              "name": "event",
+              "type": "object",
+              "description": "Event object with following structure:"
+            },
+            "event.name": {
+              "name": "event.name",
+              "type": "string",
+              "description": "Component name from \"name\" property"
+            },
+            "event.data": {
+              "name": "event.data",
+              "type": "object",
+              "description": "Component data from \"data\" property"
+            },
+            "event.icon": {
+              "name": "event.icon",
+              "type": "string",
+              "description": "Clicked icon name"
+            }
+          },
+          "required": false
+        }
+      }
+    },
+    "TSide": {
+      "description": "Represents left sided slide menu",
+      "displayName": "TSide",
+      "methods": [
+        {
+          "name": "handleClose",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "handleClick",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "event",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "handleMove",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "event",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "handleStart",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "event",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "handleEnd",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "event",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "handleEndS",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "event",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "handleBlur",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        },
+        {
+          "name": "calcState",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "props",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "doClick",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "index",
+              "type": null
+            },
+            {
+              "name": "item",
+              "type": null
+            }
+          ],
+          "returns": null
+        }
+      ],
+      "example": {
+        "name": "TSideExample"
+      },
+      "props": {
+        "style": {
+          "type": "shape",
+          "description": "Component style:",
+          "required": false,
+          "structure": {
+            "container": {
+              "type": "object",
+              "description": "Style for outer component container"
+            },
+            "close": {
+              "type": "object",
+              "description": "Style for close button"
+            },
+            "content": {
+              "type": "object",
+              "description": "Style for menu content"
+            }
+          }
+        },
+        "name": {
+          "type": "string",
+          "description": "Any component name that associated with component and returned in \"onChange\" event in \"event.name\" field.\r\nIn addition component name can be used in global styles registered by \"registerStyles\" function to\r\nassociate particular style with this component",
+          "required": false
+        },
+        "data": {
+          "type": "any",
+          "description": "Any data that associated with component and returned in \"onChange\" event in \"event.data\" field",
+          "required": false
+        },
+        "items": {
+          "type": "arrayOf",
+          "description": "List menu items",
+          "required": false,
+          "structure": {
+            "name": {
+              "type": "string",
+              "description": "Item name"
+            },
+            "caption": {
+              "type": "any",
+              "description": "Item caption"
+            },
+            "style": {
+              "type": "object",
+              "description": "Item custom style. In addition one can specify custom item style by use of item name in \"style\" property"
+            }
+          }
+        },
+        "show": {
+          "type": "any",
+          "description": "Indicates weather to show or close menu",
+          "required": false
+        },
+        "width": {
+          "type": "string",
+          "description": "Menu default width",
+          "required": false,
+          "defaultValue": "\"300px\""
+        },
+        "touchWidth": {
+          "type": "number",
+          "description": "The minimum touch move length in pixels required for menu to show/hide",
+          "required": false,
+          "defaultValue": "50"
+        },
+        "initWidth": {
+          "type": "number",
+          "description": "Left side area width in which component listens touch events when menu is closed",
+          "required": false,
+          "defaultValue": "16"
+        },
+        "onClick": {
+          "type": "func",
+          "description": "On click event. Fires when main menu button or tools icon are clicked ",
+          "arguments": {
+            "event": {
+              "name": "event",
+              "type": "object",
+              "description": "Event object with following structure:"
+            },
+            "event.name": {
+              "name": "event.name",
+              "type": "string",
+              "description": "Component name from \"name\" property"
+            },
+            "event.data": {
+              "name": "event.data",
+              "type": "object",
+              "description": "Component data from \"data\" property"
+            },
+            "event.icon": {
+              "name": "event.icon",
+              "type": "string",
+              "description": "Clicked icon name"
+            }
+          },
+          "required": false
         }
       }
     }

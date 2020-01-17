@@ -21,6 +21,16 @@ module.exports = {
             name: "TTextExample"
         }
     }, {
+        name: "TMask",
+        example: {
+            name: "TMaskExample"
+        }
+    }, {
+        name: "TMail",
+        example: {
+            name: "TMailExample"
+        }
+    }, {
         name: "TMemo",
         example: {
             name: "TMemoExample"
@@ -64,6 +74,16 @@ module.exports = {
         name: "TScroll",
         example: {
             name: "TScrollExample"
+        }
+    }, {
+        name: "TTop",
+        example: {
+            name: "TTopExample"
+        }
+    }, {
+        name: "TSide",
+        example: {
+            name: "TSideExample"
         }
     }]
 

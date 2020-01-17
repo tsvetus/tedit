@@ -56,10 +56,11 @@ class TMenu extends React.Component {
         let items = [];
         if (this.props.items) {
             this.props.items.forEach((v, i) => {
-                let st = {
-                    ...style.item,
-                    ...v.style
-                };
+                let st = merge(
+                    style.item,
+                    style[v.name],
+                    v.style
+                );
                 if (i === index) {
                     st = merge(st, style.current);
                 }
@@ -79,7 +80,7 @@ class TMenu extends React.Component {
         return (
 
             <TScroll style={style.container}>
-                <div style={style.frame}>
+                <div style={style.content}>
                     {items}
                     {this.props.children}
                 </div>
