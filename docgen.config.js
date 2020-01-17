@@ -9,6 +9,7 @@ module.exports = {
     },
 
     title: {
+        name: 'tedit',
         caption: "'tedit' component library documentation"
     },
 

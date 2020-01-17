@@ -112,6 +112,7 @@ function run() {
     console.log('Output path: ' + outputPath);
 
     let data = {
+        name: config.name,
         title: config.title,
         components: {}
     };

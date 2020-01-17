@@ -63,6 +63,7 @@ class Main extends React.Component {
         let style = merge(styles, this.props.style);
 
         let caption = this.state.data && this.state.data.title ? this.state.data.title.caption : null;
+        let name = this.state.data && this.state.data.title ? this.state.data.title.name : null;
         let component = null;
         if (this.state.data) {
             component = <Component data={this.state.data.components[this.state.page]} />;
@@ -105,8 +106,9 @@ class Main extends React.Component {
 
                 <TTop
                     style={style.top}
-                    caption={caption}
+                    caption={side ? name : caption}
                     burger={side ? true : false}
+                    tools={[{icon: 'tinput'}]}
                     onClick={this.menuToggle} />
 
                 <div style={style.box}>
